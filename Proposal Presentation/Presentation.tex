@@ -1,0 +1,41 @@
+\documentclass{beamer}
+
+\usetheme{Execushares}
+
+\begin{document}
+\title{Project Proposal: MorphCore}
+\subtitle{Team DRRA}
+\author{Amanda Marano, Brian Jacobs, Pete Ehrett}
+\date{\today}
+
+\frame{\titlepage}
+
+\frame{
+  \frametitle{Project Overview}
+  \begin{itemize}
+    \item Build a MorphCore
+    \item Put Linux on it
+    \item Run something cool on it
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{MorphCore}
+  \begin{itemize}
+    \item Two operating modes: OutOfOrder, InOrder
+    \item Swaps between instruction level parallelism and thread level parallelism
+    \item Uses same hardware in different configurations
+    \item OutOfOrder is a single OOO core
+    \item InOrder is a set of multiple in-order cores
+    \item Described in the paper:
+  \end{itemize}
+  \vspace{-.2in}
+  \begin{center}
+    \textbf{MorphCore: An Energy-Efficient Microarchitecture for}\\
+    \textbf{High Performance ILP and High Throughput TLP}\\
+
+    Khubaib \hspace{.25in} M.~Aater~Suleman \hspace{.25in} Milad~Hashemi \hspace{.25in} Chris~Wilkerson \hspace{.25in} Yale~N.~Patt 
+  \end{center}
+}
+
+\end{document}
