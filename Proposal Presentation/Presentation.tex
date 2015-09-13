@@ -52,9 +52,32 @@
       \begin{itemize}
         \item Verify, verify, verify!
       \end{itemize}
-    \item Building an OOO cpu is a substantial undertaking, which could be hard to get working.
-    \item The MorphCore is not a common design---resources could be more difficult to come by.
-    \item The existing ARM core design, the Amber core from OpenCores \raisebox{.1em}{\tiny(\url{http://opencores.org/project,amber,Overview})} might be difficult to work with.
+    \item Building an OOO cpu means we need things to be VERY correct.
+      \begin{itemize}
+        \item \textbf{Verify, verify, verify!}
+      \end{itemize}
+    \item The MorphCore is not a common design---resources will be more difficult to come by.
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Available Resources}
+  \begin{itemize}
+    \item Existing ARM design:\\
+      \raisebox{.1em}{\tiny\url{http://opencores.org/project,amber,Overview}}
+    \item Documentation On the MorphCore:\\
+      \raisebox{.1em}{\tiny\url{http://hps.ece.utexas.edu/pub/morphcore_micro2012.pdf}}
+    \item Computer Architecture References:\\
+      \raisebox{.1em}{\tiny\url{https://www.google.com/?gws_rd=ssl\#q=computer+architecture+textbook+type:pdf}}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Amber ARM Core}
+  \begin{itemize}
+    \item Written in sane-looking Verilog
+    \item Comes with a Linux image which (allegedly) runs on it.
+    \item Regression tests should be easier to write when we start with a gold circuit.
   \end{itemize}
 }
 
@@ -84,7 +107,7 @@
 \frame{
   \frametitle{Platform Choice}
   \begin{itemize}
-    \item ZedBoard FPGA?
+    \item ZedBoard FPGA
   \end{itemize}
   \vspace{-.2in}
   \begin{center}
@@ -93,7 +116,10 @@
   \vspace{-.2in}
   \begin{itemize}
     \item ARM Cores could be useful if we run into problems with our FPGA ARM.
-    \item Downside: Toolchain is extremely unwieldy.
+      \begin{center}
+        \tiny Ugly hacks just before demo day are a lot easier with software.
+      \end{center}
+    \item VGA port makes it better than the other Zynq board.
   \end{itemize}
   \begin{center}
     \textcolor{green}{\Huge\bf YES}
