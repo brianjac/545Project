@@ -4,8 +4,9 @@ use strict;
 my @pixels = <>;
 
 # Remove Header
-shift(@pixels);
-shift(@pixels);
+shift(@pixels); # Filetype identifier
+shift(@pixels); # Size identifier
+shift(@pixels); # 
 
 # Map from 0-255 to 0-1
 my @bits = map{chomp; $_ >= 128?1:0;}@pixels;
