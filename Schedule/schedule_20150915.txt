@@ -1,0 +1,72 @@
+Week 1:
+1) Get linux running on unmodified Amber (Brian)
+2) Acquire Morphcore simulator (Amanda)
+3) Write formal verification plan/regression testing (Amanda)
+4) Create uarch diagram of existing Amber core (Pete)
+
+Week 2:
+1) Verify existing Amber core
+2) Design uarch for OOO Amber
+3) Verification plan specific to OOO
+4) Lab 2
+
+Week 3:
+1) Implement simple OOO
+2) uarch design for superscalar
+3) Writing verification tests for both OOO and superscalar
+
+Week 4:
+1) Verify OOO
+2) Start superscalar implementation
+3) Lab 3
+
+Week 5:
+1) Implement superscalar
+2) Start superscalar verification
+
+Week 6:
+1) Finish superscalar verification
+2) MorphCore architecting/diagrams
+3) MESI
+
+Week 7:
+1) Heavy regression testing
+2) Start implementing MorphCore
+
+Week 8:
+1) Cry at brokenness
+2) Scream and rage, keyboard-through-screen
+3) Yoga
+4) Buy new monitor and fix it
+
+Week 9:
+1) Testing/debugging, starting with smaller (non-OS) applications
+
+Week 10, 12, 13:
+<buffer/polish>
+
+Week 11: Thanksgiving
+
+
+Other tasks:
+Sound
+VGA
+keyboard input
+memory subsystem
+disk
+other I/O
+
+App ideas:
+- 1-thread matrix multiply
+- Multithread matrix multiply
+- Oregon Trail
+- Text-based RPGs
+- Startup sounds
+
+Goals:
+"A++" = working MorphCore running Linux
+"A+" = "working" MorphCore but without OS boot (dedicated apps only)
+"A" = OOO superscalar running Linux (no MorphCore)
+"B" = non-superscalar OOO running Linux
+"C" = something kinda-sorta works, maybe, if you jigger it just right...
+"D" or "R" = everything is broken, no demo, fire, flood, famine, death, lawsuit, decapitation, missing limbs, ...
