@@ -1,0 +1,729 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Fri Sep 11 15:01:28 2015
+# Process ID: 5200
+# Log file: C:/Users/wpehr/project_1/project_1.runs/impl_1/top.vdi
+# Journal file: C:/Users/wpehr/project_1/project_1.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source top.tcl -notrace
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Netlist 29-17] Analyzing 8 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2015.2
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+link_design: Time (s): cpu = 00:00:15 ; elapsed = 00:00:20 . Memory (MB): peak = 461.223 ; gain = 267.613
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.357 . Memory (MB): peak = 466.273 ; gain = 5.051
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Fri Sep 11 15:09:53 2015
+# Process ID: 11700
+# Log file: C:/Users/wpehr/project_1/project_1.runs/impl_1/top.vdi
+# Journal file: C:/Users/wpehr/project_1/project_1.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source top.tcl -notrace
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Netlist 29-17] Analyzing 8 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2015.2
+INFO: [Device 21-403] Loading part xc7z020clg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc]
+WARNING: [Vivado 12-584] No ports matched '[get_ports -filter { IOBANK == 13 }]'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:56]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:56]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_ADR0'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:58]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:58]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_ADR1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:61]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:61]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_GPIO0'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:63]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:63]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_GPIO1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:65]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:65]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_GPIO2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:67]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:67]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_GPIO3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:69]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:69]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_MCLK'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:71]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:71]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_SCK'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:73]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:73]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'AC_SDA'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:75]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:75]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'FMC_SCL'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:77]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:77]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'FMC_SDA'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:79]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:79]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'GCLK'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:81]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:81]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:83]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:83]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA10'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:85]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:85]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:87]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:87]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:89]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:89]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:91]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:91]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA7'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:93]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:93]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA8'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:95]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:95]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JA9'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:97]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:97]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:99]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:99]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB10'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:101]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:101]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:103]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:103]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:105]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:105]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:107]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:107]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB7'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:109]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:109]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB8'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:111]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:111]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JB9'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:113]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:113]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC1_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:115]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:115]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC1_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:117]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:117]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC2_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:119]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:119]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC2_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:121]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:121]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC3_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:123]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:123]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC3_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:125]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:125]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC4_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:127]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:127]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JC4_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:129]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:129]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD1_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:131]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:131]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD1_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:133]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:133]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD2_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:135]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:135]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD2_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:137]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:137]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD3_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:139]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:139]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD3_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:141]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:141]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD4_N'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:143]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:143]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'JD4_P'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:145]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:145]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_DC'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:147]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:147]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_RES'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:149]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:149]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_SCLK'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:151]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:151]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_SDIN'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:153]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:153]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_VBAT'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:155]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:155]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'OLED_VDD'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:157]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:157]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched '[get_ports -filter { IOBANK == 33 }]'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:161]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:161]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'FMC_PRSNT'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:162]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:162]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_CLK'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:164]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:164]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D0'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:166]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:166]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:168]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:168]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D10'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:170]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:170]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D11'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:172]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:172]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D12'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:174]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:174]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D13'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:176]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:176]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D14'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:178]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:178]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HS_D15'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:180]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:180]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:182]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:182]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:184]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:184]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:186]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:186]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D5'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:188]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:188]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D6'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:190]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:190]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D7'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:192]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:192]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D8'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:194]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:194]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_D9'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:196]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:196]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_DE'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:198]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:198]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_HSYNC'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:200]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:200]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_INT'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:202]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:202]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_SCL'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:204]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:204]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_SDA'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:206]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:206]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_SPDIF'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:208]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:208]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_SPDIFO'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:210]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:210]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'HD_VSYNC'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:212]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:212]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD0'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:214]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:214]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:216]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:216]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:218]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:218]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:220]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:220]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:222]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:222]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD5'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:224]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:224]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD6'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:226]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:226]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'LD7'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:228]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:228]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'NetIC16_W20'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:230]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:230]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'NetIC16_W21'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:232]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:232]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_B1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:234]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:234]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_B2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:236]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:236]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+CRITICAL WARNING: [Designutils 20-1307] Command 'NET' is not supported in the xdc constraint file. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:237]
+WARNING: [Vivado 12-584] No ports matched 'VGA_B3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:238]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:238]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_B4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:240]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:240]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_G1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:242]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:242]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_G2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:244]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:244]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_G3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:246]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:246]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_G4'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:248]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:248]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_HS'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:250]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:250]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_R1'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:252]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:252]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_R2'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:254]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:254]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'VGA_R3'. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:256]
+INFO: [Common 17-14] Message 'Vivado 12-584' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:256]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:256]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+INFO: [Common 17-14] Message 'Common 17-55' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:256]
+CRITICAL WARNING: [Designutils 20-1307] Command 'NET' is not supported in the xdc constraint file. [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc:261]
+Finished Parsing XDC File [C:/Users/wpehr/Downloads/zedboard_master_XDC_RevC_D_v1.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+link_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:22 . Memory (MB): peak = 463.695 ; gain = 270.188
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Project 1-461] DRC finished with 0 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.334 . Memory (MB): peak = 467.762 ; gain = 4.066
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Starting Logic Optimization Task
+
+Phase 1 Retarget
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-49] Retargeted 0 cell(s).
+Phase 1 Retarget | Checksum: c7120d6c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.064 . Memory (MB): peak = 922.523 ; gain = 0.000
+
+Phase 2 Constant Propagation
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-10] Eliminated 0 cells.
+Phase 2 Constant Propagation | Checksum: c7120d6c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.091 . Memory (MB): peak = 922.523 ; gain = 0.000
+
+Phase 3 Sweep
+INFO: [Opt 31-12] Eliminated 0 unconnected nets.
+INFO: [Opt 31-11] Eliminated 0 unconnected cells.
+Phase 3 Sweep | Checksum: c7120d6c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.119 . Memory (MB): peak = 922.523 ; gain = 0.000
+
+Starting Connectivity Check Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 922.523 ; gain = 0.000
+Ending Logic Optimization Task | Checksum: c7120d6c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.131 . Memory (MB): peak = 922.523 ; gain = 0.000
+Implement Debug Cores | Checksum: c7120d6c
+Logic Optimization | Checksum: c7120d6c
+
+Starting Power Optimization Task
+INFO: [Pwropt 34-132] Skipping clock gating for clocks with a period < 3.13 ns.
+Ending Power Optimization Task | Checksum: c7120d6c
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.056 . Memory (MB): peak = 922.523 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+22 Infos, 100 Warnings, 102 Critical Warnings and 0 Errors encountered.
+opt_design completed successfully
+opt_design: Time (s): cpu = 00:00:44 ; elapsed = 00:00:54 . Memory (MB): peak = 922.523 ; gain = 458.828
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/wpehr/project_1/project_1.runs/impl_1/top_drc_opted.rpt.
+report_drc: Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 922.523 ; gain = 0.000
+INFO: [#UNDEF] Cannot write hardware definition file as there are no IPI block design hardware handoff files present
+Command: place_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+Running DRC as a precondition to command place_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+Starting Placer Task
+INFO: [Place 30-611] Multithreading enabled for place_design using a maximum of 2 CPUs
+
+Phase 1 Placer Runtime Estimator
+Phase 1 Placer Runtime Estimator | Checksum: 2a2cd507
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.098 . Memory (MB): peak = 922.523 ; gain = 0.000
+
+Phase 2 Placer Initialization
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 922.523 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 922.523 ; gain = 0.000
+
+Phase 2.1 IO Placement/ Clock Placement/ Build Placer Device
+
+Phase 2.1.1 Pre-Place Cells
+Phase 2.1.1 Pre-Place Cells | Checksum: 00000000
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.221 . Memory (MB): peak = 922.523 ; gain = 0.000
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+
+Phase 2.1.2 IO & Clk Clean Up
+Phase 2.1.2 IO & Clk Clean Up | Checksum: 00000000
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 2.1.3 Implementation Feasibility check On IDelay
+Phase 2.1.3 Implementation Feasibility check On IDelay | Checksum: 00000000
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 2.1.4 Commit IO Placement
+Phase 2.1.4 Commit IO Placement | Checksum: 003c66ef
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 2.1 IO Placement/ Clock Placement/ Build Placer Device | Checksum: 2a693bf6
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 2.2 Build Placer Netlist Model
+
+Phase 2.2.1 Place Init Design
+Phase 2.2.1 Place Init Design | Checksum: 6815dd1f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 2.2 Build Placer Netlist Model | Checksum: 6815dd1f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 2.3 Constrain Clocks/Macros
+
+Phase 2.3.1 Constrain Global/Regional Clocks
+Phase 2.3.1 Constrain Global/Regional Clocks | Checksum: 6815dd1f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 2.3 Constrain Clocks/Macros | Checksum: 6815dd1f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 2 Placer Initialization | Checksum: 6815dd1f
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 3 Global Placement
+Phase 3 Global Placement | Checksum: 105a2bfbc
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4 Detail Placement
+
+Phase 4.1 Commit Multi Column Macros
+Phase 4.1 Commit Multi Column Macros | Checksum: 105a2bfbc
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.2 Commit Most Macros & LUTRAMs
+Phase 4.2 Commit Most Macros & LUTRAMs | Checksum: 8c98a317
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.3 Area Swap Optimization
+Phase 4.3 Area Swap Optimization | Checksum: 6931810a
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.4 Small Shape Detail Placement
+
+Phase 4.4.1 Commit Small Macros & Core Logic
+
+Phase 4.4.1.1 Commit Slice Clusters
+Phase 4.4.1.1 Commit Slice Clusters | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 4.4.1 Commit Small Macros & Core Logic | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.4.2 Clock Restriction Legalization for Leaf Columns
+Phase 4.4.2 Clock Restriction Legalization for Leaf Columns | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.4.3 Clock Restriction Legalization for Non-Clock Pins
+Phase 4.4.3 Clock Restriction Legalization for Non-Clock Pins | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 4.4 Small Shape Detail Placement | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 4.5 Re-assign LUT pins
+Phase 4.5 Re-assign LUT pins | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 4 Detail Placement | Checksum: 138ccaba1
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5 Post Placement Optimization and Clean-Up
+
+Phase 5.1 PCOPT Shape updates
+Phase 5.1 PCOPT Shape updates | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5.2 Post Commit Optimization
+Phase 5.2 Post Commit Optimization | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5.3 Sweep Clock Roots: Post-Placement
+Phase 5.3 Sweep Clock Roots: Post-Placement | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5.4 Post Placement Cleanup
+Phase 5.4 Post Placement Cleanup | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5.5 Placer Reporting
+Phase 5.5 Placer Reporting | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+
+Phase 5.6 Final Placement Cleanup
+Phase 5.6 Final Placement Cleanup | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+Phase 5 Post Placement Optimization and Clean-Up | Checksum: d0f9c6f0
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+Ending Placer Task | Checksum: cc83a900
+
+Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 943.098 ; gain = 20.574
+INFO: [Common 17-83] Releasing license: Implementation
+35 Infos, 100 Warnings, 102 Critical Warnings and 0 Errors encountered.
+place_design completed successfully
+place_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:09 . Memory (MB): peak = 943.098 ; gain = 20.574
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.304 . Memory (MB): peak = 943.098 ; gain = 0.000
+report_io: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.281 . Memory (MB): peak = 943.098 ; gain = 0.000
+report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.249 . Memory (MB): peak = 943.098 ; gain = 0.000
+report_control_sets: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 943.098 ; gain = 0.000
+Command: route_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7z020'
+Running DRC as a precondition to command route_design
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Vivado_Tcl 4-198] DRC finished with 0 Errors
+INFO: [Vivado_Tcl 4-199] Please refer to the DRC report (report_drc) for more information.
+
+
+Starting Routing Task
+INFO: [Route 35-254] Multithreading enabled for route_design using a maximum of 2 CPUs
+
+Phase 1 Build RT Design
+Phase 1 Build RT Design | Checksum: 1ca828e10
+
+Time (s): cpu = 00:02:20 ; elapsed = 00:02:23 . Memory (MB): peak = 1047.645 ; gain = 104.547
+
+Phase 2 Router Initialization
+INFO: [Route 35-64] No timing constraints were detected. The router will operate in resource-optimization mode.
+
+Phase 2.1 Pre Route Cleanup
+Phase 2.1 Pre Route Cleanup | Checksum: 1ca828e10
+
+Time (s): cpu = 00:02:20 ; elapsed = 00:02:23 . Memory (MB): peak = 1051.559 ; gain = 108.461
+ Number of Nodes with overlaps = 0
+Phase 2 Router Initialization | Checksum: 135f457d8
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 3 Initial Routing
+ Number of Nodes with overlaps = 0
+Phase 3 Initial Routing | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 4 Rip-up And Reroute
+
+Phase 4.1 Global Iteration 0
+Phase 4.1 Global Iteration 0 | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 4.2 Global Iteration 1
+Phase 4.2 Global Iteration 1 | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 4.3 Global Iteration 2
+Phase 4.3 Global Iteration 2 | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 4.4 Global Iteration 3
+Phase 4.4 Global Iteration 3 | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 4.5 Global Iteration 4
+Phase 4.5 Global Iteration 4 | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+Phase 4 Rip-up And Reroute | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 5 Delay and Skew Optimization
+Phase 5 Delay and Skew Optimization | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 6 Post Hold Fix
+Phase 6 Post Hold Fix | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 7 Route finalize
+
+Router Utilization Summary
+  Global Vertical Routing Utilization    = 0.00346899 %
+  Global Horizontal Routing Utilization  = 0.00295808 %
+  Routable Net Status*
+  *Does not include unroutable nets such as driverless and loadless.
+  Run report_route_status for detailed report.
+  Number of Failed Nets               = 0
+  Number of Unrouted Nets             = 0
+  Number of Partially Routed Nets     = 0
+  Number of Node Overlaps             = 0
+
+Congestion Report
+North Dir 1x1 Area, Max Cong = 18.018%, No Congested Regions.
+South Dir 1x1 Area, Max Cong = 0.900901%, No Congested Regions.
+East Dir 1x1 Area, Max Cong = 2.94118%, No Congested Regions.
+West Dir 1x1 Area, Max Cong = 8.82353%, No Congested Regions.
+Phase 7 Route finalize | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1054.320 ; gain = 111.223
+
+Phase 8 Verifying routed nets
+
+ Verification completed successfully
+Phase 8 Verifying routed nets | Checksum: 140ddf44c
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1055.246 ; gain = 112.148
+
+Phase 9 Depositing Routes
+Phase 9 Depositing Routes | Checksum: 13c458e70
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1055.246 ; gain = 112.148
+INFO: [Route 35-16] Router Completed Successfully
+
+Time (s): cpu = 00:02:21 ; elapsed = 00:02:24 . Memory (MB): peak = 1055.246 ; gain = 112.148
+
+Routing Is Done.
+INFO: [Common 17-83] Releasing license: Implementation
+43 Infos, 100 Warnings, 102 Critical Warnings and 0 Errors encountered.
+route_design completed successfully
+route_design: Time (s): cpu = 00:02:23 ; elapsed = 00:02:27 . Memory (MB): peak = 1055.246 ; gain = 112.148
+Writing placer database...
+Writing XDEF routing.
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Write XDEF Complete: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.254 . Memory (MB): peak = 1055.246 ; gain = 0.000
+INFO: [DRC 23-27] Running DRC with 2 threads
+INFO: [Coretcl 2-168] The results of DRC are in file C:/Users/wpehr/project_1/project_1.runs/impl_1/top_drc_routed.rpt.
+report_drc: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 1069.387 ; gain = 14.141
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+WARNING: [Timing 38-313] There are no user specified timing constraints. Timing constraints are needed for proper timing analysis.
+WARNING: [Power 33-232] No user defined clocks were found in the design!
+Resolution: Please specify clocks using create_clock/create_generated_clock for sequential elements. For pure combinatorial circuits, please specify a virtual clock, otherwise the vectorless estimation might be inaccurate
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+INFO: [Common 17-206] Exiting Vivado at Fri Sep 11 15:14:18 2015...
