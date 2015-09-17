@@ -39,6 +39,11 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
+
+/* Replaced all of the instances of wire named 'type' with 'wire_type'. I really hope that I didn't
+ * break anything or miss anything during that process. - Brian, Sept 17, 2015
+ */
+
 `include "tb/global_defines.vh"
 
 module a25_decode
@@ -165,7 +170,7 @@ localparam [4:0] RST_WAIT1      = 5'd0,
 // Internal signals
 // ========================================================
 wire    [31:0]         instruction;
-wire    [3:0]          type;                    // regop, mem access etc.
+wire    [3:0]          wire_type;                    // regop, mem access etc.
 wire                   instruction_iabt;        // abort flag, follows the instruction
 wire                   instruction_adex;        // address exception flag, follows the instruction
 wire    [31:0]         instruction_address;     // instruction virtual address, follows
@@ -423,7 +428,7 @@ assign instruction      =         instruction_sel == 2'd0 ? fetch_instruction_r 
                                   instruction_sel == 2'd3 ? hold_instruction          :
                                                             pre_fetch_instruction     ;
 
-assign type             =         instruction_sel == 2'd0 ? fetch_instruction_type_r       :
+assign wire_type             =         instruction_sel == 2'd0 ? fetch_instruction_type_r       :
                                   instruction_sel == 2'd1 ? saved_current_instruction_type :
                                   instruction_sel == 2'd3 ? hold_instruction_type          :
                                                             pre_fetch_instruction_type     ;
@@ -461,16 +466,16 @@ assign condition_nxt        = instruction[31:28];
 assign rm_sel_nxt           = instruction[3:0];
 assign rn_sel_nxt           = branch ? 4'd15 : instruction[19:16]; // Use PC to calculate branch destination
 assign rs_sel_nxt           = control_state == SWAP_WRITE  ? instruction[3:0]   : // Rm gets written out to memory
-                              type == MTRANS               ? mtrans_reg1         :
+                              wire_type == MTRANS               ? mtrans_reg1         :
                               branch                       ? 4'd15              : // Update the PC
                               rds_use_rs                   ? instruction[11:8]  :
                                                              instruction[15:12] ;
 
 // Load from memory into registers
-assign ldm_user_mode        = type == MTRANS && {instruction[22],instruction[20],instruction[15]} == 3'b110;
-assign ldm_flags            = type == MTRANS && rs_sel_nxt == 4'd15 && instruction[20] && instruction[22];
-assign ldm_status_bits      = type == MTRANS && rs_sel_nxt == 4'd15 && instruction[20] && instruction[22] && i_execute_status_bits[1:0] != USR;
-assign load_rd_byte         = (type == TRANS || type == SWAP) && instruction[22];
+assign ldm_user_mode        = wire_type == MTRANS && {instruction[22],instruction[20],instruction[15]} == 3'b110;
+assign ldm_flags            = wire_type == MTRANS && rs_sel_nxt == 4'd15 && instruction[20] && instruction[22];
+assign ldm_status_bits      = wire_type == MTRANS && rs_sel_nxt == 4'd15 && instruction[20] && instruction[22] && i_execute_status_bits[1:0] != USR;
+assign load_rd_byte         = (wire_type == TRANS || wire_type == SWAP) && instruction[22];
 assign load_rd_nxt          = {ldm_flags, ldm_status_bits, ldm_user_mode, load_rd_byte, rs_sel_nxt};
 
 // this is used for RRX
@@ -484,8 +489,8 @@ assign offset24             = {{6{instruction[23]}}, instruction[23:0], 2'd0 }; 
 assign imm8                 = instruction[7:0];
 
 assign immediate_shift_op   = instruction[25];
-assign rds_use_rs           = (type == REGOP && !instruction[25] && instruction[4]) ||
-                              (type == MULT &&
+assign rds_use_rs           = (wire_type == REGOP && !instruction[25] && instruction[4]) ||
+                              (wire_type == MULT &&
                                (control_state == MULT_PROC1  ||
                                 control_state == MULT_PROC2  ||
 //                                instruction_valid && !interrupt )) ;
@@ -494,25 +499,25 @@ assign rds_use_rs           = (type == REGOP && !instruction[25] && instruction[
                                 (instruction_valid && !interrupt_or_conflict))) ;
 
 
-assign branch               = type == BRANCH;
+assign branch               = wire_type == BRANCH;
 assign opcode_compare       = opcode == CMP || opcode == CMN || opcode == TEQ || opcode == TST ;
-assign mem_op               = type == TRANS;
+assign mem_op               = wire_type == TRANS;
 assign load_op              = mem_op && instruction[20];
 assign store_op             = mem_op && !instruction[20];
 assign write_pc             = (pc_wen_nxt && pc_sel_nxt != 3'd0) || load_pc_r || load_pc_nxt;
 assign current_write_pc     = (pc_wen_nxt && pc_sel_nxt != 3'd0) || load_pc_nxt;
-assign regop_set_flags      = type == REGOP && instruction[20];
+assign regop_set_flags      = wire_type == REGOP && instruction[20];
 
 assign mem_op_pre_indexed   =  instruction[24] && instruction[21];
 assign mem_op_post_indexed  = !instruction[24];
 
 assign imm32_nxt            =  // add 0 to Rm
-                               type == MULT               ? {  32'd0                      } :
+                               wire_type == MULT               ? {  32'd0                      } :
 
                                // 4 x number of registers
-                               type == MTRANS             ? {  mtrans_base_reg_change     } :
-                               type == BRANCH             ? {  offset24                   } :
-                               type == TRANS              ? {  offset12                   } :
+                               wire_type == MTRANS             ? {  mtrans_base_reg_change     } :
+                               wire_type == BRANCH             ? {  offset24                   } :
+                               wire_type == TRANS              ? {  offset12                   } :
                                instruction[11:8] == 4'h0  ? {            24'h0, imm8[7:0] } :
                                instruction[11:8] == 4'h1  ? { imm8[1:0], 24'h0, imm8[7:2] } :
                                instruction[11:8] == 4'h2  ? { imm8[3:0], 24'h0, imm8[7:4] } :
@@ -547,11 +552,11 @@ assign alu_function_nxt     = { alu_swap_sel_nxt,
 // ========================================================
 // Register Conflict Detection
 // ========================================================
-assign rn_valid       = type == REGOP || type == MULT || type == SWAP || type == TRANS || type == MTRANS || type == CODTRANS;
-assign rm_valid       = type == REGOP || type == MULT || type == SWAP || (type == TRANS && immediate_shift_op);
+assign rn_valid       = wire_type == REGOP || wire_type == MULT || wire_type == SWAP || wire_type == TRANS || wire_type == MTRANS || wire_type == CODTRANS;
+assign rm_valid       = wire_type == REGOP || wire_type == MULT || wire_type == SWAP || (wire_type == TRANS && immediate_shift_op);
 assign rs_valid       = rds_use_rs;
-assign rd_valid       = (type == TRANS  && store_op) || (type == REGOP || type == SWAP);
-assign stm_valid      = type == MTRANS && !instruction[20];   // stm instruction
+assign rd_valid       = (wire_type == TRANS  && store_op) || (wire_type == REGOP || wire_type == SWAP);
+assign stm_valid      = wire_type == MTRANS && !instruction[20];   // stm instruction
 
 
 assign rn_conflict1   = instruction_execute   && rn_valid  && ( load_rd_d1_nxt[4] && rn_sel_nxt         == load_rd_d1_nxt[3:0] );
@@ -693,15 +698,15 @@ assign mtrans_base_reg_change = {25'd0, mtrans_num_registers, 2'd0};
 
 assign firq_request = firq && !i_execute_status_bits[26];
 assign irq_request  = irq  && !i_execute_status_bits[27];
-assign swi_request  = type == SWI;
+assign swi_request  = wire_type == SWI;
 assign dabt_request = dabt_reg;
 
 // copro15 and copro13 only supports reg trans opcodes
 // all other opcodes involving co-processors cause an
 // undefined instrution interrupt
-assign und_request  =   type == CODTRANS ||
-                        type == COREGOP  ||
-                      ( type == CORTRANS && instruction[11:8] != 4'd15 );
+assign und_request  =   wire_type == CODTRANS ||
+                        wire_type == COREGOP  ||
+                      ( wire_type == CORTRANS && instruction[11:8] != 4'd15 );
 
 
   // in order of priority !!
@@ -807,7 +812,7 @@ always @*
 
     if ( instruction_valid && !interrupt && !conflict )
         begin
-        if ( type == REGOP )
+        if ( wire_type == REGOP )
             begin
             if ( !opcode_compare )
                 begin
@@ -954,7 +959,7 @@ always @*
             if ( store_op )
                 begin
                 write_data_wen_nxt = 1'd1;
-                if ( type == TRANS && instruction[22] )
+                if ( wire_type == TRANS && instruction[22] )
                     byte_enable_sel_nxt = 2'd1;         // Save byte
                 end
 
@@ -975,10 +980,10 @@ always @*
             else
                daddress_sel_nxt = 4'd1; // alu out
 
-            if ( instruction[25] && type ==  TRANS )
+            if ( instruction[25] && wire_type ==  TRANS )
                 barrel_shift_data_sel_nxt = 2'd2; // Shift value from Rm register
 
-            if ( type == TRANS && instruction[25] && shift_imm != 5'd0 )
+            if ( wire_type == TRANS && instruction[25] && shift_imm != 5'd0 )
                 begin
                 barrel_shift_function_nxt   = instruction[6:5];
                 barrel_shift_amount_sel_nxt = 2'd2; // imm_shift_amount
@@ -986,7 +991,7 @@ always @*
             end
 
 
-        if ( type == BRANCH )
+        if ( wire_type == BRANCH )
             begin
             pc_sel_nxt            = 3'd1; // alu_out
             iaddress_sel_nxt      = 4'd1; // alu_out
@@ -1000,7 +1005,7 @@ always @*
             end
 
 
-        if ( type == MTRANS )
+        if ( wire_type == MTRANS )
             begin
             saved_current_instruction_wen   = 1'd1; // Save the memory access instruction to refer back to later
             decode_daccess_nxt              = 1'd1; // valid data access
@@ -1063,7 +1068,7 @@ always @*
             end
 
 
-        if ( type == MULT )
+        if ( wire_type == MULT )
             begin
             multiply_function_nxt[0]        = 1'd1; // set enable
                                                     // some bits can be changed just below
@@ -1077,7 +1082,7 @@ always @*
 
 
         // swp - do read part first
-        if ( type == SWAP )
+        if ( wire_type == SWAP )
             begin
             saved_current_instruction_wen   = 1'd1; // Save the memory access instruction to refer back to later
             pc_wen_nxt                      = 1'd0; // hold current PC value
@@ -1090,7 +1095,7 @@ always @*
 
 
         // mcr & mrc - takes two cycles
-        if ( type == CORTRANS && !und_request )
+        if ( wire_type == CORTRANS && !und_request )
             begin
             saved_current_instruction_wen   = 1'd1; // Save the memory access instruction to refer back to later
             pc_wen_nxt                      = 1'd0; // hold current PC value
@@ -1108,7 +1113,7 @@ always @*
             end
 
 
-        if ( type == SWI || und_request )
+        if ( wire_type == SWI || und_request )
             begin
             // save address of next instruction to Supervisor Mode LR
             reg_write_sel_nxt               = 3'd1;            // pc -4
@@ -1214,8 +1219,8 @@ always @*
             pc_wen_nxt                  = 1'd0; // hold current PC value
 
             // Check if the load destination is the PC
-            if (( type == TRANS && instruction[15:12]  == 4'd15 ) ||
-                ( type == MTRANS && instruction[20] && mtrans_reg1 == 4'd15 ))
+            if (( wire_type == TRANS && instruction[15:12]  == 4'd15 ) ||
+                ( wire_type == MTRANS && instruction[20] && mtrans_reg1 == 4'd15 ))
                 begin
                 pc_sel_nxt       = 3'd3; // read_data_filtered
                 iaddress_sel_nxt = 4'd3; // hold value after reading in from mem
@@ -1344,7 +1349,7 @@ always @*
         reg_write_sel_nxt     = 3'd2; // multiply_out
         multiply_function_nxt = o_multiply_function;
 
-        if ( type == MULT ) // 32-bit
+        if ( wire_type == MULT ) // 32-bit
             reg_bank_wen_nxt      = decode (instruction[19:16]); // Rd
         else  // 64-bit / Long
             reg_bank_wen_nxt      = decode (instruction[15:12]); // RdLo
@@ -1581,19 +1586,19 @@ assign instruction_valid = ((control_state == EXECUTE || control_state == PRE_FE
              control_state_nxt = MEM_WAIT1;
 
         // ldm rx, {pc}
-        if ( type == MTRANS && instruction[20] && mtrans_reg1 == 4'd15 ) // Write to PC
+        if ( wire_type == MTRANS && instruction[20] && mtrans_reg1 == 4'd15 ) // Write to PC
              control_state_nxt = MEM_WAIT1;
 
-        if ( type == MTRANS && !conflict && mtrans_num_registers != 5'd0 && mtrans_num_registers != 5'd1 )
+        if ( wire_type == MTRANS && !conflict && mtrans_num_registers != 5'd0 && mtrans_num_registers != 5'd1 )
             control_state_nxt = MTRANS_EXEC1;
 
-        if ( type == MULT && !conflict )
+        if ( wire_type == MULT && !conflict )
                 control_state_nxt = MULT_PROC1;
 
-        if ( type == SWAP && !conflict )
+        if ( wire_type == SWAP && !conflict )
                 control_state_nxt = SWAP_WRITE;
 
-        if ( type == CORTRANS && !und_request && !conflict )
+        if ( wire_type == CORTRANS && !und_request && !conflict )
                 control_state_nxt = COPRO_WAIT;
 
          // interrupt overrides everything else so its last
@@ -1687,10 +1692,10 @@ always @ ( posedge i_clk )
         // to the pre-fetch instruction register
         // then when its decoded, a copy is saved to the saved_current_instruction
         // register
-        if      ( type == MTRANS )
+        if      ( wire_type == MTRANS )
             begin
             saved_current_instruction              <= mtrans_instruction_nxt;
-            saved_current_instruction_type         <= type;
+            saved_current_instruction_type         <= wire_type;
             saved_current_instruction_iabt         <= instruction_iabt;
             saved_current_instruction_adex         <= instruction_adex;
             saved_current_instruction_address      <= instruction_address;
@@ -1699,7 +1704,7 @@ always @ ( posedge i_clk )
         else if ( saved_current_instruction_wen )
             begin
             saved_current_instruction              <= instruction;
-            saved_current_instruction_type         <= type;
+            saved_current_instruction_type         <= wire_type;
             saved_current_instruction_iabt         <= instruction_iabt;
             saved_current_instruction_adex         <= instruction_adex;
             saved_current_instruction_address      <= instruction_address;
@@ -1719,7 +1724,7 @@ always @ ( posedge i_clk )
 
         // TODO possible to use saved_current_instruction instead and save some regs?
         hold_instruction              <= instruction;
-        hold_instruction_type         <= type;
+        hold_instruction_type         <= wire_type;
         hold_instruction_iabt         <= instruction_iabt;
         hold_instruction_adex         <= instruction_adex;
         hold_instruction_address      <= instruction_address;
@@ -1803,16 +1808,16 @@ assign xCONTROL_STATE        =
 assign xMODE  = mode_name ( status_bits_mode_r );
 
 assign xTYPE  =
-                               type == REGOP    ? "REGOP"    :
-                               type == MULT     ? "MULT"     :
-                               type == SWAP     ? "SWAP"     :
-                               type == TRANS    ? "TRANS"    :
-                               type == MTRANS   ? "MTRANS"   :
-                               type == BRANCH   ? "BRANCH"   :
-                               type == CODTRANS ? "CODTRANS" :
-                               type == COREGOP  ? "COREGOP"  :
-                               type == CORTRANS ? "CORTRANS" :
-                               type == SWI      ? "SWI"      :
+                               wire_type == REGOP    ? "REGOP"    :
+                               wire_type == MULT     ? "MULT"     :
+                               wire_type == SWAP     ? "SWAP"     :
+                               wire_type == TRANS    ? "TRANS"    :
+                               wire_type == MTRANS   ? "MTRANS"   :
+                               wire_type == BRANCH   ? "BRANCH"   :
+                               wire_type == CODTRANS ? "CODTRANS" :
+                               wire_type == COREGOP  ? "COREGOP"  :
+                               wire_type == CORTRANS ? "CORTRANS" :
+                               wire_type == SWI      ? "SWI"      :
                                                   "UNKNOWN"  ;
 
 
