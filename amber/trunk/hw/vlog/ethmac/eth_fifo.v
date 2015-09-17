@@ -56,8 +56,8 @@
 //
 //
 
-`include "eth_defines.v"
-`include "timescale.v"
+`include "ethmac/eth_defines.v"
+`include "ethmac/timescale.v"
 
 module eth_fifo (data_in, data_out, clk, reset, write, read, clear, almost_full, full, almost_empty, empty, cnt);
 

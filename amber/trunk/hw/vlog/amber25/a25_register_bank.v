@@ -81,8 +81,8 @@ output      [31:0]          o_pc
 
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "amber25/a25_localparams.vh"
+`include "amber25/a25_functions.vh"
 
 
 // User Mode Registers

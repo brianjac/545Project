@@ -127,8 +127,8 @@ input                       i_rs_use_read,
 input                       i_rd_use_read
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "amber25/a25_localparams.vh"
+`include "amber25/a25_functions.vh"
 
 // ========================================================
 // Internal signals

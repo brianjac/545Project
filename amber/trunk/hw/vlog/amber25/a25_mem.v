@@ -78,7 +78,7 @@ input                       i_wb_cached_ready,      // wishbone access complete 
 input                       i_wb_uncached_ready     // wishbone access complete and read data valid
 );
 
-`include "memory_configuration.vh"
+`include "system/memory_configuration.vh"
 
 wire    [31:0]              cache_read_data;
 wire                        address_cachable;

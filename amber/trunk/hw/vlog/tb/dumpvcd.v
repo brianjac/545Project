@@ -40,7 +40,7 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
-`include "global_defines.vh"
+`include "tb/global_defines.vh"
 
 module dumpvcd();
 

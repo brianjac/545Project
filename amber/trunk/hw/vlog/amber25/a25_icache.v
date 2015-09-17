@@ -40,8 +40,8 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
-`include "a25_config_defines.vh"
+`include "tb/global_defines.vh"
+`include "amber25/a25_config_defines.vh"
 
 module a25_icache 
 #(
@@ -98,8 +98,8 @@ input      [127:0]                  i_wb_read_data,
 input                               i_wb_ready
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "amber25/a25_localparams.vh"
+`include "amber25/a25_functions.vh"
 
 // One-hot encoded
 localparam       C_INIT   = 0,

@@ -92,7 +92,7 @@ input                       i_s_wb_err
 
 );
 
-`include "system_functions.vh"
+`include "system/system_functions.vh"
 
 
 // =========================

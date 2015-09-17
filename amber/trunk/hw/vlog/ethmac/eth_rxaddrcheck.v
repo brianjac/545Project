@@ -64,7 +64,7 @@
 //
 
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 
 module eth_rxaddrcheck(MRxClk,  Reset, RxData, Broadcast ,r_Bro ,r_Pro,

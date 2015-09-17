@@ -71,7 +71,7 @@
 //
 //
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 
 module eth_register(DataIn, DataOut, Write, Clk, Reset, SyncReset);

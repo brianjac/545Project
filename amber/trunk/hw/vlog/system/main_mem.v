@@ -62,7 +62,7 @@ output                         o_wb_err
 
 );
 
-`include "memory_configuration.vh"
+`include "system/memory_configuration.vh"
 
 reg     [127:0]     ram   [2**(MAIN_MSB-2)-1:0];
 wire                start_write;

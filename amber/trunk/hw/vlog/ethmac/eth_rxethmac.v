@@ -105,7 +105,7 @@
 //
 //
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 
 module eth_rxethmac (MRxClk, MRxDV, MRxD, Reset, Transmitting, MaxFL, r_IFG, HugEn, DlyCrcEn, 

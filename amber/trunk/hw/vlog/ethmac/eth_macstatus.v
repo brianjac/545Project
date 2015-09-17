@@ -109,7 +109,7 @@
 //
 //
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 
 module eth_macstatus(

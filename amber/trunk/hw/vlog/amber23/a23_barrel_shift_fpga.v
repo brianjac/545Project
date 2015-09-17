@@ -56,7 +56,7 @@ output                      o_carry_out
 
 );
 
-`include "a23_localparams.vh"
+`include "amber23/a23_localparams.vh"
 
 wire [31:0] rot_prod;                           // Input rotated by the shift amount
 

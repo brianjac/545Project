@@ -54,7 +54,7 @@ output                      o_carry_out
 
 );
 
-`include "a25_localparams.vh"
+`include "amber25/a25_localparams.vh"
 
   // MSB is carry out
 wire [32:0] lsl_out;

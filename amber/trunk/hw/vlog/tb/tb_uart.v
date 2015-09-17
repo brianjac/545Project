@@ -38,9 +38,9 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
-`include "global_timescale.vh"
-`include "system_config_defines.vh"
-`include "global_defines.vh"
+`include "tb/global_timescale.vh"
+`include "system/system_config_defines.vh"
+`include "tb/global_defines.vh"
 
 
 module tb_uart (

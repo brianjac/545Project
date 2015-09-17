@@ -169,7 +169,7 @@ input                       i_s7_wb_ack,
 input                       i_s7_wb_err
 );
 
-`include "memory_configuration.vh"
+`include "system/memory_configuration.vh"
 
 reg         m0_wb_hold_r = 'd0;
 reg         m1_wb_hold_r = 'd0;

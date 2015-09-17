@@ -77,7 +77,7 @@
 //
 //
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 module eth_random (MTxClk, Reset, StateJam, StateJam_q, RetryCnt, NibCnt, ByteCnt, 
                    RandomEq0, RandomEqByteCnt);

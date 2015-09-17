@@ -64,7 +64,7 @@ output                      o_phy_rst_n
 
 );
 
-`include "register_addresses.vh"
+`include "system/register_addresses.vh"
 
         
 reg [7:0]       firq_timer          = 'd0;

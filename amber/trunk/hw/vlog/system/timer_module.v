@@ -38,7 +38,7 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
+`include "tb/global_defines.vh"
 
 module timer_module  #(
 parameter WB_DWIDTH  = 32,
@@ -61,7 +61,7 @@ output      [2:0]           o_timer_int
 );
 
 
-`include "register_addresses.vh"
+`include "system/register_addresses.vh"
 
 // Wishbone registers
 reg  [15:0]     timer0_load_reg = 'd0;   // initial count value

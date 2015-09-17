@@ -69,7 +69,7 @@ input       [2:0]           i_tm_timer_int
 );
 
 
-`include "register_addresses.vh"
+`include "system/register_addresses.vh"
 
 
 // Wishbone registers

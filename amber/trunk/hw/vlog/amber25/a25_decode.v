@@ -39,7 +39,7 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
+`include "tb/global_defines.vh"
 
 module a25_decode
 (
@@ -132,8 +132,8 @@ output reg                  o_rd_use_read
 
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "amber25/a25_localparams.vh"
+`include "amber25/a25_functions.vh"
 
 localparam [4:0] RST_WAIT1      = 5'd0,
                  RST_WAIT2      = 5'd1,
@@ -1754,7 +1754,7 @@ assign dabt = dabt_reg || i_dabt;
 // ========================================================
 //synopsys translate_off
 
-`include "debug_functions.vh"
+`include "tb/debug_functions.vh"
 
 a25_decompile  u_decompile (
     .i_clk                      ( i_clk                            ),

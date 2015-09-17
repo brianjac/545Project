@@ -42,8 +42,8 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
-`include "a23_config_defines.vh"
+`include "tb/global_defines.vh"
+`include "amber23/a23_config_defines.vh"
 
 module a23_cache 
 #(
@@ -105,8 +105,8 @@ input      [31:0]                   i_wb_read_data,    // wb bus
 input                               i_wb_stall         // wb_stb && !wb_ack
 );
 
-`include "a23_localparams.vh"
-`include "a23_functions.vh"
+`include "amber23/a23_localparams.vh"
+`include "amber23/a23_functions.vh"
 
 // One-hot encoded
 localparam       C_INIT   = 0,

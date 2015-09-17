@@ -37,7 +37,7 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 module eth_spram_256x32(
 	//

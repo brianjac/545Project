@@ -41,7 +41,7 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
-`include "a23_config_defines.vh"
+`include "amber23/a23_config_defines.vh"
 
 module a23_execute (
 
@@ -122,8 +122,8 @@ input                       i_copro_write_data_wen
 
 );
 
-`include "a23_localparams.vh"
-`include "a23_functions.vh"
+`include "amber23/a23_localparams.vh"
+`include "amber23/a23_functions.vh"
 
 // ========================================================
 // Internal signals

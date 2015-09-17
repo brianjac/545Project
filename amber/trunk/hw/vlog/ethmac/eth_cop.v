@@ -61,8 +61,8 @@
 //
 //
 
-`include "eth_defines.v"
-`include "timescale.v"
+`include "ethmac/eth_defines.v"
+`include "ethmac/timescale.v"
 
 module eth_cop
 (

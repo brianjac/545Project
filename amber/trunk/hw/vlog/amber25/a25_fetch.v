@@ -68,7 +68,7 @@ input                       i_wb_ready
 
 );
 
-`include "memory_configuration.vh"
+`include "system/memory_configuration.vh"
 
 wire                        core_stall;
 wire                        cache_stall;

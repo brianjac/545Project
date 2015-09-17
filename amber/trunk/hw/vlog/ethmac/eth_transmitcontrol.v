@@ -79,7 +79,7 @@
 //
 
 
-`include "timescale.v"
+`include "ethmac/timescale.v"
 
 
 module eth_transmitcontrol (MTxClk, TxReset, TxUsedDataIn, TxUsedDataOut, TxDoneIn, TxAbortIn, 

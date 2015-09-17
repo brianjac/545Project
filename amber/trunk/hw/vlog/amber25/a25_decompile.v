@@ -39,9 +39,9 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_timescale.vh"
-`include "global_defines.vh"
-`include "a25_config_defines.vh"
+`include "tb/global_timescale.vh"
+`include "tb/global_defines.vh"
+`include "amber25/a25_config_defines.vh"
 
 module a25_decompile
 (
@@ -59,7 +59,7 @@ input                       i_pc_wen
 
 );
 
-`include "a25_localparams.vh"
+`include "amber25/a25_localparams.vh"
         
 `ifdef A25_DECOMPILE
 

@@ -39,7 +39,7 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_timescale.vh"
+`include "tb/global_timescale.vh"
 
 module eth_test  
 (
@@ -59,8 +59,8 @@ input      [3:0]            mrxd_i,
 input                       mrxdv_i
 );
 
-`include "debug_functions.vh"
-`include "system_functions.vh"
+`include "tb/debug_functions.vh"
+`include "system/system_functions.vh"
 
 // mxt state machine
 localparam IDLE = 4'd0;

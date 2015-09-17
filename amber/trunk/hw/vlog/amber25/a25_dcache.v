@@ -42,8 +42,8 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
-`include "a25_config_defines.vh"
+`include "tb/global_defines.vh"
+`include "amber25/a25_config_defines.vh"
 
 module a25_dcache 
 #(
@@ -105,8 +105,8 @@ input      [127:0]                  i_wb_cached_rdata,      // wb bus
 input                               i_wb_cached_ready       // wb_stb && !wb_ack
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "amber25/a25_localparams.vh"
+`include "amber25/a25_functions.vh"
 
 // One-hot encoded
 localparam       C_INIT   = 0,

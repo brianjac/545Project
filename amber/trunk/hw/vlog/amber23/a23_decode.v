@@ -39,7 +39,7 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
-`include "global_defines.vh"
+`include "tb/global_defines.vh"
 
 module a23_decode
 (
@@ -131,8 +131,8 @@ output      [7:0]           o_dabt_status
 
 );
 
-`include "a23_localparams.vh"
-`include "a23_functions.vh"
+`include "amber23/a23_localparams.vh"
+`include "amber23/a23_functions.vh"
 
 localparam [4:0] RST_WAIT1      = 5'd0,
                  RST_WAIT2      = 5'd1,
@@ -1685,7 +1685,7 @@ assign dabt = dabt_reg || i_dabt;
 // ========================================================
 //synopsys translate_off
 
-`include "debug_functions.vh"
+`include "tb/debug_functions.vh"
 
 a23_decompile  u_decompile (
     .i_clk                      ( i_clk                            ),

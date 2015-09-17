@@ -133,10 +133,8 @@ assign address     = i_wb_adr[MADDR_WIDTH+3:4];
     `include `BOOT_MEM128_PARAMS_FILE
 `else
     `ifdef BOOT_LOADER_ETHMAC
-        `include "boot-loader-ethmac_memparams128.v"
     `else
         // default file
-        `include "boot-loader_memparams128.v"
     `endif
 `endif
 
