@@ -1,0 +1,41 @@
+# vsim tb 
+# Loading sv_std.std
+# Loading work.tb
+# Loading work.VGA
+# Loading work.VGA_Timer
+# Loading work.counter
+# Loading work.VGA_Emitter
+# ** Warning: (vsim-3015) vga.sv(16): [PCDPC] - Port size (10 or 10) does not match connection size (9) for port 'x'. The port definition is at: vga.sv(30).
+#         Region: /tb/vga/vga_t
+# ** Warning: (vsim-3015) vga.sv(16): [PCDPC] - Port size (9 or 9) does not match connection size (10) for port 'y'. The port definition is at: vga.sv(30).
+#         Region: /tb/vga/vga_t
+# ** Warning: (vsim-3015) vga.sv(19): [PCDPC] - Port size (10 or 10) does not match connection size (9) for port 'x'. The port definition is at: vga.sv(103).
+#         Region: /tb/vga/vga_e
+add wave -position insertpoint  \
+sim:/tb/clk \
+sim:/tb/rst \
+sim:/tb/h_sync \
+sim:/tb/v_sync \
+sim:/tb/R \
+sim:/tb/G \
+sim:/tb/B
+run
+# ** Note: $finish    : tb.sv(18)
+#    Time: 100 ns  Iteration: 0  Instance: /tb
+# 1
+# Break in Module tb at tb.sv line 18
+add wave -position insertpoint  \
+sim:/tb/vga/vga_t/V_count/counter
+add wave -position insertpoint  \
+sim:/tb/vga/vga_t/H_count/counter
+add wave -position insertpoint  \
+sim:/tb/vga/clk \
+sim:/tb/vga/rst \
+sim:/tb/vga/R \
+sim:/tb/vga/G \
+sim:/tb/vga/B \
+sim:/tb/vga/h_sync \
+sim:/tb/vga/v_sync
+run -all
+# Break key hit 
+# Simulation stop requested.
