@@ -1,0 +1,47 @@
+10/5:
+1) Linux running on unmodified Amber 25, in synthesis
+2) ALU and ISA testing done on unmodified Amber 25
+3) OOO design - build full netlist of what hooks up to what in the new design (pre-implementation)
+4) Start superscalar planning
+
+10/12:
+1) Add new multiplier to Amber 25
+2) Memory interface and branching tests
+3) Develop OOO verification tests
+4) HDMI output basics (no video card design yet)
+5) PS/2 input module
+6) OOO building: build Dispatch stage, start Execute
+
+10/19:
+1) OOO building: finish Execute, build Reorder, integrate with Writeback
+2) Whitebox verification of Dispatch/Execute
+3) Demo planning: program choices, peripheral testing, stuff to demonstrate OOO improvement over in-order
+4) Start video controller development
+
+10/26:
+1) Whitebox verification of Reorder and functionality tests of whole OOO core
+2) Finish superscalar planning, start Fetch/Decode implementation
+3) Finish video controller development
+
+11/2:
+1) Superscalar - finish Fetch/Decode implementation, start Dispatch/Reorder/Execute/Writeback
+2) Video controller integration with non-superscalar OOO, plus testing/verification
+3) MorphCore design (modified, probably splitting into multiple OOO cores with new assembly instruction. instruction also flushes all caches, and the multicore version will have NO cache. :-P)
+
+11/9:
+1) Continue video controller testing
+2) Superscalar verification - regression testing, and newer specialized tests
+3) MorphCore implementation
+
+11/16:
+1) MorphCore verification/debugging. Cacheless will help. :-D
+2) Demo programs/prep
+
+11/23:
+<Thanksgiving, expect nothing to get done>
+
+11/30:
+Final report writing, demo prep, more MorphCore if we can
+
+12/7:
+Presentation and demo week
