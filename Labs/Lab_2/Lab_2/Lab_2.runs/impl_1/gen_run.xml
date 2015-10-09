@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7vx485tffg1761-2" LaunchTime="1443629083">
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="RDI-RDI" Name="ddr.vdi"/>
+  <File Type="BG-DRC" Name="ddr.drc"/>
+  <File Type="BG-BGN" Name="ddr.bgn"/>
+  <File Type="BITSTR-SYSDEF" Name="ddr.sysdef"/>
+  <File Type="BITSTR-MMI" Name="ddr.mmi"/>
+  <File Type="BITSTR-BMM" Name="ddr_bd.bmm"/>
+  <File Type="BITSTR-NKY" Name="ddr.nky"/>
+  <File Type="BITSTR-RBT" Name="ddr.rbt"/>
+  <File Type="BITSTR-MSK" Name="ddr.msk"/>
+  <File Type="BG-BIN" Name="ddr.bin"/>
+  <File Type="BG-BIT" Name="ddr.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="ddr_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="ddr_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="ddr_postroute_physopt.dcp"/>
+  <File Type="ROUTE-CLK" Name="ddr_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-SIMILARITY" Name="ddr_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="ddr_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-TIMING-PB" Name="ddr_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="ddr_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="ddr_route_status.pb"/>
+  <File Type="ROUTE-STATUS" Name="ddr_route_status.rpt"/>
+  <File Type="ROUTE-PWR-SUM" Name="ddr_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="ddr_power_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="ddr_drc_routed.pb"/>
+  <File Type="ROUTE-DRC" Name="ddr_drc_routed.rpt"/>
+  <File Type="ROUTE-DCP" Name="ddr_routed.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="ddr_drc_physopted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="ddr_physopt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="ddr_postplace_pwropt.dcp"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="ddr_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="ddr_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-CTRL" Name="ddr_control_sets_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="ddr_utilization_placed.pb"/>
+  <File Type="PLACE-UTIL" Name="ddr_utilization_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="ddr_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-IO" Name="ddr_io_placed.rpt"/>
+  <File Type="PLACE-DCP" Name="ddr_placed.dcp"/>
+  <File Type="PWROPT-DRC" Name="ddr_drc_pwropted.rpt"/>
+  <File Type="PWROPT-DCP" Name="ddr_pwropt.dcp"/>
+  <File Type="OPT-HWDEF" Name="ddr.hwdef"/>
+  <File Type="OPT-DRC" Name="ddr_drc_opted.rpt"/>
+  <File Type="OPT-DCP" Name="ddr_opt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="ddr_timing_summary_postroute_physopted.pb"/>
+  <File Type="PA-TCL" Name="ddr.tcl"/>
+  <File Type="PA-DCP" Name="ddr.dcp"/>
+  <File Type="RUN-STRAT" Name="$PDATADIR/runs/impl_1/impl_1.psg"/>
+  <File Type="RUN-SRCS" Name="$PDATADIR/runs/impl_1/sources.xml"/>
+  <File Type="RUN-CONSTRS" Name="$PDATADIR/runs/impl_1/constrs_in.xml"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ddr.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="ddr"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <File Path="$PSRCDIR/constrs_1/new/constraints.xdc">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="TargetConstrsFile" Val="$PSRCDIR/constrs_1/new/constraints.xdc"/>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>
