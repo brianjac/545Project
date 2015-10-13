@@ -1,0 +1,118 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_sram_line_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_shifter
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_sram_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decompile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_decompile
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_wishbone_buf
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_register_bank.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_register_bank
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_multiply.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_multiply
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_icache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_icache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_dcache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_dcache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_barrel_shift.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_barrel_shift
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_alu.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_alu
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txstatem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txstatem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txcounters.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txcounters
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_transmitcontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_transmitcontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_spram_256x32.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_spram_256x32
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_shiftreg.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_shiftreg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxstatem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxstatem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxcounters.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxcounters
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxaddrcheck.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxaddrcheck
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_register.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_register
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_receivecontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_receivecontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_random.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_random
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_outputcontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_outputcontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_crc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_crc
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_clockgen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_clockgen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_write_back.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_write_back
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_wishbone
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_fetch.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_fetch
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_execute.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_execute
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decode.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_decode
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_coprocessor.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_coprocessor
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_wishbone.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_wishbone
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txethmac.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txethmac
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxethmac.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxethmac
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_registers
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_miim.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_miim
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_macstatus.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_macstatus
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_maccontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_maccontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wishbone_arbiter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module wishbone_arbiter
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/timer_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module timer_module
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/test_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_module
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/main_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module main_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/interrupt_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module interrupt_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_iobuf.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_iobuf
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/ethmac_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ethmac_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/clocks_resets.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clocks_resets
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/boot_mem32.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module boot_mem32
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/boot_mem128.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module boot_mem128
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/tb_uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/system.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module system
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/eth_test.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_test
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/dumpvcd.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dumpvcd
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
