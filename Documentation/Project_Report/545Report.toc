@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1}The MorphCore Architecture}{3}
+\contentsline {section}{\numberline {1.1}Amber 25 Core Architecture}{3}
+\contentsline {section}{\numberline {1.2}The MorphCore Architecture}{3}
+\contentsline {chapter}{\numberline {2}Verification}{4}
+\contentsline {section}{\numberline {2.1}Testing Strategy}{4}
+\contentsline {section}{\numberline {2.2}Automated Regression Testing}{4}
