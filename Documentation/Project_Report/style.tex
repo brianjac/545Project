@@ -1,0 +1,26 @@
+\def\establishFont{\setmainfont{Calibri}}
+\newfontfamily\helvetica{DejaVuSans-ExtraLight}
+
+% Sections and Subsections
+\titleformat{\chapter}
+            {\Huge\bfseries\color{txtbkwhite}\helvetica}
+            {
+              \begin{tikzpicture}[remember picture, overlay]
+                \fill[color=txtbkprimary] (current page.north west) rectangle (20,-1);
+              \end{tikzpicture}
+            }{0pt}{\huge}
+
+\titleformat{\section}
+            {\color{txtbkprimary}\Large\bf}
+            {
+              \raisebox{-.1in}{
+                \kern-1.2in\begin{tikzpicture}
+                \fill[color=txtbkprimary] (0,0) rectangle (2.3,1);
+                \draw (2.3,0.5) node[anchor=east] {\color{txtbkwhite}\thesection};
+                \end{tikzpicture}\kern-0.15in
+              }
+            }{1em}{}
+
+\titleformat{\subsection}
+            {\color{txtbkprimary}\bf\large}
+            {\kern-.5in\large\thesubsection}{1em}{}

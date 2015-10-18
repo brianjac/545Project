@@ -1,0 +1,6 @@
+\section{Testing Strategy}
+Our testing strategy is divided into three major parts: Verilog testbenches, assembly tests, and the Linux boot test.
+
+\section{Automated Regression Testing}
+\index{Testing}
+Once we started modifying the existing Amber core, we decided it would be valuable to run nightly regression tests. These tests ensured that if we accidentally commit a change which breaks the core, we know about it. As a sub-task of building an automated tester, we needed a tool which could run all of our testbenches and assembly instructions.
