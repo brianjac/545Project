@@ -11,6 +11,7 @@
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="SimulatorLanguage" Val="Verilog"/>
     <Option Name="BoardPart" Val="xilinx.com:vc707:part0:1.2"/>
+    <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="EnableCoreContainer" Val="FALSE"/>
@@ -22,6 +23,15 @@
       <File Path="$PSRCDIR/sources_1/imports/vlog/lib/generic_sram_line_en.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/generic_sram_line_en.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/generic_sram_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/generic_sram_byte_en.v"/>
           <Attr Name="ImportTime" Val="1295456666"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -45,55 +55,36 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/generic_sram_byte_en.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_wishbone.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/generic_sram_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_wishbone_buf.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_functions.vh">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_wishbone_buf.v"/>
-          <Attr Name="ImportTime" Val="1306273012"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_localparams.vh">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_register_bank.v">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_functions.vh">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_multiply.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_functions.vh"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_register_bank.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_register_bank.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_multiply.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_multiply.v"/>
-          <Attr Name="ImportTime" Val="1314741136"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_config_defines.vh">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_config_defines.vh"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -105,37 +96,28 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_icache.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_config_defines.vh">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_icache.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_cache.v">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_dcache.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_barrel_shift.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_dcache.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_barrel_shift.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_alu.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_barrel_shift.v"/>
-          <Attr Name="ImportTime" Val="1305990153"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_alu.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_alu.v"/>
-          <Attr Name="ImportTime" Val="1298085256"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -274,15 +256,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/eth_crc.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/eth_crc.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/eth_clockgen.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/eth_clockgen.v"/>
@@ -292,19 +265,98 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_write_back.v">
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_wishbone_buf.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_write_back.v"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_wishbone_buf.v"/>
+          <Attr Name="ImportTime" Val="1306273012"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_functions.vh">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_functions.vh"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_register_bank.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_register_bank.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_multiply.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_multiply.v"/>
           <Attr Name="ImportTime" Val="1314741136"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_wishbone.v">
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_config_defines.vh">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_wishbone.v"/>
-          <Attr Name="ImportTime" Val="1306273012"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_config_defines.vh"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_icache.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_icache.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_dcache.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_dcache.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_barrel_shift.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_barrel_shift.v"/>
+          <Attr Name="ImportTime" Val="1305990153"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_alu.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_alu.v"/>
+          <Attr Name="ImportTime" Val="1298085256"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/eth_crc.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/eth_crc.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/afifo.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/afifo.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -318,46 +370,29 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_mem.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_fetch.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_mem.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_fetch.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_execute.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_fetch.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_execute.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_decode.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_execute.v"/>
-          <Attr Name="ImportTime" Val="1428779986"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_decode.v">
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_coprocessor.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_decode.v"/>
-          <Attr Name="ImportTime" Val="1428779986"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_coprocessor.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_coprocessor.v"/>
-          <Attr Name="ImportTime" Val="1305990153"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -426,10 +461,226 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_core.v">
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_write_back.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_core.v"/>
-          <Attr Name="ImportTime" Val="1427627942"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_write_back.v"/>
+          <Attr Name="ImportTime" Val="1314741136"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_wishbone.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_wishbone.v"/>
+          <Attr Name="ImportTime" Val="1306273012"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_mem.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_mem.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_fetch.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_fetch.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_execute.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_execute.v"/>
+          <Attr Name="ImportTime" Val="1428779986"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_decode.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_decode.v"/>
+          <Attr Name="ImportTime" Val="1428779986"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_coprocessor.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_coprocessor.v"/>
+          <Attr Name="ImportTime" Val="1305990153"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_512x128_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_512x128_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1306103804"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_4096x32_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_4096x32_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1342369797"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x32_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x32_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x21_line_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x21_line_en.v"/>
+          <Attr Name="ImportTime" Val="1297955160"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x128_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x128_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_2048x32_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_2048x32_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_1024x128_byte_en.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_1024x128_byte_en.v"/>
+          <Attr Name="ImportTime" Val="1342369797"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_addsub_n.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_addsub_n.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/xilinx_dist_ram_16x32.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/xilinx_dist_ram_16x32.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/wb_xs6_ddr3_bridge.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../../afs/ece.cmu.edu/usr/wpe/Desktop/wb_xs6_ddr3_bridge.v"/>
+          <Attr Name="ImportTime" Val="1445201901"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/wb_ddr3_bridge.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/wb_ddr3_bridge.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/eth_cop.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/eth_cop.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/ddr3_afifo.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/ddr3_afifo.v"/>
+          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/tb/global_timescale.vh">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/tb/global_timescale.vh"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_decompile.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_decompile.v"/>
+          <Attr Name="ImportTime" Val="1428764265"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_ram_register_bank.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_decompile.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_core.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../../hw/vlog/amber23/a23_barrel_shift_fpga.v">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -449,23 +700,6 @@
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/register_addresses.vh"/>
           <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/system_config_defines.vh">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/system_config_defines.vh"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/uart.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/uart.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -540,32 +774,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/tb/global_timescale.vh">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/tb/global_timescale.vh"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/clocks_resets.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/clocks_resets.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/boot_mem32.v">
-        <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/boot_mem32.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/vlog/system/boot_mem128.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/boot_mem128.v"/>
@@ -575,19 +783,10 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/tb/tb_uart.v">
+      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_core.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/tb/tb_uart.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/system.v">
-        <FileInfo SFType="SVerilog">
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/system.v"/>
-          <Attr Name="ImportTime" Val="1367841574"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_core.v"/>
+          <Attr Name="ImportTime" Val="1427627942"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -619,9 +818,64 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/system_config_defines.vh">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/system_config_defines.vh"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/uart.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/uart.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/clocks_resets.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/clocks_resets.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/system.v">
+        <FileInfo SFType="SVerilog">
+          <Attr Name="ImportPath" Val="$PPRDIR/../../../../../../../afs/ece.cmu.edu/usr/wpe/Desktop/system.v"/>
+          <Attr Name="ImportTime" Val="1445201811"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/tb/tb_uart.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/tb/tb_uart.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/vlog/tb/tb.v">
         <FileInfo SFType="SVerilog">
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/tb/tb.v"/>
+          <Attr Name="ImportTime" Val="1426462137"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/imports/vlog/system/boot_mem32.v">
+        <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/boot_mem32.v"/>
           <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
@@ -630,7 +884,6 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/amber23/a23_localparams.vh">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber23/a23_localparams.vh"/>
           <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -639,180 +892,96 @@
       </File>
       <File Path="$PSRCDIR/sources_1/imports/amber23/a23_functions.vh">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber23/a23_functions.vh"/>
           <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/afifo.v">
+      <File Path="$PSRCDIR/sources_1/ip/ddr3/mig_a.prj">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/afifo.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/sources_1/ip/ddr3/ddr3.xci">
+        <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/wb_ddr3_bridge.v">
+      <File Path="$PSRCDIR/sources_1/ip/clk_wiz_0/clk_wiz_0.xci">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/wb_ddr3_bridge.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/wb_xs6_ddr3_bridge.v">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/wb_xs6_ddr3_bridge.v"/>
-          <Attr Name="ImportTime" Val="1426462137"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/system/ddr3_afifo.v">
+      <File Path="$PSRCDIR/sources_1/new/tb_blockmem.sv">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/system/ddr3_afifo.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_1024x128_byte_en.v">
+      <File Path="$PSRCDIR/sources_1/ip/blk_mem_gen_0/init_test_01.coe">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_1024x128_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1342369797"/>
           <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x128_byte_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x128_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_512x128_byte_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_512x128_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1306103804"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_addsub_n.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_addsub_n.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x32_byte_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x32_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_4096x32_byte_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_4096x32_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1342369797"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_2048x32_byte_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_2048x32_byte_en.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/lib/xs6_sram_256x21_line_en.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/lib/xs6_sram_256x21_line_en.v"/>
-          <Attr Name="ImportTime" Val="1297955160"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/amber25/a25_decompile.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/amber25/a25_decompile.v"/>
-          <Attr Name="ImportTime" Val="1428764265"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/eth_cop.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/eth_cop.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/vlog/ethmac/xilinx_dist_ram_16x32.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../hw/vlog/ethmac/xilinx_dist_ram_16x32.v"/>
-          <Attr Name="ImportTime" Val="1295456666"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="tb"/>
+        <Option Name="TopModule" Val="system"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
       <Filter Type="Constrs"/>
+      <File Path="$PSRCDIR/constrs_1/new/amber_constraints.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
       <Config>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
+      <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="SrcSet" Val="sources_1"/>
+        <Option Name="xsim.simulate.runtime" Val="10000000ns"/>
+      </Config>
+    </FileSet>
+    <FileSet Name="amber_constraints" Type="Constrs" RelSrcDir="$PSRCDIR/amber_constraints">
+      <File Path="$PSRCDIR/amber_constraints/new/amber_constraints.xdc">
+        <FileInfo>
+          <Attr Name="UserDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PSRCDIR/amber_constraints/new/amber_constraints_fakeddr3.xdc">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TargetConstrsFile" Val="$PSRCDIR/amber_constraints/new/amber_constraints_fakeddr3.xdc"/>
+        <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>
   </FileSets>
@@ -838,19 +1007,16 @@
     </Simulator>
   </Simulators>
   <Runs Version="1" Minor="9">
-    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7vx485tffg1761-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" State="current">
+    <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7vx485tffg1761-2" ConstrsSet="amber_constraints" Description="Vivado Synthesis Defaults" State="current" Dir="$PRUNDIR/synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2015"/>
         <Step Id="synth_design"/>
       </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
-    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7vx485tffg1761-2" ConstrsSet="constrs_1" Description="Vivado Implementation Defaults" State="current" SynthRun="synth_1">
+    <Run Id="impl_1" Type="Ft2:EntireDesign" Part="xc7vx485tffg1761-2" ConstrsSet="amber_constraints" Description="Vivado Implementation Defaults" State="current" Dir="$PRUNDIR/impl_1" SynthRun="synth_1">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015">
-          <Desc>Vivado Implementation Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2015"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -861,6 +1027,7 @@
         <Step Id="post_route_phys_opt_design"/>
         <Step Id="write_bitstream"/>
       </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
     </Run>
   </Runs>
 </Project>

@@ -60,7 +60,10 @@ output      [127:0]         o_wb_dat,
 output                      o_wb_cyc,
 output                      o_wb_stb,
 input                       i_wb_ack,
-input                       i_wb_err
+input                       i_wb_err,
+
+output [7:0] led,
+input [7:0] sw
 
 );
 
@@ -214,6 +217,10 @@ a25_fetch u_fetch (
     .i_wb_ready                         ( icache_wb_ready                   )
 );
 
+/*assign led = (sw[1:0]==2'd0)?fetch_instruction[7:0]:
+            (sw[1:0]==2'd1)?fetch_instruction[15:8]:
+            (sw[1:0]==2'd2)?fetch_instruction[23:16]:
+                            fetch_instruction[31:24];*/
 
 // ======================================
 //  Decode Stage
@@ -372,7 +379,10 @@ a25_execute u_execute (
     .i_rn_use_read                      ( rn_use_read                       ),
     .i_rm_use_read                      ( rm_use_read                       ),
     .i_rs_use_read                      ( rs_use_read                       ),
-    .i_rd_use_read                      ( rd_use_read                       )
+    .i_rd_use_read                      ( rd_use_read                       ),
+    
+    .led(led),
+    .sw(sw)
 );
 
 

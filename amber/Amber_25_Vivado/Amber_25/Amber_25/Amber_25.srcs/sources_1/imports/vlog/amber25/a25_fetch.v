@@ -105,9 +105,10 @@ assign wb_rdata32 = i_iaddress[3:2] == 2'd0 ? i_wb_read_data[ 31: 0] :
                     i_iaddress[3:2] == 2'd2 ? i_wb_read_data[ 95:64] :
                                               i_wb_read_data[127:96] ;
 
-assign o_fetch_instruction = sel_cache                  ? cache_read_data : 
+/*assign o_fetch_instruction = sel_cache                  ? cache_read_data : 
                              uncached_instruction_read  ? wb_rdata32      :
-                                                          32'hffeeddcc    ;
+                                                          32'hffeeddcc    ;*/
+assign o_fetch_instruction = cache_read_data;
 
 // Stall the instruction decode and execute stages of the core
 // when the fetch stage needs more than 1 cycle to return the requested

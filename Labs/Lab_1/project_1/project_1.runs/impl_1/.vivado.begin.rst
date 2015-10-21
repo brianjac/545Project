@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="wpehr" Host="WPE-SURFACE" Pid="10568">
+    <Process Command="vivado" Owner="brianjac" Host="fuggle.andrew.cmu.edu" Pid="6607">
     </Process>
 </ProcessHandle>
 <?xml version="1.0"?>
 <ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado.bat" Owner="wpehr" Host="WPE-SURFACE" Pid="2984">
+    <Process Command="vivado" Owner="brianjac" Host="fuggle.andrew.cmu.edu" Pid="7472">
     </Process>
 </ProcessHandle>

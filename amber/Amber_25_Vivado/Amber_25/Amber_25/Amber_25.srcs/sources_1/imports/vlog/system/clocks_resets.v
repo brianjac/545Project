@@ -78,7 +78,8 @@ assign o_sys_rst = rst0 || !calib_done_33mhz;
     (* KEEP = "TRUE" *)  wire brd_clk_ibufg;
 
 
-    IBUFGDS # (  
+    //TODO decide whether this needs editing or if pure removal is OK
+    /*IBUFGDS # (  
          .DIFF_TERM  ( "TRUE"     ), 
          .IOSTANDARD ( "LVDS_25"  ))  // SP605 on chip termination of LVDS clock
          u_ibufgds_brd
@@ -86,7 +87,7 @@ assign o_sys_rst = rst0 || !calib_done_33mhz;
          .I  ( i_brd_clk_p    ),
          .IB ( i_brd_clk_n    ),
          .O  ( brd_clk_ibufg  )
-         );
+         );*/
          
          
     assign rst0             = rst0_sync_r[RST_SYNC_NUM-1];

@@ -183,9 +183,17 @@ assign address   = address_c[CACHE_ADDR32_MSB:CACHE_ADDR32_LSB];
 // ======================================
 // Outputs
 // ======================================
-assign o_read_data      = wb_hit       ? i_wb_read_data  : 
+/*always_comb begin
+    if (i_address < 32'd4) o_read_data = 128'he3a01003_e3a02004_e3a02004_e3a02004;
+    else o_read_data = 128'h00000000_00000000_00000000_00000000; 
+end*/
+assign o_read_data = (i_address < 32'd16) ? 128'heafffffb_e0813002_e3a02004_e3a01003/*128'hfdffffea_023081e0_0420a0e3_0310a0e3*/: 
+                                            128'he3a01003_e3a01003_e3a01003_e3a01003/*128'd0310a0e3_0310a0e3_0310a0e3_0310a0e3*/;
+assign o_stall = 1'b0;
+
+/*assign o_read_data      = wb_hit       ? i_wb_read_data  : 
                           read_buf_hit ? read_buf_data_r :
-                                         hit_rdata ;
+                                         hit_rdata ;*/
 
 
 // Don't allow the cache to stall the wb i/f for an exclusive access
@@ -193,7 +201,7 @@ assign o_read_data      = wb_hit       ? i_wb_read_data  :
 // address, but the wb can do the access in parallel. So there is no
 // stall in the state CS_EX_DELETE, even though the cache is out of action. 
 // This works fine as long as the wb is stalling the core
-assign o_stall          = read_stall  || cache_busy_stall;
+//assign o_stall          = read_stall  || cache_busy_stall; //TODO uncomment
 
 assign o_wb_req         = read_miss && c_state == CS_IDLE;
 

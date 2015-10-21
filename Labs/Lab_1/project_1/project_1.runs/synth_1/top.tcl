@@ -9,14 +9,14 @@ create_project -in_memory -part xc7z020clg484-1
 
 set_param project.compositeFile.enableAutoGeneration 0
 set_param synth.vivado.isSynthRun true
-set_property webtalk.parent_dir C:/Users/wpehr/project_1/project_1.cache/wt [current_project]
-set_property parent.project_path C:/Users/wpehr/project_1/project_1.xpr [current_project]
+set_property webtalk.parent_dir /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.cache/wt [current_project]
+set_property parent.project_path /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.xpr [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
 set_property board_part em.avnet.com:zed:part0:1.3 [current_project]
-read_verilog -library xil_defaultlib -sv C:/Users/wpehr/project_1/project_1.srcs/sources_1/new/project1.sv
-read_xdc C:/Users/wpehr/project_1/project_1.srcs/constrs_1/new/constr01.xdc
-set_property used_in_implementation false [get_files C:/Users/wpehr/project_1/project_1.srcs/constrs_1/new/constr01.xdc]
+read_verilog -library xil_defaultlib -sv /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.srcs/sources_1/new/project1.sv
+read_xdc /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.srcs/constrs_1/new/constr01.xdc
+set_property used_in_implementation false [get_files /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.srcs/constrs_1/new/constr01.xdc]
 
 synth_design -top top -part xc7z020clg484-1
 write_checkpoint -noxdef top.dcp

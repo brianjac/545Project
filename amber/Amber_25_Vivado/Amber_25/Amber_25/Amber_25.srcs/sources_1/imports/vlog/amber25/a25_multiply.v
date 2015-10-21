@@ -64,7 +64,7 @@ input                       i_execute,
 
 output      [31:0]          o_out,
 output      [1:0]           o_flags,        // [1] = N, [0] = Z
-output reg                  o_done = 'd0    // goes high 2 cycles before completion                                          
+output reg                  o_done = 'd0    // goes high 2 cycles before completion
 );
 
 

@@ -124,7 +124,10 @@ input                       i_conflict,
 input                       i_rn_use_read,
 input                       i_rm_use_read,
 input                       i_rs_use_read,
-input                       i_rd_use_read
+input                       i_rd_use_read,
+
+output [7:0] led,
+input [7:0] sw
 );
 
 `include "a25_localparams.vh"
@@ -217,7 +220,8 @@ wire                ldm_status_bits;
 
 wire                carry_in;
 
-reg   [31:0]        iaddress_r = 32'hdead_dead;
+//reg   [31:0]        iaddress_r = 32'hdead_dead;
+reg [31:0] iaddress_r = 32'h0000_0000;
 
 
 // ========================================================
@@ -654,7 +658,10 @@ a25_register_bank u_register_bank(
     .o_rs                    ( reg_bank_rs               ),
     .o_rd                    ( reg_bank_rd               ),
     .o_rn                    ( reg_bank_rn               ),
-    .o_pc                    ( pc                        )
+    .o_pc                    ( pc                        ),
+    
+    .led(led),
+    .sw(sw)
 );
 
 
@@ -692,6 +699,11 @@ assign  xMODE  =  status_bits_mode == SVC  ? "SVC"  :
 
 
 //synopsys translate_on
+
+/*assign led = (sw[1:0]==2'd0)?o_iaddress[7:0]:
+            (sw[1:0]==2'd1)?o_iaddress[15:8]:
+            (sw[1:0]==2'd2)?o_iaddress[23:16]:
+                            o_iaddress[31:24];*/
 
 endmodule
 

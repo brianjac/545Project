@@ -77,7 +77,10 @@ output      [31:0]          o_rm,
 output reg  [31:0]          o_rs,
 output reg  [31:0]          o_rd,
 output      [31:0]          o_rn,
-output      [31:0]          o_pc
+output      [31:0]          o_pc,
+
+output logic [7:0] led,
+input [7:0] sw
 
 );
 
@@ -101,7 +104,8 @@ reg  [31:0] r11 = 32'hdead_beef;
 reg  [31:0] r12 = 32'hdead_beef;
 reg  [31:0] r13 = 32'hdead_beef;
 reg  [31:0] r14 = 32'hdead_beef;
-reg  [23:0] r15 = 24'hc0_ffee;
+//reg  [23:0] r15 = 24'hc0_ffee;
+reg  [23:0] r15 = 24'h00_0000;
 
 wire  [31:0] r0_out;
 wire  [31:0] r1_out;
@@ -388,6 +392,59 @@ assign o_rn = i_rn_sel == 4'd0  ? r0_out  :
               i_rn_sel == 4'd13 ? r13_out : 
               i_rn_sel == 4'd14 ? r14_out : 
                                   r15_out_rn ; 
+
+    //logic [7:0] led_reg;
+    //assign led = led_reg;
+    always_comb begin
+        case (sw[7:2])
+            6'd0: begin
+                case (sw[1:0])
+                    2'd0: led = r0[7:0];
+                    2'd1: led = r0[15:8];
+                    2'd2: led = r0[23:16];
+                    2'd3: led = r0[31:24];
+                endcase
+            end
+            6'd1: begin
+                case (sw[1:0])
+                    2'd0: led = r1[7:0];
+                    2'd1: led = r1[15:8];
+                    2'd2: led = r1[23:16];
+                    2'd3: led = r1[31:24];
+                endcase
+            end
+            6'd2: begin
+                case (sw[1:0])
+                    2'd0: led = r2[7:0];
+                    2'd1: led = r2[15:8];
+                    2'd2: led = r2[23:16];
+                    2'd3: led = r2[31:24];
+                endcase
+            end
+            6'd3: begin
+                case (sw[1:0])
+                    2'd0: led = r3[7:0];
+                    2'd1: led = r3[15:8];
+                    2'd2: led = r3[23:16];
+                    2'd3: led = r3[31:24];
+                endcase
+            end
+            6'd15: begin
+                case (sw[1:0])
+                    2'd0: led = r15[7:0];
+                    2'd1: led = r15[15:8];
+                    2'd2: led = r15[23:16];
+                    2'd3: led = 8'd0/*r15[31:24]*/;
+                endcase
+            end
+            default: begin
+                led = 8'hcc;
+            end
+        endcase
+        /*if (a25_core.u_execute.u_register_bank.r0
+        if (blkmem_wea_mask != 16'h0000) led_reg <= s_wb_adr[2][7:0];
+        else led_reg <= 8'h0;*/
+    end
 
 
 endmodule

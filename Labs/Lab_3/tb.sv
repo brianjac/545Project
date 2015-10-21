@@ -1,16 +1,18 @@
 `default_nettype none
 
 module tb();
-   bit clk, rst, h_sync, v_sync;
-   bit [1:0] R, G, B;
+   bit clk_p, clk_n, rst, h_sync, v_sync;
+   bit R, G, B;
 
    VGA vga(.*);
+   
+   assign clk_p = ~clk_n;
 
    // Clock and reset
    initial begin
-      clk = 0;
+      clk_n = 0;
       rst = 0; #10 rst = 1; #10 rst = 0;
-      forever #10 clk = ~clk;
+      forever #10 clk_n = ~clk_n;
    end
 
    // Test

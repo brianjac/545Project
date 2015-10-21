@@ -42,9 +42,6 @@
 `include "system_config_defines.vh"
 `include "global_defines.vh"
 
-`define AMBER_A25_CORE
-
-
 module tb();
 
 `include "debug_functions.vh"

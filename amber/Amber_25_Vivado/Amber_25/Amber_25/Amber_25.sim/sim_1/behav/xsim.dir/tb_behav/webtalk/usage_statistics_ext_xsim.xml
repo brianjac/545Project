@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Wed Oct  7 10:55:26 2015'>
+<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Tue Oct 20 20:10:41 2015'>
 <section name="__ROOT__" level="0" order="1" description="">
  <section name="software_version_and_target_device" level="1" order="1" description="">
   <keyValuePair key="beta" value="FALSE" description="" />
   <keyValuePair key="build_version" value="1266856" description="" />
-  <keyValuePair key="date_generated" value="Wed Oct  7 10:55:26 2015" description="" />
+  <keyValuePair key="date_generated" value="Tue Oct 20 20:10:41 2015" description="" />
   <keyValuePair key="os_platform" value="LIN64" description="" />
   <keyValuePair key="product_version" value="XSIM v2015.2 (64-bit)" description="" />
   <keyValuePair key="project_id" value="8c4eff9f186f4275bdba3e1f0fb2effe" description="" />
   <keyValuePair key="project_iteration" value="1" description="" />
-  <keyValuePair key="random_id" value="f17ba9bb63e2544a96adac6f577ce928" description="" />
+  <keyValuePair key="random_id" value="2b9f699a-ecee-4b3d-ab65-c52bb2be68c9" description="" />
   <keyValuePair key="registration_id" value="174679548_176449548_210570730_342" description="" />
   <keyValuePair key="route_design" value="FALSE" description="" />
   <keyValuePair key="target_device" value="not_applicable" description="" />
@@ -20,7 +20,7 @@
  </section>
  <section name="user_environment" level="1" order="2" description="">
   <keyValuePair key="cpu_name" value="Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz" description="" />
-  <keyValuePair key="cpu_speed" value="3663.632 MHz" description="" />
+  <keyValuePair key="cpu_speed" value="3094.664 MHz" description="" />
   <keyValuePair key="os_name" value="RedHatEnterpriseServer" description="" />
   <keyValuePair key="os_release" value="Red Hat Enterprise Linux Server release 7.1 (Maipo)" description="" />
   <keyValuePair key="system_ram" value="16.000 GB" description="" />
@@ -33,7 +33,7 @@
    <keyValuePair key="command" value="xelab" description="" />
    <keyValuePair key="debug" value="typical" description="" />
    <keyValuePair key="dpi_used" value="false" description="" />
-   <keyValuePair key="file_counter" value="64" description="" />
+   <keyValuePair key="file_counter" value="43" description="" />
    <keyValuePair key="gendll" value="false" description="" />
    <keyValuePair key="hwcosim" value="false" description="" />
    <keyValuePair key="sdfmodeling" value="false" description="" />
@@ -41,13 +41,13 @@
    <keyValuePair key="vhdl2008" value="false" description="" />
   </section>
   <section name="usage" level="2" order="2" description="">
-   <keyValuePair key="compiler_memory" value="1097284_KB" description="" />
-   <keyValuePair key="compiler_time" value="17.07_sec" description="" />
-   <keyValuePair key="simulation_image_code" value="1447 KB" description="" />
-   <keyValuePair key="simulation_image_data" value="2669 KB" description="" />
-   <keyValuePair key="total_instances" value="122" description="" />
-   <keyValuePair key="total_nets" value="3293" description="" />
-   <keyValuePair key="total_processes" value="1955" description="" />
+   <keyValuePair key="compiler_memory" value="816056_KB" description="" />
+   <keyValuePair key="compiler_time" value="13.81_sec" description="" />
+   <keyValuePair key="simulation_image_code" value="1309 KB" description="" />
+   <keyValuePair key="simulation_image_data" value="97 KB" description="" />
+   <keyValuePair key="total_instances" value="63" description="" />
+   <keyValuePair key="total_nets" value="3557" description="" />
+   <keyValuePair key="total_processes" value="1312" description="" />
    <keyValuePair key="xilinx_hdl_libraries_used" value="secureip unimacro_ver unisims_ver " description="" />
   </section>
  </section>
