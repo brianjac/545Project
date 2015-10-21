@@ -39,7 +39,8 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
-
+`ifndef a23_localparams_included
+`define a23_localparams_included
 // Instruction Types
 localparam [3:0]    REGOP       = 4'h0, // Data processing
                     MULT        = 4'h1, // Multiply
@@ -113,5 +114,5 @@ localparam [5:0] OH_USR  = 0,
                  OH_IRQ  = 1,
                  OH_FIRQ = 2,
                  OH_SVC  = 3;
-
+`endif
 

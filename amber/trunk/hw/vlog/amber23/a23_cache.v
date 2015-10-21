@@ -42,6 +42,10 @@
 // from http://www.opencores.org/lgpl.shtml                     //
 //                                                              //
 //////////////////////////////////////////////////////////////////
+
+ /* Added to get VCS to shut up - Brian, Sept 17, 2015 */
+`include "tb/global_timescale.vh"
+
 `include "tb/global_defines.vh"
 `include "amber23/a23_config_defines.vh"
 

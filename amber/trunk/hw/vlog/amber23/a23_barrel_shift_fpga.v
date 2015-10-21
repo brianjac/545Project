@@ -42,6 +42,8 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
+ /* Added to get VCS to shut up - Brian, Sept 17, 2015 */
+`include "tb/global_timescale.vh"
 
 module a23_barrel_shift_fpga (
 
