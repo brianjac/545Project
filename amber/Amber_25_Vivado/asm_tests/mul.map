@@ -1,0 +1,53 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00000000                . = 0x0
+
+.text           0x00000000      0x63c
+ *(.text)
+ .text          0x00000000      0x63c mul.o
+                0x00000000                main
+
+.glue_7         0x0000063c        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0000063c        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0000063c        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0000063c        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x0000063c        0x0
+ .iplt          0x00000000        0x0 mul.o
+
+.rel.dyn        0x0000063c        0x0
+ .rel.iplt      0x00000000        0x0 mul.o
+
+.data           0x0000063c        0x0
+ *(.data)
+ .data          0x0000063c        0x0 mul.o
+
+.igot.plt       0x0000063c        0x0
+ .igot.plt      0x00000000        0x0 mul.o
+
+.bss            0x0000063c        0x0
+ *(.bss)
+ .bss           0x0000063c        0x0 mul.o
+
+.stack          0x0000063c        0x0
+                0x0000063c                __stack = .
+LOAD mul.o
+OUTPUT(mul.elf elf32-littlearm)
+
+.ARM.attributes
+                0x00000000       0x1e
+ .ARM.attributes
+                0x00000000       0x1e mul.o

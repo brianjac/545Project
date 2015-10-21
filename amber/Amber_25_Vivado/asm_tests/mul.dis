@@ -1,0 +1,419 @@
+
+mul.elf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <main>:
+   0:	e3a06000 	mov	r6, #0
+   4:	e59f81dc 	ldr	r8, [pc, #476]	; 1e8 <AdrTestset>
+
+00000008 <loop>:
+   8:	e206200f 	and	r2, r6, #15
+   c:	e7987102 	ldr	r7, [r8, r2, lsl #2]
+  10:	e20640f0 	and	r4, r6, #240	; 0xf0
+  14:	e7985124 	ldr	r5, [r8, r4, lsr #2]
+  18:	e0040597 	mul	r4, r7, r5
+  1c:	e59f91c8 	ldr	r9, [pc, #456]	; 1ec <AdrAnswers>
+  20:	e799a106 	ldr	sl, [r9, r6, lsl #2]
+  24:	e154000a 	cmp	r4, sl
+  28:	1a000066 	bne	1c8 <testfail>
+  2c:	e2866001 	add	r6, r6, #1
+  30:	e3560c01 	cmp	r6, #256	; 0x100
+  34:	0a000000 	beq	3c <test2>
+  38:	eafffff2 	b	8 <loop>
+
+0000003c <test2>:
+  3c:	e3c2220f 	bic	r2, r2, #-268435456	; 0xf0000000
+  40:	e13ff002 	teq	pc, r2
+  44:	e3a00001 	mov	r0, #1
+  48:	e3e01000 	mvn	r1, #0
+  4c:	e0120190 	muls	r2, r0, r1
+  50:	e1a0400f 	mov	r4, pc
+  54:	e204420f 	and	r4, r4, #-268435456	; 0xf0000000
+  58:	e3540102 	cmp	r4, #-2147483648	; 0x80000000
+  5c:	13a0a064 	movne	sl, #100	; 0x64
+  60:	1a000058 	bne	1c8 <testfail>
+  64:	e3720001 	cmn	r2, #1
+  68:	13a0a06e 	movne	sl, #110	; 0x6e
+  6c:	1a000055 	bne	1c8 <testfail>
+
+00000070 <test3>:
+  70:	e1a0200f 	mov	r2, pc
+  74:	e59f717c 	ldr	r7, [pc, #380]	; 1f8 <PCMask>
+  78:	e1c22007 	bic	r2, r2, r7
+  7c:	e3c2220f 	bic	r2, r2, #-268435456	; 0xf0000000
+  80:	e3822203 	orr	r2, r2, #805306368	; 0x30000000
+  84:	e13ff002 	teq	pc, r2
+  88:	e3a00000 	mov	r0, #0
+  8c:	e3e01000 	mvn	r1, #0
+  90:	e0120190 	muls	r2, r0, r1
+  94:	e1a0400f 	mov	r4, pc
+  98:	e204420f 	and	r4, r4, #-268435456	; 0xf0000000
+  9c:	e3540207 	cmp	r4, #1879048192	; 0x70000000
+  a0:	13a0a078 	movne	sl, #120	; 0x78
+  a4:	1a000047 	bne	1c8 <testfail>
+  a8:	e3520000 	cmp	r2, #0
+  ac:	13a0a082 	movne	sl, #130	; 0x82
+  b0:	1a000044 	bne	1c8 <testfail>
+
+000000b4 <test4>:
+  b4:	e3a00001 	mov	r0, #1
+  b8:	e3a01002 	mov	r1, #2
+  bc:	e3a02007 	mov	r2, #7
+  c0:	e3a03003 	mov	r3, #3
+  c4:	e3a04005 	mov	r4, #5
+  c8:	e3a05006 	mov	r5, #6
+  cc:	e3a07000 	mov	r7, #0
+  d0:	e3a08000 	mov	r8, #0
+  d4:	e3a09000 	mov	r9, #0
+  d8:	e3a0a000 	mov	sl, #0
+  dc:	e1500001 	cmp	r0, r1
+  e0:	10070594 	mulne	r7, r4, r5
+  e4:	00080392 	muleq	r8, r2, r3
+  e8:	10090491 	mulne	r9, r1, r4
+  ec:	100a0393 	mulne	sl, r3, r3
+  f0:	e357001e 	cmp	r7, #30
+  f4:	13a0a0c8 	movne	sl, #200	; 0xc8
+  f8:	1a000032 	bne	1c8 <testfail>
+  fc:	e3580000 	cmp	r8, #0
+ 100:	13a0a0d2 	movne	sl, #210	; 0xd2
+ 104:	1a00002f 	bne	1c8 <testfail>
+ 108:	e359000a 	cmp	r9, #10
+ 10c:	13a0a0dc 	movne	sl, #220	; 0xdc
+ 110:	1a00002c 	bne	1c8 <testfail>
+ 114:	e35a0009 	cmp	sl, #9
+ 118:	13a0a0e6 	movne	sl, #230	; 0xe6
+ 11c:	1a000029 	bne	1c8 <testfail>
+
+00000120 <test5>:
+ 120:	e3a00000 	mov	r0, #0
+ 124:	e3e01000 	mvn	r1, #0
+ 128:	e3a02007 	mov	r2, #7
+ 12c:	e3a03003 	mov	r3, #3
+ 130:	e3a04005 	mov	r4, #5
+ 134:	e3a05006 	mov	r5, #6
+ 138:	e3a07000 	mov	r7, #0
+ 13c:	e3a08000 	mov	r8, #0
+ 140:	e3a09000 	mov	r9, #0
+ 144:	e3a0a000 	mov	sl, #0
+ 148:	e1500001 	cmp	r0, r1
+ 14c:	10170190 	mulsne	r7, r0, r1
+ 150:	00080392 	muleq	r8, r2, r3
+ 154:	10090491 	mulne	r9, r1, r4
+ 158:	100a0393 	mulne	sl, r3, r3
+ 15c:	e3570000 	cmp	r7, #0
+ 160:	13a0a0f0 	movne	sl, #240	; 0xf0
+ 164:	1a000017 	bne	1c8 <testfail>
+ 168:	e3580015 	cmp	r8, #21
+ 16c:	13a0a0f5 	movne	sl, #245	; 0xf5
+ 170:	1a000014 	bne	1c8 <testfail>
+ 174:	e3590000 	cmp	r9, #0
+ 178:	13a0a0fa 	movne	sl, #250	; 0xfa
+ 17c:	1a000011 	bne	1c8 <testfail>
+ 180:	e35a0000 	cmp	sl, #0
+ 184:	13a0a0ff 	movne	sl, #255	; 0xff
+ 188:	1a00000e 	bne	1c8 <testfail>
+
+0000018c <test6>:
+ 18c:	e3a03001 	mov	r3, #1
+ 190:	e3a05000 	mov	r5, #0
+ 194:	e3a01007 	mov	r1, #7
+ 198:	e3510007 	cmp	r1, #7
+ 19c:	059f204c 	ldreq	r2, [pc, #76]	; 1f0 <Data1>
+ 1a0:	159f304c 	ldrne	r3, [pc, #76]	; 1f4 <Data2>
+ 1a4:	00040392 	muleq	r4, r2, r3
+ 1a8:	159f5044 	ldrne	r5, [pc, #68]	; 1f4 <Data2>
+ 1ac:	e3550000 	cmp	r5, #0
+ 1b0:	13a0a096 	movne	sl, #150	; 0x96
+ 1b4:	1a000003 	bne	1c8 <testfail>
+ 1b8:	e3540003 	cmp	r4, #3
+ 1bc:	13a0a0a0 	movne	sl, #160	; 0xa0
+ 1c0:	1a000000 	bne	1c8 <testfail>
+ 1c4:	ea000002 	b	1d4 <testpass>
+
+000001c8 <testfail>:
+ 1c8:	e59fb014 	ldr	fp, [pc, #20]	; 1e4 <AdrTestStatus>
+ 1cc:	e58ba000 	str	sl, [fp]
+ 1d0:	eafffffc 	b	1c8 <testfail>
+
+000001d4 <testpass>:
+ 1d4:	e59fb008 	ldr	fp, [pc, #8]	; 1e4 <AdrTestStatus>
+ 1d8:	e3a0a011 	mov	sl, #17
+ 1dc:	e58ba000 	str	sl, [fp]
+ 1e0:	eafffffb 	b	1d4 <testpass>
+
+000001e4 <AdrTestStatus>:
+ 1e4:	f0000000 	.word	0xf0000000
+
+000001e8 <AdrTestset>:
+ 1e8:	000001fc 	.word	0x000001fc
+
+000001ec <AdrAnswers>:
+ 1ec:	0000023c 	.word	0x0000023c
+
+000001f0 <Data1>:
+ 1f0:	00000003 	.word	0x00000003
+
+000001f4 <Data2>:
+ 1f4:	00000007 	.word	0x00000007
+
+000001f8 <PCMask>:
+ 1f8:	03fffffc 	.word	0x03fffffc
+
+000001fc <Testset>:
+ 1fc:	00000000 	.word	0x00000000
+ 200:	00000001 	.word	0x00000001
+ 204:	00000002 	.word	0x00000002
+ 208:	00000003 	.word	0x00000003
+ 20c:	0000001b 	.word	0x0000001b
+ 210:	0000ffff 	.word	0x0000ffff
+ 214:	40000000 	.word	0x40000000
+ 218:	7fffffff 	.word	0x7fffffff
+ 21c:	7ffffffe 	.word	0x7ffffffe
+ 220:	ffffffff 	.word	0xffffffff
+ 224:	fffffffe 	.word	0xfffffffe
+ 228:	fffffffd 	.word	0xfffffffd
+ 22c:	ffffffe5 	.word	0xffffffe5
+ 230:	8fff0000 	.word	0x8fff0000
+ 234:	80000000 	.word	0x80000000
+ 238:	80000001 	.word	0x80000001
+
+0000023c <Answers>:
+	...
+ 280:	00000001 	.word	0x00000001
+ 284:	00000002 	.word	0x00000002
+ 288:	00000003 	.word	0x00000003
+ 28c:	0000001b 	.word	0x0000001b
+ 290:	0000ffff 	.word	0x0000ffff
+ 294:	40000000 	.word	0x40000000
+ 298:	7fffffff 	.word	0x7fffffff
+ 29c:	7ffffffe 	.word	0x7ffffffe
+ 2a0:	ffffffff 	.word	0xffffffff
+ 2a4:	fffffffe 	.word	0xfffffffe
+ 2a8:	fffffffd 	.word	0xfffffffd
+ 2ac:	ffffffe5 	.word	0xffffffe5
+ 2b0:	8fff0000 	.word	0x8fff0000
+ 2b4:	80000000 	.word	0x80000000
+ 2b8:	80000001 	.word	0x80000001
+ 2bc:	00000000 	.word	0x00000000
+ 2c0:	00000002 	.word	0x00000002
+ 2c4:	00000004 	.word	0x00000004
+ 2c8:	00000006 	.word	0x00000006
+ 2cc:	00000036 	.word	0x00000036
+ 2d0:	0001fffe 	.word	0x0001fffe
+ 2d4:	80000000 	.word	0x80000000
+ 2d8:	fffffffe 	.word	0xfffffffe
+ 2dc:	fffffffc 	.word	0xfffffffc
+ 2e0:	fffffffe 	.word	0xfffffffe
+ 2e4:	fffffffc 	.word	0xfffffffc
+ 2e8:	fffffffa 	.word	0xfffffffa
+ 2ec:	ffffffca 	.word	0xffffffca
+ 2f0:	1ffe0000 	.word	0x1ffe0000
+ 2f4:	00000000 	.word	0x00000000
+ 2f8:	00000002 	.word	0x00000002
+ 2fc:	00000000 	.word	0x00000000
+ 300:	00000003 	.word	0x00000003
+ 304:	00000006 	.word	0x00000006
+ 308:	00000009 	.word	0x00000009
+ 30c:	00000051 	.word	0x00000051
+ 310:	0002fffd 	.word	0x0002fffd
+ 314:	c0000000 	.word	0xc0000000
+ 318:	7ffffffd 	.word	0x7ffffffd
+ 31c:	7ffffffa 	.word	0x7ffffffa
+ 320:	fffffffd 	.word	0xfffffffd
+ 324:	fffffffa 	.word	0xfffffffa
+ 328:	fffffff7 	.word	0xfffffff7
+ 32c:	ffffffaf 	.word	0xffffffaf
+ 330:	affd0000 	.word	0xaffd0000
+ 334:	80000000 	.word	0x80000000
+ 338:	80000003 	.word	0x80000003
+ 33c:	00000000 	.word	0x00000000
+ 340:	0000001b 	.word	0x0000001b
+ 344:	00000036 	.word	0x00000036
+ 348:	00000051 	.word	0x00000051
+ 34c:	000002d9 	.word	0x000002d9
+ 350:	001affe5 	.word	0x001affe5
+ 354:	c0000000 	.word	0xc0000000
+ 358:	7fffffe5 	.word	0x7fffffe5
+ 35c:	7fffffca 	.word	0x7fffffca
+ 360:	ffffffe5 	.word	0xffffffe5
+ 364:	ffffffca 	.word	0xffffffca
+ 368:	ffffffaf 	.word	0xffffffaf
+ 36c:	fffffd27 	.word	0xfffffd27
+ 370:	2fe50000 	.word	0x2fe50000
+ 374:	80000000 	.word	0x80000000
+ 378:	8000001b 	.word	0x8000001b
+ 37c:	00000000 	.word	0x00000000
+ 380:	0000ffff 	.word	0x0000ffff
+ 384:	0001fffe 	.word	0x0001fffe
+ 388:	0002fffd 	.word	0x0002fffd
+ 38c:	001affe5 	.word	0x001affe5
+ 390:	fffe0001 	.word	0xfffe0001
+ 394:	c0000000 	.word	0xc0000000
+ 398:	7fff0001 	.word	0x7fff0001
+ 39c:	7ffe0002 	.word	0x7ffe0002
+ 3a0:	ffff0001 	.word	0xffff0001
+ 3a4:	fffe0002 	.word	0xfffe0002
+ 3a8:	fffd0003 	.word	0xfffd0003
+ 3ac:	ffe5001b 	.word	0xffe5001b
+ 3b0:	70010000 	.word	0x70010000
+ 3b4:	80000000 	.word	0x80000000
+ 3b8:	8000ffff 	.word	0x8000ffff
+ 3bc:	00000000 	.word	0x00000000
+ 3c0:	40000000 	.word	0x40000000
+ 3c4:	80000000 	.word	0x80000000
+ 3c8:	c0000000 	.word	0xc0000000
+ 3cc:	c0000000 	.word	0xc0000000
+ 3d0:	c0000000 	.word	0xc0000000
+ 3d4:	00000000 	.word	0x00000000
+ 3d8:	c0000000 	.word	0xc0000000
+ 3dc:	80000000 	.word	0x80000000
+ 3e0:	c0000000 	.word	0xc0000000
+ 3e4:	80000000 	.word	0x80000000
+ 3e8:	40000000 	.word	0x40000000
+ 3ec:	40000000 	.word	0x40000000
+	...
+ 3f8:	40000000 	.word	0x40000000
+ 3fc:	00000000 	.word	0x00000000
+ 400:	7fffffff 	.word	0x7fffffff
+ 404:	fffffffe 	.word	0xfffffffe
+ 408:	7ffffffd 	.word	0x7ffffffd
+ 40c:	7fffffe5 	.word	0x7fffffe5
+ 410:	7fff0001 	.word	0x7fff0001
+ 414:	c0000000 	.word	0xc0000000
+ 418:	00000001 	.word	0x00000001
+ 41c:	80000002 	.word	0x80000002
+ 420:	80000001 	.word	0x80000001
+ 424:	00000002 	.word	0x00000002
+ 428:	80000003 	.word	0x80000003
+ 42c:	8000001b 	.word	0x8000001b
+ 430:	70010000 	.word	0x70010000
+ 434:	80000000 	.word	0x80000000
+ 438:	ffffffff 	.word	0xffffffff
+ 43c:	00000000 	.word	0x00000000
+ 440:	7ffffffe 	.word	0x7ffffffe
+ 444:	fffffffc 	.word	0xfffffffc
+ 448:	7ffffffa 	.word	0x7ffffffa
+ 44c:	7fffffca 	.word	0x7fffffca
+ 450:	7ffe0002 	.word	0x7ffe0002
+ 454:	80000000 	.word	0x80000000
+ 458:	80000002 	.word	0x80000002
+ 45c:	00000004 	.word	0x00000004
+ 460:	80000002 	.word	0x80000002
+ 464:	00000004 	.word	0x00000004
+ 468:	80000006 	.word	0x80000006
+ 46c:	80000036 	.word	0x80000036
+ 470:	e0020000 	.word	0xe0020000
+ 474:	00000000 	.word	0x00000000
+ 478:	7ffffffe 	.word	0x7ffffffe
+ 47c:	00000000 	.word	0x00000000
+ 480:	ffffffff 	.word	0xffffffff
+ 484:	fffffffe 	.word	0xfffffffe
+ 488:	fffffffd 	.word	0xfffffffd
+ 48c:	ffffffe5 	.word	0xffffffe5
+ 490:	ffff0001 	.word	0xffff0001
+ 494:	c0000000 	.word	0xc0000000
+ 498:	80000001 	.word	0x80000001
+ 49c:	80000002 	.word	0x80000002
+ 4a0:	00000001 	.word	0x00000001
+ 4a4:	00000002 	.word	0x00000002
+ 4a8:	00000003 	.word	0x00000003
+ 4ac:	0000001b 	.word	0x0000001b
+ 4b0:	70010000 	.word	0x70010000
+ 4b4:	80000000 	.word	0x80000000
+ 4b8:	7fffffff 	.word	0x7fffffff
+ 4bc:	00000000 	.word	0x00000000
+ 4c0:	fffffffe 	.word	0xfffffffe
+ 4c4:	fffffffc 	.word	0xfffffffc
+ 4c8:	fffffffa 	.word	0xfffffffa
+ 4cc:	ffffffca 	.word	0xffffffca
+ 4d0:	fffe0002 	.word	0xfffe0002
+ 4d4:	80000000 	.word	0x80000000
+ 4d8:	00000002 	.word	0x00000002
+ 4dc:	00000004 	.word	0x00000004
+ 4e0:	00000002 	.word	0x00000002
+ 4e4:	00000004 	.word	0x00000004
+ 4e8:	00000006 	.word	0x00000006
+ 4ec:	00000036 	.word	0x00000036
+ 4f0:	e0020000 	.word	0xe0020000
+ 4f4:	00000000 	.word	0x00000000
+ 4f8:	fffffffe 	.word	0xfffffffe
+ 4fc:	00000000 	.word	0x00000000
+ 500:	fffffffd 	.word	0xfffffffd
+ 504:	fffffffa 	.word	0xfffffffa
+ 508:	fffffff7 	.word	0xfffffff7
+ 50c:	ffffffaf 	.word	0xffffffaf
+ 510:	fffd0003 	.word	0xfffd0003
+ 514:	40000000 	.word	0x40000000
+ 518:	80000003 	.word	0x80000003
+ 51c:	80000006 	.word	0x80000006
+ 520:	00000003 	.word	0x00000003
+ 524:	00000006 	.word	0x00000006
+ 528:	00000009 	.word	0x00000009
+ 52c:	00000051 	.word	0x00000051
+ 530:	50030000 	.word	0x50030000
+ 534:	80000000 	.word	0x80000000
+ 538:	7ffffffd 	.word	0x7ffffffd
+ 53c:	00000000 	.word	0x00000000
+ 540:	ffffffe5 	.word	0xffffffe5
+ 544:	ffffffca 	.word	0xffffffca
+ 548:	ffffffaf 	.word	0xffffffaf
+ 54c:	fffffd27 	.word	0xfffffd27
+ 550:	ffe5001b 	.word	0xffe5001b
+ 554:	40000000 	.word	0x40000000
+ 558:	8000001b 	.word	0x8000001b
+ 55c:	80000036 	.word	0x80000036
+ 560:	0000001b 	.word	0x0000001b
+ 564:	00000036 	.word	0x00000036
+ 568:	00000051 	.word	0x00000051
+ 56c:	000002d9 	.word	0x000002d9
+ 570:	d01b0000 	.word	0xd01b0000
+ 574:	80000000 	.word	0x80000000
+ 578:	7fffffe5 	.word	0x7fffffe5
+ 57c:	00000000 	.word	0x00000000
+ 580:	8fff0000 	.word	0x8fff0000
+ 584:	1ffe0000 	.word	0x1ffe0000
+ 588:	affd0000 	.word	0xaffd0000
+ 58c:	2fe50000 	.word	0x2fe50000
+ 590:	70010000 	.word	0x70010000
+ 594:	00000000 	.word	0x00000000
+ 598:	70010000 	.word	0x70010000
+ 59c:	e0020000 	.word	0xe0020000
+ 5a0:	70010000 	.word	0x70010000
+ 5a4:	e0020000 	.word	0xe0020000
+ 5a8:	50030000 	.word	0x50030000
+ 5ac:	d01b0000 	.word	0xd01b0000
+	...
+ 5b8:	8fff0000 	.word	0x8fff0000
+ 5bc:	00000000 	.word	0x00000000
+ 5c0:	80000000 	.word	0x80000000
+ 5c4:	00000000 	.word	0x00000000
+ 5c8:	80000000 	.word	0x80000000
+ 5cc:	80000000 	.word	0x80000000
+ 5d0:	80000000 	.word	0x80000000
+ 5d4:	00000000 	.word	0x00000000
+ 5d8:	80000000 	.word	0x80000000
+ 5dc:	00000000 	.word	0x00000000
+ 5e0:	80000000 	.word	0x80000000
+ 5e4:	00000000 	.word	0x00000000
+ 5e8:	80000000 	.word	0x80000000
+ 5ec:	80000000 	.word	0x80000000
+	...
+ 5f8:	80000000 	.word	0x80000000
+ 5fc:	00000000 	.word	0x00000000
+ 600:	80000001 	.word	0x80000001
+ 604:	00000002 	.word	0x00000002
+ 608:	80000003 	.word	0x80000003
+ 60c:	8000001b 	.word	0x8000001b
+ 610:	8000ffff 	.word	0x8000ffff
+ 614:	40000000 	.word	0x40000000
+ 618:	ffffffff 	.word	0xffffffff
+ 61c:	7ffffffe 	.word	0x7ffffffe
+ 620:	7fffffff 	.word	0x7fffffff
+ 624:	fffffffe 	.word	0xfffffffe
+ 628:	7ffffffd 	.word	0x7ffffffd
+ 62c:	7fffffe5 	.word	0x7fffffe5
+ 630:	8fff0000 	.word	0x8fff0000
+ 634:	80000000 	.word	0x80000000
+ 638:	00000001 	.word	0x00000001
