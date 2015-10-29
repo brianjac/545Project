@@ -75,7 +75,6 @@
     `define U_WISHBONE          `U_FETCH.u_wishbone
     `define U_BOOT_MEM          `U_SYSTEM.boot_mem32.u_boot_mem
 `endif
-// ---------------------------------------------------------------
 
 `define TB_DEBUG_MESSAGE        $display("\nDEBUG in %m @ tick %8d ", `U_TB.clk_count );
 `define TB_WARNING_MESSAGE      $display("\nWARNING in %m @ tick %8d", `U_TB.clk_count );

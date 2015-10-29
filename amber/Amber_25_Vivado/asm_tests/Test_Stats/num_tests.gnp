@@ -1,0 +1,20 @@
+# Set up the output
+set term pngcairo
+set output 'num_tests.png'
+
+# Labels
+set xlabel 'Date'
+set ylabel 'Number of Tests'
+
+# Line and points
+set style line 1 pt 7
+
+# x-axis labels
+set xdata time
+set timefmt "%m-%d-%Y"
+set format x "%m-%d-%Y"
+set xtics rotate by 45 right
+
+# Input the data and plot.
+set datafile separator ","
+plot 'num_tests.csv' using 2:1 ls 1

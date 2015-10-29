@@ -44,7 +44,7 @@
 
 // Select the A23 or A25 version of the core
 // You can also select the A25 core on the command line using the run script
-//`define AMBER_A25_CORE
+`define AMBER_A25_CORE
 
 
 // Frequency = 800 / AMBER_CLK_DIVIDER
@@ -63,7 +63,7 @@
 
 // Specify a device, if none defined then the
 // generic library is used which is the fastest for simulations
-// `define XILINX_SPARTAN6_FPGA
+ `define XILINX_SPARTAN6_FPGA
 // `define XILINX_VIRTEX6_FPGA
 
 // UART Baud rate for both uarts
@@ -126,13 +126,13 @@
     `define MAIN_MEM_FILE           "not-defined"
 `endif
 `ifndef BOOT_MEM_FILE
-    `define BOOT_MEM_FILE           "../tests/add.mem"
+    `define BOOT_MEM_FILE           {"/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tests/","add.mem"} // <-- Change me to run different tests!
 `endif
 `ifndef BOOT_MEM32_PARAMS_FILE
-    `define BOOT_MEM32_PARAMS_FILE    "not-defined"
+    `define BOOT_MEM32_PARAMS_FILE    {"/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tests/","add_memparams32.v"} // <-- Change me to run different tests!
 `endif
 `ifndef BOOT_MEM128_PARAMS_FILE
-    `define BOOT_MEM128_PARAMS_FILE    "not-defined"
+    `define BOOT_MEM128_PARAMS_FILE    {"/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tests/","add_memparams128.v"} // <-- Change me to run different tests!
 `endif
 `ifndef AMBER_LOG_FILE
     `define AMBER_LOG_FILE          "tests.log"

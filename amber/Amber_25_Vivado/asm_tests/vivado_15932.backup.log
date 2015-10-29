@@ -1,0 +1,448 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Mon Oct 12 09:29:05 2015
+# Process ID: 4493
+# Log file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.log
+# Journal file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.jou
+#-----------------------------------------------------------
+open_project /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.xpr
+Scanning sources...
+Finished scanning sources
+set_property -name {xsim.simulate.runtime} -value {10000000ns} -objects [current_fileset -simset]
+launch_simulation
+INFO: [USF-XSim-27] Simulation object is 'sim_1'
+INFO: [USF-XSim-37] Inspecting design source files for 'tb' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-100] Fetching design files from 'sources_1'...(this may take a while)...
+INFO: [USF-XSim-101] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE' step in '/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav'
+xvlog -m64 --relax -prj tb_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_sram_line_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_sram_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_shifter
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_wishbone.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_wishbone
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_register_bank.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_register_bank
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_multiply.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_multiply
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_cache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_cache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_barrel_shift.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_barrel_shift
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_alu.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_alu
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txstatem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txstatem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txcounters.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txcounters
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_transmitcontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_transmitcontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_spram_256x32.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_spram_256x32
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_shiftreg.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_shiftreg
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxstatem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxstatem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxcounters.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxcounters
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxaddrcheck.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxaddrcheck
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_register.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_register
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_receivecontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_receivecontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_random.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_random
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_outputcontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_outputcontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_fifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_fifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_clockgen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_clockgen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_wishbone_buf
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_register_bank.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_register_bank
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_multiply.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_multiply
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_icache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_icache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_dcache.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_dcache
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_barrel_shift.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_barrel_shift
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_alu.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_alu
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_crc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_crc
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/afifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module afifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_fetch.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_fetch
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_execute.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_execute
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_decode.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_decode
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_coprocessor.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_coprocessor
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_wishbone.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_wishbone
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_txethmac.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_txethmac
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_rxethmac.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_rxethmac
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_registers.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_registers
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_miim.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_miim
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_macstatus.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_macstatus
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_maccontrol.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_maccontrol
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_write_back.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_write_back
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_wishbone
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_fetch.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_fetch
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_execute.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_execute
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decode.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_decode
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_coprocessor.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_coprocessor
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_512x128_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_512x128_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_4096x32_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_4096x32_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_256x32_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_256x32_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_256x21_line_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_256x21_line_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_256x128_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_256x128_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_2048x32_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_2048x32_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_sram_1024x128_byte_en.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_sram_1024x128_byte_en
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/xs6_addsub_n.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xs6_addsub_n
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/xilinx_dist_ram_16x32.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module xilinx_dist_ram_16x32
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wb_xs6_ddr3_bridge.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module wb_xs6_ddr3_bridge
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wb_ddr3_bridge.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module wb_ddr3_bridge
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_cop.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_cop
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/ddr3_afifo.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ddr3_afifo
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decompile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_decompile
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_ram_register_bank.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_ram_register_bank
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_decompile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_decompile
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/hw/vlog/amber23/a23_barrel_shift_fpga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a23_barrel_shift_fpga
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wishbone_arbiter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module wishbone_arbiter
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/timer_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module timer_module
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/test_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module test_module
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/main_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module main_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/interrupt_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module interrupt_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_iobuf.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module generic_iobuf
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/ethmac/eth_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/ethmac_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ethmac_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/boot_mem128.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module boot_mem128
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module a25_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/eth_test.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module eth_test
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/dumpvcd.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module dumpvcd
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module uart
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/clocks_resets.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clocks_resets
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/system.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module system
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/tb_uart.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_uart
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav'
+Vivado Simulator 2015.2
+Copyright 1986-1999, 2001-2015 Xilinx, Inc. All Rights Reserved.
+Running: /afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/bin/unwrapped/lnx64.o/xelab -wto 8c4eff9f186f4275bdba3e1f0fb2effe --debug typical --relax --mt 8 --include ../../../../../hw/vlog/amber23 --include ../../../Amber_25.srcs/sources_1/imports/amber23 --include ../../../Amber_25.srcs/sources_1/imports/vlog/amber25 --include ../../../Amber_25.srcs/sources_1/imports/vlog/ethmac --include ../../../Amber_25.srcs/sources_1/imports/vlog/system --include ../../../Amber_25.srcs/sources_1/imports/vlog/tb -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/system.v" Line 45. Module system_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_core.v" Line 45. Module a25_core doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_fetch.v" Line 45. Module a25_fetch doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_icache.v" Line 46. Module a25_icache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decode.v" Line 44. Module a25_decode doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_execute.v" Line 45. Module a25_execute doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_barrel_shift.v" Line 42. Module a25_barrel_shift doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" Line 42. Module a25_shifter_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" Line 42. Module a25_shifter(FULL_BARREL=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_alu.v" Line 43. Module a25_alu doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_multiply.v" Line 56. Module a25_multiply doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_register_bank.v" Line 44. Module a25_register_bank doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_mem.v" Line 45. Module a25_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_dcache.v" Line 48. Module a25_dcache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_write_back.v" Line 42. Module a25_write_back doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone.v" Line 60. Module a25_wishbone doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_coprocessor.v" Line 41. Module a25_coprocessor doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=32,ADDRESS_WIDTH=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_iobuf.v" Line 42. Module generic_iobuf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/boot_mem128.v" Line 45. Module boot_mem128 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" Line 62. Module uart(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" Line 62. Module uart(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/test_module.v" Line 44. Module test_module(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/timer_module.v" Line 43. Module timer_module(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/interrupt_controller.v" Line 43. Module interrupt_controller(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/main_mem.v" Line 46. Module main_mem(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wishbone_arbiter.v" Line 45. Module wishbone_arbiter(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/ethmac_wb.v" Line 44. Module ethmac_wb(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/dumpvcd.v" Line 45. Module dumpvcd doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/system.v" Line 45. Module system_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_core.v" Line 45. Module a25_core doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_fetch.v" Line 45. Module a25_fetch doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_icache.v" Line 46. Module a25_icache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_decode.v" Line 44. Module a25_decode doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_execute.v" Line 45. Module a25_execute doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_barrel_shift.v" Line 42. Module a25_barrel_shift doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" Line 42. Module a25_shifter_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_shifter.v" Line 42. Module a25_shifter(FULL_BARREL=0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_alu.v" Line 43. Module a25_alu doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_multiply.v" Line 56. Module a25_multiply doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_register_bank.v" Line 44. Module a25_register_bank doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_mem.v" Line 45. Module a25_mem doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_dcache.v" Line 48. Module a25_dcache_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_line_en.v" Line 42. Module generic_sram_line_en(DATA_WIDTH=32'b010101,ADDRESS_WIDTH=32'b01000,INITIALIZE_TO_ZERO=1) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_write_back.v" Line 42. Module a25_write_back doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone.v" Line 60. Module a25_wishbone doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_wishbone_buf.v" Line 52. Module a25_wishbone_buf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/amber25/a25_coprocessor.v" Line 41. Module a25_coprocessor doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=32,ADDRESS_WIDTH=8) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_iobuf.v" Line 42. Module generic_iobuf doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/boot_mem128.v" Line 45. Module boot_mem128 doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" Line 62. Module uart(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/uart.v" Line 62. Module uart(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/test_module.v" Line 44. Module test_module(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/timer_module.v" Line 43. Module timer_module(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/interrupt_controller.v" Line 43. Module interrupt_controller(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/main_mem.v" Line 46. Module main_mem(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/wishbone_arbiter.v" Line 45. Module wishbone_arbiter(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/system/ethmac_wb.v" Line 44. Module ethmac_wb(WB_DWIDTH=128,WB_SWIDTH=16) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/dumpvcd.v" Line 45. Module dumpvcd doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.clocks_resets
+Compiling module xil_defaultlib.generic_sram_line_en(DATA_WIDTH=...
+Compiling module xil_defaultlib.generic_sram_byte_en(DATA_WIDTH=...
+Compiling module xil_defaultlib.a25_icache_default
+Compiling module xil_defaultlib.a25_fetch
+Compiling module xil_defaultlib.a25_decompile_2
+Compiling module xil_defaultlib.a25_decode
+Compiling module xil_defaultlib.a25_shifter_default
+Compiling module xil_defaultlib.a25_shifter(FULL_BARREL=0)
+Compiling module xil_defaultlib.a25_barrel_shift
+Compiling module xil_defaultlib.a25_alu
+Compiling module xil_defaultlib.a25_multiply
+Compiling module xil_defaultlib.a25_register_bank
+Compiling module xil_defaultlib.a25_execute
+Compiling module xil_defaultlib.a25_dcache_default
+Compiling module xil_defaultlib.a25_mem
+Compiling module xil_defaultlib.a25_write_back
+Compiling module xil_defaultlib.a25_wishbone_buf
+Compiling module xil_defaultlib.a25_wishbone
+Compiling module xil_defaultlib.a25_coprocessor
+Compiling module xil_defaultlib.a25_core
+Compiling module xil_defaultlib.eth_clockgen
+Compiling module xil_defaultlib.eth_shiftreg
+Compiling module xil_defaultlib.eth_outputcontrol
+Compiling module xil_defaultlib.eth_miim
+Compiling module xil_defaultlib.eth_register(RESET_VALUE=8'b0)
+Compiling module xil_defaultlib.eth_register(RESET_VALUE=8'b1010...
+Compiling module xil_defaultlib.eth_register(WIDTH=1,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=7,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=7,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=7,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(RESET_VALUE=8'b0110...
+Compiling module xil_defaultlib.eth_register(RESET_VALUE=8'b0100...
+Compiling module xil_defaultlib.eth_register(WIDTH=6,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=4,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=3,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(RESET_VALUE=8'b0110...
+Compiling module xil_defaultlib.eth_register(WIDTH=1)
+Compiling module xil_defaultlib.eth_register(WIDTH=5,RESET_VALUE...
+Compiling module xil_defaultlib.eth_register(WIDTH=16,RESET_VALU...
+Compiling module xil_defaultlib.eth_registers
+Compiling module xil_defaultlib.eth_receivecontrol
+Compiling module xil_defaultlib.eth_transmitcontrol
+Compiling module xil_defaultlib.eth_maccontrol
+Compiling module xil_defaultlib.eth_txcounters
+Compiling module xil_defaultlib.eth_txstatem
+Compiling module xil_defaultlib.eth_crc
+Compiling module xil_defaultlib.eth_random
+Compiling module xil_defaultlib.eth_txethmac
+Compiling module xil_defaultlib.eth_rxstatem
+Compiling module xil_defaultlib.eth_rxcounters
+Compiling module xil_defaultlib.eth_rxaddrcheck
+Compiling module xil_defaultlib.eth_rxethmac
+Compiling module xil_defaultlib.generic_sram_byte_en(DATA_WIDTH=...
+Compiling module xil_defaultlib.eth_spram_256x32
+Compiling module xil_defaultlib.eth_fifo(DEPTH=16,CNT_WIDTH=5)
+Compiling module xil_defaultlib.eth_wishbone
+Compiling module xil_defaultlib.eth_macstatus
+Compiling module xil_defaultlib.eth_top
+Compiling module xil_defaultlib.generic_iobuf
+Compiling module xil_defaultlib.generic_sram_byte_en(DATA_WIDTH=...
+Compiling module xil_defaultlib.boot_mem128
+Compiling module xil_defaultlib.uart(WB_DWIDTH=128,WB_SWIDTH=16)
+Compiling module xil_defaultlib.test_module(WB_DWIDTH=128,WB_SWI...
+Compiling module xil_defaultlib.timer_module(WB_DWIDTH=128,WB_SW...
+Compiling module xil_defaultlib.interrupt_controller(WB_DWIDTH=1...
+Compiling module xil_defaultlib.main_mem(WB_DWIDTH=128,WB_SWIDTH...
+Compiling module xil_defaultlib.wishbone_arbiter(WB_DWIDTH=128,W...
+Compiling module xil_defaultlib.ethmac_wb(WB_DWIDTH=128,WB_SWIDT...
+Compiling module xil_defaultlib.system_default
+Compiling module xil_defaultlib.eth_test
+Compiling module xil_defaultlib.tb_uart_default
+Compiling module xil_defaultlib.dumpvcd
+Compiling module xil_defaultlib.tb
+Compiling module xil_defaultlib.glbl
+Waiting for 1 sub-compilation(s) to finish...
+Built simulation snapshot tb_behav
+
+****** Webtalk v2015.2 (64-bit)
+  **** SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+  **** IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+    ** Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+
+source /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav/xsim.dir/tb_behav/webtalk/xsim_webtalk.tcl -notrace
+
+    while executing
+"webtalk_transmit -clientid 1003746877 -regid "174679548_176449548_210570730_342" -xml /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Am..."
+    (file "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav/xsim.dir/tb_behav/webtalk/xsim_webtalk.tcl" line 42)
+INFO: [Common 17-206] Exiting Webtalk at Mon Oct 12 09:29:21 2015...
+run_program: Time (s): cpu = 00:00:17 ; elapsed = 00:00:10 . Memory (MB): peak = 1017.773 ; gain = 0.000 ; free physical = 3102 ; free virtual = 16682
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.sim/sim_1/behav'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_behav -key {Behavioral:sim_1:Functional:tb} -tclbatch {tb.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2015.2
+Time resolution is 1 ps
+source tb.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 10000000ns
+Load boot memory from /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tests/add.mem
+Read in 411 lines
+Core amber25, log file tests.log, timeout 0, test name add 
+
+----------------------------------------------------------------------------
+Amber Core
+         User         FIRQ         IRQ        > SVC
+r0       0x00000000
+r1       0x00000007
+r2       0x00000003
+r3       0x00000001
+r4       0x00000003
+r5       0x00000000
+r6       0x00000100
+r7       0x00000000
+r8       0x00000015   0xdeadbeef 
+r9       0x00000000   0xdeadbeef 
+r10      0x00000011   0xdeadbeef 
+r11      0xf0000000   0xdeadbeef 
+r12      0xdeadbeef   0xdeadbeef 
+r13      0xdeadbeef   0xdeadbeef   0xdeadbeef   0xdeadbeef
+r14 (lr) 0xdeadbeef   0xdeadbeef   0xdeadbeef   0xdeadbeef
+r15 (pc) 0x000001e8
+
+Status Bits: N=0, Z=1, C=1, V=0, IRQ Mask 0, FIRQ Mask 0, Mode = Supervisor    
+----------------------------------------------------------------------------
+
+++++++++++++++++++++
+Passed add 43137 ticks
+++++++++++++++++++++
+$finish called at time : 1078402500 ps : File "/home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/sources_1/imports/vlog/tb/tb.v" Line 508
+run: Time (s): cpu = 00:00:00.16 ; elapsed = 00:00:05 . Memory (MB): peak = 1059.816 ; gain = 0.000 ; free physical = 2571 ; free virtual = 16164
+xsim: Time (s): cpu = 00:00:00.19 ; elapsed = 00:00:06 . Memory (MB): peak = 1059.816 ; gain = 32.828 ; free physical = 2571 ; free virtual = 16164
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 10000000ns
+launch_simulation: Time (s): cpu = 00:00:17 ; elapsed = 00:00:16 . Memory (MB): peak = 1059.816 ; gain = 42.043 ; free physical = 2571 ; free virtual = 16164
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 12 09:29:31 2015...

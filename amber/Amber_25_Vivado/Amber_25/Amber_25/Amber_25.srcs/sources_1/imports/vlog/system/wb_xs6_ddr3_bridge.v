@@ -64,14 +64,14 @@ output                         o_wb_err,
 
 output                         o_cmd_en,                // Command Enable
 output reg [2:0]               o_cmd_instr      = 'd0,  // write = 000, read = 001
-output reg [29:0]              o_cmd_byte_addr  = 'd0,  // Memory address
+output reg [27:0]              o_cmd_byte_addr  = 'd0,  // Memory address
 input                          i_cmd_full,              // DDR3 I/F Command FIFO is full
 
 input                          i_wr_full,               // DDR3 I/F Write Data FIFO is full
 output                         o_wr_en,                 // Write data enable
-output reg [15:0]              o_wr_mask        = 'd0,  // 1 bit per byte
-output reg [127:0]             o_wr_data        = 'd0,  // 16 bytes write data
-input      [127:0]             i_rd_data,               // 16 bytes of read data
+output reg [31:0]              o_wr_mask        = 'd0,  // 1 bit per byte
+output reg [255:0]             o_wr_data        = 'd0,  // 16 bytes write data
+input      [255:0]             i_rd_data,               // 16 bytes of read data
 input                          i_rd_empty               // low when read data is valid
 
 );
@@ -81,7 +81,7 @@ wire            read_request;
 reg             write_request_r;
 reg             read_request_r;
 reg             read_active_r = 'd0;
-reg  [29:0]     wb_adr_r;
+reg  [27:0]     wb_adr_r;
 reg             cmd_full_r = 1'd0;
 reg             read_ack_r = 'd0;
 reg             read_ready = 1'd1;
@@ -108,13 +108,13 @@ assign o_wb_err      = 'd0;
 // Outputs
 // ------------------------------------------------------
 always @( posedge i_clk )
-    cmd_full_r       <= i_cmd_full;
+    cmd_full_r       <= i_cmd_full; //not a signal that exists now
 
 // Command FIFO
 always @( posedge i_clk )
     if ( !i_cmd_full )
         begin
-        o_cmd_byte_addr  <= {wb_adr_r[29:4], 4'd0};
+        o_cmd_byte_addr  <= {wb_adr_r[27:2]};
         cmd_en_r         <= ( write_request_r || read_request_r );
         o_cmd_instr      <= write_request_r ? 3'd0 : 3'd1;
         end
@@ -127,13 +127,13 @@ assign o_cmd_en = cmd_en_r && !i_cmd_full;
 // ------------------------------------------------------
 always @( posedge i_clk )
     if ( i_cmd_full && write_request )
-        begin
+        begin //these are all from wishbone, fine
         write_buf_r     <= 1'd1;
         wb_sel_buf_r    <= i_wb_sel;
         wb_dat_buf_r    <= i_wb_dat;
         wb_adr_buf_r    <= i_wb_adr;
         end
-    else if ( !i_cmd_full )
+    else if ( !i_cmd_full ) //not a signal that exists anymore
         write_buf_r     <= 1'd0;
 
 // ------------------------------------------------------
@@ -150,14 +150,21 @@ generate
 if (WB_DWIDTH == 32) begin :wb32w
 
     always @( posedge i_clk )
-        if ( !i_cmd_full )
+        if ( !i_cmd_full ) //not a signal that exists anymore
             begin
             wr_en_r    <= write_request || write_buf_r;
             
-            o_wr_mask  <= wb_adr[3:2] == 2'd0 ? { 12'hfff, ~wb_sel          } : 
-                          wb_adr[3:2] == 2'd1 ? { 8'hff,   ~wb_sel, 4'hf    } : 
-                          wb_adr[3:2] == 2'd2 ? { 4'hf,    ~wb_sel, 8'hff   } : 
-                                                {          ~wb_sel, 12'hfff } ; 
+            o_wr_mask  <= wb_adr[4:2] == 3'd0 ? { 28'hfffffff, ~wb_sel              } : 
+                          wb_adr[4:2] == 3'd1 ? { 24'hffffff,  ~wb_sel, 4'hf        } : 
+                          wb_adr[4:2] == 3'd2 ? { 20'hfffff,   ~wb_sel, 8'hff       } : 
+                          wb_adr[4:2] == 3'd3 ? { 16'hffff,    ~wb_sel, 12'hfff     } :
+	                  wb_adr[4:2] == 3'd4 ? { 12'hfff,     ~wb_sel, 16'hffff    } :
+			  wb_adr[4:2] == 3'd5 ? { 8'hff,       ~wb_sel, 20'hfffff   } :
+			  wb_adr[4:2] == 3'd6 ? { 4'hf,        ~wb_sel, 24'hffffff  } :
+			                        {              ~wb_sel, 28'hfffffff } ;
+	       
+			  
+	       //now we have 256 bits instead of 128, so we need to write a bunch of extra zeroes
             
             o_wr_data  <= {4{wb_dat}};
             end
@@ -166,7 +173,7 @@ end
 else begin : wb128w
 
     always @( posedge i_clk )
-        if ( !i_cmd_full )
+        if ( !i_cmd_full ) //not a signal that exists anymore
             begin
             wr_en_r    <= write_request;
             o_wr_mask  <= ~wb_sel; 
@@ -176,7 +183,7 @@ else begin : wb128w
 end
 endgenerate
 
-assign o_wr_en = wr_en_r && !i_cmd_full;
+assign o_wr_en = wr_en_r && !i_cmd_full; //full is not a signal that exists anymore
 
 
 // ------------------------------------------------------
@@ -184,16 +191,16 @@ assign o_wr_en = wr_en_r && !i_cmd_full;
 // ------------------------------------------------------
 always @( posedge i_clk )
     begin
-    if ( read_ack_r )
+    if ( read_ack_r ) //do we still have an ack signal??
         read_ready <= 1'd1;
     else if ( read_request )
         read_ready <= 1'd0;
     
-    if ( !i_cmd_full )
+    if ( !i_cmd_full )//not a signal that exists anymore
         begin
         write_request_r  <= write_request;
         read_request_r   <= read_request;
-        wb_adr_r         <= i_mem_ctrl ? {5'd0, i_wb_adr[24:0]} : i_wb_adr[29:0];
+        wb_adr_r         <= i_mem_ctrl ? {5'd0, i_wb_adr[24:0]} : i_wb_adr[27:0];
         end
         
     if ( read_request  )
@@ -213,10 +220,16 @@ if (WB_DWIDTH == 32) begin :wb32r
 
     always @( posedge i_clk )
         if ( !i_rd_empty && read_active_r )
-            o_wb_dat  <= i_wb_adr[3:2] == 2'd0 ? i_rd_data[ 31: 0] :
-                         i_wb_adr[3:2] == 2'd1 ? i_rd_data[ 63:32] :
-                         i_wb_adr[3:2] == 2'd2 ? i_rd_data[ 95:64] :
-                                                 i_rd_data[127:96] ;
+            o_wb_dat  <= i_wb_adr[4:2] == 3'd0 ? i_rd_data[ 31: 0]  :
+                         i_wb_adr[4:2] == 3'd1 ? i_rd_data[ 63:32]  :
+                         i_wb_adr[4:2] == 3'd2 ? i_rd_data[ 95:64]  :
+                                                 i_rd_data[127:96]  ;
+   
+	/*		 i_wb_adr[4:2] == 3'd4 ? i_rd_data[159:128] :
+			 i_wb_adr[4:2] == 3'd5 ? i_rd_data[191:160] :
+			 i_wb_adr[4:2] == 3'd6 ? i_rd_data[223:192] :
+			                         i_rd_data[255:224] ; */
+   //don't forget now we have 256 bits, so we read all of them and only send the first 128??
 
 end
 else begin : wb128r

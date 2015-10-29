@@ -50,7 +50,7 @@ set rc [catch {
   create_msg_db write_bitstream.pb
   debug::add_scope template.lib 1
   open_checkpoint top_routed.dcp
-  set_property webtalk.parent_dir C:/Users/wpehr/project_1/project_1.cache/wt [current_project]
+  set_property webtalk.parent_dir /afs/ece.cmu.edu/usr/brianjac/Desktop/545Project/Labs/Lab_1/project_1/project_1.cache/wt [current_project]
   write_bitstream -force top.bit 
   catch { write_sysdef -hwdef top.hwdef -bitfile top.bit -meminfo top.mmi -ltxfile debug_nets.ltx -file top.sysdef }
   close_msg_db -file write_bitstream.pb

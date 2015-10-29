@@ -1,0 +1,20 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Mon Oct 12 09:26:32 2015
+# Process ID: 4285
+# Log file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.log
+# Journal file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:05 . Memory (MB): peak = 5886.516 ; gain = 109.430 ; free physical = 2806 ; free virtual = 16391
+set_property -name {xsim.simulate.runtime} -value {10000000ns} -objects [current_fileset -simset]
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 12 09:27:37 2015...

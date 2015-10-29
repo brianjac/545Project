@@ -1,0 +1,26 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Mon Oct 12 15:49:08 2015
+# Process ID: 15932
+# Log file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.log
+# Journal file: /home/DRRA/545Project/amber/Amber_25_Vivado/asm_tests/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.xpr
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+file mkdir /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/constrs_1
+file mkdir /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/constrs_1/new
+close [ open /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/constrs_1/new/amber_constraints.xdc w ]
+add_files -fileset constrs_1 /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/constrs_1/new/amber_constraints.xdc
+create_fileset -constrset amber_constraints
+file mkdir /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/amber_constraints
+file mkdir /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/amber_constraints/new
+close [ open /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/amber_constraints/new/amber_constraints.xdc w ]
+add_files -fileset amber_constraints /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/amber_constraints/new/amber_constraints.xdc
+add_files -fileset amber_constraints -norecurse /home/DRRA/545Project/amber/Amber_25_Vivado/Amber_25/Amber_25/Amber_25.srcs/amber_constraints/new/amber_constraints.xdc
+set_property constrset amber_constraints [get_runs synth_1]
+set_property constrset amber_constraints [get_runs impl_1]
