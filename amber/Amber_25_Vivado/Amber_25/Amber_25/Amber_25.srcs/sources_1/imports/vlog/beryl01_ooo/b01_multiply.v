@@ -53,7 +53,7 @@
 //  case of two max negative numbers another bit is required.
 //
 
-module a25_multiply (
+module b01_multiply (
 input                       i_clk,
 input                       i_core_stall,
 
@@ -68,7 +68,7 @@ output reg                  o_done = 'd0    // goes high 2 cycles before complet
 );
 
 
-wire        enable;
+/*wire        enable;
 wire        accumulate;
 wire [33:0] multiplier;
 wire [33:0] multiplier_bar;
@@ -83,6 +83,7 @@ reg  [1:0]  flags_nxt;
 wire [32:0] sum_acc1;           // the MSB is the carry out for the upper 32 bit addition
 
 
+//these two values must be registered and carried forward through an implicit pipeline (i.e. a shift register, in this case) to provide the proper signals when the onboard MACs are done with the multiply operation. The multiplier generated from the Xilinx IP catalog registers its output, so in all cases, we'll take one additional cycle and add either 0 or a register value to the result depending on the accumulate flag before the result is added to the reorder buffer.
 assign enable         = i_function[0];
 assign accumulate     = i_function[1];
  
@@ -91,11 +92,11 @@ assign multiplier_bar = ~{ 2'd0, i_a_in} + 34'd1 ;
 
 assign sum34_b        =  product[1:0] == 2'b01 ? multiplier     :
                          product[1:0] == 2'b10 ? multiplier_bar :
-                                                 34'd0          ;
+                                                 34'd0          ;*/
 
 
 // Use DSP modules from Xilinx Spartan6 FPGA devices
-`ifdef XILINX_FPGA
+/*`ifdef XILINX_FPGA
     // -----------------------------------
     // 34-bit adder - booth multiplication
     // -----------------------------------
@@ -145,7 +146,7 @@ assign sum34_b        =  product[1:0] == 2'b01 ? multiplier     :
     // ------------------------------------
     assign sum_acc1 = {1'd0, product[32:1]} + {1'd0, i_a_in};
      
-`endif
+`endif*/
 
 
 always @*
