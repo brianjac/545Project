@@ -1319,3 +1319,9 @@ assign  xMODE  =  status_bits_mode == SVC  ? "SVC"  :
 endmodule
 
 
+/*
+======== Notes on branches and interrupts: ========
+1) Branches must be resolved in this stage in a single cycle and without being dispatched to any station (unless there exist data dependencies).
+2) Not just branches, but ALL program counter changes must happen in this stage and in a single cycle (unless there exist data dependencies).
+3) Interrupts are simply signaled at the input and cause a jump to a specific address; no special handling is needed other than pre-existing PC modification logic.
+*/
