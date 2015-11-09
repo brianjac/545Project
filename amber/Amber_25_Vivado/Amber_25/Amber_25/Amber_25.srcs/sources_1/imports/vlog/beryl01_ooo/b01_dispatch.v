@@ -163,7 +163,7 @@ typedef struct mem_station_entry {
 
 
 
-module a25_execute (
+module b01_dispatch (
 
 input                       i_clk,
 input                       i_core_stall,               // stall all stages of the Amber core at the same time

@@ -41,6 +41,18 @@
 //                                                              //
 //////////////////////////////////////////////////////////////////
 
+typedef struct reg_line {
+	reg			valid = 1'd1;
+	reg [5:0] 	tag = 6'd0;
+	reg [31:0] 	data = 32'hdead_beef;
+} reg_line;
+
+typedef struct pc_line {
+	reg 		valid = 1'd1;
+	reg [5:0]	tag = 1'd0;
+	reg [23:0]	data = 24'h00_0000;
+} pc_line;
+
 module a25_register_bank (
 
 input                       i_clk,
@@ -79,6 +91,33 @@ output reg  [31:0]          o_rd,
 output      [31:0]          o_rn,
 output      [31:0]          o_pc,
 
+//items for OOO
+input						i_alu_valid,
+input						i_mult_valid,
+input						i_mem_valid,
+input		[5:0]			i_alu_tag,
+input		[5:0]			i_mult_tag,
+input		[5:0]			i_mem_tag,
+input		[31:0]			i_alu_data,
+input		[31:0]			i_mult_data,
+input		[31:0]			i_mem_data,
+input		[3:0]			i_alu_flags,
+input		[3:0]			i_mult_flags,
+input		[3:0]			i_mem_flags,
+
+output						o_rm_valid,
+output						o_rs_valid,
+output						o_rd_valid,
+output						o_rn_valid,
+output						o_pc_valid,
+output		[5:0]			o_rm_tag,
+output		[5:0]			o_rs_tag,
+output		[5:0]			o_rd_tag,
+output		[5:0]			o_rn_tag,
+output		[5:0]			o_pc_tag,
+
+input		[5:0]			i_rd_tag,
+
 output logic [7:0] led,
 input [7:0] sw
 
@@ -89,23 +128,23 @@ input [7:0] sw
 
 
 // User Mode Registers
-reg  [31:0] r0  = 32'hdead_beef;
-reg  [31:0] r1  = 32'hdead_beef;
-reg  [31:0] r2  = 32'hdead_beef;
-reg  [31:0] r3  = 32'hdead_beef;
-reg  [31:0] r4  = 32'hdead_beef;
-reg  [31:0] r5  = 32'hdead_beef;
-reg  [31:0] r6  = 32'hdead_beef;
-reg  [31:0] r7  = 32'hdead_beef;
-reg  [31:0] r8  = 32'hdead_beef;
-reg  [31:0] r9  = 32'hdead_beef;
-reg  [31:0] r10 = 32'hdead_beef;
-reg  [31:0] r11 = 32'hdead_beef;
-reg  [31:0] r12 = 32'hdead_beef;
-reg  [31:0] r13 = 32'hdead_beef;
-reg  [31:0] r14 = 32'hdead_beef;
+reg_line r0;
+reg_line r1;
+reg_line r2;
+reg_line r3;
+reg_line r4;
+reg_line r5;
+reg_line r6;
+reg_line r7;
+reg_line r8;
+reg_line r9;
+reg_line r10;
+reg_line r11;
+reg_line r12;
+reg_line r13;
+reg_line r14;
 //reg  [23:0] r15 = 24'hc0_ffee;
-reg  [23:0] r15 = 24'h00_0000;
+pc_line r15;
 
 wire  [31:0] r0_out;
 wire  [31:0] r1_out;
@@ -135,21 +174,21 @@ wire  [31:0] r13_rds;
 wire  [31:0] r14_rds;
 
 // Supervisor Mode Registers
-reg  [31:0] r13_svc = 32'hdead_beef;
-reg  [31:0] r14_svc = 32'hdead_beef;
+reg_line r13_svc;
+reg_line r14_svc;
 
 // Interrupt Mode Registers
-reg  [31:0] r13_irq = 32'hdead_beef;
-reg  [31:0] r14_irq = 32'hdead_beef;
+reg_line r13_irq;
+reg_line r14_irq;
 
 // Fast Interrupt Mode Registers
-reg  [31:0] r8_firq  = 32'hdead_beef;
-reg  [31:0] r9_firq  = 32'hdead_beef;
-reg  [31:0] r10_firq = 32'hdead_beef;
-reg  [31:0] r11_firq = 32'hdead_beef;
-reg  [31:0] r12_firq = 32'hdead_beef;
-reg  [31:0] r13_firq = 32'hdead_beef;
-reg  [31:0] r14_firq = 32'hdead_beef;
+reg_line r8_firq;
+reg_line r9_firq;
+reg_line r10_firq;
+reg_line r11_firq;
+reg_line r12_firq;
+reg_line r13_firq;
+reg_line r14_firq;
 
 wire        usr_exec;
 wire        svc_exec;
@@ -190,6 +229,501 @@ assign pc_dmem_wen    = i_wb_read_data_valid & ~i_mem_stall & i_wb_read_data_rd 
 // ========================================================
 // Register Update
 // ========================================================
+
+//note that the same-indexed bit will never be 1 in more than one of these at a time
+logic [15:0] tag_match_alu;
+logic [15:0] tag_match_mult;
+logic [15:0] tag_match_mem;
+
+//Tag comparison at each register's tag and valid bits with data being retired this cycle
+always_comb begin
+	//defaults
+	tag_match_alu = 16'd0;
+	tag_match_mult = 16'd0;
+	tag_match_mem = 16'd0;
+	
+	//ALU
+	//r0-r7, used in all modes
+	if (!r0.valid && i_alu_valid && r0.tag == i_alu_tag) tag_match_alu[0 ] = 1'b1;
+	if (!r1.valid && i_alu_valid && r1.tag == i_alu_tag) tag_match_alu[1 ] = 1'b1;
+	if (!r2.valid && i_alu_valid && r2.tag == i_alu_tag) tag_match_alu[2 ] = 1'b1;
+	if (!r3.valid && i_alu_valid && r3.tag == i_alu_tag) tag_match_alu[3 ] = 1'b1;
+	if (!r4.valid && i_alu_valid && r4.tag == i_alu_tag) tag_match_alu[4 ] = 1'b1;
+	if (!r5.valid && i_alu_valid && r5.tag == i_alu_tag) tag_match_alu[5 ] = 1'b1;
+	if (!r6.valid && i_alu_valid && r6.tag == i_alu_tag) tag_match_alu[6 ] = 1'b1;
+	if (!r7.valid && i_alu_valid && r7.tag == i_alu_tag) tag_match_alu[7 ] = 1'b1;
+	
+	//r8-r12, depending on if we're in FIRQ mode or not
+	if (i_wb_mode != FIRQ) begin
+		if (!r8.valid && i_alu_valid && r8.tag == i_alu_tag) tag_match_alu[8 ] = 1'b1;
+		if (!r9.valid && i_alu_valid && r9.tag == i_alu_tag) tag_match_alu[9 ] = 1'b1;
+		if (!r10.valid && i_alu_valid && r10.tag == i_alu_tag) tag_match_alu[10] = 1'b1;
+		if (!r11.valid && i_alu_valid && r11.tag == i_alu_tag) tag_match_alu[11] = 1'b1;
+		if (!r12.valid && i_alu_valid && r12.tag == i_alu_tag) tag_match_alu[12] = 1'b1;
+	end
+	else begin
+		if (!r8_firq.valid && i_alu_valid && r8_firq.tag == i_alu_tag) tag_match_alu[8 ] = 1'b1;
+		if (!r9_firq.valid && i_alu_valid && r9_firq.tag == i_alu_tag) tag_match_alu[9 ] = 1'b1;
+		if (!r10_firq.valid && i_alu_valid && r10_firq.tag == i_alu_tag) tag_match_alu[10] = 1'b1;
+		if (!r11_firq.valid && i_alu_valid && r11_firq.tag == i_alu_tag) tag_match_alu[11] = 1'b1;
+		if (!r12_firq.valid && i_alu_valid && r12_firq.tag == i_alu_tag) tag_match_alu[12] = 1'b1;
+	end
+	
+	//r13-r14, based on our mode
+	if (i_wb_mode == USR) begin
+		if (!r13.valid && i_alu_valid && r13.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
+		if (!r14.valid && i_alu_valid && r14.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
+	end
+	else if (i_wb_mode == SVC) begin
+		if (!r13_svc.valid && i_alu_valid && r13_svc.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
+		if (!r14_svc.valid && i_alu_valid && r14_svc.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
+	end
+	else if (i_wb_mode == IRQ) begin
+		if (!r13_irq.valid && i_alu_valid && r13_irq.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
+		if (!r14_irq.valid && i_alu_valid && r14_irq.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
+	end
+	else if (i_wb_mode == FIRQ) begin
+		if (!r13_firq.valid && i_alu_valid && r13_firq.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
+		if (!r14_firq.valid && i_alu_valid && r14_firq.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
+	end
+	
+	//r15 (PC), handled the same in all modes
+	if (!r15.valid && i_alu_valid && r15.tag == i_alu_tag) tag_match_alu[15] = 1'b1;
+	
+	
+	//Mult
+	//r0-r7, used in all modes
+	if (!r0.valid && i_mult_valid && r0.tag == i_mult_tag) tag_match_mult[0 ] = 1'b1;
+	if (!r1.valid && i_mult_valid && r1.tag == i_mult_tag) tag_match_mult[1 ] = 1'b1;
+	if (!r2.valid && i_mult_valid && r2.tag == i_mult_tag) tag_match_mult[2 ] = 1'b1;
+	if (!r3.valid && i_mult_valid && r3.tag == i_mult_tag) tag_match_mult[3 ] = 1'b1;
+	if (!r4.valid && i_mult_valid && r4.tag == i_mult_tag) tag_match_mult[4 ] = 1'b1;
+	if (!r5.valid && i_mult_valid && r5.tag == i_mult_tag) tag_match_mult[5 ] = 1'b1;
+	if (!r6.valid && i_mult_valid && r6.tag == i_mult_tag) tag_match_mult[6 ] = 1'b1;
+	if (!r7.valid && i_mult_valid && r7.tag == i_mult_tag) tag_match_mult[7 ] = 1'b1;
+	
+	//r8-r12, depending on if we're in FIRQ mode or not
+	if (i_wb_mode != FIRQ) begin
+		if (!r8.valid && i_mult_valid && r8.tag == i_mult_tag) tag_match_mult[8 ] = 1'b1;
+		if (!r9.valid && i_mult_valid && r9.tag == i_mult_tag) tag_match_mult[9 ] = 1'b1;
+		if (!r10.valid && i_mult_valid && r10.tag == i_mult_tag) tag_match_mult[10] = 1'b1;
+		if (!r11.valid && i_mult_valid && r11.tag == i_mult_tag) tag_match_mult[11] = 1'b1;
+		if (!r12.valid && i_mult_valid && r12.tag == i_mult_tag) tag_match_mult[12] = 1'b1;
+	end
+	else begin
+		if (!r8_firq.valid && i_mult_valid && r8_firq.tag == i_mult_tag) tag_match_mult[8 ] = 1'b1;
+		if (!r9_firq.valid && i_mult_valid && r9_firq.tag == i_mult_tag) tag_match_mult[9 ] = 1'b1;
+		if (!r10_firq.valid && i_mult_valid && r10_firq.tag == i_mult_tag) tag_match_mult[10] = 1'b1;
+		if (!r11_firq.valid && i_mult_valid && r11_firq.tag == i_mult_tag) tag_match_mult[11] = 1'b1;
+		if (!r12_firq.valid && i_mult_valid && r12_firq.tag == i_mult_tag) tag_match_mult[12] = 1'b1;
+	end
+	
+	//r13-r14, based on our mode
+	if (i_wb_mode == USR) begin
+		if (!r13.valid && i_mult_valid && r13.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
+		if (!r14.valid && i_mult_valid && r14.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
+	end
+	else if (i_wb_mode == SVC) begin
+		if (!r13_svc.valid && i_mult_valid && r13_svc.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
+		if (!r14_svc.valid && i_mult_valid && r14_svc.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
+	end
+	else if (i_wb_mode == IRQ) begin
+		if (!r13_irq.valid && i_mult_valid && r13_irq.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
+		if (!r14_irq.valid && i_mult_valid && r14_irq.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
+	end
+	else if (i_wb_mode == FIRQ) begin
+		if (!r13_firq.valid && i_mult_valid && r13_firq.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
+		if (!r14_firq.valid && i_mult_valid && r14_firq.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
+	end
+	
+	//r15 (PC), handled the same in all modes
+	if (!r15.valid && i_mult_valid && r15.tag == i_mult_tag) tag_match_mult[15] = 1'b1;
+	
+	
+	
+	//Mem
+	//r0-r7, used in all modes
+	if (!r0.valid && i_mem_valid && r0.tag == i_mem_tag) tag_match_mem[0 ] = 1'b1;
+	if (!r1.valid && i_mem_valid && r1.tag == i_mem_tag) tag_match_mem[1 ] = 1'b1;
+	if (!r2.valid && i_mem_valid && r2.tag == i_mem_tag) tag_match_mem[2 ] = 1'b1;
+	if (!r3.valid && i_mem_valid && r3.tag == i_mem_tag) tag_match_mem[3 ] = 1'b1;
+	if (!r4.valid && i_mem_valid && r4.tag == i_mem_tag) tag_match_mem[4 ] = 1'b1;
+	if (!r5.valid && i_mem_valid && r5.tag == i_mem_tag) tag_match_mem[5 ] = 1'b1;
+	if (!r6.valid && i_mem_valid && r6.tag == i_mem_tag) tag_match_mem[6 ] = 1'b1;
+	if (!r7.valid && i_mem_valid && r7.tag == i_mem_tag) tag_match_mem[7 ] = 1'b1;
+	
+	//r8-r12, depending on if we're in FIRQ mode or not
+	if (i_wb_mode != FIRQ) begin
+		if (!r8.valid && i_mem_valid && r8.tag == i_mem_tag) tag_match_mem[8 ] = 1'b1;
+		if (!r9.valid && i_mem_valid && r9.tag == i_mem_tag) tag_match_mem[9 ] = 1'b1;
+		if (!r10.valid && i_mem_valid && r10.tag == i_mem_tag) tag_match_mem[10] = 1'b1;
+		if (!r11.valid && i_mem_valid && r11.tag == i_mem_tag) tag_match_mem[11] = 1'b1;
+		if (!r12.valid && i_mem_valid && r12.tag == i_mem_tag) tag_match_mem[12] = 1'b1;
+	end
+	else begin
+		if (!r8_firq.valid && i_mem_valid && r8_firq.tag == i_mem_tag) tag_match_mem[8 ] = 1'b1;
+		if (!r9_firq.valid && i_mem_valid && r9_firq.tag == i_mem_tag) tag_match_mem[9 ] = 1'b1;
+		if (!r10_firq.valid && i_mem_valid && r10_firq.tag == i_mem_tag) tag_match_mem[10] = 1'b1;
+		if (!r11_firq.valid && i_mem_valid && r11_firq.tag == i_mem_tag) tag_match_mem[11] = 1'b1;
+		if (!r12_firq.valid && i_mem_valid && r12_firq.tag == i_mem_tag) tag_match_mem[12] = 1'b1;
+	end
+	
+	//r13-r14, based on our mode
+	if (i_wb_mode == USR) begin
+		if (!r13.valid && i_mem_valid && r13.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
+		if (!r14.valid && i_mem_valid && r14.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
+	end
+	else if (i_wb_mode == SVC) begin
+		if (!r13_svc.valid && i_mem_valid && r13_svc.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
+		if (!r14_svc.valid && i_mem_valid && r14_svc.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
+	end
+	else if (i_wb_mode == IRQ) begin
+		if (!r13_irq.valid && i_mem_valid && r13_irq.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
+		if (!r14_irq.valid && i_mem_valid && r14_irq.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
+	end
+	else if (i_wb_mode == FIRQ) begin
+		if (!r13_firq.valid && i_mem_valid && r13_firq.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
+		if (!r14_firq.valid && i_mem_valid && r14_firq.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
+	end
+	
+	//r15 (PC), handled the same in all modes
+	if (!r15.valid && i_mem_valid && r15.tag == i_mem_tag) tag_match_mem[15] = 1'b1;
+	
+end
+
+//per-register valid bit and tag update logic
+logic [15:0] 		r_valid_nxt;
+logic [15:0][5:0]	r_tag_nxt;
+always_comb begin
+	//4 cases per register:
+	//1) nothing new,
+	//2) it's a new destination register, so we need to update the tag and invalidate the reg,
+	//3) it's being written back this cycle, so we update the stored data and set the reg to valid, or
+	//4) both 2 and 3, so we update the stored data, leave it invalid, and update the tag
+	
+	//r0-r7: always
+	//r0
+	if (reg_bank_wen_c[0]) begin
+		r_valid_nxt[0] = 1'b0;
+		r_tag_nxt[0] = i_rd_tag;
+	end
+	else if (tag_match_alu[0] || tag_match_mult[0] || tag_match_mem[0]) begin
+		r_valid_nxt[0] = 1'b1;
+		r_tag_nxt[0] = r0.tag;
+	end
+	else begin
+		r_valid_nxt[0] = r0.valid;
+		r_tag_nxt[0] = r0.tag;
+	end
+	
+	//r1
+	if (reg_bank_wen_c[1]) begin
+		r_valid_nxt[1] = 1'b0;
+		r_tag_nxt[1] = i_rd_tag;
+	end
+	else if (tag_match_alu[1] || tag_match_mult[1] || tag_match_mem[1]) begin
+		r_valid_nxt[1] = 1'b1;
+		r_tag_nxt[1] = r1.tag;
+	end
+	else begin
+		r_valid_nxt[1] = r1.valid;
+		r_tag_nxt[1] = r1.tag;
+	end
+	
+	//r2
+	if (reg_bank_wen_c[2]) begin
+		r_valid_nxt[2] = 1'b0;
+		r_tag_nxt[2] = i_rd_tag;
+	end
+	else if (tag_match_alu[2] || tag_match_mult[2] || tag_match_mem[2]) begin
+		r_valid_nxt[2] = 1'b1;
+		r_tag_nxt[2] = r2.tag;
+	end
+	else begin
+		r_valid_nxt[2] = r2.valid;
+		r_tag_nxt[2] = r2.tag;
+	end
+	
+	//r3
+	if (reg_bank_wen_c[3]) begin
+		r_valid_nxt[3] = 1'b0;
+		r_tag_nxt[3] = i_rd_tag;
+	end
+	else if (tag_match_alu[3] || tag_match_mult[3] || tag_match_mem[3]) begin
+		r_valid_nxt[3] = 1'b1;
+		r_tag_nxt[3] = r3.tag;
+	end
+	else begin
+		r_valid_nxt[0] = r0.valid;
+		r_tag_nxt[0] = r0.tag;
+	end
+	
+	//r4
+	if (reg_bank_wen_c[4]) begin
+		r_valid_nxt[4] = 1'b0;
+		r_tag_nxt[4] = i_rd_tag;
+	end
+	else if (tag_match_alu[4] || tag_match_mult[4] || tag_match_mem[4]) begin
+		r_valid_nxt[4] = 1'b1;
+		r_tag_nxt[4] = r4.tag;
+	end
+	else begin
+		r_valid_nxt[4] = r4.valid;
+		r_tag_nxt[4] = r4.tag;
+	end
+	
+	//r5
+	if (reg_bank_wen_c[5]) begin
+		r_valid_nxt[5] = 1'b0;
+		r_tag_nxt[5] = i_rd_tag;
+	end
+	else if (tag_match_alu[5] || tag_match_mult[5] || tag_match_mem[5]) begin
+		r_valid_nxt[5] = 1'b1;
+		r_tag_nxt[5] = r5.tag;
+	end
+	else begin
+		r_valid_nxt[5] = r5.valid;
+		r_tag_nxt[5] = r5.tag;
+	end
+	
+	//r6
+	if (reg_bank_wen_c[6]) begin
+		r_valid_nxt[6] = 1'b0;
+		r_tag_nxt[6] = i_rd_tag;
+	end
+	else if (tag_match_alu[6] || tag_match_mult[6] || tag_match_mem[6]) begin
+		r_valid_nxt[6] = 1'b1;
+		r_tag_nxt[6] = r6.tag;
+	end
+	else begin
+		r_valid_nxt[6] = r6.valid;
+		r_tag_nxt[6] = r6.tag;
+	end
+	
+	//r7
+	if (reg_bank_wen_c[7]) begin
+		r_valid_nxt[7] = 1'b0;
+		r_tag_nxt[7] = i_rd_tag;
+	end
+	else if (tag_match_alu[7] || tag_match_mult[7] || tag_match_mem[7]) begin
+		r_valid_nxt[7] = 1'b1;
+		r_tag_nxt[7] = r7.tag;
+	end
+	else begin
+		r_valid_nxt[7] = r7.valid;
+		r_tag_nxt[7] = r7.tag;
+	end
+	
+	
+	//r8-r12, depending on irq/firq
+	//r8
+	if (reg_bank_wen_c[8]) begin
+		r_valid_nxt[8] = 1'b0;
+		r_tag_nxt[8] = i_rd_tag;
+	end
+	else if (tag_match_alu[8] || tag_match_mult[8] || tag_match_mem[8]) begin
+		r_valid_nxt[8] = 1'b1;
+		r_tag_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.tag : r8.tag;
+	end
+	else begin
+		r_valid_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.valid : r8.valid;
+		r_tag_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.tag : r8.tag;
+	end
+	
+	//r9
+	if (reg_bank_wen_c[9]) begin
+		r_valid_nxt[9] = 1'b0;
+		r_tag_nxt[9] = i_rd_tag;
+	end
+	else if (tag_match_alu[9] || tag_match_mult[9] || tag_match_mem[9]) begin
+		r_valid_nxt[9] = 1'b1;
+		r_tag_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.tag : r9.tag;
+	end
+	else begin
+		r_valid_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.valid : r9.valid;
+		r_tag_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.tag : r9.tag;
+	end
+	
+	//r10
+	if (reg_bank_wen_c[10]) begin
+		r_valid_nxt[10] = 1'b0;
+		r_tag_nxt[10] = i_rd_tag;
+	end
+	else if (tag_match_alu[10] || tag_match_mult[10] || tag_match_mem[10]) begin
+		r_valid_nxt[10] = 1'b1;
+		r_tag_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.tag : r10.tag;
+	end
+	else begin
+		r_valid_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.valid : r10.valid;
+		r_tag_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.tag : r10.tag;
+	end
+	
+	//r11
+	if (reg_bank_wen_c[11]) begin
+		r_valid_nxt[11] = 1'b0;
+		r_tag_nxt[11] = i_rd_tag;
+	end
+	else if (tag_match_alu[11] || tag_match_mult[11] || tag_match_mem[11]) begin
+		r_valid_nxt[11] = 1'b1;
+		r_tag_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.tag : r11.tag;
+	end
+	else begin
+		r_valid_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.valid : r11.valid;
+		r_tag_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.tag : r11.tag;
+	end
+	
+	//r12
+	if (reg_bank_wen_c[12]) begin
+		r_valid_nxt[12] = 1'b0;
+		r_tag_nxt[12] = i_rd_tag;
+	end
+	else if (tag_match_alu[12] || tag_match_mult[12] || tag_match_mem[12]) begin
+		r_valid_nxt[12] = 1'b1;
+		r_tag_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.tag : r12.tag;
+	end
+	else begin
+		r_valid_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.valid : r12.valid;
+		r_tag_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.tag : r12.tag;
+	end
+	
+	
+	//r13-r14, depending on usr/svc/irq/firq
+	//r13
+	if (reg_bank_wen_c[13]) begin
+		r_valid_nxt[13] = 1'b0;
+		r_tag_nxt[13] = i_rd_tag;
+	end
+	else if (tag_match_alu[13] || tag_match_mult[13] || tag_match_mem[13]) begin
+		r_valid_nxt[13]= 1'b1;
+		r_tag_nxt[13] = (i_wb_mode == USR) 	? r13.tag :
+						(i_wb_mode == SVC) 	? r13_svc.tag :
+						(i_wb_mode == IRQ) 	? r13_irq.tag :
+						(i_wb_mode == FIRQ) ? r13_firq.tag;
+	end
+	else begin
+		r_valid_nxt[13]=(i_wb_mode == USR) 	? r13.valid :
+						(i_wb_mode == SVC) 	? r13_svc.valid :
+						(i_wb_mode == IRQ) 	? r13_irq.valid :
+						(i_wb_mode == FIRQ) ? r13_firq.valid;
+		r_tag_nxt[13] =	(i_wb_mode == USR) 	? r13.tag :
+						(i_wb_mode == SVC) 	? r13_svc.tag :
+						(i_wb_mode == IRQ) 	? r13_irq.tag :
+						(i_wb_mode == FIRQ) ? r13_firq.tag;
+	end
+	
+	//r14
+	if (reg_bank_wen_c[14]) begin
+		r_valid_nxt[14] = 1'b0;
+		r_tag_nxt[14] = i_rd_tag;
+	end
+	else if (tag_match_alu[14] || tag_match_mult[14] || tag_match_mem[14]) begin
+		r_valid_nxt[14]= 1'b1;
+		r_tag_nxt[14] =	(i_wb_mode == USR) 	? r14.tag :
+						(i_wb_mode == SVC) 	? r14_svc.tag :
+						(i_wb_mode == IRQ) 	? r14_irq.tag :
+						(i_wb_mode == FIRQ) ? r14_firq.tag;
+	end
+	else begin
+		r_valid_nxt[14]=(i_wb_mode == USR) 	? r14.valid :
+						(i_wb_mode == SVC) 	? r14_svc.valid :
+						(i_wb_mode == IRQ) 	? r14_irq.valid :
+						(i_wb_mode == FIRQ) ? r14_firq.valid;
+		r_tag_nxt[14] =	(i_wb_mode == USR) 	? r14.tag :
+						(i_wb_mode == SVC) 	? r14_svc.tag :
+						(i_wb_mode == IRQ) 	? r14_irq.tag :
+						(i_wb_mode == FIRQ) ? r14_firq.tag;
+	end
+	
+	
+	//r15 (pc), always
+	if (reg_bank_wen_c[15]) begin
+		r_valid_nxt[15] = 1'b0;
+		r_tag_nxt[15] = i_rd_tag;
+	end
+	else if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
+		r_valid_nxt[15] = 1'b1;
+		r_tag_nxt[15] = r15.tag;
+	end
+	else begin
+		r_valid_nxt[15] = r15.valid;
+		r_tag_nxt[15] = r15.tag;
+	end
+	
+end
+
+always_ff @(posedge i_clk) begin
+	//Write back to registers based on tag comparison result, above.
+	//Note that this implicitly handles writebacks from memory, so we don't need read_data_wen or i_wb_read_data anymore (per se).
+	
+	//Valid bits
+	r0.valid  <= r_valid_nxt[0 ];
+	r1.valid  <= r_valid_nxt[1 ];
+	r2.valid  <= r_valid_nxt[2 ];
+	r3.valid  <= r_valid_nxt[3 ];
+	r4.valid  <= r_valid_nxt[4 ];
+	r5.valid  <= r_valid_nxt[5 ];
+	r6.valid  <= r_valid_nxt[6 ];
+	r7.valid  <= r_valid_nxt[7 ];
+	
+	r8.valid  <= i_wb_mode != FIRQ ? r_valid_nxt[8 ] : r8.valid;
+	r9.valid  <= i_wb_mode != FIRQ ? r_valid_nxt[9 ] : r9.valid;
+	r10.valid <= i_wb_mode != FIRQ ? r_valid_nxt[10] : r10.valid;
+	r11.valid <= i_wb_mode != FIRQ ? r_valid_nxt[11] : r11.valid;
+	r12.valid <= i_wb_mode != FIRQ ? r_valid_nxt[12] : r12.valid;
+	
+	r8_firq.valid  <= i_wb_mode == FIRQ ? r_valid_nxt[8 ] : r8_firq.valid;
+	r9_firq.valid  <= i_wb_mode == FIRQ ? r_valid_nxt[9 ] : r9_firq.valid;
+	r10_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[10] : r10_firq.valid;
+	r11_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[11] : r11_firq.valid;
+	r12_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[12] : r12_firq.valid;
+	
+	r13.valid <= i_wb_mode == USR ? r_valid_nxt[13] : r13.valid;
+	r14.valid <= i_wb_mode == USR ? r_valid_nxt[14] : r14.valid;
+	r13_svc.valid <= i_wb_mode == SVC ? r_valid_nxt[13] : r13_svc.valid;
+	r14_svc.valid <= i_wb_mode == SVC ? r_valid_nxt[14] : r14_svc.valid;
+	r13_irq.valid <= i_wb_mode == IRQ ? r_valid_nxt[13] : r13_irq.valid;
+	r14_irq.valid <= i_wb_mode == IRQ ? r_valid_nxt[14] : r14_irq.valid;
+	r13_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[13] : r13_firq.valid;
+	r14_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[14] : r14_firq.valid;
+	
+	
+	//Tag bits
+	r0.tag  <= r_tag_nxt[0 ];
+	r1.tag  <= r_tag_nxt[1 ];
+	r2.tag  <= r_tag_nxt[2 ];
+	r3.tag  <= r_tag_nxt[3 ];
+	r4.tag  <= r_tag_nxt[4 ];
+	r5.tag  <= r_tag_nxt[5 ];
+	r6.tag  <= r_tag_nxt[6 ];
+	r7.tag  <= r_tag_nxt[7 ];
+	
+	r8.tag  <= i_wb_mode != FIRQ ? r_tag_nxt[8 ] : r8.tag;
+	r9.tag  <= i_wb_mode != FIRQ ? r_tag_nxt[9 ] : r9.tag;
+	r10.tag <= i_wb_mode != FIRQ ? r_tag_nxt[10] : r10.tag;
+	r11.tag <= i_wb_mode != FIRQ ? r_tag_nxt[11] : r11.tag;
+	r12.tag <= i_wb_mode != FIRQ ? r_tag_nxt[12] : r12.tag;
+	
+	r8_firq.tag  <= i_wb_mode == FIRQ ? r_tag_nxt[8 ] : r8_firq.tag;
+	r9_firq.tag  <= i_wb_mode == FIRQ ? r_tag_nxt[9 ] : r9_firq.tag;
+	r10_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[10] : r10_firq.tag;
+	r11_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[11] : r11_firq.tag;
+	r12_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[12] : r12_firq.tag;
+	
+	r13.tag <= i_wb_mode == USR ? r_tag_nxt[13] : r13.tag;
+	r14.tag <= i_wb_mode == USR ? r_tag_nxt[14] : r14.tag;
+	r13_svc.tag <= i_wb_mode == SVC ? r_tag_nxt[13] : r13_svc.tag;
+	r14_svc.tag <= i_wb_mode == SVC ? r_tag_nxt[14] : r14_svc.tag;
+	r13_irq.tag <= i_wb_mode == IRQ ? r_tag_nxt[13] : r13_irq.tag;
+	r14_irq.tag <= i_wb_mode == IRQ ? r_tag_nxt[14] : r14_irq.tag;
+	r13_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[13] : r13_firq.tag;
+	r14_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[14] : r14_firq.tag;
+	
+	
+	//Data
+	//TODO, based on tag bit input stuff
+	
+end
+
 always @ ( posedge i_clk )
     begin
     // these registers are used in all modes
