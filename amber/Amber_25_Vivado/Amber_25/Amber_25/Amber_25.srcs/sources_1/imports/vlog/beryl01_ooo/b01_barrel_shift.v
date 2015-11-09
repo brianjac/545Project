@@ -55,18 +55,18 @@ output                      o_stall
 );
 
 
-wire [31:0] quick_out;
-wire        quick_carry_out;
+/*wire [31:0] quick_out;
+wire        quick_carry_out;*/
 wire [31:0] full_out;
 wire        full_carry_out;
 reg  [31:0] full_out_r       = 'd0;
 reg         full_carry_out_r = 'd0;
-reg         use_quick_r      = 1'd1;
+reg         use_quick_r      = 1'd0; //changed from initial 1'd1
 
 
-assign o_stall      = (|i_shift_amount[7:2]) & use_quick_r;
-assign o_out        = use_quick_r ? quick_out : full_out_r;
-assign o_carry_out  = use_quick_r ? quick_carry_out : full_carry_out_r;
+assign o_stall      = 1'b0; //(|i_shift_amount[7:2]) & use_quick_r;
+assign o_out        = /*use_quick_r ? quick_out :*/ full_out_r;
+assign o_carry_out  = /*use_quick_r ? quick_carry_out :*/ full_carry_out_r;
 
 
 // Capture the result from the full barrel shifter in case the
@@ -75,7 +75,7 @@ always @(posedge i_clk)
     begin
     full_out_r       <= full_out;
     full_carry_out_r <= full_carry_out;
-    use_quick_r      <= !o_stall;
+    //use_quick_r      <= !o_stall; //remove this. screw "quick barrel shifter", we don't actually give a crap for this project's purposes.
     end
 
 
@@ -96,7 +96,7 @@ u_a25_shifter_full (
 
 
 // Quick barrel shifter
-a25_shifter #( 
+/*a25_shifter #( 
     .FULL_BARREL        ( 0                ) 
     )
 u_a25_shifter_quick (
@@ -107,7 +107,7 @@ u_a25_shifter_quick (
     .i_function         ( i_function       ),
     .o_out              ( quick_out        ),
     .o_carry_out        ( quick_carry_out  )
-);
+);*/
 
 endmodule
 
