@@ -45,19 +45,19 @@
 //Define reservation station information being recorded for each given instruction
 typedef struct alu_station_entry {
 	//Operand 1 data
-	logic op1_valid;
-	logic [5:0] op1_tag;
-	logic [31:0] op1;
+	logic rn_valid;
+	logic [5:0] rn_tag;
+	logic [31:0] rn;
 	
 	//Operand 2 data
-	logic op2_valid;
-	logic [5:0] op2_tag;
-	logic [31:0] op2;
+	logic rs_valid;
+	logic [5:0] rs_tag;
+	logic [31:0] rs;
 	
 	//Operand 3 data (used if we write to a reg, one operand is a reg, and the other operand is a reg shifted by another reg)
-	logic op3_valid;
-	logic [5:0] op3_tag;
-	logic [31:0] op3;
+	logic rm_valid;
+	logic [5:0] rm_tag;
+	logic [31:0] rm;
 	
 	//CCR data
 	logic ccr_valid;
@@ -68,9 +68,6 @@ typedef struct alu_station_entry {
 	logic [31:0] imm32;
 	logic [4:0] imm_shift_amount;
 	logic shift_imm_zero;
-	logic [3:0] rm_sel,
-	logic [3:0] rs_sel,
-	logic [3:0] rn_sel,
 	logic [8:0] exec_load_rd,
 	logic [1:0] barrel_shift_amount_sel,
 	logic [1:0] barrel_shift_data_sel,
@@ -180,24 +177,21 @@ input                       i_decode_iaccess,           // Indicates an instruct
 input                       i_decode_daccess,           // Indicates a data access
 input       [7:0]           i_decode_load_rd,           // The destination register for a load instruction
 
-output reg  [31:0]          o_copro_write_data = 'd0,
-output reg  [31:0]          o_write_data = 'd0,
+//TODO add coprocessor instruction handling
+//output reg  [31:0]          o_copro_write_data = 'd0,
+//output reg  [31:0]          o_write_data = 'd0,
 output wire [31:0]          o_iaddress,
 output      [31:0]          o_iaddress_nxt,             // un-registered version of address to the
                                                         // cache rams address ports
 output reg                  o_iaddress_valid = 'd0,     // High when instruction address is valid
-output reg  [31:0]          o_daddress = 32'h0,         // Address to data cache
-output      [31:0]          o_daddress_nxt,             // un-registered version of address to the
-                                                        // cache rams address ports
-output reg                  o_daddress_valid = 'd0,     // High when data address is valid
+
 output reg                  o_adex = 'd0,               // Address Exception
 output reg                  o_priviledged = 'd0,        // Priviledged access
 output reg                  o_exclusive = 'd0,          // swap access
 output reg                  o_write_enable = 'd0,
 output reg  [3:0]           o_byte_enable = 'd0,
-output reg  [8:0]           o_exec_load_rd = 'd0,       // The destination register for a load instruction
+
 output      [31:0]          o_status_bits,              // Full PC will all status bits, but PC part zero'ed out
-output                      o_multiply_done,
 
 
 // --------------------------------------------------
@@ -254,12 +248,18 @@ output	mult_station_entry	o_mult_stage_command;
 output						o_mult_stage_command_valid;
 output	mem_station_entry	o_mem_stage_command;
 output						o_mem_stage_command_valid;
+input						i_alu_valid,
+							i_mult_valid,
+							i_mem_valid;
 input	[5:0]				i_alu_tag,
 							i_mult_tag,
 							i_mem_tag,
 input	[31:0]				i_alu_data,
 							i_mult_data,
 							i_mem_data,
+input	[3:0]				i_alu_flags,
+							i_mult_flags,
+							i_mem_flags;
 
 output [7:0] led,
 input [7:0] sw
@@ -365,7 +365,11 @@ reg [31:0] iaddress_r = 32'h0000_0000;
 wire [1:0] status_bits_mode_out;
 assign status_bits_mode_out = (i_status_bits_mode_wen && i_status_bits_sel == 3'd1 && !ldm_status_bits) ?
                                     alu_out[1:0] : status_bits_mode ;
+									
+logic [5:0] status_bits_flags_tag; //update on each newly decoded instruction based on i_status_bits_flags_wen
+logic status_bits_flags_valid; //invalidate on each newly decoded instruction based on i_status_bits_flags_wen
 
+//Should need no changes for OOO given how we structure things below
 assign o_status_bits = {   status_bits_flags,           // 31:28
                            status_bits_irq_mask,        // 7
                            status_bits_firq_mask,       // 6
@@ -376,11 +380,19 @@ assign o_status_bits = {   status_bits_flags,           // 31:28
 // ========================================================
 // Status Bits Select
 // ========================================================
+
+//TODO figure these two out
 assign ldm_flags                 = i_wb_read_data_valid & ~i_mem_stall & i_wb_load_rd[8];
 assign ldm_status_bits           = i_wb_read_data_valid & ~i_mem_stall & i_wb_load_rd[7];
 
-
-assign status_bits_flags_nxt     = ldm_flags                 ? read_data_filtered[31:28]           :
+//Note that here we're removing reference to the coprocessor, since it doesn't *actually* exist in the design.
+//The rest of the time, i_xyz_flags will be set in the appropriate Execute substage based on the i_status_bits_sel we pass in.
+//Additional note: the ldm flag-handling might require some special logic here.
+assign status_bits_flags_nxt 	 = i_alu_valid && i_alu_tag == status_bits_flags_tag 	? i_alu_flags 	:
+								   i_mult_valid && i_mult_tag == status_bits_flags_tag 	? i_mult_flags 	:
+								   i_mem_valid && i_mem_tag == status_bits_flags_tag 	? i_mem_flags	:
+																						  4'b1111;
+/*assign status_bits_flags_nxt     = ldm_flags                 ? read_data_filtered[31:28]           :
                                    i_status_bits_sel == 3'd0 ? alu_flags                           :
                                    i_status_bits_sel == 3'd1 ? alu_out          [31:28]            :
                                    i_status_bits_sel == 3'd3 ? i_copro_read_data[31:28]            :
@@ -388,8 +400,9 @@ assign status_bits_flags_nxt     = ldm_flags                 ? read_data_filtere
                                    i_status_bits_sel == 3'd4 ? { multiply_flags, status_bits_flags[1:0] } :
                                    // regops that do not change the overflow flag
                                    i_status_bits_sel == 3'd5 ? { alu_flags[3:1], status_bits_flags[0] } :
-                                                               4'b1111 ;
+                                                               4'b1111 ;*/
 
+//Should need no changes for OOO
 assign status_bits_mode_nxt      = ldm_status_bits           ? read_data_filtered [1:0] :
                                    i_status_bits_sel == 3'd0 ? i_status_bits_mode       :
                                    i_status_bits_sel == 3'd5 ? i_status_bits_mode       :
@@ -500,6 +513,7 @@ assign o_daddress_nxt = (i_daddress_sel == 4'd1) ? alu_out_pc_filtered   :
 
 // Data accesses use 32-bit address space, but instruction
 // accesses are restricted to 26 bit space
+//TODO modify based on what address space we *actually* get in the system?
 assign adex_nxt      = |o_iaddress_nxt[31:26] && i_decode_iaccess;
 
 
@@ -512,12 +526,12 @@ assign adex_nxt      = |o_iaddress_nxt[31:26] && i_decode_iaccess;
 // mem_load_rd[6:5] -> Write into this Mode registers
 // mem_load_rd[4]   -> zero_extend byte
 // mem_load_rd[3:0] -> Destination Register
-assign read_data_filtered1 = i_wb_load_rd[10:9] == 2'd0 ? i_wb_read_data                                :
+/*assign read_data_filtered1 = i_wb_load_rd[10:9] == 2'd0 ? i_wb_read_data                                :
                              i_wb_load_rd[10:9] == 2'd1 ? {i_wb_read_data[7:0],  i_wb_read_data[31:8]}  :
                              i_wb_load_rd[10:9] == 2'd2 ? {i_wb_read_data[15:0], i_wb_read_data[31:16]} :
                                                           {i_wb_read_data[23:0], i_wb_read_data[31:24]} ;
 
-assign read_data_filtered  = i_wb_load_rd[4] ? {24'd0, read_data_filtered1[7:0]} : read_data_filtered1 ;
+assign read_data_filtered  = i_wb_load_rd[4] ? {24'd0, read_data_filtered1[7:0]} : read_data_filtered1 ;*/
 
 
 // ========================================================
@@ -565,7 +579,9 @@ assign reg_write_nxt = i_reg_write_sel == 3'd0 ? alu_out               :
 // ========================================================
 // Byte Enable Select
 // ========================================================
-assign byte_enable_nxt = i_byte_enable_sel == 2'd0   ? 4'b1111 :  // word write
+
+//TODO move to Mem stage
+/*assign byte_enable_nxt = i_byte_enable_sel == 2'd0   ? 4'b1111 :  // word write
                          i_byte_enable_sel == 2'd2   ?            // halfword write
                          ( o_daddress_nxt[1] == 1'd0 ? 4'b0011 :
                                                        4'b1100  ) :
@@ -573,19 +589,23 @@ assign byte_enable_nxt = i_byte_enable_sel == 2'd0   ? 4'b1111 :  // word write
                          o_daddress_nxt[1:0] == 2'd0 ? 4'b0001 :  // byte write
                          o_daddress_nxt[1:0] == 2'd1 ? 4'b0010 :
                          o_daddress_nxt[1:0] == 2'd2 ? 4'b0100 :
-                                                       4'b1000 ;
+                                                       4'b1000 ;*/
 
 
 // ========================================================
 // Write Data Select
 // ========================================================
-assign write_data_nxt = i_byte_enable_sel == 2'd0 ? rd            :
-                                                    {4{rd[ 7:0]}} ;
+
+//TODO move to Mem stage
+/*assign write_data_nxt = i_byte_enable_sel == 2'd0 ? rd            :
+                                                    {4{rd[ 7:0]}} ;*/
 
 
 // ========================================================
 // Conditional Execution
 // ========================================================
+
+//TODO make dependent on status_bits_flags_valid
 assign execute = conditional_execute ( i_condition, status_bits_flags );
 
 // allow the PC to increment to the next instruction when current
@@ -607,6 +627,8 @@ assign priviledged_nxt  = ( i_status_bits_mode_wen ? status_bits_mode_nxt : stat
 // ========================================================
 // Write Enable
 // ========================================================
+
+//TODO as with "execute", make dependent on status_bits_flags_valid
 // This must be de-asserted when execute is fault
 assign write_enable_nxt = execute && i_write_data_wen;
 
@@ -614,7 +636,7 @@ assign write_enable_nxt = execute && i_write_data_wen;
 // ========================================================
 // Address Valid
 // ========================================================
-assign daddress_valid_nxt = execute && i_decode_daccess && !i_core_stall;
+//assign daddress_valid_nxt = execute && i_decode_daccess && !i_core_stall;
 
 // For some multi-cycle instructions, the stream of instrution
 // reads can be paused. However if the instruction does not execute
@@ -625,13 +647,13 @@ assign iaddress_valid_nxt = i_decode_iaccess || !execute;
 // ========================================================
 // Use read value from data memory instead of from register
 // ========================================================
-assign rn = i_rn_use_read && i_rn_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c : reg_bank_rn;
-assign rm = i_rm_use_read && i_rm_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c : reg_bank_rm;
-assign rs = i_rs_use_read && i_rs_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c : reg_bank_rs;
-assign rd = i_rd_use_read && i_rs_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c : reg_bank_rd;
+assign rn = /*i_rn_use_read && i_rn_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c :*/ reg_bank_rn;
+assign rm = /*i_rm_use_read && i_rm_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c :*/ reg_bank_rm;
+assign rs = /*i_rs_use_read && i_rs_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c :*/ reg_bank_rs;
+assign rd = /*i_rd_use_read && i_rs_sel == load_rd_c[3:0] && status_bits_mode == load_rd_c[5:4] ? read_data_filtered_c :*/ reg_bank_rd;
 
 
-always@( posedge i_clk )
+/*always@( posedge i_clk )
     if ( i_wb_read_data_valid )
         begin
         read_data_filtered_r <= read_data_filtered;
@@ -641,7 +663,7 @@ always@( posedge i_clk )
 assign read_data_filtered_c = i_wb_read_data_valid ? read_data_filtered : read_data_filtered_r;
 
 // the register number and the mode
-assign load_rd_c            = i_wb_read_data_valid ? {i_wb_load_rd[6:5], i_wb_load_rd[3:0]}  : load_rd_r;
+assign load_rd_c            = i_wb_read_data_valid ? {i_wb_load_rd[6:5], i_wb_load_rd[3:0]}  : load_rd_r;*/
 
 
 // ========================================================
@@ -656,21 +678,29 @@ assign  exec_load_rd_nxt   = { i_decode_load_rd[7:6],
 // ========================================================
 // Register Update
 // ========================================================
+
+//TODO o_exec_stall will need to be something different:
+//Stall if:
+//1) a reservation station is full and we need the space;
+//2) we need to resolve the next PC and can't until we have more data;
+//3) <... anything else? TODO decide.>
 assign o_exec_stall                    = barrel_shift_stall;
 
-assign daddress_update                 = !i_core_stall;
-assign exec_load_rd_update             = !i_core_stall && execute;
+//assign daddress_update                 = !i_core_stall;
+//assign exec_load_rd_update             = !i_core_stall && execute;
 assign priviledged_update              = !i_core_stall;
 assign exclusive_update                = !i_core_stall && execute;
-assign write_enable_update             = !i_core_stall;
-assign write_data_update               = !i_core_stall && execute && i_write_data_wen;
-assign byte_enable_update              = !i_core_stall && execute && i_write_data_wen;
+//assign write_enable_update             = !i_core_stall;
+//assign write_data_update               = !i_core_stall && execute && i_write_data_wen;
+//assign byte_enable_update              = !i_core_stall && execute && i_write_data_wen;
 
 assign iaddress_update                 = pc_dmem_wen || (!i_core_stall && !i_conflict);
-assign copro_write_data_update         = !i_core_stall && execute && i_copro_write_data_wen;
+//assign copro_write_data_update         = !i_core_stall && execute && i_copro_write_data_wen;
 
+//TODO what does base_address_update do exactly?
 assign base_address_update             = !i_core_stall && execute && i_base_address_wen;
-assign status_bits_flags_update        = ldm_flags       || (!i_core_stall && execute && i_status_bits_flags_wen);
+//TODO will need to change logic for status_bits_flags_update and/or eliminate this from here altogether.
+//assign status_bits_flags_update        = ldm_flags       || (!i_core_stall && execute && i_status_bits_flags_wen);
 assign status_bits_mode_update         = ldm_status_bits || (!i_core_stall && execute && i_status_bits_mode_wen);
 assign status_bits_mode_rds_oh_update  = !i_core_stall;
 assign status_bits_irq_mask_update     = ldm_status_bits || (!i_core_stall && execute && i_status_bits_irq_mask_wen);
@@ -679,22 +709,22 @@ assign status_bits_firq_mask_update    = ldm_status_bits || (!i_core_stall && ex
 
 always @( posedge i_clk )
     begin
-    o_daddress              <= daddress_update                ? o_daddress_nxt               : o_daddress;
-    o_daddress_valid        <= daddress_update                ? daddress_valid_nxt           : o_daddress_valid;
-    o_exec_load_rd          <= exec_load_rd_update            ? exec_load_rd_nxt             : o_exec_load_rd;
+    //o_daddress              <= daddress_update                ? o_daddress_nxt               : o_daddress;
+    //o_daddress_valid        <= daddress_update                ? daddress_valid_nxt           : o_daddress_valid;
+    //o_exec_load_rd          <= exec_load_rd_update            ? exec_load_rd_nxt             : o_exec_load_rd;
     o_priviledged           <= priviledged_update             ? priviledged_nxt              : o_priviledged;
     o_exclusive             <= exclusive_update               ? i_decode_exclusive           : o_exclusive;
-    o_write_enable          <= write_enable_update            ? write_enable_nxt             : o_write_enable;
-    o_write_data            <= write_data_update              ? write_data_nxt               : o_write_data;
-    o_byte_enable           <= byte_enable_update             ? byte_enable_nxt              : o_byte_enable;
+    //o_write_enable          <= write_enable_update            ? write_enable_nxt             : o_write_enable;
+    //o_write_data            <= write_data_update              ? write_data_nxt               : o_write_data;
+    //o_byte_enable           <= byte_enable_update             ? byte_enable_nxt              : o_byte_enable;
     iaddress_r              <= iaddress_update                ? o_iaddress_nxt               : iaddress_r;
     o_iaddress_valid        <= iaddress_update                ? iaddress_valid_nxt           : o_iaddress_valid;
     o_adex                  <= iaddress_update                ? adex_nxt                     : o_adex;
-    o_copro_write_data      <= copro_write_data_update        ? write_data_nxt               : o_copro_write_data;
+    //o_copro_write_data      <= copro_write_data_update        ? write_data_nxt               : o_copro_write_data;
 
     base_address            <= base_address_update            ? rn                           : base_address;
 
-    status_bits_flags       <= status_bits_flags_update       ? status_bits_flags_nxt        : status_bits_flags;
+    //status_bits_flags       <= status_bits_flags_update       ? status_bits_flags_nxt        : status_bits_flags;
     status_bits_mode        <= status_bits_mode_update        ? status_bits_mode_nxt         : status_bits_mode;
     status_bits_mode_rds_oh <= status_bits_mode_rds_oh_update ? status_bits_mode_rds_oh_nxt  : status_bits_mode_rds_oh;
     status_bits_irq_mask    <= status_bits_irq_mask_update    ? status_bits_irq_mask_nxt     : status_bits_irq_mask;
@@ -709,18 +739,6 @@ assign o_iaddress = iaddress_r;
 // ========================================================
 assign carry_in = i_use_carry_in ? status_bits_flags[1] : 1'd0;
 
-a25_barrel_shift u_barrel_shift  (
-    .i_clk            ( i_clk                     ),
-    .i_in             ( barrel_shift_in           ),
-    .i_carry_in       ( carry_in                  ),
-    .i_shift_amount   ( shift_amount              ),
-    .i_shift_imm_zero ( i_shift_imm_zero          ),
-    .i_function       ( i_barrel_shift_function   ),
-
-    .o_out            ( barrel_shift_out          ),
-    .o_carry_out      ( barrel_shift_carry        ),
-    .o_stall          ( barrel_shift_stall        ));
-
 
 // ========================================================
 // Instantiate ALU
@@ -729,37 +747,12 @@ assign barrel_shift_carry_alu =  i_barrel_shift_data_sel == 2'd0 ?
                                   (i_imm_shift_amount[4:1] == 0 ? status_bits_flags[1] : i_imm32[31]) :
                                    barrel_shift_carry;
 
-a25_alu u_alu (
-    .i_a_in                 ( rn                      ),
-    .i_b_in                 ( barrel_shift_out        ),
-    .i_barrel_shift_carry   ( barrel_shift_carry_alu  ),
-    .i_status_bits_carry    ( status_bits_flags[1]    ),
-    .i_function             ( i_alu_function          ),
-
-    .o_out                  ( alu_out                 ),
-    .o_flags                ( alu_flags               ));
-
-
-
-// ========================================================
-// Instantiate Booth 64-bit Multiplier-Accumulator
-// ========================================================
-a25_multiply u_multiply (
-    .i_clk          ( i_clk                 ),
-    .i_core_stall   ( i_core_stall          ),
-    .i_a_in         ( rs                    ),
-    .i_b_in         ( rm                    ),
-    .i_function     ( i_multiply_function   ),
-    .i_execute      ( execute               ),
-    .o_out          ( multiply_out          ),
-    .o_flags        ( multiply_flags        ),  // [1] = N, [0] = Z
-    .o_done         ( o_multiply_done       )
-);
-
 
 // ========================================================
 // Instantiate Register Bank
 // ========================================================
+
+//TODO need to modify with tag data and valid-bit r/w
 a25_register_bank u_register_bank(
     .i_clk                   ( i_clk                     ),
     .i_core_stall            ( i_core_stall              ),
@@ -794,6 +787,34 @@ a25_register_bank u_register_bank(
     .o_rd                    ( reg_bank_rd               ),
     .o_rn                    ( reg_bank_rn               ),
     .o_pc                    ( pc                        ),
+	
+	//items for OOO: valid bits and tags
+	//tie valid/tag/data/flags inputs directly to the dispatch module inputs
+	.i_alu_valid	(i_alu_valid),
+	.i_mult_valid	(i_mult_valid),
+	.i_mem_valid	(i_mem_valid),
+	.i_alu_tag		(i_alu_tag),
+	.i_mult_tag		(i_mult_tag),
+	.i_mem_tag		(i_mem_tag),
+	.i_alu_data		(i_alu_data),
+	.i_mult_data	(i_mult_data),
+	.i_mem_data		(i_mem_data),
+	.i_alu_flags	(i_alu_flags),
+	.i_mult_flags	(i_mult_flags),
+	.i_mem_flags	(i_mem_flags),
+	//TODO need to handle writeback from alu, mult, and mem simultaneously!
+	//TODO also, tag comparison for the writeback/valid bit updating should happen INSIDE the regfile module
+	
+	.o_rm_valid		(reg_bank_rm_valid),
+	.o_rs_valid		(reg_bank_rs_valid),
+	.o_rd_valid		(reg_bank_rd_valid),
+	.o_rn_valid		(reg_bank_rn_valid),
+	.o_pc_valid		(reg_bank_pc_valid),
+	.o_rm_tag		(reg_bank_rm_tag),
+	.o_rs_tag		(reg_bank_rs_tag),
+	.o_rd_tag		(reg_bank_rd_tag),
+	.o_rn_tag		(reg_bank_rn_tag),
+	.o_pc_tag		(reg_bank_pc_tag),
     
     .led(led),
     .sw(sw)
@@ -862,9 +883,9 @@ logic [15:0] 		alu_ready,
 logic [15:0]		alu_shift_into, //define whether or not we need to shift up a given reservation station entry based on what we've just dispatched
 					mult_shift_into,
 					mem_shift_into;
-logic [15:0][2:0]	alu_op1_tag_match, //of each entry, bit 0 says it matches the incoming ALU result, bit 1=mult, bit 2=mem
-					alu_op2_tag_match,
-					alu_op3_tag_match,
+logic [15:0][2:0]	alu_rn_tag_match, //of each entry, bit 0 says it matches the incoming ALU result, bit 1=mult, bit 2=mem
+					alu_rs_tag_match,
+					alu_rm_tag_match,
 					alu_ccr_tag_match;
 logic [15:0][2:0] 	mult_op1_tag_match,
 					mult_op2_tag_match,
@@ -889,9 +910,9 @@ assign mem_next_dispatch_idx_minus1 = mem_next_dispatch_idx-1;
 always_comb begin
 	//Determine if ALU reservation station tags match incoming data
 	for (int i=0; i<16; i+=1) begin
-		alu_op1_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].op1_tag == i_alu_tag) & !alu_station[i].op1_valid;
-		alu_op1_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].op1_tag == i_mult_tag) & !alu_station[i].op1_valid;
-		alu_op1_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].op1_tag == i_mem_tag) & !alu_station[i].op1_valid;
+		alu_rn_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rn_tag == i_alu_tag) & !alu_station[i].rn_valid;
+		alu_rn_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rn_tag == i_mult_tag) & !alu_station[i].rn_valid;
+		alu_rn_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rn_tag == i_mem_tag) & !alu_station[i].rn_valid;
 		
 		alu_op2_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].op2_tag == i_alu_tag) & !alu_station[i].op2_valid;
 		alu_op2_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].op2_tag == i_mult_tag) & !alu_station[i].op2_valid;
@@ -946,7 +967,7 @@ always_comb begin
 	
 	//Determine which instructions are ready for dispatch this cycle
 	for (int i=0; i<16; i+=1) begin
-		alu_ready[i] = (alu_station[i].op1_valid | (alu_op1_tag_match[i] != 3'b000))
+		alu_ready[i] = (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
 						& (alu_station[i].op2_valid | (alu_op2_tag_match[i] != 3'b000))
 						& (alu_station[i].op3_valid | (alu_op3_tag_match[i] != 3'b000))
 						& (alu_station[i].ccr_valid | (alu_ccr_tag_match[i] != 3'b000));
@@ -1041,9 +1062,9 @@ always_comb begin
 		STATION_ALU: begin
 			//TODO replace with rn
 			//TODO also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
-			alu_new_entry.op1_valid = 0;
-			alu_new_entry.op1_tag = 0;
-			alu_new_entry.op1 = 0;
+			alu_new_entry.rn_valid = 0;
+			alu_new_entry.rn_tag = 0;
+			alu_new_entry.rn = 0;
 			
 			//TODO replace with rm
 			//TODO also check if the tag is on the tag bus THIS cycle and insert info immediately if so
@@ -1179,18 +1200,18 @@ always_ff @(posedge i_clk) begin
 		//Sniff and update tags in reservation station
 		//check alu_opX_tag_match[i][ALU/MEM/MULT_MATCH_IDX] bit and grab data from the appropriate tag bus
 		for (int i=0; i<16; i+=1) begin
-			if (alu_op1_tag_match[i][ALU_MATCH_IDX]) begin
-				alu_station[i].op1 <= i_alu_data; //TODO note that this will mean a 1-cycle delay between writeback and dispatch; could be mitigated with add'l forwarding path
+			if (alu_rn_tag_match[i][ALU_MATCH_IDX]) begin
+				alu_station[i].rn <= i_alu_data; //TODO note that this will mean a 1-cycle delay between writeback and dispatch; could be mitigated with add'l forwarding path
 //==============Further URGENT TODO: it'll actually be "incorrect" as-is due to next-to-be-dispatched combinational logic; need to fix before the design will work at all!!!==============
-				alu_station[i].op1_valid <= 1;
+				alu_station[i].rn_valid <= 1;
 			end
-			else if (alu_op1_tag_match[i][MULT_MATCH_IDX]) begin
-				alu_station[i].op1 <= i_mult_data;
-				alu_station[i].op1_valid <= 1;
+			else if (alu_rn_tag_match[i][MULT_MATCH_IDX]) begin
+				alu_station[i].rn <= i_mult_data;
+				alu_station[i].rn_valid <= 1;
 			end
-			else if (alu_op1_tag_match[i][MEM_MATCH_IDX]) begin
-				alu_station[i].op1 <= i_mem_data;
-				alu_station[i].op1_valid <= 1;
+			else if (alu_rn_tag_match[i][MEM_MATCH_IDX]) begin
+				alu_station[i].rn <= i_mem_data;
+				alu_station[i].rn_valid <= 1;
 			end
 			
 			if (alu_op2_tag_match[i][ALU_MATCH_IDX]) begin

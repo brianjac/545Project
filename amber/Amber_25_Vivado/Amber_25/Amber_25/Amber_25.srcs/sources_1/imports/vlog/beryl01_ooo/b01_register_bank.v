@@ -720,11 +720,144 @@ always_ff @(posedge i_clk) begin
 	
 	
 	//Data
-	//TODO, based on tag bit input stuff
+	r0.data <= 	tag_match_alu[0 ]  ? i_alu_data  :
+				tag_match_mult[0 ] ? i_mult_data :
+				tag_match_mem[0]   ? i_mem_data  :
+									 r0;
+	r1.data <= 	tag_match_alu[1 ]  ? i_alu_data  :
+				tag_match_mult[1 ] ? i_mult_data :
+				tag_match_mem[1 ]  ? i_mem_data  :
+									 r1;
+	r2.data <= 	tag_match_alu[2 ]  ? i_alu_data  :
+				tag_match_mult[2 ] ? i_mult_data :
+				tag_match_mem[2 ]  ? i_mem_data  :
+									 r2;
+	r3.data <= 	tag_match_alu[3 ]  ? i_alu_data  :
+				tag_match_mult[3 ] ? i_mult_data :
+				tag_match_mem[3 ]  ? i_mem_data  :
+									 r3;
+	r4.data <= 	tag_match_alu[4 ]  ? i_alu_data  :
+				tag_match_mult[4 ] ? i_mult_data :
+				tag_match_mem[4 ]  ? i_mem_data  :
+									 r4;
+	r5.data <= 	tag_match_alu[5 ]  ? i_alu_data  :
+				tag_match_mult[5 ] ? i_mult_data :
+				tag_match_mem[5 ]  ? i_mem_data  :
+									 r5;
+	r6.data <= 	tag_match_alu[6 ]  ? i_alu_data  :
+				tag_match_mult[6 ] ? i_mult_data :
+				tag_match_mem[6 ]  ? i_mem_data  :
+									 r6;
+	r7.data <= 	tag_match_alu[7 ]  ? i_alu_data  :
+				tag_match_mult[7 ] ? i_mult_data :
+				tag_match_mem[7 ]  ? i_mem_data  :
+									 r7;
+								 
+	r8.data  <= i_wb_mode == FIRQ  ? r8			 :
+				tag_match_alu[8 ]  ? i_alu_data  :
+				tag_match_mult[8 ] ? i_mult_data :
+				tag_match_mem[8 ]  ? i_mem_data  :
+									 r8;
+	r9.data  <= i_wb_mode == FIRQ  ? r9			 :
+				tag_match_alu[9 ]  ? i_alu_data  :
+				tag_match_mult[9 ] ? i_mult_data :
+				tag_match_mem[9 ]  ? i_mem_data  :
+									 r9;
+	r10.data <= i_wb_mode == FIRQ  ? r10		 :
+				tag_match_alu[10]  ? i_alu_data  :
+				tag_match_mult[10] ? i_mult_data :
+				tag_match_mem[10]  ? i_mem_data  :
+									 r10;
+	r11.data <= i_wb_mode == FIRQ  ? r11		 :
+				tag_match_alu[11]  ? i_alu_data  :
+				tag_match_mult[11] ? i_mult_data :
+				tag_match_mem[11]  ? i_mem_data  :
+									 r11;
+	r12.data <= i_wb_mode == FIRQ  ? r12		 :
+				tag_match_alu[12]  ? i_alu_data  :
+				tag_match_mult[12] ? i_mult_data :
+				tag_match_mem[12]  ? i_mem_data  :
+									 r12;
+								 
+	r8_firq.data  <= 	i_wb_mode != FIRQ  ? r8_firq	 :
+						tag_match_alu[8 ]  ? i_alu_data  :
+						tag_match_mult[8 ] ? i_mult_data :
+						tag_match_mem[8 ]  ? i_mem_data  :
+											 r8_firq;
+	r9_firq.data  <= 	i_wb_mode == FIRQ  ? r9_firq	 :
+						tag_match_alu[9 ]  ? i_alu_data  :
+						tag_match_mult[9 ] ? i_mult_data :
+						tag_match_mem[9 ]  ? i_mem_data  :
+											 r9_firq;
+	r10_firq.data <= 	i_wb_mode == FIRQ  ? r10_firq :
+						tag_match_alu[10]  ? i_alu_data  :
+						tag_match_mult[10] ? i_mult_data :
+						tag_match_mem[10]  ? i_mem_data  :
+											 r10_firq;
+	r11_firq.data <= 	i_wb_mode == FIRQ  ? r11_firq :
+						tag_match_alu[11]  ? i_alu_data  :
+						tag_match_mult[11] ? i_mult_data :
+						tag_match_mem[11]  ? i_mem_data  :
+											 r11_firq;
+	r12_firq.data <= 	i_wb_mode == FIRQ  ? r12_firq :
+						tag_match_alu[12]  ? i_alu_data  :
+						tag_match_mult[12] ? i_mult_data :
+						tag_match_mem[12]  ? i_mem_data  :
+											 r12_firq;
+											 
+	r13.data <= i_wb_mode != USR   ? r13		 :
+				tag_match_alu[13]  ? i_alu_data  :
+				tag_match_mult[13] ? i_mult_data :
+				tag_match_mem[13]  ? i_mem_data  :
+									 r13;
+	r14.data <= i_wb_mode != USR   ? r14		 :
+				tag_match_alu[14]  ? i_alu_data  :
+				tag_match_mult[14] ? i_mult_data :
+				tag_match_mem[14]  ? i_mem_data  :
+									 r14;
+											 
+	r13_svc.data <= i_wb_mode != SVC   ? r13_svc	 :
+					tag_match_alu[13]  ? i_alu_data  :
+					tag_match_mult[13] ? i_mult_data :
+					tag_match_mem[13]  ? i_mem_data  :
+										 r13_svc;
+	r14_svc.data <= i_wb_mode != SVC   ? r14_svc	 :
+					tag_match_alu[14]  ? i_alu_data  :
+					tag_match_mult[14] ? i_mult_data :
+					tag_match_mem[14]  ? i_mem_data  :
+										 r14_svc;
+											 
+	r13_irq.data <= i_wb_mode != IRQ   ? r13_irq	 :
+					tag_match_alu[13]  ? i_alu_data  :
+					tag_match_mult[13] ? i_mult_data :
+					tag_match_mem[13]  ? i_mem_data  :
+										 r13_irq;
+	r14_irq.data <= i_wb_mode != IRQ   ? r14_irq	 :
+					tag_match_alu[14]  ? i_alu_data  :
+					tag_match_mult[14] ? i_mult_data :
+					tag_match_mem[14]  ? i_mem_data  :
+										 r14_irq;
+											 
+	r13_firq.data <=	i_wb_mode != FIRQ  ? r13_firq	 :
+						tag_match_alu[13]  ? i_alu_data  :
+						tag_match_mult[13] ? i_mult_data :
+						tag_match_mem[13]  ? i_mem_data  :
+											 r13_firq;
+	r14_firq.data <=	i_wb_mode != FIRQ  ? r14_firq	 :
+						tag_match_alu[14]  ? i_alu_data  :
+						tag_match_mult[14] ? i_mult_data :
+						tag_match_mem[14]  ? i_mem_data  :
+											 r14_firq;
+	
+	r15.data <= tag_match_alu[15]  ? i_alu_data[25:2]  :
+				tag_match_mult[15] ? i_mult_data[25:2] :
+				tag_match_mem[15]  ? i_mem_data[25:2]  :
+									 i_pc;//r15; //TODO confirm proper operation here!!!
 	
 end
 
-always @ ( posedge i_clk )
+
+/*always @ ( posedge i_clk )
     begin
     // these registers are used in all modes
     r0       <= reg_bank_wen_c[0 ]               ? i_reg : read_data_wen[0 ]                      ? i_wb_read_data       : r0;  
@@ -768,42 +901,42 @@ always @ ( posedge i_clk )
     
     // these registers are used in all modes
     r15      <= pc_wen_c                         ?  i_pc : pc_dmem_wen                            ? i_wb_read_data[25:2] : r15;
-    end
+    end*/
     
     
 // ========================================================
 // Register Read based on Mode
 // ========================================================
-assign r0_out = r0;
-assign r1_out = r1;
-assign r2_out = r2;
-assign r3_out = r3;
-assign r4_out = r4;
-assign r5_out = r5;
-assign r6_out = r6;
-assign r7_out = r7;
+assign r0_out = r0.data;
+assign r1_out = r1.data;
+assign r2_out = r2.data;
+assign r3_out = r3.data;
+assign r4_out = r4.data;
+assign r5_out = r5.data;
+assign r6_out = r6.data;
+assign r7_out = r7.data;
 
-assign r8_out  = firq_exec ? r8_firq  : r8;
-assign r9_out  = firq_exec ? r9_firq  : r9;
-assign r10_out = firq_exec ? r10_firq : r10;
-assign r11_out = firq_exec ? r11_firq : r11;
-assign r12_out = firq_exec ? r12_firq : r12;
+assign r8_out  = firq_exec ? r8_firq.data  : r8.data;
+assign r9_out  = firq_exec ? r9_firq.data  : r9.data;
+assign r10_out = firq_exec ? r10_firq.data : r10.data;
+assign r11_out = firq_exec ? r11_firq.data : r11.data;
+assign r12_out = firq_exec ? r12_firq.data : r12.data;
 
-assign r13_out = usr_exec ? r13      :
-                 svc_exec ? r13_svc  :
-                 irq_exec ? r13_irq  :
-                          r13_firq ;
+assign r13_out = usr_exec ? r13.data      :
+                 svc_exec ? r13_svc.data  :
+                 irq_exec ? r13_irq.data  :
+                          r13_firq.data ;
                        
-assign r14_out = usr_exec ? r14      :
-                 svc_exec ? r14_svc  :
-                 irq_exec ? r14_irq  :
-                          r14_firq ;
+assign r14_out = usr_exec ? r14.data      :
+                 svc_exec ? r14_svc.data  :
+                 irq_exec ? r14_irq.data  :
+                          r14_firq.data ;
  
 
 assign r15_out_rm     = { i_status_bits_flags, 
                           i_status_bits_irq_mask, 
                           i_status_bits_firq_mask, 
-                          r15, 
+                          r15.data, 
                           i_mode_exec};
 
 assign r15_out_rm_nxt = { i_status_bits_flags, 
@@ -812,25 +945,25 @@ assign r15_out_rm_nxt = { i_status_bits_flags,
                           i_pc, 
                           i_mode_exec};
                       
-assign r15_out_rn     = {6'd0, r15, 2'd0};
+assign r15_out_rn     = {6'd0, r15.data, 2'd0};
 
 
 // rds outputs
-assign r8_rds  = i_mode_rds_exec[OH_FIRQ] ? r8_firq  : r8;
-assign r9_rds  = i_mode_rds_exec[OH_FIRQ] ? r9_firq  : r9;
-assign r10_rds = i_mode_rds_exec[OH_FIRQ] ? r10_firq : r10;
-assign r11_rds = i_mode_rds_exec[OH_FIRQ] ? r11_firq : r11;
-assign r12_rds = i_mode_rds_exec[OH_FIRQ] ? r12_firq : r12;
+assign r8_rds  = i_mode_rds_exec[OH_FIRQ] ? r8_firq.data  : r8.data;
+assign r9_rds  = i_mode_rds_exec[OH_FIRQ] ? r9_firq.data  : r9.data;
+assign r10_rds = i_mode_rds_exec[OH_FIRQ] ? r10_firq.data : r10.data;
+assign r11_rds = i_mode_rds_exec[OH_FIRQ] ? r11_firq.data : r11.data;
+assign r12_rds = i_mode_rds_exec[OH_FIRQ] ? r12_firq.data : r12.data;
 
-assign r13_rds = i_mode_rds_exec[OH_USR]  ? r13      :
-                 i_mode_rds_exec[OH_SVC]  ? r13_svc  :
-                 i_mode_rds_exec[OH_IRQ]  ? r13_irq  :
-                                            r13_firq ;
+assign r13_rds = i_mode_rds_exec[OH_USR]  ? r13.data      :
+                 i_mode_rds_exec[OH_SVC]  ? r13_svc.data  :
+                 i_mode_rds_exec[OH_IRQ]  ? r13_irq.data  :
+                                            r13_firq.data ;
                        
-assign r14_rds = i_mode_rds_exec[OH_USR]  ? r14      :
-                 i_mode_rds_exec[OH_SVC]  ? r14_svc  :
-                 i_mode_rds_exec[OH_IRQ]  ? r14_irq  :
-                                            r14_firq ;
+assign r14_rds = i_mode_rds_exec[OH_USR]  ? r14.data      :
+                 i_mode_rds_exec[OH_SVC]  ? r14_svc.data  :
+                 i_mode_rds_exec[OH_IRQ]  ? r14_irq.data  :
+                                            r14_firq.data ;
 
 
 // ========================================================
@@ -933,42 +1066,42 @@ assign o_rn = i_rn_sel == 4'd0  ? r0_out  :
         case (sw[7:2])
             6'd0: begin
                 case (sw[1:0])
-                    2'd0: led = r0[7:0];
-                    2'd1: led = r0[15:8];
-                    2'd2: led = r0[23:16];
-                    2'd3: led = r0[31:24];
+                    2'd0: led = r0.data[7:0];
+                    2'd1: led = r0.data[15:8];
+                    2'd2: led = r0.data[23:16];
+                    2'd3: led = r0.data[31:24];
                 endcase
             end
             6'd1: begin
                 case (sw[1:0])
-                    2'd0: led = r1[7:0];
-                    2'd1: led = r1[15:8];
-                    2'd2: led = r1[23:16];
-                    2'd3: led = r1[31:24];
+                    2'd0: led = r1.data[7:0];
+                    2'd1: led = r1.data[15:8];
+                    2'd2: led = r1.data[23:16];
+                    2'd3: led = r1.data[31:24];
                 endcase
             end
             6'd2: begin
                 case (sw[1:0])
-                    2'd0: led = r2[7:0];
-                    2'd1: led = r2[15:8];
-                    2'd2: led = r2[23:16];
-                    2'd3: led = r2[31:24];
+                    2'd0: led = r2.data[7:0];
+                    2'd1: led = r2.data[15:8];
+                    2'd2: led = r2.data[23:16];
+                    2'd3: led = r2.data[31:24];
                 endcase
             end
             6'd3: begin
                 case (sw[1:0])
-                    2'd0: led = r3[7:0];
-                    2'd1: led = r3[15:8];
-                    2'd2: led = r3[23:16];
-                    2'd3: led = r3[31:24];
+                    2'd0: led = r3.data[7:0];
+                    2'd1: led = r3.data[15:8];
+                    2'd2: led = r3.data[23:16];
+                    2'd3: led = r3.data[31:24];
                 endcase
             end
             6'd15: begin
                 case (sw[1:0])
-                    2'd0: led = r15[7:0];
-                    2'd1: led = r15[15:8];
-                    2'd2: led = r15[23:16];
-                    2'd3: led = 8'd0/*r15[31:24]*/;
+                    2'd0: led = r15.data[7:0];
+                    2'd1: led = r15.data[15:8];
+                    2'd2: led = r15.data[23:16];
+                    2'd3: led = 8'd0/*r15.data[31:24]*/;
                 endcase
             end
             default: begin
