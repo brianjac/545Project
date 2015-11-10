@@ -1,0 +1,23 @@
+Notes about our demo (from a conversation I had with Ashish and Sohil)
+
+Try drawing the Mandelbrot fractal.
+  -can write pixels directly to the frame buffer
+  -algorithm is easy
+  -can show speedup from moving from 1 to many threads
+
+
+According to Sohil the HDMI frame buffer is 3 megabits
+even with 2 bits per color in greyscale
+(That seems kind of fishy to me but...)
+
+He also said there was 5 1/2 megabits of block ram (again, I have no idea if this is true or not)
+
+When running multiple threads, need to keep track of block ram coherence
+  -can just assign a portion of memory to each thread
+
+We should also probably have an application that shows off the benefit of the out of order single core as opposed to multple threads
+  -However, with the single cycle memory latency and single cycle multiplier latency this actually is never true, since out of order is supposed to cover those latencies (so this is actually kind of silly)
+  -They suggested we simulate these latencies artificially for proof that the out of order additions work as designed
+  -Also with single cycle latencies the L1 caches actually make the processor slower. Because of the latency of putting data into the cache and checking for hits/misses. So.
+  -especially because programs that work better with a single thread are those that have instruction dependencies, like loads and stores (which with single cycle latencies would actually remove the problem altogether)
+  -they also suggested using the SD card interface for memory or for extra storage, since it is (to Sohil's knowledge), a basic interface to manipulate and use
