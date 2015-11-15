@@ -42,49 +42,53 @@
 //////////////////////////////////////////////////////////////////
 
 
+//Note that this stage will also handle any branch resolution stuff (???)
+
 module b01_execute_alu (
 
 input                       i_clk,
 input                       i_core_stall,               // stall all stages of the Amber core at the same time
 
-output logic				o_exec_alu_valid,			//whether or not the data on the output of this stage is valid
-output logic  [8:0]         o_rd_sel, 			      	// The destination register for a load instruction
+input logic					i_instr_valid,				//make outputs benign if no incoming instruction
+//o_rd_sel no longer needed. this is handled now by tag comparison
+//output logic  [8:0]         o_rd_sel, 			      	// The destination register for a load instruction
+output logic				o_rd_valid, //whether or not the data on the output of this stage is valid
+output logic [5:0]			o_rd_tag,
 output logic [31:0]			o_rd_data,
 output logic [3:0]			o_alu_flags,
-output logic [14:0]			o_reg_bank_wen,	
+output logic				o_pc_wen,
 
 //TODO confirm the op1/rn,op2/rs,op3/rm naming scheme as per Dispatch definitions/logic and modify if needed
+//Note that we don't care about the operand tags and valid bits; we only care about the dest reg tag.
 //Operand 1 data
-input logic [5:0] i_rn_tag;
 input logic [31:0] i_rn;
 
 //Operand 2 data
-input logic [5:0] i_rs_tag;
 input logic [31:0] i_rs;
 
 //Operand 3 data (used if we write to a reg, one operand is a reg, and the other operand is a reg shifted by another reg)
-input logic [5:0] i_rm_tag;
 input logic [31:0] i_rm;
 
 //CCR data
-input logic [5:0] i_ccr_tag;
 input logic [31:0] i_ccr;
 
 //Control signals for the ALU stage
 input logic [31:0] i_imm32;
 input logic [4:0] i_imm_shift_amount;
 input logic i_shift_imm_zero;
-input logic [8:0] i_exec_load_rd,
+//input logic [8:0] i_exec_load_rd,
 input logic [1:0] i_barrel_shift_amount_sel,
 input logic [1:0] i_barrel_shift_data_sel,
 input logic [1:0] i_barrel_shift_function,
 input logic [8:0] i_alu_function,
-input logic i_pc_wen,
-input logic [14:0] i_reg_bank_wen,
+input logic i_pc_wen, //will need to be passed through to the output
+//input logic [14:0] i_reg_bank_wen,
 input logic i_status_bits_flags_wen,
-input logic i_status_bits_mode_wen,
+/*input logic i_status_bits_mode_wen,
 input logic i_status_bits_irq_mask_wen,
-input logic i_status_bits_firq_mask_wen
+input logic i_status_bits_firq_mask_wen*/
+
+input logic [5:0] i_rd_tag //TODO note: might need to change the reservation station structure to add this
 
 );
 

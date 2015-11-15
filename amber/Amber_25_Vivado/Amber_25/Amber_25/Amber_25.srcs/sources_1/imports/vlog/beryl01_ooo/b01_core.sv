@@ -494,6 +494,7 @@ a25_wishbone u_wishbone (
 );
 
 
+//TODO remove and unlink signals *safely*, as per the newly modified Fetch stage
 // ======================================
 //  Co-Processor #15
 // ======================================
