@@ -15,6 +15,7 @@ How this works:
 
 module b01_tagstore (
 	input logic			i_clk,
+	input logic			i_rst,
 	input logic			i_stall,
 	
 	input logic [1:0]	i_instr_type, //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
@@ -114,27 +115,32 @@ assign mem_tag_nxt 	= 	mem_tag_available[0 ] ? 4'd0:
 												4'd0; //default case; if we get here we'll assert full anyway
 
 //Tag-available update logic
-always_ff @(posedge i_clk) begin
-	//TODO initialize on reset!!!
-	
-	if (i_stall/*_all*/) begin
-		//Make no changes to current state if we're stalled
-		alu_tag_available <= alu_tag_available;
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		alu_tag_available <= 16'hffff;
+		mult_tag_available <= 16'hffff;
+		mem_tag_available <= 16'hffff;
 	end
-	/*else if (i_stall_new) begin
-		//don't update available based on what tag we say is available this cycle, but continue retiring instructions.
-		//this will be the case if the reservation station is full but we still need to retire so we can make forward progress.
-	end*/
 	else begin
-		for (int i=0; i<15; i+=1) begin
-			if ((alu_tag_available[i] || i_alu_tag[3:0]==i) && alu_tag_nxt!=i) alu_tag_available[i] <= 1'b1;
-			else alu_tag_available[i] <= 1'b0;
-			
-			if ((mult_tag_available[i] || i_mult_tag[3:0]==i) && mult_tag_nxt!=i) mult_tag_available[i] <= 1'b1;
-			else mult_tag_available[i] <= 1'b0;
-			
-			if ((mem_tag_available[i] || i_mem_tag[3:0]==i) && mem_tag_nxt!=i) mem_tag_available[i] <= 1'b1;
-			else mem_tag_available[i] <= 1'b0;
+		if (i_stall/*_all*/) begin
+			//Make no changes to current state if we're stalled
+			alu_tag_available <= alu_tag_available;
+		end
+		/*else if (i_stall_new) begin
+			//don't update available based on what tag we say is available this cycle, but continue retiring instructions.
+			//this will be the case if the reservation station is full but we still need to retire so we can make forward progress.
+		end*/
+		else begin
+			for (int i=0; i<15; i+=1) begin
+				if ((alu_tag_available[i] || i_alu_tag[3:0]==i) && alu_tag_nxt!=i) alu_tag_available[i] <= 1'b1;
+				else alu_tag_available[i] <= 1'b0;
+				
+				if ((mult_tag_available[i] || i_mult_tag[3:0]==i) && mult_tag_nxt!=i) mult_tag_available[i] <= 1'b1;
+				else mult_tag_available[i] <= 1'b0;
+				
+				if ((mem_tag_available[i] || i_mem_tag[3:0]==i) && mem_tag_nxt!=i) mem_tag_available[i] <= 1'b1;
+				else mem_tag_available[i] <= 1'b0;
+			end
 		end
 	end
 	

@@ -42,11 +42,10 @@
 //////////////////////////////////////////////////////////////////
 
 
-//Note that this stage will also handle any branch resolution stuff (???)
-
 module b01_execute_alu (
 
 input                       i_clk,
+input						i_rst,
 input                       i_core_stall,               // stall all stages of the Amber core at the same time
 
 input logic					i_instr_valid,				//make outputs benign if no incoming instruction
@@ -61,21 +60,22 @@ output logic				o_pc_wen,
 //TODO confirm the op1/rn,op2/rs,op3/rm naming scheme as per Dispatch definitions/logic and modify if needed
 //Note that we don't care about the operand tags and valid bits; we only care about the dest reg tag.
 //Operand 1 data
-input logic [31:0] i_rn;
+input logic [31:0] i_rn,
 
 //Operand 2 data
-input logic [31:0] i_rs;
+input logic [31:0] i_rs,
 
 //Operand 3 data (used if we write to a reg, one operand is a reg, and the other operand is a reg shifted by another reg)
-input logic [31:0] i_rm;
+input logic [31:0] i_rm,
 
-//CCR data
-input logic [31:0] i_ccr;
+//CCR data, for carry bit
+input logic [3:0] i_status_bits_flags,
+input logic i_use_carry_in,
 
 //Control signals for the ALU stage
-input logic [31:0] i_imm32;
-input logic [4:0] i_imm_shift_amount;
-input logic i_shift_imm_zero;
+input logic [31:0] i_imm32,
+input logic [4:0] i_imm_shift_amount,
+input logic i_shift_imm_zero,
 //input logic [8:0] i_exec_load_rd,
 input logic [1:0] i_barrel_shift_amount_sel,
 input logic [1:0] i_barrel_shift_data_sel,
@@ -83,7 +83,7 @@ input logic [1:0] i_barrel_shift_function,
 input logic [8:0] i_alu_function,
 input logic i_pc_wen, //will need to be passed through to the output
 //input logic [14:0] i_reg_bank_wen,
-input logic i_status_bits_flags_wen,
+//input logic i_status_bits_flags_wen, //shouldn't be needed in this module anymore
 /*input logic i_status_bits_mode_wen,
 input logic i_status_bits_irq_mask_wen,
 input logic i_status_bits_firq_mask_wen*/
@@ -92,8 +92,8 @@ input logic [5:0] i_rd_tag //TODO note: might need to change the reservation sta
 
 );
 
-`include "a25_localparams.vh"
-`include "a25_functions.vh"
+`include "b01_localparams.vh"
+`include "b01_functions.vh"
 
 // ========================================================
 // Internal signals
@@ -107,9 +107,6 @@ wire                barrel_shift_carry;
 wire                barrel_shift_stall;
 wire                barrel_shift_carry_alu;
 
-wire                execute;                    // high when condition execution is true
-wire [31:0]         reg_write_nxt;
-wire [14:0]         reg_bank_wen;
 
 //TODO note: need to handle LDM instruction stuff purely in Mem stage. Retirement of this one will be tricky.
 //What I'll probably do is just have the Mem stage do everything purely in an internal state machine and only "retire" the instruction after it's done all the loads/stores.
@@ -133,35 +130,32 @@ assign barrel_shift_in = i_barrel_shift_data_sel == 2'd0 ? i_imm32 : i_rm ;
 
 
 // ========================================================
-// Conditional Execution
-// ========================================================
-assign execute = conditional_execute ( i_condition, status_bits_flags );
-
-// only update register bank if current instruction executes
-assign reg_bank_wen = {{15{execute}} & i_reg_bank_wen};
-
-
-// ========================================================
 // Register Update
 // ========================================================
 
-//TODO also work in the predicated execution stuff here (if not handled in Dispatch)
-//TODO actually create the various signals referenced here
-always_ff @(posedge i_clk) begin
-	o_exec_alu_valid <= i_core_stall ? o_exec_alu_valid : alu_valid_nxt;//TODO
-	o_rd_sel <= i_core_stall ? o_rd_sel : i_exec_load_rd;//TODO
-	o_rd_data <= i_core_stall ? o_rd_data : alu_out;//TODO
-	o_alu_flags <= i_core_stall ? o_alu_flags : alu_flags; //TODO
-	o_reg_bank_wen <= i_core_stall ? o_reg_bank_wen : reg_bank_wen; //TODO
+//note that predicated execution is handled in Dispatch, by simply not adding the instruction to a reservation station
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		o_rd_valid <= 1'b0;
+		o_rd_tag <= '0;
+		o_rd_data <= '0;
+		o_alu_flags <= 4'b1111;
+	end
+	else begin
+		o_rd_valid <= i_core_stall ? 1'b0 : i_instr_valid; //TODO ensure this is okay not being combinational in the case of a core stall
+		o_rd_tag <= i_core_stall ? o_rd_tag : i_rd_tag;
+		o_rd_data <= i_core_stall ? o_rd_data : alu_out;
+		o_alu_flags <= i_core_stall ? o_alu_flags : alu_flags;
+	end
 end
 
 
 // ========================================================
 // Instantiate Barrel Shift
 // ========================================================
-assign carry_in = i_use_carry_in ? status_bits_flags[1] : 1'd0;
+assign carry_in = i_use_carry_in ? i_status_bits_flags[1] : 1'd0;
 
-a25_barrel_shift u_barrel_shift  (
+b01_barrel_shift u_barrel_shift  (
     .i_clk            ( i_clk                     ),
     .i_in             ( barrel_shift_in           ),
     .i_carry_in       ( carry_in                  ),
@@ -178,10 +172,10 @@ a25_barrel_shift u_barrel_shift  (
 // Instantiate ALU
 // ========================================================
 assign barrel_shift_carry_alu =  i_barrel_shift_data_sel == 2'd0 ?
-                                  (i_imm_shift_amount[4:1] == 0 ? status_bits_flags[1] : i_imm32[31]) :
+                                  (i_imm_shift_amount[4:1] == 0 ? i_status_bits_flags[1] : i_imm32[31]) :
                                    barrel_shift_carry;
 
-a25_alu u_alu (
+b01_alu u_alu (
     .i_a_in                 ( i_rn                    ),
     .i_b_in                 ( barrel_shift_out        ),
     .i_barrel_shift_carry   ( barrel_shift_carry_alu  ),

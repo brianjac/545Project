@@ -39,7 +39,7 @@
 //////////////////////////////////////////////////////////////////
 
 
-module a25_barrel_shift (
+module b01_barrel_shift (
 
 input                       i_clk,
 input       [31:0]          i_in,
@@ -80,10 +80,10 @@ always @(posedge i_clk)
 
 
 // Full barrel shifter
-a25_shifter #( 
+b01_shifter #( 
     .FULL_BARREL (1)
     )
-u_a25_shifter_full (
+u_b01_shifter_full (
     .i_in               ( i_in             ),
     .i_carry_in         ( i_carry_in       ),
     .i_shift_amount     ( i_shift_amount   ),   
