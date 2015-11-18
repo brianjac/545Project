@@ -1,0 +1,3820 @@
+
+Path: /etc/ImageMagick/type-ghostscript.xml
+  Font: AvantGarde-Book
+    family: AvantGarde
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/a010013l.pfb
+  Font: AvantGarde-BookOblique
+    family: AvantGarde
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/a010033l.pfb
+  Font: AvantGarde-Demi
+    family: AvantGarde
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/gsfonts/a010015l.pfb
+  Font: AvantGarde-DemiOblique
+    family: AvantGarde
+    style: Oblique
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/gsfonts/a010035l.pfb
+  Font: Bookman-Demi
+    family: Bookman
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/gsfonts/b018015l.pfb
+  Font: Bookman-DemiItalic
+    family: Bookman
+    style: Italic
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/gsfonts/b018035l.pfb
+  Font: Bookman-Light
+    family: Bookman
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/type1/gsfonts/b018012l.pfb
+  Font: Bookman-LightItalic
+    family: Bookman
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/type1/gsfonts/b018032l.pfb
+  Font: Courier
+    family: Courier
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n022003l.pfb
+  Font: Courier-BoldOblique
+    family: Courier
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n022024l.pfb
+  Font: Courier-Oblique
+    family: Courier
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n022023l.pfb
+  Font: fixed
+    family: Helvetica
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019003l.pfb
+  Font: Helvetica
+    family: Helvetica
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019003l.pfb
+  Font: Helvetica-Bold
+    family: Helvetica
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019004l.pfb
+  Font: Helvetica-BoldOblique
+    family: Helvetica
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019024l.pfb
+  Font: Helvetica-Narrow
+    family: Helvetica Narrow
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019043l.pfb
+  Font: Helvetica-Narrow-Bold
+    family: Helvetica Narrow
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019044l.pfb
+  Font: Helvetica-Narrow-BoldOblique
+    family: Helvetica Narrow
+    style: Oblique
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019064l.pfb
+  Font: Helvetica-Narrow-Oblique
+    family: Helvetica Narrow
+    style: Oblique
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019063l.pfb
+  Font: Helvetica-Oblique
+    family: Helvetica
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019023l.pfb
+  Font: NewCenturySchlbk-Bold
+    family: NewCenturySchlbk
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/c059016l.pfb
+  Font: NewCenturySchlbk-BoldItalic
+    family: NewCenturySchlbk
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/c059036l.pfb
+  Font: NewCenturySchlbk-Italic
+    family: NewCenturySchlbk
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/c059033l.pfb
+  Font: NewCenturySchlbk-Roman
+    family: NewCenturySchlbk
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/c059013l.pfb
+  Font: Palatino-Bold
+    family: Palatino
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/p052004l.pfb
+  Font: Palatino-BoldItalic
+    family: Palatino
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/p052024l.pfb
+  Font: Palatino-Italic
+    family: Palatino
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/p052023l.pfb
+  Font: Palatino-Roman
+    family: Palatino
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/p052003l.pfb
+  Font: Symbol
+    family: Symbol
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/s050000l.pfb
+  Font: Times-Bold
+    family: Times
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n021004l.pfb
+  Font: Times-BoldItalic
+    family: Times
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n021024l.pfb
+  Font: Times-Italic
+    family: Times
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n021023l.pfb
+  Font: Times-Roman
+    family: Times
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n021003l.pfb
+
+Path: System Fonts
+  Font: Abyssinica-SIL-Regular
+    family: Abyssinica SIL
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/abyssinica/AbyssinicaSIL-R.ttf
+  Font: Accanthis-ADF-Std-Bold
+    family: Accanthis ADF Std
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStd-Bold.otf
+  Font: Accanthis-ADF-Std-Bold-Italic
+    family: Accanthis ADF Std
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStd-BoldItalic.otf
+  Font: Accanthis-ADF-Std-Italic
+    family: Accanthis ADF Std
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStd-Italic.otf
+  Font: Accanthis-ADF-Std-No2-Bold
+    family: Accanthis ADF Std No2
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo2-Bold.otf
+  Font: Accanthis-ADF-Std-No2-Bold-Italic
+    family: Accanthis ADF Std No2
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo2-BoldItalic.otf
+  Font: Accanthis-ADF-Std-No2-Italic
+    family: Accanthis ADF Std No2
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo2-Italic.otf
+  Font: Accanthis-ADF-Std-No2-Regular
+    family: Accanthis ADF Std No2
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo2-Regular.otf
+  Font: Accanthis-ADF-Std-No3-Bold
+    family: Accanthis ADF Std No3
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo3-Bold.otf
+  Font: Accanthis-ADF-Std-No3-Bold-Italic
+    family: Accanthis ADF Std No3
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo3-BoldItalic.otf
+  Font: Accanthis-ADF-Std-No3-Italic
+    family: Accanthis ADF Std No3
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo3-Italic.otf
+  Font: Accanthis-ADF-Std-No3-Regular
+    family: Accanthis ADF Std No3
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStdNo3-Regular.otf
+  Font: Accanthis-ADF-Std-Regular
+    family: Accanthis ADF Std
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/AccanthisADFStd-Regular.otf
+  Font: Adobe-Garamond-Regular
+    family: Adobe Garamond
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Adobe Garamond.ttf
+  Font: Amiri-Bold
+    family: Amiri
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/fonts-hosny-amiri/amiri-bold.ttf
+  Font: Amiri-Bold-Slanted
+    family: Amiri
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/fonts-hosny-amiri/amiri-boldslanted.ttf
+  Font: Amiri-Quran-Regular
+    family: Amiri Quran
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/fonts-hosny-amiri/amiri-quran.ttf
+  Font: Amiri-Regular
+    family: Amiri
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/fonts-hosny-amiri/amiri-regular.ttf
+  Font: Amiri-Slanted
+    family: Amiri
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/fonts-hosny-amiri/amiri-slanted.ttf
+  Font: Architects-Daughter-Regular
+    family: Architects Daughter
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/ArchitectsDaughter.ttf
+  Font: Asana-Math-Regular
+    family: Asana Math
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/asana-math/Asana-Math.otf
+  Font: Averia-Bold
+    family: Averia
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-Bold.ttf
+  Font: Averia-BoldItalic
+    family: Averia
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-BoldItalic.ttf
+  Font: Averia-Gruesa
+    family: Averia
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-Gruesa.ttf
+  Font: Averia-Italic
+    family: Averia
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-Italic.ttf
+  Font: Averia-Light
+    family: Averia
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-Light.ttf
+  Font: Averia-LightItalic
+    family: Averia
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-LightItalic.ttf
+  Font: Averia-Regular
+    family: Averia
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/Fonts/Averia-Regular.ttf
+  Font: Bitstream-Charter-Bold
+    family: Bitstream Charter
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/X11/Type1/c0632bt_.pfb
+  Font: Bitstream-Charter-Bold-Italic
+    family: Bitstream Charter
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/bchbi8a.pfb
+  Font: Bitstream-Charter-Italic
+    family: Bitstream Charter
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/bchri8a.pfb
+  Font: Bitstream-Charter-Regular
+    family: Bitstream Charter
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/bchr8a.pfb
+  Font: BlackChancery-Regular
+    family: BlackChancery
+    style: Normal
+    stretch: Normal
+    weight: 100
+    glyphs: /usr/share/fonts/truetype/Fonts/BLKCHCRY.TTF
+  Font: Cabin-Bold
+    family: Cabin
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-Bold.otf
+  Font: Cabin-Bold-Italic
+    family: Cabin
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-BoldItalic.otf
+  Font: Cabin-Italic
+    family: Cabin
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-Italic.otf
+  Font: Cabin-Medium
+    family: Cabin
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-Medium.otf
+  Font: Cabin-Medium-Italic
+    family: Cabin
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-MediumItalic.otf
+  Font: Cabin-Regular
+    family: Cabin
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-Regular.otf
+  Font: Cabin-SemiBold
+    family: Cabin
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-SemiBold.otf
+  Font: Cabin-SemiBold-Italic
+    family: Cabin
+    style: Italic
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/cabin/Cabin-SemiBoldItalic.otf
+  Font: Calibri-Bold
+    family: Calibri
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Calibri Bold.ttf
+  Font: Calibri-Bold-Italic
+    family: Calibri
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Calibri Bold Italic.ttf
+  Font: Calibri-Italic
+    family: Calibri
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Calibri Italic.ttf
+  Font: Calibri-Regular
+    family: Calibri
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Calibri.ttf
+  Font: Canterbury-Regular
+    family: Canterbury
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Canterbury.ttf
+  Font: Century-Schoolbook-Bold
+    family: Century Schoolbook
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/c059016l.pfb
+  Font: Century-Schoolbook-Bold-Italic
+    family: Century Schoolbook
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/c059036l.pfb
+  Font: Century-Schoolbook-Italic
+    family: Century Schoolbook
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/c059033l.pfb
+  Font: Century-Schoolbook-Roman
+    family: Century Schoolbook
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uncr8a.pfb
+  Font: Cicle-Fina
+    family: Cicle
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Fina.ttf
+  Font: Cicle-Fina-Italic
+    family: Cicle
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Fina Italic.ttf
+  Font: Cicle-Gordita
+    family: Cicle
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Gordita.ttf
+  Font: Cicle-Gordita-Italic
+    family: Cicle
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Gordita Italic.ttf
+  Font: Cicle-Semi
+    family: Cicle
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Semi.ttf
+  Font: Cicle-Semi-Italic
+    family: Cicle
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Semi Italic.ttf
+  Font: Cicle-Shadow
+    family: Cicle
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/Fonts/Cicle Shadow.ttf
+  Font: Cloister-Black-Light
+    family: Cloister Black
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/CloisterBlack.ttf
+  Font: Comfortaa-Bold
+    family: Comfortaa
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/comfortaa/Comfortaa-Bold.ttf
+  Font: Comfortaa-Light
+    family: Comfortaa
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/comfortaa/Comfortaa-Light.ttf
+  Font: Comfortaa-Regular
+    family: Comfortaa
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/comfortaa/Comfortaa-Regular.ttf
+  Font: Comic-Sans-MS-Bold
+    family: Comic Sans MS
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Comic Sans Bold.ttf
+  Font: Comic-Sans-MS-Regular
+    family: Comic Sans MS
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Comic Sans.ttf
+  Font: Courier-10-Pitch-Bold
+    family: Courier 10 Pitch
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/X11/Type1/c0583bt_.pfb
+  Font: Courier-10-Pitch-Bold-Italic
+    family: Courier 10 Pitch
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/X11/Type1/c0611bt_.pfb
+  Font: Courier-10-Pitch-Italic
+    family: Courier 10 Pitch
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/X11/Type1/c0582bt_.pfb
+  Font: Courier-10-Pitch-Regular
+    family: Courier 10 Pitch
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/X11/Type1/c0419bt_.pfb
+  Font: Courier-Bold
+    family: Courier
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/pcrb8a.pfb
+  Font: Courier-Bold-Italic
+    family: Courier
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/pcrbo8a.pfb
+  Font: Courier-Italic
+    family: Courier
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/pcrro8a.pfb
+  Font: Courier-Regular
+    family: Courier
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/pcrr8a.pfb
+  Font: DejaVu-Sans-Bold
+    family: DejaVu Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf
+  Font: DejaVu-Sans-Bold-Oblique
+    family: DejaVu Sans
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf
+  Font: DejaVu-Sans-Book
+    family: DejaVu Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
+  Font: DejaVu-Sans-Condensed
+    family: DejaVu Sans
+    style: Normal
+    stretch: SemiCondensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed.ttf
+  Font: DejaVu-Sans-Condensed-Bold
+    family: DejaVu Sans
+    style: Normal
+    stretch: SemiCondensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-Bold.ttf
+  Font: DejaVu-Sans-Condensed-Bold-Oblique
+    family: DejaVu Sans
+    style: Oblique
+    stretch: SemiCondensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-BoldOblique.ttf
+  Font: DejaVu-Sans-Condensed-Oblique
+    family: DejaVu Sans
+    style: Oblique
+    stretch: SemiCondensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-Oblique.ttf
+  Font: DejaVu-Sans-ExtraLight
+    family: DejaVu Sans
+    style: Normal
+    stretch: Normal
+    weight: 200
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-ExtraLight.ttf
+  Font: DejaVu-Sans-Mono-Bold
+    family: DejaVu Sans Mono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf
+  Font: DejaVu-Sans-Mono-Bold-Oblique
+    family: DejaVu Sans Mono
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-BoldOblique.ttf
+  Font: DejaVu-Sans-Mono-Book
+    family: DejaVu Sans Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono.ttf
+  Font: DejaVu-Sans-Mono-Oblique
+    family: DejaVu Sans Mono
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-Oblique.ttf
+  Font: DejaVu-Sans-Oblique
+    family: DejaVu Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf
+  Font: DejaVu-Serif-Bold
+    family: DejaVu Serif
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf
+  Font: DejaVu-Serif-Bold-Italic
+    family: DejaVu Serif
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-BoldItalic.ttf
+  Font: DejaVu-Serif-Book
+    family: DejaVu Serif
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf
+  Font: DejaVu-Serif-Condensed
+    family: DejaVu Serif
+    style: Normal
+    stretch: SemiCondensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed.ttf
+  Font: DejaVu-Serif-Condensed-Bold
+    family: DejaVu Serif
+    style: Normal
+    stretch: SemiCondensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/dejavu/DejaVuSerifCondensed-Bold.ttf
+  Font: DejaVu-Serif-Condensed-Bold-Italic
+    family: DejaVu Serif
+    style: Italic
+    stretch: SemiCondensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-BoldItalic.ttf
+  Font: DejaVu-Serif-Condensed-Italic
+    family: DejaVu Serif
+    style: Italic
+    stretch: SemiCondensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Italic.ttf
+  Font: DejaVu-Serif-Italic
+    family: DejaVu Serif
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Italic.ttf
+  Font: Dingbats-Regular
+    family: Dingbats
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uzdr.pfb
+  Font: Droid-Arabic-Naskh-Bold
+    family: Droid Arabic Naskh
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/droid/DroidNaskh-Bold.ttf
+  Font: Droid-Arabic-Naskh-Regular
+    family: Droid Arabic Naskh
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidNaskh-Regular.ttf
+  Font: Droid-Sans-Armenian-Regular
+    family: Droid Sans Armenian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansArmenian.ttf
+  Font: Droid-Sans-Bold
+    family: Droid Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/droid/DroidSans-Bold.ttf
+  Font: Droid-Sans-Ethiopic-Bold
+    family: Droid Sans Ethiopic
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansEthiopic-Bold.ttf
+  Font: Droid-Sans-Ethiopic-Regular
+    family: Droid Sans Ethiopic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansEthiopic-Regular.ttf
+  Font: Droid-Sans-Fallback-Regular
+    family: Droid Sans Fallback
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf
+  Font: Droid-Sans-Georgian-Regular
+    family: Droid Sans Georgian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansGeorgian.ttf
+  Font: Droid-Sans-Hebrew-Bold
+    family: Droid Sans Hebrew
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansHebrew-Bold.ttf
+  Font: Droid-Sans-Hebrew-Regular
+    family: Droid Sans Hebrew
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansHebrew-Regular.ttf
+  Font: Droid-Sans-Japanese-Regular
+    family: Droid Sans Japanese
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansJapanese.ttf
+  Font: Droid-Sans-Mono-Regular
+    family: Droid Sans Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansMono.ttf
+  Font: Droid-Sans-Regular
+    family: Droid Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSans.ttf
+  Font: Droid-Sans-Thai-Regular
+    family: Droid Sans Thai
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSansThai.ttf
+  Font: Droid-Serif-Bold
+    family: Droid Serif
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/droid/DroidSerif-Bold.ttf
+  Font: Droid-Serif-Bold-Italic
+    family: Droid Serif
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/droid/DroidSerif-BoldItalic.ttf
+  Font: Droid-Serif-Italic
+    family: Droid Serif
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSerif-Italic.ttf
+  Font: Droid-Serif-Regular
+    family: Droid Serif
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/droid/DroidSerif-Regular.ttf
+  Font: Fertigo-Pro-Regular
+    family: Fertigo Pro
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Fertigo
+  Font: FontAwesome-Regular
+    family: FontAwesome
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf
+  Font: FreeMono-Bold
+    family: FreeMono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/freefont/FreeMonoBold.ttf
+  Font: FreeMono-Bold-Oblique
+    family: FreeMono
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/freefont/FreeMonoBoldOblique.otf
+  Font: FreeMono-Oblique
+    family: FreeMono
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/freefont/FreeMonoOblique.otf
+  Font: FreeMono-Regular
+    family: FreeMono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/freefont/FreeMono.ttf
+  Font: FreeSans-Bold
+    family: FreeSans
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/freefont/FreeSansBold.otf
+  Font: FreeSans-Bold-Oblique
+    family: FreeSans
+    style: Italic
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/freefont/FreeSansBoldOblique.otf
+  Font: FreeSans-Oblique
+    family: FreeSans
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/freefont/FreeSansOblique.ttf
+  Font: FreeSans-Regular
+    family: FreeSans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/freefont/FreeSans.otf
+  Font: FreeSerif-Bold
+    family: FreeSerif
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/freefont/FreeSerifBold.ttf
+  Font: FreeSerif-Bold-Italic
+    family: FreeSerif
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/freefont/FreeSerifBoldItalic.otf
+  Font: FreeSerif-Italic
+    family: FreeSerif
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf
+  Font: FreeSerif-Regular
+    family: FreeSerif
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/freefont/FreeSerif.otf
+  Font: gargi-Medium
+    family: gargi
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/gargi.ttf
+  Font: Garuda-Bold
+    family: Garuda
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Garuda-Bold.ttf
+  Font: Garuda-BoldOblique
+    family: Garuda
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Garuda-BoldOblique.ttf
+  Font: Garuda-Book
+    family: Garuda
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Garuda.ttf
+  Font: Garuda-Oblique
+    family: Garuda
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Garuda-Oblique.ttf
+  Font: Gentium-Basic-Bold
+    family: Gentium Basic
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBasB.ttf
+  Font: Gentium-Basic-Bold-Italic
+    family: Gentium Basic
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBasBI.ttf
+  Font: Gentium-Basic-Italic
+    family: Gentium Basic
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBasI.ttf
+  Font: Gentium-Basic-Regular
+    family: Gentium Basic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBasR.ttf
+  Font: Gentium-Book-Basic-Bold
+    family: Gentium Book Basic
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBkBasB.ttf
+  Font: Gentium-Book-Basic-Bold-Italic
+    family: Gentium Book Basic
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBkBasBI.ttf
+  Font: Gentium-Book-Basic-Italic
+    family: Gentium Book Basic
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBkBasI.ttf
+  Font: Gentium-Book-Basic-Regular
+    family: Gentium Book Basic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium-basic/GenBkBasR.ttf
+  Font: Gentium-Italic
+    family: Gentium
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium/GenI102.ttf
+  Font: Gentium-Regular
+    family: Gentium
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium/GenR102.ttf
+  Font: GentiumAlt-Italic
+    family: GentiumAlt
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium/GenAI102.ttf
+  Font: GentiumAlt-Regular
+    family: GentiumAlt
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/gentium/GenAR102.ttf
+  Font: GFS-Artemisia-Bold
+    family: GFS Artemisia
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/artemisia/GFSArtemisiaBold.otf
+  Font: GFS-Artemisia-Bold-Italic
+    family: GFS Artemisia
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/artemisia/GFSArtemisiaBoldIt.otf
+  Font: GFS-Artemisia-Italic
+    family: GFS Artemisia
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/artemisia/GFSArtemisiaIt.otf
+  Font: GFS-Artemisia-Regular
+    family: GFS Artemisia
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/artemisia/GFSArtemisia.otf
+  Font: GFS-Baskerville-Regular
+    family: GFS Baskerville
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/baskerville/GFSBaskerville.otf
+  Font: GFS-Complutum-Regular
+    family: GFS Complutum
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/complutum/GFSPolyglot.otf
+  Font: GFS-Didot-Bold
+    family: GFS Didot
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/didot/GFSDidotBold.otf
+  Font: GFS-Didot-Bold-Italic
+    family: GFS Didot
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/didot/GFSDidotBoldItalic.otf
+  Font: GFS-Didot-Italic
+    family: GFS Didot
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/didot/GFSDidotItalic.otf
+  Font: GFS-Didot-Regular
+    family: GFS Didot
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/didot/GFSDidot.otf
+  Font: GFS-Neohellenic-Bold
+    family: GFS Neohellenic
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/neohellenic/GFSNeohellenicBold.otf
+  Font: GFS-Neohellenic-Bold-Italic
+    family: GFS Neohellenic
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/neohellenic/GFSNeohellenicBoldIt.otf
+  Font: GFS-Neohellenic-Italic
+    family: GFS Neohellenic
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/neohellenic/GFSNeohellenicIt.otf
+  Font: GFS-Neohellenic-Regular
+    family: GFS Neohellenic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/neohellenic/GFSNeohellenic.otf
+  Font: GFS-Olga-Regular
+    family: GFS Olga
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/olga/GFSOlga.otf
+  Font: GFS-Porson-Regular
+    family: GFS Porson
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/porson/GFSPorson.otf
+  Font: GFS-Solomos-Regular
+    family: GFS Solomos
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/solomos/GFSSolomos.otf
+  Font: Gillius-ADF-Bold
+    family: Gillius ADF
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADF-Bold.otf
+  Font: Gillius-ADF-Bold-Italic
+    family: Gillius ADF
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADF-BoldItalic.otf
+  Font: Gillius-ADF-Cd-Bold
+    family: Gillius ADF Cd
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFCd-Bold.otf
+  Font: Gillius-ADF-Cd-Bold-Italic
+    family: Gillius ADF Cd
+    style: Italic
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFCd-BoldItalic.otf
+  Font: Gillius-ADF-Cd-Italic
+    family: Gillius ADF Cd
+    style: Italic
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFCd-Italic.otf
+  Font: Gillius-ADF-Cd-Regular
+    family: Gillius ADF Cd
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFCd-Regular.otf
+  Font: Gillius-ADF-Italic
+    family: Gillius ADF
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADF-Italic.otf
+  Font: Gillius-ADF-No2-Bold
+    family: Gillius ADF No2
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2-Bold.otf
+  Font: Gillius-ADF-No2-Bold-Italic
+    family: Gillius ADF No2
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2-BoldItalic.otf
+  Font: Gillius-ADF-No2-Cd-Bold
+    family: Gillius ADF No2 Cd
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2Cd-Bold.otf
+  Font: Gillius-ADF-No2-Cd-Bold-Italic
+    family: Gillius ADF No2 Cd
+    style: Italic
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2Cd-BoldItalic.otf
+  Font: Gillius-ADF-No2-Cd-Italic
+    family: Gillius ADF No2 Cd
+    style: Italic
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2Cd-Italic.otf
+  Font: Gillius-ADF-No2-Cd-Regular
+    family: Gillius ADF No2 Cd
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2Cd-Regular.otf
+  Font: Gillius-ADF-No2-Italic
+    family: Gillius ADF No2
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2-Italic.otf
+  Font: Gillius-ADF-No2-Regular
+    family: Gillius ADF No2
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADFNo2-Regular.otf
+  Font: Gillius-ADF-Regular
+    family: Gillius ADF
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/adf/GilliusADF-Regular.otf
+  Font: Impact-Regular
+    family: Impact
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Impact.ttf
+  Font: Inconsolata-Medium
+    family: Inconsolata
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/inconsolata/Inconsolata.otf
+  Font: IPAexGothic-Regular
+    family: IPAexGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/ipaexfont-gothic/ipaexg.ttf
+  Font: IPAexMincho-Regular
+    family: IPAexMincho
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/fonts-japanese-mincho.ttf
+  Font: IPAGothic-Regular
+    family: IPAGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf
+  Font: IPAMincho-Regular
+    family: IPAMincho
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf
+  Font: IPAPGothic-Regular
+    family: IPAPGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/ipafont-gothic/ipagp.ttf
+  Font: IPAPMincho-Regular
+    family: IPAPMincho
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/ipafont-mincho/ipamp.ttf
+  Font: Junicode-Bold
+    family: Junicode
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/junicode/Junicode-Bold.ttf
+  Font: Junicode-Bold-Italic
+    family: Junicode
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/junicode/Junicode-BoldItalic.ttf
+  Font: Junicode-Italic
+    family: Junicode
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/junicode/Junicode-Italic.ttf
+  Font: Junicode-Regular
+    family: Junicode
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/junicode/Junicode.ttf
+  Font: KacstArt-Medium
+    family: KacstArt
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstArt.ttf
+  Font: KacstBook-Medium
+    family: KacstBook
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstBook.ttf
+  Font: KacstDecorative-Medium
+    family: KacstDecorative
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstDecorative.ttf
+  Font: KacstDigital-Medium
+    family: KacstDigital
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstDigital.ttf
+  Font: KacstFarsi-Medium
+    family: KacstFarsi
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstFarsi.ttf
+  Font: KacstLetter-Medium
+    family: KacstLetter
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstLetter.ttf
+  Font: KacstNaskh-Medium
+    family: KacstNaskh
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstNaskh.ttf
+  Font: KacstOffice-Medium
+    family: KacstOffice
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstOffice.ttf
+  Font: KacstOne-Bold
+    family: KacstOne
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/kacst-one/KacstOne-Bold.ttf
+  Font: KacstOne-Regular
+    family: KacstOne
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/kacst-one/KacstOne.ttf
+  Font: KacstPen-Medium
+    family: KacstPen
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstPen.ttf
+  Font: KacstPoster-Medium
+    family: KacstPoster
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstPoster.ttf
+  Font: KacstQurn-Medium
+    family: KacstQurn
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/kacst/KacstQurn.ttf
+  Font: KacstScreen-Medium
+    family: KacstScreen
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstScreen.ttf
+  Font: KacstTitle-Medium
+    family: KacstTitle
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/kacst/KacstTitle.ttf
+  Font: KacstTitleL-Medium
+    family: KacstTitleL
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/kacst/KacstTitleL.ttf
+  Font: Kedage-Bold
+    family: Kedage
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Kedage-b.ttf
+  Font: Kedage-Normal
+    family: Kedage
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Kedage-n.ttf
+  Font: Khmer-OS-Regular
+    family: Khmer OS
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-khmeros-core/KhmerOS.ttf
+  Font: Khmer-OS-System-Regular
+    family: Khmer OS System
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-khmeros-core/KhmerOSsys.ttf
+  Font: Kinnari-Bold
+    family: Kinnari
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari-Bold.ttf
+  Font: Kinnari-BoldItalic
+    family: Kinnari
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari-BoldItalic.ttf
+  Font: Kinnari-BoldOblique
+    family: Kinnari
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari-BoldOblique.ttf
+  Font: Kinnari-Italic
+    family: Kinnari
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari-Italic.ttf
+  Font: Kinnari-Medium
+    family: Kinnari
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari.ttf
+  Font: Kinnari-Oblique
+    family: Kinnari
+    style: Oblique
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/Kinnari-Oblique.ttf
+  Font: Klinic-Slab-Book-Italic
+    family: Klinic Slab
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/KlinicSlabBookIt.otf
+  Font: Latin-Modern-Math-Regular
+    family: Latin Modern Math
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm-math/latinmodernmath-regular.otf
+  Font: Latin-Modern-Mono-10-Italic
+    family: Latin Modern Mono
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmono10-italic.otf
+  Font: Latin-Modern-Mono-10-Regular
+    family: Latin Modern Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf
+  Font: Latin-Modern-Mono-12-Regular
+    family: Latin Modern Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmono12-regular.otf
+  Font: Latin-Modern-Mono-8-Regular
+    family: Latin Modern Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmono8-regular.otf
+  Font: Latin-Modern-Mono-9-Regular
+    family: Latin Modern Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmono9-regular.otf
+  Font: Latin-Modern-Mono-Caps-10-Oblique
+    family: Latin Modern Mono Caps
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonocaps10-oblique.otf
+  Font: Latin-Modern-Mono-Caps-10-Regular
+    family: Latin Modern Mono Caps
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonocaps10-regular.otf
+  Font: Latin-Modern-Mono-Light-10-Bold
+    family: Latin Modern Monoight
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf
+  Font: Latin-Modern-Mono-Light-10-Bold-Oblique
+    family: Latin Modern Monoight
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-boldoblique.otf
+  Font: Latin-Modern-Mono-Light-10-Oblique
+    family: Latin Modern Monoight
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-oblique.otf
+  Font: Latin-Modern-Mono-Light-10-Regular
+    family: Latin Modern Monoight
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-regular.otf
+  Font: Latin-Modern-Mono-Light-Cond-10-Oblique
+    family: Latin Modern Monoight Cond
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoltcond10-oblique.otf
+  Font: Latin-Modern-Mono-Light-Cond-10-Regular
+    family: Latin Modern Monoight Cond
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoltcond10-regular.otf
+  Font: Latin-Modern-Mono-Prop-10-Oblique
+    family: Latin Modern Mono Prop
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoprop10-oblique.otf
+  Font: Latin-Modern-Mono-Prop-10-Regular
+    family: Latin Modern Mono Prop
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoprop10-regular.otf
+  Font: Latin-Modern-Mono-Prop-Light-10-Bold
+    family: Latin Modern Mono Propight
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoproplt10-bold.otf
+  Font: Latin-Modern-Mono-Prop-Light-10-BoldOblique
+    family: Latin Modern Mono Propight
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoproplt10-boldoblique.otf
+  Font: Latin-Modern-Mono-Prop-Light-10-Oblique
+    family: Latin Modern Mono Propight
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoproplt10-oblique.otf
+  Font: Latin-Modern-Mono-Prop-Light-10-Regular
+    family: Latin Modern Mono Propight
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoproplt10-regular.otf
+  Font: Latin-Modern-Mono-Slanted-10-Regular
+    family: Latin Modern Mono Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmmonoslant10-regular.otf
+  Font: Latin-Modern-Roman-10-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman10-bold.otf
+  Font: Latin-Modern-Roman-10-Bold-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman10-bolditalic.otf
+  Font: Latin-Modern-Roman-10-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman10-italic.otf
+  Font: Latin-Modern-Roman-10-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman10-regular.otf
+  Font: Latin-Modern-Roman-12-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman12-bold.otf
+  Font: Latin-Modern-Roman-12-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman12-italic.otf
+  Font: Latin-Modern-Roman-12-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman12-regular.otf
+  Font: Latin-Modern-Roman-17-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman17-regular.otf
+  Font: Latin-Modern-Roman-5-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman5-bold.otf
+  Font: Latin-Modern-Roman-5-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman5-regular.otf
+  Font: Latin-Modern-Roman-6-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman6-bold.otf
+  Font: Latin-Modern-Roman-6-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman6-regular.otf
+  Font: Latin-Modern-Roman-7-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman7-bold.otf
+  Font: Latin-Modern-Roman-7-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman7-italic.otf
+  Font: Latin-Modern-Roman-7-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman7-regular.otf
+  Font: Latin-Modern-Roman-8-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman8-bold.otf
+  Font: Latin-Modern-Roman-8-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman8-italic.otf
+  Font: Latin-Modern-Roman-8-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman8-regular.otf
+  Font: Latin-Modern-Roman-9-Bold
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman9-bold.otf
+  Font: Latin-Modern-Roman-9-Italic
+    family: Latin Modern Roman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman9-italic.otf
+  Font: Latin-Modern-Roman-9-Regular
+    family: Latin Modern Roman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmroman9-regular.otf
+  Font: Latin-Modern-Roman-Caps-10-Oblique
+    family: Latin Modern Roman Caps
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromancaps10-oblique.otf
+  Font: Latin-Modern-Roman-Caps-10-Regular
+    family: Latin Modern Roman Caps
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromancaps10-regular.otf
+  Font: Latin-Modern-Roman-Demi-10-Oblique
+    family: Latin Modern Roman Demi
+    style: Oblique
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromandemi10-oblique.otf
+  Font: Latin-Modern-Roman-Demi-10-Regular
+    family: Latin Modern Roman Demi
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromandemi10-regular.otf
+  Font: Latin-Modern-Roman-Dunhill-10-Oblique
+    family: Latin Modern Roman Dunhill
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromandunh10-oblique.otf
+  Font: Latin-Modern-Roman-Dunhill-10-Regular
+    family: Latin Modern Roman Dunhill
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromandunh10-regular.otf
+  Font: Latin-Modern-Roman-Slanted-10-Bold
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant10-bold.otf
+  Font: Latin-Modern-Roman-Slanted-10-Regular
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant10-regular.otf
+  Font: Latin-Modern-Roman-Slanted-12-Regular
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant12-regular.otf
+  Font: Latin-Modern-Roman-Slanted-17-Regular
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant17-regular.otf
+  Font: Latin-Modern-Roman-Slanted-8-Regular
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant8-regular.otf
+  Font: Latin-Modern-Roman-Slanted-9-Regular
+    family: Latin Modern Roman Slanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanslant9-regular.otf
+  Font: Latin-Modern-Roman-Unslanted-10-Regular
+    family: Latin Modern Roman Unslanted
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmromanunsl10-regular.otf
+  Font: Latin-Modern-Sans-10-Bold
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans10-bold.otf
+  Font: Latin-Modern-Sans-10-Bold-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans10-boldoblique.otf
+  Font: Latin-Modern-Sans-10-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans10-oblique.otf
+  Font: Latin-Modern-Sans-10-Regular
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans10-regular.otf
+  Font: Latin-Modern-Sans-12-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans12-oblique.otf
+  Font: Latin-Modern-Sans-12-Regular
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans12-regular.otf
+  Font: Latin-Modern-Sans-17-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans17-oblique.otf
+  Font: Latin-Modern-Sans-17-Regular
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans17-regular.otf
+  Font: Latin-Modern-Sans-8-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans8-oblique.otf
+  Font: Latin-Modern-Sans-8-Regular
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans8-regular.otf
+  Font: Latin-Modern-Sans-9-Oblique
+    family: Latin Modern Sans
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans9-oblique.otf
+  Font: Latin-Modern-Sans-9-Regular
+    family: Latin Modern Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsans9-regular.otf
+  Font: Latin-Modern-Sans-Demi-Cond-10-Oblique
+    family: Latin Modern Sans Demi Cond
+    style: Oblique
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansdemicond10-oblique.otf
+  Font: Latin-Modern-Sans-Demi-Cond-10-Regular
+    family: Latin Modern Sans Demi Cond
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansdemicond10-regular.otf
+  Font: Latin-Modern-Sans-Quotation-8-Bold
+    family: Latin Modern Sans Quotation
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansquot8-bold.otf
+  Font: Latin-Modern-Sans-Quotation-8-Bold-Oblique
+    family: Latin Modern Sans Quotation
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansquot8-boldoblique.otf
+  Font: Latin-Modern-Sans-Quotation-8-Oblique
+    family: Latin Modern Sans Quotation
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansquot8-oblique.otf
+  Font: Latin-Modern-Sans-Quotation-8-Regular
+    family: Latin Modern Sans Quotation
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/lm/lmsansquot8-regular.otf
+  Font: Lato-Black
+    family: Lato
+    style: Normal
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/lato/Lato-Bla.ttf
+  Font: Lato-Black-Italic
+    family: Lato
+    style: Italic
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/lato/Lato-BlaIta.ttf
+  Font: Lato-Bold
+    family: Lato
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/lato/Lato-Bol.ttf
+  Font: Lato-Bold-Italic
+    family: Lato
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/lato/Lato-BolIta.ttf
+  Font: Lato-Hairline
+    family: Lato
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/lato/Lato-Hai.ttf
+  Font: Lato-Hairline-Italic
+    family: Lato
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/lato/Lato-HaiIta.ttf
+  Font: Lato-Italic
+    family: Lato
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/lato/Lato-RegIta.ttf
+  Font: Lato-Light
+    family: Lato
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/lato/Lato-Lig.ttf
+  Font: Lato-Light-Italic
+    family: Lato
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/lato/Lato-LigIta.ttf
+  Font: Lato-Regular
+    family: Lato
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/lato/Lato-Reg.ttf
+  Font: Liberation-Mono-Bold
+    family: Liberation Mono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf
+  Font: Liberation-Mono-Bold-Italic
+    family: Liberation Mono
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf
+  Font: Liberation-Mono-Italic
+    family: Liberation Mono
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf
+  Font: Liberation-Mono-Regular
+    family: Liberation Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf
+  Font: Liberation-Sans-Bold
+    family: Liberation Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf
+  Font: Liberation-Sans-Bold-Italic
+    family: Liberation Sans
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf
+  Font: Liberation-Sans-Italic
+    family: Liberation Sans
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf
+  Font: Liberation-Sans-Narrow-Bold
+    family: Liberation Sans Narrow
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf
+  Font: Liberation-Sans-Narrow-Bold-Italic
+    family: Liberation Sans Narrow
+    style: Italic
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-BoldItalic.ttf
+  Font: Liberation-Sans-Narrow-Italic
+    family: Liberation Sans Narrow
+    style: Italic
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf
+  Font: Liberation-Sans-Narrow-Regular
+    family: Liberation Sans Narrow
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf
+  Font: Liberation-Sans-Regular
+    family: Liberation Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf
+  Font: Liberation-Serif-Bold
+    family: Liberation Serif
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf
+  Font: Liberation-Serif-Bold-Italic
+    family: Liberation Serif
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf
+  Font: Liberation-Serif-Italic
+    family: Liberation Serif
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf
+  Font: Liberation-Serif-Regular
+    family: Liberation Serif
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf
+  Font: Linux-Biolinum-Keyboard-O-Regular
+    family: Linux Biolinum Keyboard O
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinBiolinum_K.otf
+  Font: Linux-Biolinum-O-Bold
+    family: Linux Biolinum O
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinBiolinum_RB.otf
+  Font: Linux-Biolinum-O-Italic
+    family: Linux Biolinum O
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinBiolinum_RI.otf
+  Font: Linux-Biolinum-O-Regular
+    family: Linux Biolinum O
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinBiolinum_R.otf
+  Font: Linux-Libertine-Display-O-Regular
+    family: Linuxibertine Display O
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_DR.otf
+  Font: Linux-Libertine-Initials-O-Initials
+    family: Linuxibertine Initials O
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_I.otf
+  Font: Linux-Libertine-Mono-O-Mono
+    family: Linuxibertine Mono O
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_M.otf
+  Font: Linux-Libertine-O-Bold
+    family: Linuxibertine O
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_RB.otf
+  Font: Linux-Libertine-O-Bold-Italic
+    family: Linuxibertine O
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_RBI.otf
+  Font: Linux-Libertine-O-Italic
+    family: Linuxibertine O
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_RI.otf
+  Font: Linux-Libertine-O-Regular
+    family: Linuxibertine O
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_R.otf
+  Font: Linux-Libertine-O-Semibold
+    family: Linuxibertine O
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_RZ.otf
+  Font: Linux-Libertine-O-Semibold-Italic
+    family: Linuxibertine O
+    style: Italic
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/opentype/linux-libertine/LinLibertine_RZI.otf
+  Font: LKLUG-Regular
+    family: LKLUG
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/sinhala/lklug.ttf
+  Font: Lobster-Two-Bold
+    family: Lobster Two
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/lobstertwo/LobsterTwo-Bold.otf
+  Font: Lobster-Two-Bold-Italic
+    family: Lobster Two
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/lobstertwo/LobsterTwo-BoldItalic.otf
+  Font: Lobster-Two-Italic
+    family: Lobster Two
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/lobstertwo/LobsterTwo-Italic.otf
+  Font: Lobster-Two-Regular
+    family: Lobster Two
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/lobstertwo/LobsterTwo-Regular.otf
+  Font: Lohit-Bengali-Regular
+    family: Lohit Bengali
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_bn.ttf
+  Font: Lohit-Devanagari-Regular
+    family: Lohit Devanagari
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_hi.ttf
+  Font: Lohit-Gujarati-Regular
+    family: Lohit Gujarati
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_gu.ttf
+  Font: Lohit-Punjabi-Regular
+    family: Lohit Punjabi
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-punjabi-fonts/lohit_pa.ttf
+  Font: Lohit-Tamil-Regular
+    family: Lohit Tamil
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_ta.ttf
+  Font: Loma-Bold
+    family: Loma
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Loma-Bold.ttf
+  Font: Loma-BoldOblique
+    family: Loma
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Loma-BoldOblique.ttf
+  Font: Loma-Book
+    family: Loma
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Loma.ttf
+  Font: Loma-Oblique
+    family: Loma
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Loma-Oblique.ttf
+  Font: Mallige-Bold
+    family: Mallige
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Malige-b.ttf
+  Font: Mallige-Normal
+    family: Mallige
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Malige-n.ttf
+  Font: Matiz-Regular
+    family: Matiz
+    style: Normal
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/Fonts/Matiz.ttf
+  Font: Meera-Regular
+    family: Meera
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Meera_04.ttf
+  Font: Minecrafter-Alt-Regular
+    family: Minecrafter Alt
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Minecrafter.Alt.ttf
+  Font: Minecrafter-Regular
+    family: Minecrafter
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Minecrafter.Reg.ttf
+  Font: mry_KacstQurn-Regular
+    family: mry_KacstQurn
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/kacst/mry_KacstQurn.ttf
+  Font: Mukti-Narrow-Regular
+    family: Mukti Narrow
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/MuktiNarrow.ttf
+  Font: NanumBarunGothic-Bold
+    family: NanumBarunGothic
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/nanum/NanumBarunGothicBold.ttf
+  Font: NanumBarunGothic-Regular
+    family: NanumBarunGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/nanum/NanumBarunGothic.ttf
+  Font: NanumGothic-Bold
+    family: NanumGothic
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/nanum/NanumGothicBold.ttf
+  Font: NanumGothic-Regular
+    family: NanumGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/nanum/NanumGothic.ttf
+  Font: NanumMyeongjo-Bold
+    family: NanumMyeongjo
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/nanum/NanumMyeongjoBold.ttf
+  Font: NanumMyeongjo-Regular
+    family: NanumMyeongjo
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf
+  Font: Nimbus-Mono-Bold
+    family: Nimbus Mono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n022004l.pfb
+  Font: Nimbus-Mono-Bold-Oblique
+    family: Nimbus Mono
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n022024l.pfb
+  Font: Nimbus-Mono-Regular
+    family: Nimbus Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/ucrr8a.pfb
+  Font: Nimbus-Mono-Regular-Oblique
+    family: Nimbus Mono
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/ucrro8a.pfb
+  Font: Nimbus-Roman-No9-Medium
+    family: Nimbus Roman No9
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/utmb8a.pfb
+  Font: Nimbus-Roman-No9-Medium-Italic
+    family: Nimbus Roman No9
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/utmbi8a.pfb
+  Font: Nimbus-Roman-No9-Regular
+    family: Nimbus Roman No9
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/utmr8a.pfb
+  Font: Nimbus-Roman-No9-Regular-Italic
+    family: Nimbus Roman No9
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/utmri8a.pfb
+  Font: Nimbus-Sans-Bold
+    family: Nimbus Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019004l.pfb
+  Font: Nimbus-Sans-Bold-Condensed
+    family: Nimbus Sans
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uhvb8ac.pfb
+  Font: Nimbus-Sans-Bold-Condensed-Italic
+    family: Nimbus Sans
+    style: Italic
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uhvbo8ac.pfb
+  Font: Nimbus-Sans-Bold-Italic
+    family: Nimbus Sans
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/n019024l.pfb
+  Font: Nimbus-Sans-Regular
+    family: Nimbus Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uhvr8a.pfb
+  Font: Nimbus-Sans-Regular-Condensed
+    family: Nimbus Sans
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uhvr8ac.pfb
+  Font: Nimbus-Sans-Regular-Condensed-Italic
+    family: Nimbus Sans
+    style: Italic
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uhvro8ac.pfb
+  Font: Nimbus-Sans-Regular-Italic
+    family: Nimbus Sans
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/n019023l.pfb
+  Font: Norasi-Bold
+    family: Norasi
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi-Bold.ttf
+  Font: Norasi-BoldItalic
+    family: Norasi
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi-BoldItalic.ttf
+  Font: Norasi-BoldOblique
+    family: Norasi
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi-BoldOblique.ttf
+  Font: Norasi-Italic
+    family: Norasi
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi-Italic.ttf
+  Font: Norasi-Oblique
+    family: Norasi
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi-Oblique.ttf
+  Font: Norasi-Regular
+    family: Norasi
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Norasi.ttf
+  Font: Noto-Sans-Armenian-Bold
+    family: Noto Sans Armenian
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansArmenian-Bold.ttf
+  Font: Noto-Sans-Armenian-Regular
+    family: Noto Sans Armenian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansArmenian-Regular.ttf
+  Font: Noto-Sans-Bold
+    family: Noto Sans
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansKhmer-Bold.ttf
+  Font: Noto-Sans-Bold-Italic
+    family: Noto Sans
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSans-BoldItalic.ttf
+  Font: Noto-Sans-Devanagari-Bold
+    family: Noto Sans Devanagari
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansDevanagari-Bold.ttf
+  Font: Noto-Sans-Devanagari-Regular
+    family: Noto Sans Devanagari
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansDevanagari-Regular.ttf
+  Font: Noto-Sans-Devanagari-UI-Bold
+    family: Noto Sans Devanagari UI
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansDevanagariUI-Bold.ttf
+  Font: Noto-Sans-Devanagari-UI-Regular
+    family: Noto Sans Devanagari UI
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansDevanagariUI-Regular.ttf
+  Font: Noto-Sans-Ethiopic-Bold
+    family: Noto Sans Ethiopic
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansEthiopic-Bold.ttf
+  Font: Noto-Sans-Ethiopic-Regular
+    family: Noto Sans Ethiopic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansEthiopic-Regular.ttf
+  Font: Noto-Sans-Georgian-Bold
+    family: Noto Sans Georgian
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansGeorgian-Bold.ttf
+  Font: Noto-Sans-Georgian-Regular
+    family: Noto Sans Georgian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansGeorgian-Regular.ttf
+  Font: Noto-Sans-Hebrew-Bold
+    family: Noto Sans Hebrew
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansHebrew-Bold.ttf
+  Font: Noto-Sans-Hebrew-Regular
+    family: Noto Sans Hebrew
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansHebrew-Regular.ttf
+  Font: Noto-Sans-Italic
+    family: Noto Sans
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSans-Italic.ttf
+  Font: Noto-Sans-Lao-Bold
+    family: Noto Sansao
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansLao-Bold.ttf
+  Font: Noto-Sans-Lao-Regular
+    family: Noto Sansao
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansLao-Regular.ttf
+  Font: Noto-Sans-Lao-UI-Bold
+    family: Noto Sansao UI
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansLaoUI-Bold.ttf
+  Font: Noto-Sans-Lao-UI-Regular
+    family: Noto Sansao UI
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansLaoUI-Regular.ttf
+  Font: Noto-Sans-Regular
+    family: Noto Sans
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSans-Regular.ttf
+  Font: Noto-Sans-Tamil-Bold
+    family: Noto Sans Tamil
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansTamil-Bold.ttf
+  Font: Noto-Sans-Tamil-Regular
+    family: Noto Sans Tamil
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansTamil-Regular.ttf
+  Font: Noto-Sans-Tamil-UI-Bold
+    family: Noto Sans Tamil UI
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansTamilUI-Bold.ttf
+  Font: Noto-Sans-Tamil-UI-Regular
+    family: Noto Sans Tamil UI
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansTamilUI-Regular.ttf
+  Font: Noto-Sans-Thai-Bold
+    family: Noto Sans Thai
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansThai-Bold.ttf
+  Font: Noto-Sans-Thai-Regular
+    family: Noto Sans Thai
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansThai-Regular.ttf
+  Font: Noto-Sans-Thai-UI-Bold
+    family: Noto Sans Thai UI
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansThaiUI-Bold.ttf
+  Font: Noto-Sans-Thai-UI-Regular
+    family: Noto Sans Thai UI
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansThaiUI-Regular.ttf
+  Font: Noto-Sans-UI-Bold
+    family: Noto Sans UI
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansUI-Bold.ttf
+  Font: Noto-Sans-UI-Bold-Italic
+    family: Noto Sans UI
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansUI-BoldItalic.ttf
+  Font: Noto-Sans-UI-Italic
+    family: Noto Sans UI
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansUI-Italic.ttf
+  Font: Noto-Sans-UI-Regular
+    family: Noto Sans UI
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSansUI-Regular.ttf
+  Font: Noto-Serif-Armenian-Bold
+    family: Noto Serif Armenian
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifArmenian-Bold.ttf
+  Font: Noto-Serif-Armenian-Regular
+    family: Noto Serif Armenian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifArmenian-Regular.ttf
+  Font: Noto-Serif-Bold
+    family: Noto Serif
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerif-Bold.ttf
+  Font: Noto-Serif-Bold-Italic
+    family: Noto Serif
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerif-BoldItalic.ttf
+  Font: Noto-Serif-Georgian-Bold
+    family: Noto Serif Georgian
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifGeorgian-Bold.ttf
+  Font: Noto-Serif-Georgian-Regular
+    family: Noto Serif Georgian
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifGeorgian-Regular.ttf
+  Font: Noto-Serif-Italic
+    family: Noto Serif
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerif-Italic.ttf
+  Font: Noto-Serif-Lao-Bold
+    family: Noto Serifao
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifLao-Bold.ttf
+  Font: Noto-Serif-Lao-Regular
+    family: Noto Serifao
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifLao-Regular.ttf
+  Font: Noto-Serif-Regular
+    family: Noto Serif
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerif-Regular.ttf
+  Font: Noto-Serif-Thai-Bold
+    family: Noto Serif Thai
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifThai-Bold.ttf
+  Font: Noto-Serif-Thai-Regular
+    family: Noto Serif Thai
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/noto/NotoSerifThai-Regular.ttf
+  Font: OpenSymbol-Regular
+    family: OpenSymbol
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/openoffice/opens___.ttf
+  Font: ori1Uni-Medium
+    family: ori1Uni
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/utkal.ttf
+  Font: Packard-Antique-Bold
+    family: Packard Antique
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/PackardAntique-Bold.ttf
+  Font: Padauk-Bold
+    family: Padauk
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/padauk/Padauk-bold.ttf
+  Font: Padauk-Book-Bold
+    family: Padauk Book
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/padauk/Padauk-bookbold.ttf
+  Font: Padauk-Book-Regular
+    family: Padauk Book
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/padauk/Padauk-book.ttf
+  Font: Padauk-Regular
+    family: Padauk
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/padauk/Padauk.ttf
+  Font: Phetsarath-OT-Regular
+    family: Phetsarath OT
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/lao/Phetsarath_OT.ttf
+  Font: Pokemon-GB-Japan-HR-Regular
+    family: Pokemon GB Japan HR
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Pokemon GB Japan HR.ttf
+  Font: Pokemon-GB-Japan-KT-Regular
+    family: Pokemon GB Japan KT
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Pokemon GB Japan KT.ttf
+  Font: Pokemon-GB-Regular
+    family: Pokemon GB
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Pokemon GB.ttf
+  Font: Pokemon-Unown-GB-Regular
+    family: Pokemon Unown GB
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Pokemon Unown GB.ttf
+  Font: Pothana2000-Regular
+    family: Pothana2000
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Pothana2000.ttf
+  Font: Purisa-Bold
+    family: Purisa
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Purisa-Bold.ttf
+  Font: Purisa-BoldOblique
+    family: Purisa
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf
+  Font: Purisa-Medium
+    family: Purisa
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Purisa.ttf
+  Font: Purisa-Oblique
+    family: Purisa
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Purisa-Oblique.ttf
+  Font: Rachana-Regular
+    family: Rachana
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Rachana_04.ttf
+  Font: Rekha-Medium
+    family: Rekha
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Rekha.ttf
+  Font: Saab-Regular
+    family: Saab
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-punjabi-fonts/Saab.ttf
+  Font: Sawasdee-Bold
+    family: Sawasdee
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Sawasdee-Bold.ttf
+  Font: Sawasdee-BoldOblique
+    family: Sawasdee
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Sawasdee-BoldOblique.ttf
+  Font: Sawasdee-Oblique
+    family: Sawasdee
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Sawasdee-Oblique.ttf
+  Font: Sawasdee-Regular
+    family: Sawasdee
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Sawasdee.ttf
+  Font: Something-Strange-Regular
+    family: Something Strange
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Something Strange.ttf
+  Font: Source-Code-Pro-Black
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Black.ttf
+  Font: Source-Code-Pro-Bold
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Bold.ttf
+  Font: Source-Code-Pro-ExtraLight
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 200
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-ExtraLight.ttf
+  Font: Source-Code-Pro-Light
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Light.ttf
+  Font: Source-Code-Pro-Medium
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Medium.ttf
+  Font: Source-Code-Pro-Regular
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Regular.ttf
+  Font: Source-Code-Pro-Semibold
+    family: Source Code Pro
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceCodePro-Semibold.ttf
+  Font: Source-Sans-Pro-Black
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-Black.ttf
+  Font: Source-Sans-Pro-Black-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 900
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-BlackItalic.ttf
+  Font: Source-Sans-Pro-Bold
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-Bold.ttf
+  Font: Source-Sans-Pro-Bold-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-BoldItalic.ttf
+  Font: Source-Sans-Pro-ExtraLight
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 200
+    glyphs: /usr/share/fonts/truetype/Fonts/source-sans-pro/SourceSansPro-ExtraLight.ttf
+  Font: Source-Sans-Pro-ExtraLight-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-ExtraLightIt.ttf
+  Font: Source-Sans-Pro-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-It.ttf
+  Font: Source-Sans-Pro-Light
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/source-sans-pro/SourceSansPro-Light.ttf
+  Font: Source-Sans-Pro-Light-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-LightIt.ttf
+  Font: Source-Sans-Pro-Regular
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-Regular.ttf
+  Font: Source-Sans-Pro-Semibold
+    family: Source Sans Pro
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/Fonts/source-sans-pro/SourceSansPro-Semibold.ttf
+  Font: Source-Sans-Pro-Semibold-Italic
+    family: Source Sans Pro
+    style: Italic
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSansPro-SemiboldItalic.ttf
+  Font: Source-Serif-Pro-Bold
+    family: Source Serif Pro
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSerifPro-Bold.ttf
+  Font: Source-Serif-Pro-Regular
+    family: Source Serif Pro
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSerifPro-Regular.ttf
+  Font: Source-Serif-Pro-Semibold
+    family: Source Serif Pro
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/truetype/Fonts/SourceSerifPro-Semibold.ttf
+  Font: Standard-Symbols-Regular
+    family: Standard Symbols
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/usyr.pfb
+  Font: STIXGeneral-Bold
+    family: STIXGeneral
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXGeneral-Bold.otf
+  Font: STIXGeneral-Bold-Italic
+    family: STIXGeneral
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXGeneral-BoldItalic.otf
+  Font: STIXGeneral-Italic
+    family: STIXGeneral
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXGeneral-Italic.otf
+  Font: STIXGeneral-Regular
+    family: STIXGeneral
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXGeneral-Regular.otf
+  Font: STIXIntegralsD-Bold
+    family: STIXIntegralsD
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsD-Bold.otf
+  Font: STIXIntegralsD-Regular
+    family: STIXIntegralsD
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsD-Regular.otf
+  Font: STIXIntegralsSm-Bold
+    family: STIXIntegralsSm
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsSm-Bold.otf
+  Font: STIXIntegralsSm-Regular
+    family: STIXIntegralsSm
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsSm-Regular.otf
+  Font: STIXIntegralsUp-Bold
+    family: STIXIntegralsUp
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUp-Bold.otf
+  Font: STIXIntegralsUp-Regular
+    family: STIXIntegralsUp
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUp-Regular.otf
+  Font: STIXIntegralsUpD-Bold
+    family: STIXIntegralsUpD
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUpD-Bold.otf
+  Font: STIXIntegralsUpD-Regular
+    family: STIXIntegralsUpD
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUpD-Regular.otf
+  Font: STIXIntegralsUpSm-Bold
+    family: STIXIntegralsUpSm
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUpSm-Bold.otf
+  Font: STIXIntegralsUpSm-Regular
+    family: STIXIntegralsUpSm
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXIntegralsUpSm-Regular.otf
+  Font: STIXNonUnicode-Bold
+    family: STIXNonUnicode
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXNonUnicode-Bold.otf
+  Font: STIXNonUnicode-Bold-Italic
+    family: STIXNonUnicode
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXNonUnicode-BoldItalic.otf
+  Font: STIXNonUnicode-Italic
+    family: STIXNonUnicode
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXNonUnicode-Italic.otf
+  Font: STIXNonUnicode-Regular
+    family: STIXNonUnicode
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXNonUnicode-Regular.otf
+  Font: STIXSizeFiveSym-Regular
+    family: STIXSizeFiveSym
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeFiveSym-Regular.otf
+  Font: STIXSizeFourSym-Bold
+    family: STIXSizeFourSym
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeFourSym-Bold.otf
+  Font: STIXSizeFourSym-Regular
+    family: STIXSizeFourSym
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeFourSym-Regular.otf
+  Font: STIXSizeOneSym-Bold
+    family: STIXSizeOneSym
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeOneSym-Bold.otf
+  Font: STIXSizeOneSym-Regular
+    family: STIXSizeOneSym
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeOneSym-Regular.otf
+  Font: STIXSizeThreeSym-Bold
+    family: STIXSizeThreeSym
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeThreeSym-Bold.otf
+  Font: STIXSizeThreeSym-Regular
+    family: STIXSizeThreeSym
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeThreeSym-Regular.otf
+  Font: STIXSizeTwoSym-Bold
+    family: STIXSizeTwoSym
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeTwoSym-Bold.otf
+  Font: STIXSizeTwoSym-Regular
+    family: STIXSizeTwoSym
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXSizeTwoSym-Regular.otf
+  Font: STIXVariants-Bold
+    family: STIXVariants
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/opentype/stix/STIXVariants-Bold.otf
+  Font: STIXVariants-Regular
+    family: STIXVariants
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/opentype/stix/STIXVariants-Regular.otf
+  Font: Super-Webcomic-Bros.-Bold
+    family: Super Webcomic Bros.
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Super Webcomic Bros. Bold.ttf
+  Font: Super-Webcomic-Bros.-Bold-Italic
+    family: Super Webcomic Bros.
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/Super Webcomic Bros. Bold Italic.ttf
+  Font: Super-Webcomic-Bros.-Regular
+    family: Super Webcomic Bros.
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/Super Webcomic Bros..ttf
+  Font: Symbol-Regular
+    family: Symbol
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/mathml/Symbol.pfb
+  Font: TakaoPGothic-Regular
+    family: TakaoPGothic
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/takao-gothic/TakaoPGothic.ttf
+  Font: TeX-Gyre-Adventor-Bold
+    family: TeX Gyre Adventor
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreadventor-bold.otf
+  Font: TeX-Gyre-Adventor-Bold-Italic
+    family: TeX Gyre Adventor
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreadventor-bolditalic.otf
+  Font: TeX-Gyre-Adventor-Italic
+    family: TeX Gyre Adventor
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreadventor-italic.otf
+  Font: TeX-Gyre-Adventor-Regular
+    family: TeX Gyre Adventor
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreadventor-regular.otf
+  Font: TeX-Gyre-Bonum-Bold
+    family: TeX Gyre Bonum
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrebonum-bold.otf
+  Font: TeX-Gyre-Bonum-Bold-Italic
+    family: TeX Gyre Bonum
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrebonum-bolditalic.otf
+  Font: TeX-Gyre-Bonum-Italic
+    family: TeX Gyre Bonum
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrebonum-italic.otf
+  Font: TeX-Gyre-Bonum-Regular
+    family: TeX Gyre Bonum
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrebonum-regular.otf
+  Font: TeX-Gyre-Chorus-Regular
+    family: TeX Gyre Chorus
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrechorus-mediumitalic.otf
+  Font: TeX-Gyre-Cursor-Bold
+    family: TeX Gyre Cursor
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-bold.otf
+  Font: TeX-Gyre-Cursor-Bold-Italic
+    family: TeX Gyre Cursor
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-bolditalic.otf
+  Font: TeX-Gyre-Cursor-Italic
+    family: TeX Gyre Cursor
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-italic.otf
+  Font: TeX-Gyre-Cursor-Regular
+    family: TeX Gyre Cursor
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrecursor-regular.otf
+  Font: TeX-Gyre-Heros-Bold
+    family: TeX Gyre Heros
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheros-bold.otf
+  Font: TeX-Gyre-Heros-Bold-Italic
+    family: TeX Gyre Heros
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheros-bolditalic.otf
+  Font: TeX-Gyre-Heros-Cn-Bold
+    family: TeX Gyre Heros Cn
+    style: Normal
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheroscn-bold.otf
+  Font: TeX-Gyre-Heros-Cn-Bold-Italic
+    family: TeX Gyre Heros Cn
+    style: Italic
+    stretch: Condensed
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheroscn-bolditalic.otf
+  Font: TeX-Gyre-Heros-Cn-Italic
+    family: TeX Gyre Heros Cn
+    style: Italic
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheroscn-italic.otf
+  Font: TeX-Gyre-Heros-Cn-Regular
+    family: TeX Gyre Heros Cn
+    style: Normal
+    stretch: Condensed
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheroscn-regular.otf
+  Font: TeX-Gyre-Heros-Italic
+    family: TeX Gyre Heros
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheros-italic.otf
+  Font: TeX-Gyre-Heros-Regular
+    family: TeX Gyre Heros
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreheros-regular.otf
+  Font: TeX-Gyre-Pagella-Bold
+    family: TeX Gyre Pagella
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-bold.otf
+  Font: TeX-Gyre-Pagella-Bold-Italic
+    family: TeX Gyre Pagella
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-bolditalic.otf
+  Font: TeX-Gyre-Pagella-Italic
+    family: TeX Gyre Pagella
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-italic.otf
+  Font: TeX-Gyre-Pagella-Regular
+    family: TeX Gyre Pagella
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyrepagella-regular.otf
+  Font: TeX-Gyre-Schola-Bold
+    family: TeX Gyre Schola
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreschola-bold.otf
+  Font: TeX-Gyre-Schola-Bold-Italic
+    family: TeX Gyre Schola
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreschola-bolditalic.otf
+  Font: TeX-Gyre-Schola-Italic
+    family: TeX Gyre Schola
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreschola-italic.otf
+  Font: TeX-Gyre-Schola-Regular
+    family: TeX Gyre Schola
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyreschola-regular.otf
+  Font: TeX-Gyre-Termes-Bold
+    family: TeX Gyre Termes
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyretermes-bold.otf
+  Font: TeX-Gyre-Termes-Bold-Italic
+    family: TeX Gyre Termes
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyretermes-bolditalic.otf
+  Font: TeX-Gyre-Termes-Italic
+    family: TeX Gyre Termes
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyretermes-italic.otf
+  Font: TeX-Gyre-Termes-Regular
+    family: TeX Gyre Termes
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre/texgyretermes-regular.otf
+  Font: TG-Pagella-Math-Regular
+    family: TG Pagella Math
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre-math/texgyrepagella-math.otf
+  Font: TG-Termes-Math-Regular
+    family: TG Termes Math
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/texmf/fonts/opentype/public/tex-gyre-math/texgyretermes-math.otf
+  Font: the-King-&-Queen-font-Regular
+    family: the King & Queen font
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/the_King__26_Queen_font.ttf
+  Font: The-Rave-Is-In-Your-Pants-Regular
+    family: The Rave Is In Your Pants
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/The Rave Is In Your Pants.otf
+  Font: Throw-My-Hands-Up-in-the-Air-Bold
+    family: Throw My Hands Up in the Air
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/ThrowMyHandsUpintheAirBold.ttf
+  Font: Throw-My-Hands-Up-in-the-Air-Regular
+    family: Throw My Hands Up in the Air
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/ThrowMyHandsUpintheAir.ttf
+  Font: Tibetan-Machine-Uni-Regular
+    family: Tibetan Machine Uni
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tibetan-machine/TibetanMachineUni.ttf
+  Font: Tlwg-Typist-Bold
+    family: Tlwg Typist
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypist-Bold.ttf
+  Font: Tlwg-Typist-BoldOblique
+    family: Tlwg Typist
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypist-BoldOblique.ttf
+  Font: Tlwg-Typist-Medium
+    family: Tlwg Typist
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypist.ttf
+  Font: Tlwg-Typist-Oblique
+    family: Tlwg Typist
+    style: Oblique
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypist-Oblique.ttf
+  Font: Tlwg-Typo-Bold
+    family: Tlwg Typo
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypo-Bold.ttf
+  Font: Tlwg-Typo-BoldOblique
+    family: Tlwg Typo
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypo-BoldOblique.ttf
+  Font: Tlwg-Typo-Medium
+    family: Tlwg Typo
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypo.ttf
+  Font: Tlwg-Typo-Oblique
+    family: Tlwg Typo
+    style: Oblique
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypo-Oblique.ttf
+  Font: TlwgMono-Bold
+    family: TlwgMono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgMono-Bold.ttf
+  Font: TlwgMono-BoldOblique
+    family: TlwgMono
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgMono-BoldOblique.ttf
+  Font: TlwgMono-Medium
+    family: TlwgMono
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgMono.ttf
+  Font: TlwgMono-Oblique
+    family: TlwgMono
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgMono-Oblique.ttf
+  Font: TlwgTypewriter-Bold
+    family: TlwgTypewriter
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypewriter-Bold.ttf
+  Font: TlwgTypewriter-BoldOblique
+    family: TlwgTypewriter
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypewriter-BoldOblique.ttf
+  Font: TlwgTypewriter-Medium
+    family: TlwgTypewriter
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypewriter.ttf
+  Font: TlwgTypewriter-Oblique
+    family: TlwgTypewriter
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/TlwgTypewriter-Oblique.ttf
+  Font: TSSSF-Bartholomew-Bold
+    family: TSSSF Bartholomew
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/Fonts/TSSSFBartholomew-Bold.otf
+  Font: TSSSF-Cabin-Medium
+    family: TSSSF Cabin
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/Fonts/TSSSFCabin-Medium.ttf
+  Font: Ubuntu-Bold
+    family: Ubuntu
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf
+  Font: Ubuntu-Bold-Italic
+    family: Ubuntu
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-BI.ttf
+  Font: Ubuntu-Condensed-Regular
+    family: Ubuntu Condensed
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-C.ttf
+  Font: Ubuntu-Italic
+    family: Ubuntu
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-RI.ttf
+  Font: Ubuntu-Light
+    family: Ubuntu
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-L.ttf
+  Font: Ubuntu-Light-Italic
+    family: Ubuntu
+    style: Italic
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-LI.ttf
+  Font: Ubuntu-Medium
+    family: Ubuntu
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-M.ttf
+  Font: Ubuntu-Medium-Italic
+    family: Ubuntu
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-MI.ttf
+  Font: Ubuntu-Mono-Bold
+    family: Ubuntu Mono
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-B.ttf
+  Font: Ubuntu-Mono-Bold-Italic
+    family: Ubuntu Mono
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-BI.ttf
+  Font: Ubuntu-Mono-Italic
+    family: Ubuntu Mono
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-RI.ttf
+  Font: Ubuntu-Mono-Regular
+    family: Ubuntu Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-R.ttf
+  Font: Ubuntu-Regular
+    family: Ubuntu
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf
+  Font: Umpush-Bold
+    family: Umpush
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush-Bold.ttf
+  Font: Umpush-BoldOblique
+    family: Umpush
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush-BoldOblique.ttf
+  Font: Umpush-Book
+    family: Umpush
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush.ttf
+  Font: Umpush-Light
+    family: Umpush
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush-Light.ttf
+  Font: Umpush-LightOblique
+    family: Umpush
+    style: Oblique
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush-LightOblique.ttf
+  Font: Umpush-Oblique
+    family: Umpush
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Umpush-Oblique.ttf
+  Font: URW-Bookman-Demi-Bold
+    family: URW Bookman
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/b018015l.pfb
+  Font: URW-Bookman-Demi-Bold-Italic
+    family: URW Bookman
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/b018035l.pfb
+  Font: URW-Bookman-Light
+    family: URW Bookman
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/gsfonts/b018012l.pfb
+  Font: URW-Bookman-Light-Italic
+    family: URW Bookman
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/ubkli8a.pfb
+  Font: URW-Chancery-Medium-Italic
+    family: URW Chancery
+    style: Italic
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uzcmi8a.pfb
+  Font: URW-Gothic-Book
+    family: URW Gothic
+    style: Normal
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uagk8a.pfb
+  Font: URW-Gothic-Book-Oblique
+    family: URW Gothic
+    style: Oblique
+    stretch: Normal
+    weight: 300
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uagko8a.pfb
+  Font: URW-Gothic-Demi
+    family: URW Gothic
+    style: Normal
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uagd8a.pfb
+  Font: URW-Gothic-Demi-Oblique
+    family: URW Gothic
+    style: Oblique
+    stretch: Normal
+    weight: 600
+    glyphs: /usr/share/fonts/type1/gsfonts/a010035l.pfb
+  Font: URW-Palladio-Bold
+    family: URW Palladio
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/p052004l.pfb
+  Font: URW-Palladio-Bold-Italic
+    family: URW Palladio
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/gsfonts/p052024l.pfb
+  Font: URW-Palladio-Italic
+    family: URW Palladio
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/uplri8a.pfb
+  Font: URW-Palladio-Roman
+    family: URW Palladio
+    style: Normal
+    stretch: Normal
+    weight: 500
+    glyphs: /usr/share/fonts/type1/gsfonts/p052003l.pfb
+  Font: Utopia-Bold
+    family: Utopia
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/putb8a.pfb
+  Font: Utopia-Bold-Italic
+    family: Utopia
+    style: Italic
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/putbi8a.pfb
+  Font: Utopia-Italic
+    family: Utopia
+    style: Italic
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/putri8a.pfb
+  Font: Utopia-Regular
+    family: Utopia
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/type1/texlive-fonts-recommended/putr8a.pfb
+  Font: Vemana2000-Regular
+    family: Vemana2000
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/ttf-indic-fonts-core/Vemana.ttf
+  Font: Waree-Bold
+    family: Waree
+    style: Normal
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Waree-Bold.ttf
+  Font: Waree-BoldOblique
+    family: Waree
+    style: Oblique
+    stretch: Normal
+    weight: 700
+    glyphs: /usr/share/fonts/truetype/tlwg/Waree-BoldOblique.ttf
+  Font: Waree-Book
+    family: Waree
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Waree.ttf
+  Font: Waree-Oblique
+    family: Waree
+    style: Oblique
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/tlwg/Waree-Oblique.ttf
+  Font: WenQuanYi-Micro-Hei-Mono-Regular
+    family: WenQuanYi Micro Hei Mono
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/wqy/wqy-microhei.ttc
+  Font: WenQuanYi-Micro-Hei-Regular
+    family: WenQuanYi Micro Hei
+    style: Normal
+    stretch: Normal
+    weight: 400
+    glyphs: /usr/share/fonts/truetype/wqy/wqy-microhei.ttc

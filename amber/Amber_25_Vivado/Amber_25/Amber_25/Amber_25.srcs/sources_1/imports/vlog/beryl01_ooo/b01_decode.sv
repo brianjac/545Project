@@ -48,12 +48,12 @@ input       [31:0]          i_fetch_instruction,
 input                       i_core_stall,                   // stall all stages of the Amber core at the same time
 input                       i_irq,                          // interrupt request
 input                       i_firq,                         // Fast interrupt request
-input                       i_dabt,                         // data abort interrupt request
-input                       i_iabt,                         // instruction pre-fetch abort flag
+input                       i_dabt,                         // data abort interrupt request; currently tied to 0
+input                       i_iabt,                         // instruction pre-fetch abort flag; currently tied to 0
 input                       i_adex,                         // Address Exception
 input       [31:0]          i_execute_iaddress,             // Registered instruction address output by execute stage
 input       [31:0]          i_execute_daddress,             // Registered instruction address output by execute stage
-input       [7:0]           i_abt_status,                   // Abort status
+input       [7:0]           i_abt_status,                   // Abort status; currently tied to 0
 input       [31:0]          i_execute_status_bits,          // current status bits values in execute stage
 input                       i_multiply_done,                // multiply unit is nearly done
 
@@ -125,10 +125,10 @@ output                      o_dabt_trigger,
 output      [31:0]          o_dabt_address,
 output      [7:0]           o_dabt_status,
 output                      o_conflict,
-output reg                  o_rn_use_read,
-output reg                  o_rm_use_read,
-output reg                  o_rs_use_read,
-output reg                  o_rd_use_read
+output reg                  o_rn_valid/*use_read*/,
+output reg                  o_rm_valid/*use_read*/,
+output reg                  o_rs_valid/*use_read*/,
+output reg                  o_rd_valid/*use_read*/ //Note: for OOO, probably don't need to worry about this one
 
 );
 
@@ -586,10 +586,10 @@ always @( posedge i_clk )
         rm_conflict1_r          <= rm_conflict1 && instruction_execute;
         rs_conflict1_r          <= rs_conflict1 && instruction_execute;
         rd_conflict1_r          <= rd_conflict1 && instruction_execute;
-        o_rn_use_read           <= instruction_valid && ( rn_conflict1_r || rn_conflict2 );
-        o_rm_use_read           <= instruction_valid && ( rm_conflict1_r || rm_conflict2 );
-        o_rs_use_read           <= instruction_valid && ( rs_conflict1_r || rs_conflict2 );
-        o_rd_use_read           <= instruction_valid && ( rd_conflict1_r || rd_conflict2 );
+        o_rn_valid/*use_read*/           <= instruction_valid && rn_valid/*( rn_conflict1_r || rn_conflict2 )*/;
+        o_rm_valid/*use_read*/           <= instruction_valid && rm_valid/*( rm_conflict1_r || rm_conflict2 )*/;
+        o_rs_valid/*use_read*/           <= instruction_valid && rs_valid/*( rs_conflict1_r || rs_conflict2 )*/;
+        o_rd_valid/*use_read*/           <= instruction_valid && rd_valid/*( rd_conflict1_r || rd_conflict2 )*/;
         end
 
 assign o_conflict = conflict;
@@ -1473,6 +1473,8 @@ assign instruction_execute = conditional_execute ( condition_r, i_execute_status
 
 // First state of executing a new instruction
 // Its complex because of conditional execution of multi-cycle instructions
+//TODO will need to change to allow OOO operation properly
+//TODO will also need to modify this state machine to remove the wait, stall, whatever, logic and base it solely on what Dispatch says about whether/not to stall (with the possible exception of LDM/STM)
 assign instruction_valid = ((control_state == EXECUTE || control_state == PRE_FETCH_EXEC) ||
                               // when last instruction was multi-cycle instruction but did not execute
                               // because condition was false then act like you're in the execute state
