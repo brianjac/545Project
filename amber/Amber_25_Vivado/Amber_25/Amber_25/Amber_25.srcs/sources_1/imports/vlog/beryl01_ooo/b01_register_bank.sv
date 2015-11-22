@@ -53,9 +53,10 @@ typedef struct {
 	reg [23:0]	data = 24'h00_0000;
 } pc_line;
 
-module a25_register_bank (
+module b01_register_bank (
 
 input                       i_clk,
+input						i_rst,
 input                       i_core_stall,
 input                       i_mem_stall,
 
@@ -63,9 +64,9 @@ input       [1:0]           i_mode_idec,            // user, supervisor, irq_ide
                                                     // Used for register writes
 input       [1:0]           i_mode_exec,            // 1 periods delayed from i_mode_idec
                                                     // Used for register reads
-input       [3:0]           i_mode_rds_exec,        // Use one-hot version specifically for rds, 
+//input       [3:0]           i_mode_rds_exec,        // Use one-hot version specifically for rds, 
                                                     // includes i_user_mode_regs_store
-input                       i_firq_not_user_mode,
+//input                       i_firq_not_user_mode,
 input       [3:0]           i_rm_sel,
 input       [3:0]           i_rs_sel,
 input       [3:0]           i_rn_sel,
@@ -74,12 +75,8 @@ input                       i_pc_wen,
 input       [14:0]          i_reg_bank_wen,
 
 input       [23:0]          i_pc,                   // program counter [25:2]
-input       [31:0]          i_reg,
 
-input       [31:0]          i_wb_read_data,
-input                       i_wb_read_data_valid,
-input       [3:0]           i_wb_read_data_rd,
-input       [1:0]           i_wb_mode,
+//input       [1:0]           i_wb_mode,
 
 input       [3:0]           i_status_bits_flags,
 input                       i_status_bits_irq_mask,
@@ -198,11 +195,9 @@ wire        firq_exec;
 wire        usr_idec;
 wire        svc_idec;
 wire        irq_idec;
-wire        firq_idec;
-wire [14:0] read_data_wen;
+//wire        firq_idec;
 wire [14:0] reg_bank_wen_c;
 wire        pc_wen_c;
-wire        pc_dmem_wen;
 
 
     // Write Enables from execute stage
@@ -211,7 +206,7 @@ assign svc_idec  = i_mode_idec == SVC;
 assign irq_idec  = i_mode_idec == IRQ;
 
 // pre-encoded in decode stage to speed up long path
-assign firq_idec = i_firq_not_user_mode;
+//assign firq_idec = i_firq_not_user_mode;
 
     // Read Enables from stage 1 (fetch)
 assign usr_exec  = i_mode_exec == USR;
@@ -219,11 +214,8 @@ assign svc_exec  = i_mode_exec == SVC;
 assign irq_exec  = i_mode_exec == IRQ;
 assign firq_exec = i_mode_exec == FIRQ;
 
-assign read_data_wen = {15{i_wb_read_data_valid & ~i_mem_stall}} & decode (i_wb_read_data_rd);
-
 assign reg_bank_wen_c = {15{~i_core_stall}} & i_reg_bank_wen;
 assign pc_wen_c       = ~i_core_stall & i_pc_wen;
-assign pc_dmem_wen    = i_wb_read_data_valid & ~i_mem_stall & i_wb_read_data_rd == 4'd15;
 
 
 // ========================================================
@@ -254,7 +246,7 @@ always_comb begin
 	if (!r7.valid && i_alu_valid && r7.tag == i_alu_tag) tag_match_alu[7 ] = 1'b1;
 	
 	//r8-r12, depending on if we're in FIRQ mode or not
-	if (i_wb_mode != FIRQ) begin
+	if (i_mode_exec != FIRQ) begin
 		if (!r8.valid && i_alu_valid && r8.tag == i_alu_tag) tag_match_alu[8 ] = 1'b1;
 		if (!r9.valid && i_alu_valid && r9.tag == i_alu_tag) tag_match_alu[9 ] = 1'b1;
 		if (!r10.valid && i_alu_valid && r10.tag == i_alu_tag) tag_match_alu[10] = 1'b1;
@@ -270,19 +262,19 @@ always_comb begin
 	end
 	
 	//r13-r14, based on our mode
-	if (i_wb_mode == USR) begin
+	if (i_mode_exec == USR) begin
 		if (!r13.valid && i_alu_valid && r13.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
 		if (!r14.valid && i_alu_valid && r14.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
 	end
-	else if (i_wb_mode == SVC) begin
+	else if (i_mode_exec == SVC) begin
 		if (!r13_svc.valid && i_alu_valid && r13_svc.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
 		if (!r14_svc.valid && i_alu_valid && r14_svc.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
 	end
-	else if (i_wb_mode == IRQ) begin
+	else if (i_mode_exec == IRQ) begin
 		if (!r13_irq.valid && i_alu_valid && r13_irq.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
 		if (!r14_irq.valid && i_alu_valid && r14_irq.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
 	end
-	else if (i_wb_mode == FIRQ) begin
+	else if (i_mode_exec == FIRQ) begin
 		if (!r13_firq.valid && i_alu_valid && r13_firq.tag == i_alu_tag) tag_match_alu[13] = 1'b1;
 		if (!r14_firq.valid && i_alu_valid && r14_firq.tag == i_alu_tag) tag_match_alu[14] = 1'b1;
 	end
@@ -303,7 +295,7 @@ always_comb begin
 	if (!r7.valid && i_mult_valid && r7.tag == i_mult_tag) tag_match_mult[7 ] = 1'b1;
 	
 	//r8-r12, depending on if we're in FIRQ mode or not
-	if (i_wb_mode != FIRQ) begin
+	if (i_mode_exec != FIRQ) begin
 		if (!r8.valid && i_mult_valid && r8.tag == i_mult_tag) tag_match_mult[8 ] = 1'b1;
 		if (!r9.valid && i_mult_valid && r9.tag == i_mult_tag) tag_match_mult[9 ] = 1'b1;
 		if (!r10.valid && i_mult_valid && r10.tag == i_mult_tag) tag_match_mult[10] = 1'b1;
@@ -319,19 +311,19 @@ always_comb begin
 	end
 	
 	//r13-r14, based on our mode
-	if (i_wb_mode == USR) begin
+	if (i_mode_exec == USR) begin
 		if (!r13.valid && i_mult_valid && r13.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
 		if (!r14.valid && i_mult_valid && r14.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
 	end
-	else if (i_wb_mode == SVC) begin
+	else if (i_mode_exec == SVC) begin
 		if (!r13_svc.valid && i_mult_valid && r13_svc.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
 		if (!r14_svc.valid && i_mult_valid && r14_svc.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
 	end
-	else if (i_wb_mode == IRQ) begin
+	else if (i_mode_exec == IRQ) begin
 		if (!r13_irq.valid && i_mult_valid && r13_irq.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
 		if (!r14_irq.valid && i_mult_valid && r14_irq.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
 	end
-	else if (i_wb_mode == FIRQ) begin
+	else if (i_mode_exec == FIRQ) begin
 		if (!r13_firq.valid && i_mult_valid && r13_firq.tag == i_mult_tag) tag_match_mult[13] = 1'b1;
 		if (!r14_firq.valid && i_mult_valid && r14_firq.tag == i_mult_tag) tag_match_mult[14] = 1'b1;
 	end
@@ -353,7 +345,7 @@ always_comb begin
 	if (!r7.valid && i_mem_valid && r7.tag == i_mem_tag) tag_match_mem[7 ] = 1'b1;
 	
 	//r8-r12, depending on if we're in FIRQ mode or not
-	if (i_wb_mode != FIRQ) begin
+	if (i_mode_exec != FIRQ) begin
 		if (!r8.valid && i_mem_valid && r8.tag == i_mem_tag) tag_match_mem[8 ] = 1'b1;
 		if (!r9.valid && i_mem_valid && r9.tag == i_mem_tag) tag_match_mem[9 ] = 1'b1;
 		if (!r10.valid && i_mem_valid && r10.tag == i_mem_tag) tag_match_mem[10] = 1'b1;
@@ -369,19 +361,19 @@ always_comb begin
 	end
 	
 	//r13-r14, based on our mode
-	if (i_wb_mode == USR) begin
+	if (i_mode_exec == USR) begin
 		if (!r13.valid && i_mem_valid && r13.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
 		if (!r14.valid && i_mem_valid && r14.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
 	end
-	else if (i_wb_mode == SVC) begin
+	else if (i_mode_exec == SVC) begin
 		if (!r13_svc.valid && i_mem_valid && r13_svc.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
 		if (!r14_svc.valid && i_mem_valid && r14_svc.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
 	end
-	else if (i_wb_mode == IRQ) begin
+	else if (i_mode_exec == IRQ) begin
 		if (!r13_irq.valid && i_mem_valid && r13_irq.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
 		if (!r14_irq.valid && i_mem_valid && r14_irq.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
 	end
-	else if (i_wb_mode == FIRQ) begin
+	else if (i_mode_exec == FIRQ) begin
 		if (!r13_firq.valid && i_mem_valid && r13_firq.tag == i_mem_tag) tag_match_mem[13] = 1'b1;
 		if (!r14_firq.valid && i_mem_valid && r14_firq.tag == i_mem_tag) tag_match_mem[14] = 1'b1;
 	end
@@ -523,11 +515,11 @@ always_comb begin
 	end
 	else if (tag_match_alu[8] || tag_match_mult[8] || tag_match_mem[8]) begin
 		r_valid_nxt[8] = 1'b1;
-		r_tag_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.tag : r8.tag;
+		r_tag_nxt[8] = (i_mode_exec == FIRQ) ? r8_firq.tag : r8.tag;
 	end
 	else begin
-		r_valid_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.valid : r8.valid;
-		r_tag_nxt[8] = (i_wb_mode == FIRQ) ? r8_firq.tag : r8.tag;
+		r_valid_nxt[8] = (i_mode_exec == FIRQ) ? r8_firq.valid : r8.valid;
+		r_tag_nxt[8] = (i_mode_exec == FIRQ) ? r8_firq.tag : r8.tag;
 	end
 	
 	//r9
@@ -537,11 +529,11 @@ always_comb begin
 	end
 	else if (tag_match_alu[9] || tag_match_mult[9] || tag_match_mem[9]) begin
 		r_valid_nxt[9] = 1'b1;
-		r_tag_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.tag : r9.tag;
+		r_tag_nxt[9] = (i_mode_exec == FIRQ) ? r9_firq.tag : r9.tag;
 	end
 	else begin
-		r_valid_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.valid : r9.valid;
-		r_tag_nxt[9] = (i_wb_mode == FIRQ) ? r9_firq.tag : r9.tag;
+		r_valid_nxt[9] = (i_mode_exec == FIRQ) ? r9_firq.valid : r9.valid;
+		r_tag_nxt[9] = (i_mode_exec == FIRQ) ? r9_firq.tag : r9.tag;
 	end
 	
 	//r10
@@ -551,11 +543,11 @@ always_comb begin
 	end
 	else if (tag_match_alu[10] || tag_match_mult[10] || tag_match_mem[10]) begin
 		r_valid_nxt[10] = 1'b1;
-		r_tag_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.tag : r10.tag;
+		r_tag_nxt[10] = (i_mode_exec == FIRQ) ? r10_firq.tag : r10.tag;
 	end
 	else begin
-		r_valid_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.valid : r10.valid;
-		r_tag_nxt[10] = (i_wb_mode == FIRQ) ? r10_firq.tag : r10.tag;
+		r_valid_nxt[10] = (i_mode_exec == FIRQ) ? r10_firq.valid : r10.valid;
+		r_tag_nxt[10] = (i_mode_exec == FIRQ) ? r10_firq.tag : r10.tag;
 	end
 	
 	//r11
@@ -565,11 +557,11 @@ always_comb begin
 	end
 	else if (tag_match_alu[11] || tag_match_mult[11] || tag_match_mem[11]) begin
 		r_valid_nxt[11] = 1'b1;
-		r_tag_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.tag : r11.tag;
+		r_tag_nxt[11] = (i_mode_exec == FIRQ) ? r11_firq.tag : r11.tag;
 	end
 	else begin
-		r_valid_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.valid : r11.valid;
-		r_tag_nxt[11] = (i_wb_mode == FIRQ) ? r11_firq.tag : r11.tag;
+		r_valid_nxt[11] = (i_mode_exec == FIRQ) ? r11_firq.valid : r11.valid;
+		r_tag_nxt[11] = (i_mode_exec == FIRQ) ? r11_firq.tag : r11.tag;
 	end
 	
 	//r12
@@ -579,11 +571,11 @@ always_comb begin
 	end
 	else if (tag_match_alu[12] || tag_match_mult[12] || tag_match_mem[12]) begin
 		r_valid_nxt[12] = 1'b1;
-		r_tag_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.tag : r12.tag;
+		r_tag_nxt[12] = (i_mode_exec == FIRQ) ? r12_firq.tag : r12.tag;
 	end
 	else begin
-		r_valid_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.valid : r12.valid;
-		r_tag_nxt[12] = (i_wb_mode == FIRQ) ? r12_firq.tag : r12.tag;
+		r_valid_nxt[12] = (i_mode_exec == FIRQ) ? r12_firq.valid : r12.valid;
+		r_tag_nxt[12] = (i_mode_exec == FIRQ) ? r12_firq.tag : r12.tag;
 	end
 	
 	
@@ -595,20 +587,20 @@ always_comb begin
 	end
 	else if (tag_match_alu[13] || tag_match_mult[13] || tag_match_mem[13]) begin
 		r_valid_nxt[13]= 1'b1;
-		r_tag_nxt[13] = (i_wb_mode == USR) 	? r13.tag :
-						(i_wb_mode == SVC) 	? r13_svc.tag :
-						(i_wb_mode == IRQ) 	? r13_irq.tag :
-						/*(i_wb_mode == FIRQ) ?*/ r13_firq.tag;
+		r_tag_nxt[13] = (i_mode_exec == USR) 	? r13.tag :
+						(i_mode_exec == SVC) 	? r13_svc.tag :
+						(i_mode_exec == IRQ) 	? r13_irq.tag :
+						/*(i_mode_exec == FIRQ) ?*/ r13_firq.tag;
 	end
 	else begin
-		r_valid_nxt[13]=(i_wb_mode == USR) 	? r13.valid :
-						(i_wb_mode == SVC) 	? r13_svc.valid :
-						(i_wb_mode == IRQ) 	? r13_irq.valid :
-						/*(i_wb_mode == FIRQ) ?*/ r13_firq.valid;
-		r_tag_nxt[13] =	(i_wb_mode == USR) 	? r13.tag :
-						(i_wb_mode == SVC) 	? r13_svc.tag :
-						(i_wb_mode == IRQ) 	? r13_irq.tag :
-						/*(i_wb_mode == FIRQ) ?*/ r13_firq.tag;
+		r_valid_nxt[13]=(i_mode_exec == USR) 	? r13.valid :
+						(i_mode_exec == SVC) 	? r13_svc.valid :
+						(i_mode_exec == IRQ) 	? r13_irq.valid :
+						/*(i_mode_exec == FIRQ) ?*/ r13_firq.valid;
+		r_tag_nxt[13] =	(i_mode_exec == USR) 	? r13.tag :
+						(i_mode_exec == SVC) 	? r13_svc.tag :
+						(i_mode_exec == IRQ) 	? r13_irq.tag :
+						/*(i_mode_exec == FIRQ) ?*/ r13_firq.tag;
 	end
 	
 	//r14
@@ -618,20 +610,20 @@ always_comb begin
 	end
 	else if (tag_match_alu[14] || tag_match_mult[14] || tag_match_mem[14]) begin
 		r_valid_nxt[14]= 1'b1;
-		r_tag_nxt[14] =	(i_wb_mode == USR) 	? r14.tag :
-						(i_wb_mode == SVC) 	? r14_svc.tag :
-						(i_wb_mode == IRQ) 	? r14_irq.tag :
-						/*(i_wb_mode == FIRQ) ?*/ r14_firq.tag;
+		r_tag_nxt[14] =	(i_mode_exec == USR) 	? r14.tag :
+						(i_mode_exec == SVC) 	? r14_svc.tag :
+						(i_mode_exec == IRQ) 	? r14_irq.tag :
+						/*(i_mode_exec == FIRQ) ?*/ r14_firq.tag;
 	end
 	else begin
-		r_valid_nxt[14]=(i_wb_mode == USR) 	? r14.valid :
-						(i_wb_mode == SVC) 	? r14_svc.valid :
-						(i_wb_mode == IRQ) 	? r14_irq.valid :
-						/*(i_wb_mode == FIRQ) ?*/ r14_firq.valid;
-		r_tag_nxt[14] =	(i_wb_mode == USR) 	? r14.tag :
-						(i_wb_mode == SVC) 	? r14_svc.tag :
-						(i_wb_mode == IRQ) 	? r14_irq.tag :
-						/*(i_wb_mode == FIRQ) ?*/ r14_firq.tag;
+		r_valid_nxt[14]=(i_mode_exec == USR) 	? r14.valid :
+						(i_mode_exec == SVC) 	? r14_svc.valid :
+						(i_mode_exec == IRQ) 	? r14_irq.valid :
+						/*(i_mode_exec == FIRQ) ?*/ r14_firq.valid;
+		r_tag_nxt[14] =	(i_mode_exec == USR) 	? r14.tag :
+						(i_mode_exec == SVC) 	? r14_svc.tag :
+						(i_mode_exec == IRQ) 	? r14_irq.tag :
+						/*(i_mode_exec == FIRQ) ?*/ r14_firq.tag;
 	end
 	
 	
@@ -715,97 +707,97 @@ always_comb begin
 					tag_match_mem[7 ]  ? i_mem_data  :
 										 r7.data;
 								 
-	r8_data_nxt  =  i_wb_mode == FIRQ  ? r8.data	 :
+	r8_data_nxt  =  i_mode_exec == FIRQ  ? r8.data	 :
 					tag_match_alu[8 ]  ? i_alu_data  :
 					tag_match_mult[8 ] ? i_mult_data :
 					tag_match_mem[8 ]  ? i_mem_data  :
 										 r8.data;
-	r9_data_nxt  =  i_wb_mode == FIRQ  ? r9.data	 :
+	r9_data_nxt  =  i_mode_exec == FIRQ  ? r9.data	 :
 					tag_match_alu[9 ]  ? i_alu_data  :
 					tag_match_mult[9 ] ? i_mult_data :
 					tag_match_mem[9 ]  ? i_mem_data  :
 										 r9.data;
-	r10_data_nxt =  i_wb_mode == FIRQ  ? r10.data :
+	r10_data_nxt =  i_mode_exec == FIRQ  ? r10.data :
 					tag_match_alu[10]  ? i_alu_data  :
 					tag_match_mult[10] ? i_mult_data :
 					tag_match_mem[10]  ? i_mem_data  :
 										 r10.data;
-	r11_data_nxt =  i_wb_mode == FIRQ  ? r11.data :
+	r11_data_nxt =  i_mode_exec == FIRQ  ? r11.data :
 					tag_match_alu[11]  ? i_alu_data  :
 					tag_match_mult[11] ? i_mult_data :
 					tag_match_mem[11]  ? i_mem_data  :
 										 r11.data;
-	r12_data_nxt =  i_wb_mode == FIRQ  ? r12.data :
+	r12_data_nxt =  i_mode_exec == FIRQ  ? r12.data :
 					tag_match_alu[12]  ? i_alu_data  :
 					tag_match_mult[12] ? i_mult_data :
 					tag_match_mem[12]  ? i_mem_data  :
 										 r12.data;
 								 
-	r8_firq_data_nxt  =  	i_wb_mode != FIRQ  ? r8_firq.data:
+	r8_firq_data_nxt  =  	i_mode_exec != FIRQ  ? r8_firq.data:
 							tag_match_alu[8 ]  ? i_alu_data  :
 							tag_match_mult[8 ] ? i_mult_data :
 							tag_match_mem[8 ]  ? i_mem_data  :
 												 r8_firq.data;
-	r9_firq_data_nxt  =  	i_wb_mode == FIRQ  ? r9_firq.data:
+	r9_firq_data_nxt  =  	i_mode_exec == FIRQ  ? r9_firq.data:
 							tag_match_alu[9 ]  ? i_alu_data  :
 							tag_match_mult[9 ] ? i_mult_data :
 							tag_match_mem[9 ]  ? i_mem_data  :
 												 r9_firq.data;
-	r10_firq_data_nxt =  	i_wb_mode == FIRQ  ? r10_firq.data:
+	r10_firq_data_nxt =  	i_mode_exec == FIRQ  ? r10_firq.data:
 							tag_match_alu[10]  ? i_alu_data  :
 							tag_match_mult[10] ? i_mult_data :
 							tag_match_mem[10]  ? i_mem_data  :
 												 r10_firq.data;
-	r11_firq_data_nxt =  	i_wb_mode == FIRQ  ? r11_firq.data:
+	r11_firq_data_nxt =  	i_mode_exec == FIRQ  ? r11_firq.data:
 							tag_match_alu[11]  ? i_alu_data  :
 							tag_match_mult[11] ? i_mult_data :
 							tag_match_mem[11]  ? i_mem_data  :
 												 r11_firq.data;
-	r12_firq_data_nxt =  	i_wb_mode == FIRQ  ? r12_firq.data:
+	r12_firq_data_nxt =  	i_mode_exec == FIRQ  ? r12_firq.data:
 							tag_match_alu[12]  ? i_alu_data  :
 							tag_match_mult[12] ? i_mult_data :
 							tag_match_mem[12]  ? i_mem_data  :
 												 r12_firq.data;
 											 
-	r13_data_nxt =  i_wb_mode != USR   ? r13.data	 :
+	r13_data_nxt =  i_mode_exec != USR   ? r13.data	 :
 					tag_match_alu[13]  ? i_alu_data  :
 					tag_match_mult[13] ? i_mult_data :
 					tag_match_mem[13]  ? i_mem_data  :
 										 r13.data;
-	r14_data_nxt =  i_wb_mode != USR   ? r14.data	 :
+	r14_data_nxt =  i_mode_exec != USR   ? r14.data	 :
 					tag_match_alu[14]  ? i_alu_data  :
 					tag_match_mult[14] ? i_mult_data :
 					tag_match_mem[14]  ? i_mem_data  :
 										 r14.data;
 											 
-	r13_svc_data_nxt  = i_wb_mode != SVC   ? r13_svc.data:
+	r13_svc_data_nxt  = i_mode_exec != SVC   ? r13_svc.data:
 						tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_svc.data;
-	r14_svc_data_nxt  = i_wb_mode != SVC   ? r14_svc.data:
+	r14_svc_data_nxt  = i_mode_exec != SVC   ? r14_svc.data:
 						tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_svc.data;
 											 
-	r13_irq_data_nxt  = i_wb_mode != IRQ   ? r13_irq.data:
+	r13_irq_data_nxt  = i_mode_exec != IRQ   ? r13_irq.data:
 						tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_irq.data;
-	r14_irq_data_nxt  = i_wb_mode != IRQ   ? r14_irq.data:
+	r14_irq_data_nxt  = i_mode_exec != IRQ   ? r14_irq.data:
 						tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_irq.data;
 											 
-	r13_firq_data_nxt = i_wb_mode != FIRQ  ? r13_firq.data:
+	r13_firq_data_nxt = i_mode_exec != FIRQ  ? r13_firq.data:
 						tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_firq.data;
-	r14_firq_data_nxt = i_wb_mode != FIRQ  ? r14_firq.data:
+	r14_firq_data_nxt = i_mode_exec != FIRQ  ? r14_firq.data:
 						tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
@@ -819,110 +811,171 @@ always_comb begin
 end
 
 
-always_ff @(posedge i_clk) begin
-	//Write back to registers based on tag comparison result, above.
-	//Note that this implicitly handles writebacks from memory, so we don't need read_data_wen or i_wb_read_data anymore (per se).
-	
-	//Valid bits
-	r0.valid  <= r_valid_nxt[0 ];
-	r1.valid  <= r_valid_nxt[1 ];
-	r2.valid  <= r_valid_nxt[2 ];
-	r3.valid  <= r_valid_nxt[3 ];
-	r4.valid  <= r_valid_nxt[4 ];
-	r5.valid  <= r_valid_nxt[5 ];
-	r6.valid  <= r_valid_nxt[6 ];
-	r7.valid  <= r_valid_nxt[7 ];
-	
-	r8.valid  <= i_wb_mode != FIRQ ? r_valid_nxt[8 ] : r8.valid;
-	r9.valid  <= i_wb_mode != FIRQ ? r_valid_nxt[9 ] : r9.valid;
-	r10.valid <= i_wb_mode != FIRQ ? r_valid_nxt[10] : r10.valid;
-	r11.valid <= i_wb_mode != FIRQ ? r_valid_nxt[11] : r11.valid;
-	r12.valid <= i_wb_mode != FIRQ ? r_valid_nxt[12] : r12.valid;
-	
-	r8_firq.valid  <= i_wb_mode == FIRQ ? r_valid_nxt[8 ] : r8_firq.valid;
-	r9_firq.valid  <= i_wb_mode == FIRQ ? r_valid_nxt[9 ] : r9_firq.valid;
-	r10_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[10] : r10_firq.valid;
-	r11_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[11] : r11_firq.valid;
-	r12_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[12] : r12_firq.valid;
-	
-	r13.valid <= i_wb_mode == USR ? r_valid_nxt[13] : r13.valid;
-	r14.valid <= i_wb_mode == USR ? r_valid_nxt[14] : r14.valid;
-	r13_svc.valid <= i_wb_mode == SVC ? r_valid_nxt[13] : r13_svc.valid;
-	r14_svc.valid <= i_wb_mode == SVC ? r_valid_nxt[14] : r14_svc.valid;
-	r13_irq.valid <= i_wb_mode == IRQ ? r_valid_nxt[13] : r13_irq.valid;
-	r14_irq.valid <= i_wb_mode == IRQ ? r_valid_nxt[14] : r14_irq.valid;
-	r13_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[13] : r13_firq.valid;
-	r14_firq.valid <= i_wb_mode == FIRQ ? r_valid_nxt[14] : r14_firq.valid;
-	
-	r15.data <= r_valid_nxt[15];
-	
-	
-	//Tag bits
-	r0.tag  <= r_tag_nxt[0 ];
-	r1.tag  <= r_tag_nxt[1 ];
-	r2.tag  <= r_tag_nxt[2 ];
-	r3.tag  <= r_tag_nxt[3 ];
-	r4.tag  <= r_tag_nxt[4 ];
-	r5.tag  <= r_tag_nxt[5 ];
-	r6.tag  <= r_tag_nxt[6 ];
-	r7.tag  <= r_tag_nxt[7 ];
-	
-	r8.tag  <= i_wb_mode != FIRQ ? r_tag_nxt[8 ] : r8.tag;
-	r9.tag  <= i_wb_mode != FIRQ ? r_tag_nxt[9 ] : r9.tag;
-	r10.tag <= i_wb_mode != FIRQ ? r_tag_nxt[10] : r10.tag;
-	r11.tag <= i_wb_mode != FIRQ ? r_tag_nxt[11] : r11.tag;
-	r12.tag <= i_wb_mode != FIRQ ? r_tag_nxt[12] : r12.tag;
-	
-	r8_firq.tag  <= i_wb_mode == FIRQ ? r_tag_nxt[8 ] : r8_firq.tag;
-	r9_firq.tag  <= i_wb_mode == FIRQ ? r_tag_nxt[9 ] : r9_firq.tag;
-	r10_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[10] : r10_firq.tag;
-	r11_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[11] : r11_firq.tag;
-	r12_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[12] : r12_firq.tag;
-	
-	r13.tag <= i_wb_mode == USR ? r_tag_nxt[13] : r13.tag;
-	r14.tag <= i_wb_mode == USR ? r_tag_nxt[14] : r14.tag;
-	r13_svc.tag <= i_wb_mode == SVC ? r_tag_nxt[13] : r13_svc.tag;
-	r14_svc.tag <= i_wb_mode == SVC ? r_tag_nxt[14] : r14_svc.tag;
-	r13_irq.tag <= i_wb_mode == IRQ ? r_tag_nxt[13] : r13_irq.tag;
-	r14_irq.tag <= i_wb_mode == IRQ ? r_tag_nxt[14] : r14_irq.tag;
-	r13_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[13] : r13_firq.tag;
-	r14_firq.tag <= i_wb_mode == FIRQ ? r_tag_nxt[14] : r14_firq.tag;
-	
-	r15.tag	<= r_tag_nxt[15];
-	
-	
-	//Data
-	r0.data			<=	r0_data_nxt;
-	r1.data			<=	r1_data_nxt;
-	r2.data			<=	r2_data_nxt;
-	r3.data			<=	r3_data_nxt;
-	r4.data			<=	r4_data_nxt;
-	r5.data			<=	r5_data_nxt;
-	r6.data			<=	r6_data_nxt;
-	r7.data			<=	r7_data_nxt;
-	
-	r8.data			<=	r8_data_nxt;
-	r9.data			<=	r9_data_nxt;
-	r10.data		<=	r10_data_nxt;
-	r11.data		<=	r11_data_nxt;
-	r12.data		<=	r12_data_nxt;
-	
-	r8_firq.data	<=	r8_firq_data_nxt;
-	r9_firq.data	<=	r9_firq_data_nxt;
-	r10_firq.data	<=	r10_firq_data_nxt;
-	r11_firq.data	<=	r11_firq_data_nxt;
-	r12_firq.data	<=	r12_firq_data_nxt;
-	
-	r13.data		<=	r13_data_nxt;
-	r14.data		<=	r14_data_nxt;
-	r13_svc.data	<=	r13_svc_data_nxt;
-	r14_svc.data	<=	r14_svc_data_nxt;
-	r13_irq.data	<=	r13_irq_data_nxt;
-	r14_irq.data	<=	r14_irq_data_nxt;
-	r13_firq.data	<=	r13_firq_data_nxt;
-	r14_firq.data	<=	r14_firq_data_nxt;
-	
-	r15.data		<= r15_data_nxt;
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		r0.valid <= 1'b1;
+		r1.valid <= 1'b1;
+		r2.valid <= 1'b1;
+		r3.valid <= 1'b1;
+		r4.valid <= 1'b1;
+		r5.valid <= 1'b1;
+		r6.valid <= 1'b1;
+		r7.valid <= 1'b1;
+		r8.valid <= 1'b1;
+		r9.valid <= 1'b1;
+		r10.valid <= 1'b1;
+		r11.valid <= 1'b1;
+		r12.valid <= 1'b1;
+		r8_firq.valid <= 1'b1;
+		r9_firq.valid <= 1'b1;
+		r10_firq.valid <= 1'b1;
+		r11_firq.valid <= 1'b1;
+		r12_firq.valid <= 1'b1;
+		r13.valid <= 1'b1;
+		r14.valid <= 1'b1;
+		r13.valid <= 1'b1;
+		r14_svc.valid <= 1'b1;
+		r13_svc.valid <= 1'b1;
+		r14_irq.valid <= 1'b1;
+		r13_firq.valid <= 1'b1;
+		r14_firq.valid <= 1'b1;
+		r15.valid <= 1'b1;
+		
+		//don't care about tag initialization
+		
+		r0.data <= 'd0;
+		r1.data <= 'd0;
+		r2.data <= 'd0;
+		r3.data <= 'd0;
+		r4.data <= 'd0;
+		r5.data <= 'd0;
+		r6.data <= 'd0;
+		r7.data <= 'd0;
+		r8.data <= 'd0;
+		r9.data <= 'd0;
+		r10.data <= 'd0;
+		r11.data <= 'd0;
+		r12.data <= 'd0;
+		r8_firq.data <= 'd0;
+		r9_firq.data <= 'd0;
+		r10_firq.data <= 'd0;
+		r11_firq.data <= 'd0;
+		r12_firq.data <= 'd0;
+		r13.data <= 'd0;
+		r14.data <= 'd0;
+		r13.data <= 'd0;
+		r14_svc.data <= 'd0;
+		r13_svc.data <= 'd0;
+		r14_irq.data <= 'd0;
+		r13_firq.data <= 'd0;
+		r14_firq.data <= 'd0;
+		r15.data <= 32'h0000_0000; //TODO change default PC and memory image as necessary
+	end
+	else begin
+		//Write back to registers based on tag comparison result, above.
+		//Note that this implicitly handles writebacks from memory, so we don't need read_data_wen or i_wb_read_data anymore (per se).
+		
+		//Valid bits
+		r0.valid  <= r_valid_nxt[0 ];
+		r1.valid  <= r_valid_nxt[1 ];
+		r2.valid  <= r_valid_nxt[2 ];
+		r3.valid  <= r_valid_nxt[3 ];
+		r4.valid  <= r_valid_nxt[4 ];
+		r5.valid  <= r_valid_nxt[5 ];
+		r6.valid  <= r_valid_nxt[6 ];
+		r7.valid  <= r_valid_nxt[7 ];
+		
+		r8.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[8 ] : r8.valid;
+		r9.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[9 ] : r9.valid;
+		r10.valid <= i_mode_exec != FIRQ ? r_valid_nxt[10] : r10.valid;
+		r11.valid <= i_mode_exec != FIRQ ? r_valid_nxt[11] : r11.valid;
+		r12.valid <= i_mode_exec != FIRQ ? r_valid_nxt[12] : r12.valid;
+		
+		r8_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[8 ] : r8_firq.valid;
+		r9_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[9 ] : r9_firq.valid;
+		r10_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[10] : r10_firq.valid;
+		r11_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[11] : r11_firq.valid;
+		r12_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[12] : r12_firq.valid;
+		
+		r13.valid <= i_mode_exec == USR ? r_valid_nxt[13] : r13.valid;
+		r14.valid <= i_mode_exec == USR ? r_valid_nxt[14] : r14.valid;
+		r13_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[13] : r13_svc.valid;
+		r14_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[14] : r14_svc.valid;
+		r13_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[13] : r13_irq.valid;
+		r14_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[14] : r14_irq.valid;
+		r13_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[13] : r13_firq.valid;
+		r14_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[14] : r14_firq.valid;
+		
+		r15.data <= r_valid_nxt[15];
+		
+		
+		//Tag bits
+		r0.tag  <= r_tag_nxt[0 ];
+		r1.tag  <= r_tag_nxt[1 ];
+		r2.tag  <= r_tag_nxt[2 ];
+		r3.tag  <= r_tag_nxt[3 ];
+		r4.tag  <= r_tag_nxt[4 ];
+		r5.tag  <= r_tag_nxt[5 ];
+		r6.tag  <= r_tag_nxt[6 ];
+		r7.tag  <= r_tag_nxt[7 ];
+		
+		r8.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[8 ] : r8.tag;
+		r9.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[9 ] : r9.tag;
+		r10.tag <= i_mode_exec != FIRQ ? r_tag_nxt[10] : r10.tag;
+		r11.tag <= i_mode_exec != FIRQ ? r_tag_nxt[11] : r11.tag;
+		r12.tag <= i_mode_exec != FIRQ ? r_tag_nxt[12] : r12.tag;
+		
+		r8_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[8 ] : r8_firq.tag;
+		r9_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[9 ] : r9_firq.tag;
+		r10_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[10] : r10_firq.tag;
+		r11_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[11] : r11_firq.tag;
+		r12_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[12] : r12_firq.tag;
+		
+		r13.tag <= i_mode_exec == USR ? r_tag_nxt[13] : r13.tag;
+		r14.tag <= i_mode_exec == USR ? r_tag_nxt[14] : r14.tag;
+		r13_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[13] : r13_svc.tag;
+		r14_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[14] : r14_svc.tag;
+		r13_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[13] : r13_irq.tag;
+		r14_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[14] : r14_irq.tag;
+		r13_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[13] : r13_firq.tag;
+		r14_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[14] : r14_firq.tag;
+		
+		r15.tag	<= r_tag_nxt[15];
+		
+		
+		//Data
+		r0.data			<=	r0_data_nxt;
+		r1.data			<=	r1_data_nxt;
+		r2.data			<=	r2_data_nxt;
+		r3.data			<=	r3_data_nxt;
+		r4.data			<=	r4_data_nxt;
+		r5.data			<=	r5_data_nxt;
+		r6.data			<=	r6_data_nxt;
+		r7.data			<=	r7_data_nxt;
+		
+		r8.data			<=	r8_data_nxt;
+		r9.data			<=	r9_data_nxt;
+		r10.data		<=	r10_data_nxt;
+		r11.data		<=	r11_data_nxt;
+		r12.data		<=	r12_data_nxt;
+		
+		r8_firq.data	<=	r8_firq_data_nxt;
+		r9_firq.data	<=	r9_firq_data_nxt;
+		r10_firq.data	<=	r10_firq_data_nxt;
+		r11_firq.data	<=	r11_firq_data_nxt;
+		r12_firq.data	<=	r12_firq_data_nxt;
+		
+		r13.data		<=	r13_data_nxt;
+		r14.data		<=	r14_data_nxt;
+		r13_svc.data	<=	r13_svc_data_nxt;
+		r14_svc.data	<=	r14_svc_data_nxt;
+		r13_irq.data	<=	r13_irq_data_nxt;
+		r14_irq.data	<=	r14_irq_data_nxt;
+		r13_firq.data	<=	r13_firq_data_nxt;
+		r14_firq.data	<=	r14_firq_data_nxt;
+		
+		r15.data		<= r15_data_nxt;
+	end
 	
 end
 
@@ -1037,7 +1090,7 @@ assign r15_out_rn     = {6'd0, r15.data, 2'd0};
 
 
 // rds outputs
-assign r8_rds  = i_mode_rds_exec[OH_FIRQ] ? r8_firq.data  : r8.data;
+/*assign r8_rds  = i_mode_rds_exec[OH_FIRQ] ? r8_firq.data  : r8.data;
 assign r9_rds  = i_mode_rds_exec[OH_FIRQ] ? r9_firq.data  : r9.data;
 assign r10_rds = i_mode_rds_exec[OH_FIRQ] ? r10_firq.data : r10.data;
 assign r11_rds = i_mode_rds_exec[OH_FIRQ] ? r11_firq.data : r11.data;
@@ -1051,12 +1104,29 @@ assign r13_rds = i_mode_rds_exec[OH_USR]  ? r13.data      :
 assign r14_rds = i_mode_rds_exec[OH_USR]  ? r14.data      :
                  i_mode_rds_exec[OH_SVC]  ? r14_svc.data  :
                  i_mode_rds_exec[OH_IRQ]  ? r14_irq.data  :
+                                            r14_firq.data ;*/
+assign r8_rds  = i_mode_exec==FIRQ ? r8_firq.data  : r8.data;
+assign r9_rds  = i_mode_exec==FIRQ ? r9_firq.data  : r9.data;
+assign r10_rds = i_mode_exec==FIRQ ? r10_firq.data : r10.data;
+assign r11_rds = i_mode_exec==FIRQ ? r11_firq.data : r11.data;
+assign r12_rds = i_mode_exec==FIRQ ? r12_firq.data : r12.data;
+
+assign r13_rds = i_mode_exec==USR  ? r13.data      :
+                 i_mode_exec==SVC  ? r13_svc.data  :
+                 i_mode_exec==IRQ  ? r13_irq.data  :
+                                            r13_firq.data ;
+                       
+assign r14_rds = i_mode_exec==USR  ? r14.data      :
+                 i_mode_exec==SVC  ? r14_svc.data  :
+                 i_mode_exec==IRQ  ? r14_irq.data  :
                                             r14_firq.data ;
 
 
 // ========================================================
 // Program Counter out
 // ========================================================
+assign o_pc_valid = r_valid_nxt[15];
+assign o_pc_tag = r15.tag;
 assign o_pc = r15_out_rn; //TODO modify as per the below with update-PC data from the tag/update buses
 
 // ========================================================
@@ -1080,7 +1150,7 @@ always_comb begin
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
 		begin
@@ -1089,7 +1159,7 @@ always_comb begin
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
 		begin
@@ -1098,7 +1168,7 @@ always_comb begin
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
 		begin
@@ -1107,7 +1177,7 @@ always_comb begin
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
 		begin
@@ -1116,7 +1186,7 @@ always_comb begin
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
 		begin
@@ -1125,7 +1195,7 @@ always_comb begin
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
 		begin
@@ -1134,7 +1204,7 @@ always_comb begin
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
 		begin
@@ -1143,7 +1213,7 @@ always_comb begin
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
 		begin
@@ -1152,7 +1222,7 @@ always_comb begin
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
 		begin
@@ -1161,7 +1231,7 @@ always_comb begin
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
 		begin
@@ -1170,7 +1240,7 @@ always_comb begin
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
 		begin
@@ -1179,7 +1249,7 @@ always_comb begin
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
 		begin
@@ -1188,7 +1258,7 @@ always_comb begin
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
 		begin
@@ -1197,7 +1267,7 @@ always_comb begin
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
 		begin
@@ -1206,7 +1276,7 @@ always_comb begin
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rm;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
 end

@@ -39,7 +39,7 @@
 //////////////////////////////////////////////////////////////////
 
 
-module a25_shifter #(
+module b01_shifter #(
 parameter FULL_BARREL = 1
 )(
 
@@ -54,7 +54,7 @@ output                      o_carry_out
 
 );
 
-`include "a25_localparams.vh"
+`include "b01_localparams.vh"
 
   // MSB is carry out
 wire [32:0] lsl_out;
