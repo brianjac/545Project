@@ -15,7 +15,12 @@ typedef struct packed {
 	logic [5:0] rm_tag;
 	logic [31:0] rm;
 	
+	logic status_bits_flags_valid;
+	logic [5:0] status_bits_flags_tag;
+	logic [3:0] status_bits_flags;
+	
 	//Control signals for the ALU stage
+	logic use_carry_in;
 	logic [31:0] imm32;
 	logic [4:0] imm_shift_amount;
 	logic shift_imm_zero;
@@ -81,6 +86,7 @@ typedef struct packed {
 
 module b01_reservation (
 	input logic			i_clk,
+	input logic			i_rst,
 	input logic			i_stall,
 	
 	input logic	 [5:0]	i_tag_nxt,
@@ -113,12 +119,17 @@ module b01_reservation (
 	input logic			i_rm_valid,
 	input logic  [5:0]	i_rm_tag,
 	input logic  [31:0] i_rm,
+	input logic			i_status_bits_flags_valid,
+	input logic  [5:0]	i_status_bits_flags_tag,
+	input logic  [3:0]	i_status_bits_flags,
 
 	//ALU station interface
 	output logic 		o_instr_valid_alu,
 	output logic [31:0] o_rn_alu,
 	output logic [31:0] o_rs_alu,
 	output logic [31:0] o_rm_alu,
+	output logic [3:0]	o_status_bits_flags_alu,
+	output logic		o_use_carry_in_alu,
 	//output logic [31:0] o_ccr_alu,
 	output logic [31:0] o_imm32_alu,
 	output logic [4:0] 	o_imm_shift_amount_alu,
@@ -198,7 +209,8 @@ logic [15:0]		alu_shift_into, //define whether or not we need to shift up a give
 					mem_shift_into;
 logic [15:0][2:0]	alu_rn_tag_match, //of each entry, bit 0 says it matches the incoming ALU result, bit 1=mult, bit 2=mem
 					alu_rs_tag_match,
-					alu_rm_tag_match;
+					alu_rm_tag_match,
+					alu_status_bits_flags_tag_match;
 					//alu_ccr_tag_match;
 logic [15:0][2:0] 	mult_rn_tag_match,
 					mult_rs_tag_match,
@@ -287,6 +299,9 @@ always_comb begin
 		alu_rm_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rm_tag == i_mult_tag) & !alu_station[i].rm_valid;
 		alu_rm_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rm_tag == i_mem_tag) & !alu_station[i].rm_valid;
 		
+		alu_status_bits_flags_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].status_bits_flags_tag == i_alu_tag) & !alu_station[i].status_bits_flags_valid;
+		alu_status_bits_flags_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].status_bits_flags_tag == i_mult_tag) & !alu_station[i].status_bits_flags_valid;
+		alu_status_bits_flags_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].status_bits_flags_tag == i_mem_tag) & !alu_station[i].status_bits_flags_valid;
 		//alu_ccr_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].ccr_tag == i_alu_tag) & !alu_station[i].ccr_valid;
 		//alu_ccr_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].ccr_tag == i_mult_tag) & !alu_station[i].ccr_valid;
 		//alu_ccr_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].ccr_tag == i_mem_tag) & !alu_station[i].ccr_valid;
@@ -336,6 +351,7 @@ always_comb begin
 		alu_ready[i] = (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
 						& (alu_station[i].rs_valid | (alu_rs_tag_match[i] != 3'b000))
 						& (alu_station[i].rm_valid | (alu_rm_tag_match[i] != 3'b000))
+						& (alu_station[i].status_bits_flags_valid | (alu_status_bits_flags_tag_match[i] != 3'b000))
 						/*& (alu_station[i].ccr_valid | (alu_ccr_tag_match[i] != 3'b000))*/;
 		mult_ready[i] = (mult_station[i].rn_valid | (mult_rn_tag_match[i] != 3'b000))
 						& (mult_station[i].rs_valid | (mult_rs_tag_match[i] != 3'b000))
@@ -448,6 +464,11 @@ always_comb begin
 			alu_new_entry.rm_tag = i_rm_tag;
 			alu_new_entry.rm = i_rm;
 			
+			alu_new_entry.status_bits_flags_valid = i_status_bits_flags_valid;
+			alu_new_entry.status_bits_flags_tag = i_status_bits_flags_tag;
+			alu_new_entry.status_bits_flags = i_status_bits_flags;
+			
+			alu_new_entry.use_carry_in = i_use_carry_in;
 			alu_new_entry.imm32 = i_imm32;
 			alu_new_entry.imm_shift_amount = i_imm_shift_amount;
 			alu_new_entry.shift_imm_zero = i_shift_imm_zero;
@@ -542,8 +563,12 @@ Update logic:
 xyz_next_insert_idx*/
 
 //ALU station
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		for (int i=0; i<16; i+=1) alu_station[i] <= 'd0;
+		alu_occupied <= 'd0;
+	end
+	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
 			if (~i_stall && alu_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
@@ -659,8 +684,12 @@ always_ff @(posedge i_clk) begin
 end
 
 //Mult station
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		for (int i=0; i<16; i+=1) mult_station[i] <= 'd0;
+		mult_occupied <= 'd0;
+	end
+	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
 			if (~i_stall && mult_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
@@ -776,8 +805,12 @@ always_ff @(posedge i_clk) begin
 end
 
 //Mem station
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		for (int i=0; i<16; i+=1) mem_station[i] <= 'd0;
+		mem_occupied <= 'd0;
+	end
+	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
 			if (~i_stall && mem_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
@@ -897,8 +930,12 @@ end
 //Output logic for ALU station
 //Base it on alu_next_dispatch_idx, mult_next_dispatch_idx, and mem_next_dispatch_idx
 //Note that the register file automatically forwards operands from the EUs for a new instruction if the tags match
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		o_instr_valid_alu <= '0;
+		//don't care about other outputs since o_instr_valid is false
+	end
+	else /*if (i_clk)*/ begin
 		if (~alu_next_dispatch_idx[4]) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= alu_station[alu_next_dispatch_idx].rn_valid				?	alu_station[alu_next_dispatch_idx].rn:
@@ -913,6 +950,8 @@ always_ff @(posedge i_clk) begin
 						alu_rm_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
 						alu_rm_tag_match[alu_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
 																					i_mem_data;
+			o_status_bits_flags_alu <= alu_station[alu_next_dispatch_idx].status_bits_flags;
+			o_use_carry_in_alu <= alu_station[alu_next_dispatch_idx].use_carry_in;
 			o_imm32_alu <= alu_station[alu_next_dispatch_idx].imm32;
 			o_imm_shift_amount_alu <= alu_station[alu_next_dispatch_idx].imm_shift_amount;
 			o_shift_imm_zero_alu <= alu_station[alu_next_dispatch_idx].shift_imm_zero;
@@ -949,8 +988,12 @@ end
 
 
 //Output logic for mult station
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		o_instr_valid_mult <= '0;
+		//don't care about other outputs since o_instr_valid is false
+	end
+	else /*if (i_clk)*/ begin
 		if (~mult_next_dispatch_idx[4]) begin
 			o_instr_valid_mult <= 1'b1;
 			o_rn_mult <=	mult_station[mult_next_dispatch_idx].rn_valid				?	mult_station[mult_next_dispatch_idx].rn:
@@ -991,8 +1034,12 @@ end
 
 
 //Output logic for mem station
-always_ff @(posedge i_clk) begin
-	if (i_clk) begin
+always_ff @(posedge i_rst, posedge i_clk) begin
+	if (i_rst) begin
+		o_instr_valid_mem <= '0;
+		//don't care about other outputs since o_instr_valid is false
+	end
+	else /*if (i_clk)*/ begin
 		if (~mem_next_dispatch_idx[4]) begin
 			o_instr_valid_mem <= 1'b1;
 			o_rn_mem <= mem_station[mem_next_dispatch_idx].rn_valid				?	mem_station[mem_next_dispatch_idx].rn:
