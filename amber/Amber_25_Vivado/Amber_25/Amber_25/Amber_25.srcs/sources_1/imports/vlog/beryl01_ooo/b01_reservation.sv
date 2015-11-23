@@ -348,16 +348,19 @@ always_comb begin
 	//Determine which instructions are ready for dispatch this cycle
 	//TODO make sure when inserting the instructions each element is set to "valid" if it's unused (up in the Dispatch stage in which this unit is instantiated)
 	for (int i=0; i<16; i+=1) begin
-		alu_ready[i] = (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
+		alu_ready[i] =  alu_occupied[i]
+		                & (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
 						& (alu_station[i].rs_valid | (alu_rs_tag_match[i] != 3'b000))
 						& (alu_station[i].rm_valid | (alu_rm_tag_match[i] != 3'b000))
 						& (alu_station[i].status_bits_flags_valid | (alu_status_bits_flags_tag_match[i] != 3'b000))
 						/*& (alu_station[i].ccr_valid | (alu_ccr_tag_match[i] != 3'b000))*/;
-		mult_ready[i] = (mult_station[i].rn_valid | (mult_rn_tag_match[i] != 3'b000))
+		mult_ready[i] = mult_occupied[i]
+		                & (mult_station[i].rn_valid | (mult_rn_tag_match[i] != 3'b000))
 						& (mult_station[i].rs_valid | (mult_rs_tag_match[i] != 3'b000))
 						& (mult_station[i].rm_valid | (mult_rm_tag_match[i] != 3'b000))
 						/*& (mult_station[i].ccr_valid | (mult_ccr_tag_match[i] != 3'b000))*/;
-		mem_ready[i] = (mem_station[i].rn_valid | (mem_rn_tag_match[i] != 3'b000))
+		mem_ready[i] =  mem_occupied[i]
+		                & (mem_station[i].rn_valid | (mem_rn_tag_match[i] != 3'b000))
 						& (mem_station[i].rs_valid | (mem_rs_tag_match[i] != 3'b000))
 						& (mem_station[i].rm_valid | (mem_rm_tag_match[i] != 3'b000))
 						/*& (mem_station[i].ccr_valid | (mem_ccr_tag_match[i] != 3'b000))*/;
@@ -936,7 +939,10 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		//don't care about other outputs since o_instr_valid is false
 	end
 	else /*if (i_clk)*/ begin
-		if (~alu_next_dispatch_idx[4]) begin
+	    if (i_stall) begin
+	       o_instr_valid_alu <= 1'b0; //TODO may need to make this combinational
+	    end
+		else if (~alu_next_dispatch_idx[4]) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= alu_station[alu_next_dispatch_idx].rn_valid				?	alu_station[alu_next_dispatch_idx].rn:
 						alu_rn_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -968,6 +974,8 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_rn_alu <= i_rn;
 			o_rs_alu <= i_rs;
 			o_rm_alu <= i_rm;
+			o_status_bits_flags_alu <= i_status_bits_flags;
+			o_use_carry_in_alu <= i_use_carry_in;
 			o_imm32_alu <= i_imm32;
 			o_imm_shift_amount_alu <= i_imm_shift_amount;
 			o_shift_imm_zero_alu <= i_shift_imm_zero;
@@ -994,7 +1002,10 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		//don't care about other outputs since o_instr_valid is false
 	end
 	else /*if (i_clk)*/ begin
-		if (~mult_next_dispatch_idx[4]) begin
+        if (i_stall) begin
+           o_instr_valid_mult <= 1'b0; //TODO may need to make this combinational
+        end
+		else if (~mult_next_dispatch_idx[4]) begin
 			o_instr_valid_mult <= 1'b1;
 			o_rn_mult <=	mult_station[mult_next_dispatch_idx].rn_valid				?	mult_station[mult_next_dispatch_idx].rn:
 							mult_rn_tag_match[mult_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -1040,7 +1051,10 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		//don't care about other outputs since o_instr_valid is false
 	end
 	else /*if (i_clk)*/ begin
-		if (~mem_next_dispatch_idx[4]) begin
+        if (i_stall) begin
+           o_instr_valid_mem <= 1'b0; //TODO may need to make this combinational
+        end
+		else if (~mem_next_dispatch_idx[4]) begin
 			o_instr_valid_mem <= 1'b1;
 			o_rn_mem <= mem_station[mem_next_dispatch_idx].rn_valid				?	mem_station[mem_next_dispatch_idx].rn:
 						mem_rn_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:

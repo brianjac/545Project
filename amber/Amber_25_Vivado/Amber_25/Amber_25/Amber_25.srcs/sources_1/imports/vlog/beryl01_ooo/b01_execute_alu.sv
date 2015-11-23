@@ -92,8 +92,8 @@ input logic [5:0] i_rd_tag //TODO note: might need to change the reservation sta
 
 );
 
-`include "b01_localparams.vh"
-`include "b01_functions.vh"
+`include "a25_localparams.vh"
+`include "a25_functions.vh"
 
 // ========================================================
 // Internal signals
@@ -179,7 +179,7 @@ b01_alu u_alu (
     .i_a_in                 ( i_rn                    ),
     .i_b_in                 ( barrel_shift_out        ),
     .i_barrel_shift_carry   ( barrel_shift_carry_alu  ),
-    .i_status_bits_carry    ( status_bits_flags[1]    ),
+    .i_status_bits_carry    ( i_status_bits_flags[1]    ),
     .i_function             ( i_alu_function          ),
 
     .o_out                  ( alu_out                 ),

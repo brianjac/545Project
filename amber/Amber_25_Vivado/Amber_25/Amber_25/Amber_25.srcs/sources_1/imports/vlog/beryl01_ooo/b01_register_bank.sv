@@ -120,8 +120,8 @@ input [7:0] sw
 
 );
 
-`include "b01_localparams.vh"
-`include "b01_functions.vh"
+`include "a25_localparams.vh"
+`include "a25_functions.vh"
 
 
 // User Mode Registers
@@ -446,8 +446,8 @@ always_comb begin
 		r_tag_nxt[3] = r3.tag;
 	end
 	else begin
-		r_valid_nxt[0] = r0.valid;
-		r_tag_nxt[0] = r0.tag;
+		r_valid_nxt[3] = r3.valid;
+		r_tag_nxt[3] = r3.tag;
 	end
 	
 	//r4
@@ -628,11 +628,12 @@ always_comb begin
 	
 	
 	//r15 (pc), always
-	if (i_pc_wen/*reg_bank_wen_c[15]*/) begin //TODO might have *issues*; need to be careful with dispatch logic
-		r_valid_nxt[15] = 1'b0;
-		r_tag_nxt[15] = i_rd_tag;
-	end
-	else if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
+	//TODO restructure so we *actually* know if PC is valid or not
+	//if (/*i_pc_wen/*reg_bank_wen_c[15]*/) begin //TODO might have *issues*; need to be careful with dispatch logic
+	//	r_valid_nxt[15] = 1'b0;
+	//	r_tag_nxt[15] = i_rd_tag;
+	//end
+	/*else*/ if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
 		r_valid_nxt[15] = 1'b1;
 		r_tag_nxt[15] = r15.tag;
 	end
@@ -869,112 +870,114 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		r14_irq.data <= 'd0;
 		r13_firq.data <= 'd0;
 		r14_firq.data <= 'd0;
-		r15.data <= 32'h0000_0000; //TODO change default PC and memory image as necessary
+		r15.data <= 24'h00_0000; //TODO change default PC and memory image as necessary
 	end
 	else begin
 		//Write back to registers based on tag comparison result, above.
 		//Note that this implicitly handles writebacks from memory, so we don't need read_data_wen or i_wb_read_data anymore (per se).
 		
-		//Valid bits
-		r0.valid  <= r_valid_nxt[0 ];
-		r1.valid  <= r_valid_nxt[1 ];
-		r2.valid  <= r_valid_nxt[2 ];
-		r3.valid  <= r_valid_nxt[3 ];
-		r4.valid  <= r_valid_nxt[4 ];
-		r5.valid  <= r_valid_nxt[5 ];
-		r6.valid  <= r_valid_nxt[6 ];
-		r7.valid  <= r_valid_nxt[7 ];
-		
-		r8.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[8 ] : r8.valid;
-		r9.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[9 ] : r9.valid;
-		r10.valid <= i_mode_exec != FIRQ ? r_valid_nxt[10] : r10.valid;
-		r11.valid <= i_mode_exec != FIRQ ? r_valid_nxt[11] : r11.valid;
-		r12.valid <= i_mode_exec != FIRQ ? r_valid_nxt[12] : r12.valid;
-		
-		r8_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[8 ] : r8_firq.valid;
-		r9_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[9 ] : r9_firq.valid;
-		r10_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[10] : r10_firq.valid;
-		r11_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[11] : r11_firq.valid;
-		r12_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[12] : r12_firq.valid;
-		
-		r13.valid <= i_mode_exec == USR ? r_valid_nxt[13] : r13.valid;
-		r14.valid <= i_mode_exec == USR ? r_valid_nxt[14] : r14.valid;
-		r13_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[13] : r13_svc.valid;
-		r14_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[14] : r14_svc.valid;
-		r13_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[13] : r13_irq.valid;
-		r14_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[14] : r14_irq.valid;
-		r13_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[13] : r13_firq.valid;
-		r14_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[14] : r14_firq.valid;
-		
-		r15.data <= r_valid_nxt[15];
-		
-		
-		//Tag bits
-		r0.tag  <= r_tag_nxt[0 ];
-		r1.tag  <= r_tag_nxt[1 ];
-		r2.tag  <= r_tag_nxt[2 ];
-		r3.tag  <= r_tag_nxt[3 ];
-		r4.tag  <= r_tag_nxt[4 ];
-		r5.tag  <= r_tag_nxt[5 ];
-		r6.tag  <= r_tag_nxt[6 ];
-		r7.tag  <= r_tag_nxt[7 ];
-		
-		r8.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[8 ] : r8.tag;
-		r9.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[9 ] : r9.tag;
-		r10.tag <= i_mode_exec != FIRQ ? r_tag_nxt[10] : r10.tag;
-		r11.tag <= i_mode_exec != FIRQ ? r_tag_nxt[11] : r11.tag;
-		r12.tag <= i_mode_exec != FIRQ ? r_tag_nxt[12] : r12.tag;
-		
-		r8_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[8 ] : r8_firq.tag;
-		r9_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[9 ] : r9_firq.tag;
-		r10_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[10] : r10_firq.tag;
-		r11_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[11] : r11_firq.tag;
-		r12_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[12] : r12_firq.tag;
-		
-		r13.tag <= i_mode_exec == USR ? r_tag_nxt[13] : r13.tag;
-		r14.tag <= i_mode_exec == USR ? r_tag_nxt[14] : r14.tag;
-		r13_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[13] : r13_svc.tag;
-		r14_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[14] : r14_svc.tag;
-		r13_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[13] : r13_irq.tag;
-		r14_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[14] : r14_irq.tag;
-		r13_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[13] : r13_firq.tag;
-		r14_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[14] : r14_firq.tag;
-		
-		r15.tag	<= r_tag_nxt[15];
-		
-		
-		//Data
-		r0.data			<=	r0_data_nxt;
-		r1.data			<=	r1_data_nxt;
-		r2.data			<=	r2_data_nxt;
-		r3.data			<=	r3_data_nxt;
-		r4.data			<=	r4_data_nxt;
-		r5.data			<=	r5_data_nxt;
-		r6.data			<=	r6_data_nxt;
-		r7.data			<=	r7_data_nxt;
-		
-		r8.data			<=	r8_data_nxt;
-		r9.data			<=	r9_data_nxt;
-		r10.data		<=	r10_data_nxt;
-		r11.data		<=	r11_data_nxt;
-		r12.data		<=	r12_data_nxt;
-		
-		r8_firq.data	<=	r8_firq_data_nxt;
-		r9_firq.data	<=	r9_firq_data_nxt;
-		r10_firq.data	<=	r10_firq_data_nxt;
-		r11_firq.data	<=	r11_firq_data_nxt;
-		r12_firq.data	<=	r12_firq_data_nxt;
-		
-		r13.data		<=	r13_data_nxt;
-		r14.data		<=	r14_data_nxt;
-		r13_svc.data	<=	r13_svc_data_nxt;
-		r14_svc.data	<=	r14_svc_data_nxt;
-		r13_irq.data	<=	r13_irq_data_nxt;
-		r14_irq.data	<=	r14_irq_data_nxt;
-		r13_firq.data	<=	r13_firq_data_nxt;
-		r14_firq.data	<=	r14_firq_data_nxt;
-		
-		r15.data		<= r15_data_nxt;
+		if (!i_core_stall) begin
+            //Valid bits
+            r0.valid  <= r_valid_nxt[0 ];
+            r1.valid  <= r_valid_nxt[1 ];
+            r2.valid  <= r_valid_nxt[2 ];
+            r3.valid  <= r_valid_nxt[3 ];
+            r4.valid  <= r_valid_nxt[4 ];
+            r5.valid  <= r_valid_nxt[5 ];
+            r6.valid  <= r_valid_nxt[6 ];
+            r7.valid  <= r_valid_nxt[7 ];
+            
+            r8.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[8 ] : r8.valid;
+            r9.valid  <= i_mode_exec != FIRQ ? r_valid_nxt[9 ] : r9.valid;
+            r10.valid <= i_mode_exec != FIRQ ? r_valid_nxt[10] : r10.valid;
+            r11.valid <= i_mode_exec != FIRQ ? r_valid_nxt[11] : r11.valid;
+            r12.valid <= i_mode_exec != FIRQ ? r_valid_nxt[12] : r12.valid;
+            
+            r8_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[8 ] : r8_firq.valid;
+            r9_firq.valid  <= i_mode_exec == FIRQ ? r_valid_nxt[9 ] : r9_firq.valid;
+            r10_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[10] : r10_firq.valid;
+            r11_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[11] : r11_firq.valid;
+            r12_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[12] : r12_firq.valid;
+            
+            r13.valid <= i_mode_exec == USR ? r_valid_nxt[13] : r13.valid;
+            r14.valid <= i_mode_exec == USR ? r_valid_nxt[14] : r14.valid;
+            r13_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[13] : r13_svc.valid;
+            r14_svc.valid <= i_mode_exec == SVC ? r_valid_nxt[14] : r14_svc.valid;
+            r13_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[13] : r13_irq.valid;
+            r14_irq.valid <= i_mode_exec == IRQ ? r_valid_nxt[14] : r14_irq.valid;
+            r13_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[13] : r13_firq.valid;
+            r14_firq.valid <= i_mode_exec == FIRQ ? r_valid_nxt[14] : r14_firq.valid;
+            
+            r15.valid <= r_valid_nxt[15];
+            
+            
+            //Tag bits
+            r0.tag  <= r_tag_nxt[0 ];
+            r1.tag  <= r_tag_nxt[1 ];
+            r2.tag  <= r_tag_nxt[2 ];
+            r3.tag  <= r_tag_nxt[3 ];
+            r4.tag  <= r_tag_nxt[4 ];
+            r5.tag  <= r_tag_nxt[5 ];
+            r6.tag  <= r_tag_nxt[6 ];
+            r7.tag  <= r_tag_nxt[7 ];
+            
+            r8.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[8 ] : r8.tag;
+            r9.tag  <= i_mode_exec != FIRQ ? r_tag_nxt[9 ] : r9.tag;
+            r10.tag <= i_mode_exec != FIRQ ? r_tag_nxt[10] : r10.tag;
+            r11.tag <= i_mode_exec != FIRQ ? r_tag_nxt[11] : r11.tag;
+            r12.tag <= i_mode_exec != FIRQ ? r_tag_nxt[12] : r12.tag;
+            
+            r8_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[8 ] : r8_firq.tag;
+            r9_firq.tag  <= i_mode_exec == FIRQ ? r_tag_nxt[9 ] : r9_firq.tag;
+            r10_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[10] : r10_firq.tag;
+            r11_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[11] : r11_firq.tag;
+            r12_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[12] : r12_firq.tag;
+            
+            r13.tag <= i_mode_exec == USR ? r_tag_nxt[13] : r13.tag;
+            r14.tag <= i_mode_exec == USR ? r_tag_nxt[14] : r14.tag;
+            r13_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[13] : r13_svc.tag;
+            r14_svc.tag <= i_mode_exec == SVC ? r_tag_nxt[14] : r14_svc.tag;
+            r13_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[13] : r13_irq.tag;
+            r14_irq.tag <= i_mode_exec == IRQ ? r_tag_nxt[14] : r14_irq.tag;
+            r13_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[13] : r13_firq.tag;
+            r14_firq.tag <= i_mode_exec == FIRQ ? r_tag_nxt[14] : r14_firq.tag;
+            
+            r15.tag	<= r_tag_nxt[15];
+            
+            
+            //Data
+            r0.data			<=	r0_data_nxt;
+            r1.data			<=	r1_data_nxt;
+            r2.data			<=	r2_data_nxt;
+            r3.data			<=	r3_data_nxt;
+            r4.data			<=	r4_data_nxt;
+            r5.data			<=	r5_data_nxt;
+            r6.data			<=	r6_data_nxt;
+            r7.data			<=	r7_data_nxt;
+            
+            r8.data			<=	r8_data_nxt;
+            r9.data			<=	r9_data_nxt;
+            r10.data		<=	r10_data_nxt;
+            r11.data		<=	r11_data_nxt;
+            r12.data		<=	r12_data_nxt;
+            
+            r8_firq.data	<=	r8_firq_data_nxt;
+            r9_firq.data	<=	r9_firq_data_nxt;
+            r10_firq.data	<=	r10_firq_data_nxt;
+            r11_firq.data	<=	r11_firq_data_nxt;
+            r12_firq.data	<=	r12_firq_data_nxt;
+            
+            r13.data		<=	r13_data_nxt;
+            r14.data		<=	r14_data_nxt;
+            r13_svc.data	<=	r13_svc_data_nxt;
+            r14_svc.data	<=	r14_svc_data_nxt;
+            r13_irq.data	<=	r13_irq_data_nxt;
+            r14_irq.data	<=	r14_irq_data_nxt;
+            r13_firq.data	<=	r13_firq_data_nxt;
+            r14_firq.data	<=	r14_firq_data_nxt;
+            
+            r15.data		<= r15_data_nxt;
+        end
 	end
 	
 end
