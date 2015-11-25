@@ -21,10 +21,8 @@ main:
 	//no carry flag, so r7 should have 9
 
 	cmp r5, #11
-	bne testfail
+	moveq r8, #0x1
 	cmp r6, #9
-	bne testfail
+	moveq r9, #0x1
 	cmp r7, #9
-	bne testfail
-	
-	b testpass
+	moveq r10, #0x1

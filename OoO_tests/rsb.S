@@ -16,8 +16,6 @@ main:
 	//r3 should contain -16
 	
 	cmp r2, #16
-	bne testfail
+	moveq r5, #0x1
 	cmp r3, #-16
-	bne testfail
-	
-	b testpass
+	moveq r6, #0x1
