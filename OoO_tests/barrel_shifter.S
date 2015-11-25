@@ -14,8 +14,6 @@ main:
 	mov r1, r1, LSL #1
 	//r1 should now contain 0x2
 	cmp r0, #0xffff0
-	bne testfail
+	moveq r5, #0x1
 	cmp r1, #0x2
-	bne testfail
-
-	b testpass
+	moveq r6, #0x1

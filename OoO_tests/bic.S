@@ -24,8 +24,6 @@ main:
 	//r6 should now have 0x5
 	
 	cmp r5, #0xA
-	bne testfail
+	moveq r8, #0x1
 	cmp r6, #0x5
-	bne testfail
-	
-	b testpass
+	moveq r9, #0x1
