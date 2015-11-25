@@ -60,8 +60,8 @@ module b01_decode (
 
 );
 
-`include "b01_localparams.vh"
-`include "b01_functions.vh"
+`include "a25_localparams.vh"
+`include "a25_functions.vh"
 
 //removed localparam for the State Machine From Hell
 
@@ -694,13 +694,13 @@ always_comb
         //saved_current_instruction_wen   = 1'd1;
 
         // save address of next instruction to Supervisor Mode LR
-        /*// Address Exception ?
+        /* // Address Exception ?
         if ( next_interrupt == 3'd4 )
             reg_write_sel_nxt               = 3'd7;            // pc
         else
             reg_write_sel_nxt               = 3'd1;            // pc -4 //on interrupt, we always want to re-fetch the instruction currently entering Decode
 */
-        reg_bank_wen_nxt                = decode (4'd14);  // LR
+        reg_bank_wen_nxt                = decode (4'd14);  // LR //TODO r13 = stack pointer, r14 = link register
 
         iaddress_sel_nxt                = 4'd2;            // interrupt_vector
         pc_sel_nxt                      = 3'd2;            // interrupt_vector
@@ -721,7 +721,7 @@ always_comb
         end
 
 
-    /*// previous instruction was ldr
+    /* // previous instruction was ldr
     // if it is currently executing in the execute stage do the following
     if ( control_state == MEM_WAIT1 && !conflict )
         begin
@@ -757,7 +757,7 @@ always_comb
         end*/
 
 
-    /*// second cycle of multiple load or store
+    /* // second cycle of multiple load or store
     if ( control_state == MTRANS_EXEC1 && !conflict )
         begin
         // Save the next instruction to execute later
@@ -971,6 +971,9 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		o_rm_sel <= '0;
 		o_rs_sel <= '0;
 		o_rn_sel <= '0;
+		o_use_rn <= '0;
+		o_use_rs <= '0;
+		o_use_rm <= '0;
 		o_barrel_shift_amount_sel <= '0;
 		o_barrel_shift_data_sel <= '0;
 		o_barrel_shift_function <= '0;
@@ -1004,6 +1007,9 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_rm_sel <= rm_sel_nxt;
 			o_rs_sel <= rs_sel_nxt;
 			o_rn_sel <= rn_sel_nxt;
+			o_use_rm <= use_rm_nxt;
+			o_use_rs <= use_rs_nxt;
+			o_use_rn <= use_rn_nxt;
 			o_barrel_shift_amount_sel <= barrel_shift_amount_sel_nxt;
 			o_barrel_shift_data_sel <= barrel_shift_data_sel_nxt;
 			o_barrel_shift_function <= barrel_shift_function_nxt;

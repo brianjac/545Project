@@ -179,20 +179,20 @@ wire                      rs_use_read;
 wire                      rd_use_read;
 
 // data abort has priority
-assign decode_fault_status  = dabt_trigger ? dabt_fault_status  : iabt_fault_status;
+/*assign decode_fault_status  = dabt_trigger ? dabt_fault_status  : iabt_fault_status;
 assign decode_fault_address = dabt_trigger ? dabt_fault_address : iabt_fault_address;
-assign decode_fault         = dabt_trigger | iabt_trigger;
+assign decode_fault         = dabt_trigger | iabt_trigger;*/
 
-assign core_stall           = fetch_stall || mem_stall || exec_stall;
+assign core_stall           = fetch_stall /*|| mem_stall || exec_stall*/;
 
 // ======================================
 //  Fetch Stage
 // ======================================
-b01_fetch u_fetch (
+a25_fetch u_fetch (
     .i_clk                              ( i_clk                             ),
-    .i_mem_stall                        ( mem_stall                         ),
+    .i_mem_stall                        ( /*mem_stall*/1'b0                         ),
     .i_exec_stall                       ( exec_stall                        ),
-    .i_conflict                         ( conflict                          ),
+    .i_conflict                         ( /*conflict*/1'b0                          ),
     .i_system_rdy                       ( i_system_rdy                      ),
     .o_fetch_stall                      ( fetch_stall                       ),
 
@@ -202,7 +202,7 @@ b01_fetch u_fetch (
     .o_fetch_instruction                ( fetch_instruction                 ),
     .i_cache_enable                     ( /*cache_enable*/1'b1                      ),     
     .i_cache_flush                      ( /*cache_flush*/'0                       ), 
-    .i_cacheable_area                   ( cacheable_area                    ),
+    .i_cacheable_area                   ( /*cacheable_area*/32'hffff_ffff                    ),
 
     .o_wb_req                           ( icache_wb_req                     ),
     .o_wb_address                       ( icache_wb_address                 ),
@@ -316,7 +316,7 @@ wire [1:0] barrel_shift_function_alu;
 wire [8:0] alu_function_alu;
 wire pc_wen_alu;
 wire status_bits_flags_wen_alu;
-wire rd_tag_alu;
+wire [5:0] rd_tag_alu;
 wire alu_valid;
 wire [5:0] alu_tag;
 wire [31:0] alu_data;
@@ -429,10 +429,10 @@ b01_dispatch u_dispatch (
 	.o_status_bits_flags_wen_mult(),//o_status_bits_flags_wen_mult),
 	.o_rd_tag_mult(),//o_rd_tag_mult),
 	.i_mult_valid(/*i_mult_valid*/1'b0),
-	.i_mult_tag(/*i_mult_tag*/'d0),
-	.i_mult_data(/*i_mult_data*/'d0),
-	.i_mult_flags(/*i_mult_flags*/'d0),
-	.i_mult_pc_wen(/*i_mult_pc_wen*/'d0),
+	.i_mult_tag(/*i_mult_tag*/6'd0),
+	.i_mult_data(/*i_mult_data*/32'd0),
+	.i_mult_flags(/*i_mult_flags*/4'd0),
+	.i_mult_pc_wen(/*i_mult_pc_wen*/1'd0),
 	
 	.o_instr_valid_mem(),//o_instr_valid_mem),
 	.o_rn_mem(),//o_rn_mem),
@@ -444,10 +444,10 @@ b01_dispatch u_dispatch (
 	.o_byte_enable_sel_mem(),//o_byte_enable_sel_mem),
 	.o_rd_tag_mem(),//o_rd_tag_mem),
 	.i_mem_valid(/*i_mem_valid*/1'b0),
-	.i_mem_tag(/*i_mem_tag*/'d0),
-	.i_mem_data(/*i_mem_data*/'d0),
-	.i_mem_flags(/*i_mem_flags*/'d0),
-	.i_mem_pc_wen(/*i_mem_pc_wen*/'d0),
+	.i_mem_tag(/*i_mem_tag*/6'd0),
+	.i_mem_data(/*i_mem_data*/32'd0),
+	.i_mem_flags(/*i_mem_flags*/4'd0),
+	.i_mem_pc_wen(/*i_mem_pc_wen*/1'd0),
     
     .led(led),
     .sw(sw)

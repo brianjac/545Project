@@ -137,7 +137,7 @@ output [7:0] led,
 input [7:0] sw
 );
 
-`include "b01_localparams.vh"
+`include "a25_localparams.vh"
 
 logic [5:0] 	tag_nxt; //tied from tag store output to register file input and reservation station input
 
@@ -152,6 +152,8 @@ logic			status_bits_irq_mask; //set by the decode stage
 logic			status_bits_firq_mask; //set by the decode stage
 logic [1:0] 	status_bits_mode; //set by the decode stage
 
+//todo create a place into which to save the status register on irq
+//"spsr" instead of the below which is "cpsr"
 assign o_status_bits = {status_bits_flags,	   //31:28 = flags
 						status_bits_irq_mask,  //27
 						status_bits_firq_mask, //26
@@ -250,7 +252,7 @@ input                       i_firq_not_user_mode,*/
     .i_rn_sel                ( i_rn_sel                  ),
     .i_pc_wen                ( i_pc_wen                    ), //TODO confirm/fix
     .i_reg_bank_wen          ( i_reg_bank_wen              ), //TODO confirm/fix, esp. wrt stall logic
-    .i_pc                    ( /*pc_nxt[25:2]*/pc[25:2]+24'd4              ), //TODO confirm/fix
+    .i_pc                    ( /*pc_nxt[25:2]*/pc[25:2]+24'd1              ), //TODO confirm/fix
 	
     .i_status_bits_flags     ( status_bits_flags         ),
     .i_status_bits_irq_mask  ( status_bits_irq_mask      ),
@@ -309,7 +311,7 @@ assign interrupt_vector = // Reset vector
                           (i_interrupt_vector_sel == 3'd2) ? 32'h0000001c :
                           // Regular interrupt vector
                           (i_interrupt_vector_sel == 3'd3) ? 32'h00000018 :
-                          /*// Prefetch abort interrupt vector
+                          /* // Prefetch abort interrupt vector
                           (i_interrupt_vector_sel == 3'd5) ? 32'h0000000c :
                           // Undefined instruction interrupt vector
                           (i_interrupt_vector_sel == 3'd6) ? 32'h00000004 :*/
@@ -321,19 +323,21 @@ assign interrupt_vector = // Reset vector
 //recall we have pc, reg_bank_pc_valid, and reg_bank_pc_tag. we also need to deal with i_core_stall.
 logic pc_stall;
 //we must stall if we're getting the PC from anything other than pc+4 or a predefined interrupt vector
-assign pc_stall = (~reg_bank_pc_valid) | (i_pc_sel != 3'd0 && i_pc_sel != 3'd2);
-assign o_iaddress_nxt =	(~reg_bank_pc_valid)		? pc				:
-						(i_iaddress_sel == 4'd0)	? pc+4				:
+assign pc_stall = (~reg_bank_pc_valid) | (i_iaddress_sel != 3'd0 && i_iaddress_sel != 3'd2); //note: TODO WARNING: changed from i_pc_sel to i_iaddress_sel; this *should* work but might not!
+/*assign o_iaddress_nxt =	(~reg_bank_pc_valid)		? pc				:
+						(i_iaddress_sel == 4'd0)	? pc+32'd4				:
 						(i_iaddress_sel == 4'd2)	? interrupt_vector	:
-													  pc+4; //default, just in case
-always_ff @(posedge i_clk) begin
+													  pc+32'd4; //default, just in case*/
+assign o_iaddress_nxt = pc;//tmp, for stupid-testing
+assign o_iaddress_valid = 1'b1;//tmp, for stupid-testing
+always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
-		o_iaddress_valid <= 'd0;
-		o_iaddress <= 'd0; //note that on reset, at the next clock edge PC will have been initialized and set by the register file
+		//o_iaddress_valid <= 'd0;
+		o_iaddress <= 32'd0; //note that on reset, at the next clock edge PC will have been initialized and set by the register file
 	end
 	else if (i_clk) begin
 		if (!i_core_stall) begin
-			o_iaddress_valid 	<= 	!pc_stall;
+			//o_iaddress_valid 	<= 	!pc_stall;
 			o_iaddress			<=	o_iaddress_nxt;
 		end
 	end
@@ -408,7 +412,7 @@ b01_tagstore u_tagstore(
 b01_reservation u_reservation(
 	.i_clk(i_clk),
 	.i_rst(i_rst),
-	.i_stall(/*TODO confirm proper operation*/o_exec_stall),
+	.i_stall(/*TODO confirm proper operation*//*o_exec_stall*/i_core_stall),
 	.i_tag_nxt(tag_nxt),
 	.i_imm32(i_imm32),
 	.i_imm_shift_amount(i_imm_shift_amount),
