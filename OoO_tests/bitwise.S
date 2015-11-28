@@ -19,12 +19,10 @@ main:
 	eor r5, r0, r4
 	//r5 should now contain 0xffff0001
 	cmp r4, #0xfffffffe
-	bne testfail
+	moveq r6, #0x1
 	cmp r2, #0xfffe
-	bne testfail
+	moveq r7, #0x1
 	cmp r3, #0xfffe
-	bne testfail
+	moveq r8, #0x1
 	cmp r5, #0xffff0001
-	bne testfail
-	
-	b testpass
+	moveq r9, #0x1

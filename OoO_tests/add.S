@@ -12,7 +12,5 @@ main:
 	adds r2, r1, r0
 	//carry out flag should be set
 	cmp r2, #0x10000
-	beq testpass
-
-	b testfail
+	moveq r5, #0x1
 	

@@ -19,10 +19,8 @@ main:
 	//r5 should now contain 0xffff0001
 	
 	cmp r4, #0xfffffffe
-	bne testfail
+	moveq r8, #0x1
 	cmp r3, #0xfffe
-	bne testfail
+	moveq r9, #0x1
 	cmp r5, #0xffff0001
-	bne testfail
-	
-	b testpass
+	moveq r10, #0x1
