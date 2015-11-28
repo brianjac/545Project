@@ -11,6 +11,7 @@ module b01_decode (
 	input logic i_firq,
 	input logic i_adex,
 	input logic [31:0] i_execute_status_bits,
+	input logic i_branch_taken,
 	
 	output logic [31:0] o_imm32,
 	output logic [4:0] o_imm_shift_amount,
@@ -55,8 +56,9 @@ module b01_decode (
 	//Removed coprocessor interface because we don't give a crap, except for o_rn_valid (now o_use_rn) etc.
 	output logic o_use_rn,
 	output logic o_use_rm,
-	output logic o_use_rs//,
+	output logic o_use_rs,
 	//output logic o_use_rd, //probably not needed
+	output logic o_use_sr //whether or not this instruction must look at the status bits
 
 );
 
@@ -257,6 +259,7 @@ assign use_rm_nxt = instr_type==REGOP ||
 					instr_type==SWAP ||
 					(instr_type==TRANS && immediate_shift_op);
 assign use_rs_nxt = rds_use_rs;
+assign use_sr_nxt = (condition_nxt != AL);
 
 
 //Interrupts
@@ -542,9 +545,14 @@ always_comb
             pc_sel_nxt            = 3'd1; // alu_out
             iaddress_sel_nxt      = 4'd1; // alu_out
             alu_out_sel_nxt       = 4'd1; // Add
+			
+			//branch is to *
 
             if ( instruction[24] ) // Link
                 begin
+				
+				//TODO make this an ALU op with source reg == PC (i.e. *actually* the addr of the next instr after this one) and dest reg == r14 and op == nop
+				
                 reg_bank_wen_nxt  = decode (4'd14);  // Save PC to LR
                 //reg_write_sel_nxt = 3'd1;            // pc - 32'd4 //TODO need to fix!!!
                 end
@@ -974,6 +982,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		o_use_rn <= '0;
 		o_use_rs <= '0;
 		o_use_rm <= '0;
+		o_use_sr <= '0;
 		o_barrel_shift_amount_sel <= '0;
 		o_barrel_shift_data_sel <= '0;
 		o_barrel_shift_function <= '0;
@@ -996,40 +1005,83 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else begin
 		if (!i_core_stall) begin //TODO ensure that i_core_stall is hooked up properly
-			o_status_bits_mode <= status_bits_mode_nxt;
-			o_status_bits_irq_mask <= status_bits_irq_mask_nxt;
-			o_status_bits_firq_mask <= status_bits_firq_mask_nxt;
-			o_imm32 <= imm32_nxt;
-			o_imm_shift_amount <= imm_shift_amount_nxt;
-			o_shift_imm_zero <= shift_imm_zero_nxt;
-			o_condition <= !interrupt ? condition_nxt : AL;
-			o_is_memop <= is_memop_nxt;
-			o_rm_sel <= rm_sel_nxt;
-			o_rs_sel <= rs_sel_nxt;
-			o_rn_sel <= rn_sel_nxt;
-			o_use_rm <= use_rm_nxt;
-			o_use_rs <= use_rs_nxt;
-			o_use_rn <= use_rn_nxt;
-			o_barrel_shift_amount_sel <= barrel_shift_amount_sel_nxt;
-			o_barrel_shift_data_sel <= barrel_shift_data_sel_nxt;
-			o_barrel_shift_function <= barrel_shift_function_nxt;
-			o_alu_function <= alu_function_nxt;
-			o_use_carry_in <= use_carry_in_nxt;
-			o_multiply_function <= multiply_function_nxt;
-			o_interrupt_vector_sel <= next_interrupt;
-			o_iaddress_sel <= iaddress_sel_nxt;
-			//o_daddress_sel <= daddress_sel_nxt; //TODO uncomment later
-			//o_pc_sel <= pc_sel_nxt; //TODO note: pc_sel and iaddress_sel appear to be redundant!!!
-			o_byte_enable_sel <= byte_enable_sel_nxt;
-			o_status_bits_sel <= status_bits_sel_nxt;
-			//o_reg_write_sel <= reg_write_sel_nxt; //TODO review what exactly this does
-			o_write_data_wen <= write_data_wen_nxt;
-			o_pc_wen <= pc_wen_nxt;
-			o_reg_bank_wen <= reg_bank_wen_nxt;
-			o_status_bits_flags_wen <= status_bits_flags_wen_nxt;
-			o_status_bits_mode_wen <= status_bits_mode_wen_nxt;
-			o_status_bits_irq_mask_wen <= status_bits_irq_mask_wen_nxt;
-			o_status_bits_firq_mask_wen <= status_bits_firq_mask_wen_nxt;
+			if (i_branch_taken) begin
+				//this case of !i_core_stall & i_branch_taken will occur on the cycle when branch has just been resolved, so set outputs to *safe* i.e. effective-NOP state
+				//exception is if there's also an interrupt this cycle, in which case we let the IRQ/FIRQ stuff proceed normally (but we don't return to this current instr's PC, we return to the newly branched-to PC
+				//we also always want to keep setting status_bits_mode, irq_mask, and firq_mask in all cases.
+				//TODO revise to allow for interrupts!
+				o_status_bits_mode <= status_bits_mode_nxt;
+				o_status_bits_irq_mask <= status_bits_irq_mask_nxt;
+				o_status_bits_firq_mask <= status_bits_firq_mask_nxt;
+				o_imm32 <= '0;
+				o_imm_shift_amount <= '0;
+				o_shift_imm_zero <= '0;
+				o_condition <= AL;
+				o_is_memop <= '0;
+				o_rm_sel <= '0;
+				o_rs_sel <= '0;
+				o_rn_sel <= '0;
+				o_use_rn <= '0;
+				o_use_rs <= '0;
+				o_use_rm <= '0;
+				o_use_sr <= '0;
+				o_barrel_shift_amount_sel <= '0;
+				o_barrel_shift_data_sel <= '0;
+				o_barrel_shift_function <= '0;
+				o_alu_function <= '0;
+				o_use_carry_in <= '0;
+				o_multiply_function <= '0;
+				o_interrupt_vector_sel <= '0;
+				o_iaddress_sel <= 4'd2;
+				//o_daddress_sel <= 4'd2;
+				o_byte_enable_sel <= '0;
+				o_status_bits_sel <= '0;
+				//o_reg_write_sel <= '0;
+				o_write_data_wen <= '0;
+				o_pc_wen <= 1'b1;
+				o_reg_bank_wen <= '0;
+				o_status_bits_flags_wen <= '0;
+				o_status_bits_mode_wen <= status_bits_mode_wen_nxt;
+				o_status_bits_irq_mask_wen <= status_bits_irq_mask_wen_nxt;
+				o_status_bits_firq_mask_wen <= status_bits_firq_mask_wen_nxt;
+			end
+			else begin
+				o_status_bits_mode <= status_bits_mode_nxt;
+				o_status_bits_irq_mask <= status_bits_irq_mask_nxt;
+				o_status_bits_firq_mask <= status_bits_firq_mask_nxt;
+				o_imm32 <= imm32_nxt;
+				o_imm_shift_amount <= imm_shift_amount_nxt;
+				o_shift_imm_zero <= shift_imm_zero_nxt;
+				o_condition <= !interrupt ? condition_nxt : AL;
+				o_is_memop <= is_memop_nxt;
+				o_rm_sel <= rm_sel_nxt;
+				o_rs_sel <= rs_sel_nxt;
+				o_rn_sel <= rn_sel_nxt;
+				o_use_rm <= use_rm_nxt;
+				o_use_rs <= use_rs_nxt;
+				o_use_rn <= use_rn_nxt;
+				o_use_sr <= use_sr_nxt;
+				o_barrel_shift_amount_sel <= barrel_shift_amount_sel_nxt;
+				o_barrel_shift_data_sel <= barrel_shift_data_sel_nxt;
+				o_barrel_shift_function <= barrel_shift_function_nxt;
+				o_alu_function <= alu_function_nxt;
+				o_use_carry_in <= use_carry_in_nxt;
+				o_multiply_function <= multiply_function_nxt;
+				o_interrupt_vector_sel <= next_interrupt;
+				o_iaddress_sel <= iaddress_sel_nxt;
+				//o_daddress_sel <= daddress_sel_nxt; //TODO uncomment later
+				//o_pc_sel <= pc_sel_nxt; //TODO note: pc_sel and iaddress_sel appear to be redundant!!!
+				o_byte_enable_sel <= byte_enable_sel_nxt;
+				o_status_bits_sel <= status_bits_sel_nxt;
+				//o_reg_write_sel <= reg_write_sel_nxt; //TODO review what exactly this does
+				o_write_data_wen <= write_data_wen_nxt;
+				o_pc_wen <= pc_wen_nxt;
+				o_reg_bank_wen <= reg_bank_wen_nxt;
+				o_status_bits_flags_wen <= status_bits_flags_wen_nxt;
+				o_status_bits_mode_wen <= status_bits_mode_wen_nxt;
+				o_status_bits_irq_mask_wen <= status_bits_irq_mask_wen_nxt;
+				o_status_bits_firq_mask_wen <= status_bits_firq_mask_wen_nxt;
+			end
 		end
 		else begin
 			//if we're core-stalled, don't change anything at all

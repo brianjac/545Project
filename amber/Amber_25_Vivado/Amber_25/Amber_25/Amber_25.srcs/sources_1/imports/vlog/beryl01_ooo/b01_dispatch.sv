@@ -25,6 +25,9 @@ output logic[3:0]           o_byte_enable = 'd0,
 
 output      [31:0]          o_status_bits,              // Full PC will all status bits, but PC part zero'ed out
 
+//TODO ensure set properly and that combinational vs. registered works right
+output logic				o_branch_taken, //asserted when branch instruction executes and needs to flush what's currently in Decode, or when *anything* is written back to r15
+
 
 // --------------------------------------------------
 // Control signals from Instruction Decode stage
@@ -74,6 +77,7 @@ input                       i_use_rn/*use_read*/, //TODO note: these *should* te
 input                       i_use_rm/*use_read*/,
 input                       i_use_rs/*use_read*/,
 //input                       i_use_rd/*use_read*/,
+input						i_use_sr,
 
 //Stuff specifically added for OOO processing
 //ALU station interface
@@ -113,7 +117,7 @@ output logic [5:0] o_rd_tag_mult,
 input logic i_mult_valid,
 input logic [5:0] i_mult_tag,
 input logic [31:0] i_mult_data,
-input logic [3:0] i_mult_flags,
+input logic [1:0] i_mult_flags,
 input logic i_mult_pc_wen,
 
 //Mem station interface
@@ -140,14 +144,22 @@ input [7:0] sw
 `include "a25_localparams.vh"
 
 logic [5:0] 	tag_nxt; //tied from tag store output to register file input and reservation station input
-
 logic [31:0]	pc_nxt;
+logic condition_execute;
+
+
+assign o_branch_taken = (/*pc_sel_nxt*/i_pc_sel == 3'd1) & condition_execute;
 
 
 //Status register logic
 logic 			status_bits_flags_valid; //invalidate on each newly decoded instruction based on i_status_bits_flags_wen
+logic			status_bits_flags_valid_nxt;
+logic			status_bits_flags_valid_nxt_eucompare;
 logic [5:0] 	status_bits_flags_tag; //update on each newly decoded instruction based on i_status_bits_flags_wen
+logic [5:0]		status_bits_flags_tag_nxt;
 logic [3:0] 	status_bits_flags; //set by the EU outputs
+logic [3:0]		status_bits_flags_nxt;
+
 logic			status_bits_irq_mask; //set by the decode stage
 logic			status_bits_firq_mask; //set by the decode stage
 logic [1:0] 	status_bits_mode; //set by the decode stage
@@ -160,9 +172,19 @@ assign o_status_bits = {status_bits_flags,	   //31:28 = flags
 						24'd0,
 						status_bits_mode}; //1:0 = mode
 						
-logic instr_conditional, condition_stall;
-assign instr_conditional = i_condition != AL;
-assign condition_stall = instr_conditional & ~status_bits_flags_valid; //TODO incorporate into o_exec_stall
+logic /*instr_conditional,*/ condition_stall;
+//assign instr_conditional = i_condition != AL;
+assign condition_stall = i_use_sr/*instr_conditional*/ & ~status_bits_flags_valid_nxt_eucompare; //TODO incorporate into o_exec_stall
+//condition_execute:
+/*
+	set to 1 if ccr valid and flags match OR not using ccr OR ccr invalid but eu writing back flags and forwarded condition match
+*/
+assign condition_execute =	i_use_sr								?	1'b1:
+							status_bits_flags_valid					?	conditional_execute(i_condition, status_bits_flags):
+							status_bits_flags_valid_nxt_eucompare	?	conditional_execute(i_condition, status_bits_flags_nxt):
+																		1'b0;
+//condition_execute hooked up to the tag store and the reservation station so they know not to generate a tag/add something to the reservation station if this instruction does not conditionally execute
+//TODO confirm proper operation of ^^ inside the register file, tag store, and reservation station
 
 //Note that here we're removing reference to the coprocessor, since it doesn't *actually* exist in the design.
 //The rest of the time, i_xyz_flags will be set in the appropriate Execute substage based on the i_status_bits_sel we pass in.
@@ -171,6 +193,24 @@ assign condition_stall = instr_conditional & ~status_bits_flags_valid; //TODO in
 //TODO: if rd is r15, i_status_bits_sel set to 3'd1 --> result of computation goes into status bits.
 //TODO: thus, if ^^, we need to stall until resolved.
 //WARNING: KNOWN ISSUE: The above is NOT implemented in the current design!
+
+always_comb begin
+	status_bits_flags_valid_nxt_eucompare = i_alu_valid && i_alu_tag == status_bits_flags_tag	?	1'b1:
+											i_mult_valid && i_mult_tag == status_bits_flags_tag	?	1'b1:
+											i_mem_valid && i_mem_tag == status_bits_flags_tag	?	1'b1:
+																									status_bits_flags_valid;
+	
+	status_bits_flags_valid_nxt = 	i_status_bits_flags_wen								?	1'b0:
+																							status_bits_flags_valid_nxt_eucompare;
+	status_bits_flags_tag_nxt	=	i_status_bits_flags_wen								?	tag_nxt	:
+																							status_bits_flags_tag;
+	
+	status_bits_flags_nxt 	 	=	status_bits_flags_valid								? status_bits_flags						:
+									i_alu_valid && i_alu_tag == status_bits_flags_tag 	? i_alu_flags 							:
+									i_mult_valid && i_mult_tag == status_bits_flags_tag ? {status_bits_flags[3:2], i_mult_flags}: //since multiply only sets the N and Z bits
+									i_mem_valid && i_mem_tag == status_bits_flags_tag 	? i_mem_flags							:
+																						  4'b1111;
+end
 
 //TODO incorporate stall logic in the below as needed
 always_ff @(posedge i_rst, posedge i_clk) begin //TODO confirm reset polarity
@@ -184,21 +224,9 @@ always_ff @(posedge i_rst, posedge i_clk) begin //TODO confirm reset polarity
 	end
 	else if (i_clk) begin
 		if (!i_core_stall) begin //TODO note: must be careful of logical loops that could cause this to get locked high forever
-			status_bits_flags_valid <= 	i_status_bits_flags_wen								?	1'b0:
-										i_alu_valid && i_alu_tag == status_bits_flags_tag	?	1'b1:
-										i_mult_valid && i_mult_tag == status_bits_flags_tag	?	1'b1:
-										i_mem_valid && i_mem_tag == status_bits_flags_tag	?	1'b1:
-																								status_bits_flags_valid;
-			
-			status_bits_flags_tag	<=	i_status_bits_flags_wen								?	tag_nxt	:
-																								status_bits_flags_tag;
-			
-			status_bits_flags 	 	<=	status_bits_flags_valid								? status_bits_flags	:
-										i_alu_valid && i_alu_tag == status_bits_flags_tag 	? i_alu_flags 		:
-										i_mult_valid && i_mult_tag == status_bits_flags_tag ? i_mult_flags 		:
-										i_mem_valid && i_mem_tag == status_bits_flags_tag 	? i_mem_flags		:
-																							  4'b1111;
-				
+			status_bits_flags_valid <= 	status_bits_flags_valid_nxt;
+			status_bits_flags_tag	<=	status_bits_flags_tag_nxt;
+			status_bits_flags 	 	<=	status_bits_flags_nxt;
 			status_bits_mode 	 	<=	i_status_bits_mode_wen		?	i_status_bits_mode		:
 																		status_bits_mode;
 																
@@ -251,7 +279,7 @@ input                       i_firq_not_user_mode,*/
     .i_rs_sel                ( i_rs_sel                  ),
     .i_rn_sel                ( i_rn_sel                  ),
     .i_pc_wen                ( i_pc_wen                    ), //TODO confirm/fix
-    .i_reg_bank_wen          ( i_reg_bank_wen              ), //TODO confirm/fix, esp. wrt stall logic
+    .i_reg_bank_wen          ( {{15{condition_execute}} & i_reg_bank_wen}              ), //TODO confirm/fix, esp. wrt stall logic and predicated execution
     .i_pc                    ( /*pc_nxt[25:2]*/pc[25:2]+24'd1              ), //TODO confirm/fix
 	
     .i_status_bits_flags     ( status_bits_flags         ),
@@ -396,7 +424,7 @@ assign o_exec_stall = condition_stall | tag_stall | pc_stall; //TODO confirm/edi
 b01_tagstore u_tagstore(
 	.i_clk(i_clk),
 	.i_rst(i_rst),
-	.i_stall(/*TODO fix*/i_core_stall),
+	.i_stall(i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
 	.i_instr_type(/*TODO*/instr_type), //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
 	.i_alu_valid(i_alu_valid),
 	.i_alu_tag(i_alu_tag),
@@ -412,7 +440,7 @@ b01_tagstore u_tagstore(
 b01_reservation u_reservation(
 	.i_clk(i_clk),
 	.i_rst(i_rst),
-	.i_stall(/*TODO confirm proper operation*//*o_exec_stall*/i_core_stall),
+	.i_stall(/*TODO confirm proper operation*//*o_exec_stall*/i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
 	.i_tag_nxt(tag_nxt),
 	.i_imm32(i_imm32),
 	.i_imm_shift_amount(i_imm_shift_amount),
@@ -422,7 +450,7 @@ b01_reservation u_reservation(
 	.i_barrel_shift_data_sel(i_barrel_shift_data_sel),
 	.i_barrel_shift_function(i_barrel_shift_function),
 	.i_alu_function(i_alu_function),
-	.i_multiply_function(i_multiply_function),
+	.i_multiply_function(i_multiply_function[1]), //at this point, we only care about saving the is-or-isn't-accumulate bit in the reservation station
 	.i_byte_enable_sel(i_byte_enable_sel),
 	.i_use_carry_in(i_use_carry_in),
 	.i_write_data_wen(i_write_data_wen),

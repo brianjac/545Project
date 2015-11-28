@@ -50,10 +50,10 @@ typedef struct packed {
 	logic [31:0] rm;
 	
 	//Control signals for the multiply stage
-	logic [1:0] multiply_function;
-	logic use_carry_in;
-	logic pc_wen;
-	logic status_bits_flags_wen;
+	logic multiply_function;
+	logic use_carry_in; //TODO remove
+	logic pc_wen; //TODO remove
+	logic status_bits_flags_wen; //TODO remove
 	logic [5:0] rd_tag;
 } mult_station_entry;
 
@@ -99,7 +99,7 @@ module b01_reservation (
 	input logic  [1:0]	i_barrel_shift_data_sel,
 	input logic  [1:0]	i_barrel_shift_function,
 	input logic  [8:0]	i_alu_function,
-	input logic  [1:0]	i_multiply_function,
+	input logic  		i_multiply_function,
 	input logic  [1:0]	i_byte_enable_sel,
 	input logic			i_use_carry_in,         // e.g. add with carry instruction
 
@@ -150,10 +150,10 @@ module b01_reservation (
 	output logic [31:0] o_rn_mult,
 	output logic [31:0] o_rs_mult,
 	output logic [31:0] o_rm_mult,
-	output logic [1:0] 	o_multiply_function_mult,
-	output logic 		o_use_carry_in_mult,
-	output logic		o_pc_wen_mult,
-	output logic 		o_status_bits_flags_wen_mult,
+	output logic 		o_multiply_function_mult,
+	output logic 		o_use_carry_in_mult, //TODO remove
+	output logic		o_pc_wen_mult, //TODO remove
+	output logic 		o_status_bits_flags_wen_mult, //TODO remove
 	output logic [5:0] 	o_rd_tag_mult,
 	input logic 		i_mult_valid,
 	input logic  [5:0] 	i_mult_tag,

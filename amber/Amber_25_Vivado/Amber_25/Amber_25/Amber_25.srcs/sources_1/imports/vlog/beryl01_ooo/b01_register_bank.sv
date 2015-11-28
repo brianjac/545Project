@@ -98,9 +98,9 @@ input		[5:0]			i_mem_tag,
 input		[31:0]			i_alu_data,
 input		[31:0]			i_mult_data,
 input		[31:0]			i_mem_data,
-input		[3:0]			i_alu_flags,
-input		[3:0]			i_mult_flags,
-input		[3:0]			i_mem_flags,
+input		[3:0]			i_alu_flags, //not currently used
+input		[1:0]			i_mult_flags, //not currently used
+input		[3:0]			i_mem_flags, //not currently used
 
 output logic				o_rm_valid,
 output logic				o_rs_valid,

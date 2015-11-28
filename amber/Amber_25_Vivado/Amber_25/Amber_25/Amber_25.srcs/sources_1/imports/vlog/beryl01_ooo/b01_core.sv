@@ -322,6 +322,18 @@ wire [5:0] alu_tag;
 wire [31:0] alu_data;
 wire [3:0] alu_flags;
 
+wire instr_valid_mult;
+wire [31:0] rn_mult;
+wire [31:0] rs_mult;
+wire [31:0] rm_mult;
+wire multiply_function_mult;
+wire [5:0] rd_tag_mult;
+wire mult_valid;
+wire [5:0] mult_tag;
+wire [31:0] mult_data;
+wire [1:0] mult_flags;
+
+
 b01_dispatch u_dispatch (
     .i_clk                              ( i_clk                             ),
 	.i_rst								(i_rst),
@@ -419,19 +431,19 @@ b01_dispatch u_dispatch (
 	.i_alu_flags(alu_flags),
 	.i_alu_pc_wen(), //TODO hook up eventually
 	
-	.o_instr_valid_mult(),//o_instr_valid_mult),
-	.o_rn_mult(),//o_rn_mult),
-	.o_rs_mult(),//o_rs_mult),
-	.o_rm_mult(),//o_rm_mult),
-	.o_multiply_function_mult(),//o_multiply_function_mult),
+	.o_instr_valid_mult(instr_valid_mult),//o_instr_valid_mult),
+	.o_rn_mult(rn_mult),//o_rn_mult),
+	.o_rs_mult(rs_mult),//o_rs_mult),
+	.o_rm_mult(rm_mult),//o_rm_mult),
+	.o_multiply_function_mult(multiply_function_mult),//o_multiply_function_mult),
 	.o_use_carry_in_mult(),//o_use_carry_in_mult),
 	.o_pc_wen_mult(),//o_pc_wen_mult),
 	.o_status_bits_flags_wen_mult(),//o_status_bits_flags_wen_mult),
-	.o_rd_tag_mult(),//o_rd_tag_mult),
-	.i_mult_valid(/*i_mult_valid*/1'b0),
-	.i_mult_tag(/*i_mult_tag*/6'd0),
-	.i_mult_data(/*i_mult_data*/32'd0),
-	.i_mult_flags(/*i_mult_flags*/4'd0),
+	.o_rd_tag_mult(rd_tag_mult),//o_rd_tag_mult),
+	.i_mult_valid(mult_valid),
+	.i_mult_tag(mult_tag),
+	.i_mult_data(mult_data),
+	.i_mult_flags(mult_flags),
 	.i_mult_pc_wen(/*i_mult_pc_wen*/1'd0),
 	
 	.o_instr_valid_mem(),//o_instr_valid_mem),
@@ -479,6 +491,22 @@ b01_execute_alu u_execute_alu (
 	.o_rd_data(alu_data),
 	.o_alu_flags(alu_flags),
 	.o_pc_wen() //TODO hook up eventually
+);
+
+
+b01_execute_multiply u_execute_multiply (
+	.i_clk(i_clk),
+	.i_rst(i_rst),
+	.i_instr_valid(instr_valid_mult),
+	.i_rs(rs_mult),
+	.i_rm(rm_mult),
+	.i_rn(rn_mult),
+	.i_function(multiply_function_mult),
+	.i_rd_tag(rd_tag_mult),
+	.o_valid(mult_valid),
+	.o_tag(mult_tag),
+	.o_data(mult_data),
+	.o_flags(mult_flags)
 );
 
 
