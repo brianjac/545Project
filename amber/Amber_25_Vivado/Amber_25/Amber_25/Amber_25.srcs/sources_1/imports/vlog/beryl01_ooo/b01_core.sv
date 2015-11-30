@@ -578,6 +578,7 @@ a25_wishbone u_wishbone (
     // CPU Side
     .i_clk                              ( i_clk                             ),
     
+	//TODO edit these Port 0 connections
     // Port 0 - dcache uncached
     .i_port0_req                        ( dcache_wb_uncached_req            ),
     .o_port0_ack                        ( dcache_wb_uncached_ready          ),
@@ -587,14 +588,14 @@ a25_wishbone u_wishbone (
     .i_port0_addr                       ( dcache_wb_address                 ),
     .o_port0_rdata                      (                                   ),
 
-    // Port 1 - dcache cached
+    /*// Port 1 - dcache cached
     .i_port1_req                        ( dcache_wb_cached_req              ),
     .o_port1_ack                        ( dcache_wb_cached_ready            ),
     .i_port1_write                      ( dcache_wb_write                   ),
     .i_port1_wdata                      ( dcache_wb_write_data              ),
     .i_port1_be                         ( dcache_wb_byte_enable             ),
     .i_port1_addr                       ( dcache_wb_address                 ),
-    .o_port1_rdata                      ( dcache_wb_cached_rdata            ),
+    .o_port1_rdata                      ( dcache_wb_cached_rdata            ),*/
 
     // Port 2 - instruction cache accesses, read only
     .i_port2_req                        ( icache_wb_req                     ),

@@ -76,9 +76,9 @@ typedef struct packed {
 	logic [31:0] rm;
 	
 	//Control signals for the memory stage
-	logic exclusive;
-	logic pc_wen;
-	logic status_bits_flags_wen;
+	logic exclusive; //TODO remove
+	logic pc_wen; //TODO remove
+	logic status_bits_flags_wen; //TODO remove
 	logic [1:0] byte_enable_sel;
 	logic [5:0] rd_tag;
 } mem_station_entry;
