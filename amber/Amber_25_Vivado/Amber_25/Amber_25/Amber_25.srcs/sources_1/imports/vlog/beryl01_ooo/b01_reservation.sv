@@ -28,8 +28,6 @@ typedef struct packed {
 	logic [1:0] barrel_shift_data_sel;
 	logic [1:0] barrel_shift_function;
 	logic [8:0] alu_function;
-	logic pc_wen;
-	logic status_bits_flags_wen;
 	logic [5:0] rd_tag;
 } alu_station_entry;
 
@@ -52,8 +50,6 @@ typedef struct packed {
 	//Control signals for the multiply stage
 	logic multiply_function;
 	logic use_carry_in; //TODO remove
-	logic pc_wen; //TODO remove
-	logic status_bits_flags_wen; //TODO remove
 	logic [5:0] rd_tag;
 } mult_station_entry;
 
@@ -76,9 +72,7 @@ typedef struct packed {
 	logic [31:0] rm;
 	
 	//Control signals for the memory stage
-	logic exclusive; //TODO remove
-	logic pc_wen; //TODO remove
-	logic status_bits_flags_wen; //TODO remove
+	logic exclusive;
 	logic [1:0] byte_enable_sel;
 	logic [5:0] rd_tag;
 } mem_station_entry;
@@ -106,9 +100,7 @@ module b01_reservation (
 	input logic			i_write_data_wen,
 	input logic			i_base_address_wen,     // save LDM base address register,
 												// in case of data abort
-	input logic			i_pc_wen,
 	input logic  [14:0]	i_reg_bank_wen,
-	input logic			i_status_bits_flags_wen,
 	
 	input logic			i_rn_valid,
 	input logic  [5:0]	i_rn_tag,
@@ -138,8 +130,6 @@ module b01_reservation (
 	output logic [1:0] 	o_barrel_shift_data_sel_alu,
 	output logic [1:0] 	o_barrel_shift_function_alu,
 	output logic [8:0] 	o_alu_function_alu,
-	output logic		o_pc_wen_alu,
-	output logic		o_status_bits_flags_wen_alu,
 	output logic [5:0] 	o_rd_tag_alu,
 	input logic			i_alu_valid,
 	input logic  [5:0]	i_alu_tag,
@@ -152,8 +142,6 @@ module b01_reservation (
 	output logic [31:0] o_rm_mult,
 	output logic 		o_multiply_function_mult,
 	output logic 		o_use_carry_in_mult, //TODO remove
-	output logic		o_pc_wen_mult, //TODO remove
-	output logic 		o_status_bits_flags_wen_mult, //TODO remove
 	output logic [5:0] 	o_rd_tag_mult,
 	input logic 		i_mult_valid,
 	input logic  [5:0] 	i_mult_tag,
@@ -165,8 +153,6 @@ module b01_reservation (
 	output logic [31:0] o_rs_mem,
 	output logic [31:0] o_rm_mem,
 	output logic 		o_exclusive_mem,
-	output logic		o_pc_wen_mem,
-	output logic 		o_status_bits_flags_wen_mem,
 	output logic [1:0] 	o_byte_enable_sel_mem,
 	output logic [5:0] 	o_rd_tag_mem,
 	input logic 		i_mem_valid,
@@ -287,17 +273,17 @@ assign mem_next_insert_idx	=	!mem_occupied[0 ]	?	4'd0	:
 always_comb begin
 	//Determine if ALU reservation station tags match incoming data
 	for (int i=0; i<16; i+=1) begin
-		alu_rn_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rn_tag == i_alu_tag) & !alu_station[i].rn_valid;
-		alu_rn_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rn_tag == i_mult_tag) & !alu_station[i].rn_valid;
-		alu_rn_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rn_tag == i_mem_tag) & !alu_station[i].rn_valid;
+		alu_rn_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rn_tag == i_alu_tag) & !alu_station[i].rn_valid & i_alu_valid;
+		alu_rn_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rn_tag == i_mult_tag) & !alu_station[i].rn_valid & i_mult_valid;
+		alu_rn_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rn_tag == i_mem_tag) & !alu_station[i].rn_valid & i_mem_valid;
 		
-		alu_rs_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rs_tag == i_alu_tag) & !alu_station[i].rs_valid;
-		alu_rs_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rs_tag == i_mult_tag) & !alu_station[i].rs_valid;
-		alu_rs_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rs_tag == i_mem_tag) & !alu_station[i].rs_valid;
+		alu_rs_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rs_tag == i_alu_tag) & !alu_station[i].rs_valid & i_alu_valid;
+		alu_rs_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rs_tag == i_mult_tag) & !alu_station[i].rs_valid & i_mult_valid;
+		alu_rs_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rs_tag == i_mem_tag) & !alu_station[i].rs_valid & i_mem_valid;
 		
-		alu_rm_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rm_tag == i_alu_tag) & !alu_station[i].rm_valid;
-		alu_rm_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rm_tag == i_mult_tag) & !alu_station[i].rm_valid;
-		alu_rm_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rm_tag == i_mem_tag) & !alu_station[i].rm_valid;
+		alu_rm_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rm_tag == i_alu_tag) & !alu_station[i].rm_valid & i_alu_valid;
+		alu_rm_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rm_tag == i_mult_tag) & !alu_station[i].rm_valid & i_mult_valid;
+		alu_rm_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rm_tag == i_mem_tag) & !alu_station[i].rm_valid & i_mem_valid;
 		
 		alu_status_bits_flags_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].status_bits_flags_tag == i_alu_tag) & !alu_station[i].status_bits_flags_valid;
 		alu_status_bits_flags_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].status_bits_flags_tag == i_mult_tag) & !alu_station[i].status_bits_flags_valid;
@@ -309,17 +295,17 @@ always_comb begin
 	
 	//Determine if MULT reservation station tags match incoming data
 	for (int i=0; i<16; i+=1) begin
-		mult_rn_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rn_tag == i_alu_tag) & !mult_station[i].rn_valid;
-		mult_rn_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rn_tag == i_mult_tag) & !mult_station[i].rn_valid;
-		mult_rn_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rn_tag == i_mem_tag) & !mult_station[i].rn_valid;
+		mult_rn_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rn_tag == i_alu_tag) & !mult_station[i].rn_valid & i_alu_valid;
+		mult_rn_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rn_tag == i_mult_tag) & !mult_station[i].rn_valid & i_mult_valid;
+		mult_rn_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rn_tag == i_mem_tag) & !mult_station[i].rn_valid & i_mem_valid;
 		
-		mult_rs_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rs_tag == i_alu_tag) & !mult_station[i].rs_valid;
-		mult_rs_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rs_tag == i_mult_tag) & !mult_station[i].rs_valid;
-		mult_rs_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rs_tag == i_mem_tag) & !mult_station[i].rs_valid;
+		mult_rs_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rs_tag == i_alu_tag) & !mult_station[i].rs_valid & i_alu_valid;
+		mult_rs_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rs_tag == i_mult_tag) & !mult_station[i].rs_valid & i_mult_valid;
+		mult_rs_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rs_tag == i_mem_tag) & !mult_station[i].rs_valid & i_mem_valid;
 		
-		mult_rm_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rm_tag == i_alu_tag) & !mult_station[i].rm_valid;
-		mult_rm_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rm_tag == i_mult_tag) & !mult_station[i].rm_valid;
-		mult_rm_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rm_tag == i_mem_tag) & !mult_station[i].rm_valid;
+		mult_rm_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].rm_tag == i_alu_tag) & !mult_station[i].rm_valid & i_alu_valid;
+		mult_rm_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].rm_tag == i_mult_tag) & !mult_station[i].rm_valid & i_mult_valid;
+		mult_rm_tag_match[i][MEM_MATCH_IDX] = (mult_station[i].rm_tag == i_mem_tag) & !mult_station[i].rm_valid & i_mem_valid;
 		
 		//mult_ccr_tag_match[i][ALU_MATCH_IDX] = (mult_station[i].ccr_tag == i_alu_tag) & !mult_station[i].ccr_valid;
 		//mult_ccr_tag_match[i][MULT_MATCH_IDX] = (mult_station[i].ccr_tag == i_mult_tag) & !mult_station[i].ccr_valid;
@@ -328,17 +314,17 @@ always_comb begin
 	
 	//Determine if MEM reservation station tags match incoming data
 	for (int i=0; i<16; i+=1) begin
-		mem_rn_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rn_tag == i_alu_tag) & !mem_station[i].rn_valid;
-		mem_rn_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rn_tag == i_mult_tag) & !mem_station[i].rn_valid;
-		mem_rn_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rn_tag == i_mem_tag) & !mem_station[i].rn_valid;
+		mem_rn_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rn_tag == i_alu_tag) & !mem_station[i].rn_valid & i_alu_valid;
+		mem_rn_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rn_tag == i_mult_tag) & !mem_station[i].rn_valid & i_mult_valid;
+		mem_rn_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rn_tag == i_mem_tag) & !mem_station[i].rn_valid & i_mem_valid;
 		
-		mem_rs_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rs_tag == i_alu_tag) & !mem_station[i].rs_valid;
-		mem_rs_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rs_tag == i_mult_tag) & !mem_station[i].rs_valid;
-		mem_rs_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rs_tag == i_mem_tag) & !mem_station[i].rs_valid;
+		mem_rs_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rs_tag == i_alu_tag) & !mem_station[i].rs_valid & i_alu_valid;
+		mem_rs_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rs_tag == i_mult_tag) & !mem_station[i].rs_valid & i_mult_valid;
+		mem_rs_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rs_tag == i_mem_tag) & !mem_station[i].rs_valid & i_mem_valid;
 		
-		mem_rm_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rm_tag == i_alu_tag) & !mem_station[i].rm_valid;
-		mem_rm_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rm_tag == i_mult_tag) & !mem_station[i].rm_valid;
-		mem_rm_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rm_tag == i_mem_tag) & !mem_station[i].rm_valid;
+		mem_rm_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rm_tag == i_alu_tag) & !mem_station[i].rm_valid & i_alu_valid;
+		mem_rm_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rm_tag == i_mult_tag) & !mem_station[i].rm_valid & i_mult_valid;
+		mem_rm_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rm_tag == i_mem_tag) & !mem_station[i].rm_valid & i_mem_valid;
 		
 		//mem_ccr_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].ccr_tag == i_alu_tag) & !mem_station[i].ccr_valid;
 		//mem_ccr_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].ccr_tag == i_mult_tag) & !mem_station[i].ccr_valid;
@@ -479,8 +465,6 @@ always_comb begin
 			alu_new_entry.barrel_shift_data_sel = i_barrel_shift_data_sel;
 			alu_new_entry.barrel_shift_function = i_barrel_shift_function;
 			alu_new_entry.alu_function = i_alu_function;
-			alu_new_entry.pc_wen = i_pc_wen;
-			alu_new_entry.status_bits_flags_wen = i_status_bits_flags_wen;
 			alu_new_entry.rd_tag = i_tag_nxt;
 		end
 		2'b01: begin
@@ -500,8 +484,6 @@ always_comb begin
 			
 			mult_new_entry.multiply_function = i_multiply_function;
 			mult_new_entry.use_carry_in = i_use_carry_in;
-			mult_new_entry.pc_wen = i_pc_wen;
-			mult_new_entry.status_bits_flags_wen = i_status_bits_flags_wen;
 			mult_new_entry.rd_tag = i_tag_nxt;
 		end
 		2'b10: begin
@@ -520,8 +502,6 @@ always_comb begin
 			mem_new_entry.rm = i_rm;
 			
 			mem_new_entry.exclusive = i_decode_exclusive; //TODO confirm proper operation with this (as opposed to the previous Dispatch stage's "exclusive" signal, or whatever it was...)
-			mem_new_entry.pc_wen = i_pc_wen;
-			mem_new_entry.status_bits_flags_wen = i_status_bits_flags_wen;
 			//mem_new_entry.iaddress_sel = i_iaddress_sel;
 			//mem_new_entry.daddress_sel = i_daddress_sel; //TODO okay to not have this?
 			mem_new_entry.byte_enable_sel = i_byte_enable_sel;
@@ -573,7 +553,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && alu_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && alu_next_insert_idx == i && i_tag_nxt[5:4]==2'b00) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				alu_occupied[i] <= 1'b1;
 				alu_station[i] <= alu_new_entry;
@@ -694,7 +674,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && mult_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && mult_next_insert_idx == i && i_tag_nxt[5:4]==2'b01) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				mult_occupied[i] <= 1'b1;
 				mult_station[i] <= mult_new_entry;
@@ -815,7 +795,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && mem_next_insert_idx == i) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && mem_next_insert_idx == i && i_tag_nxt[5:4]==2'b10) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				mem_occupied[i] <= 1'b1;
 				mem_station[i] <= mem_new_entry;
@@ -935,14 +915,28 @@ end
 //Note that the register file automatically forwards operands from the EUs for a new instruction if the tags match
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
-		o_instr_valid_alu <= '0;
-		//don't care about other outputs since o_instr_valid is false
+		o_instr_valid_alu <= 'd0;
+		//don't care about other outputs since o_instr_valid is false, but we'll set 'em anyway to avoid 'x's
+		o_rn_alu <= 'd0;
+		o_rs_alu <= 'd0;
+		o_rm_alu <= 'd0;
+		o_status_bits_flags_alu <= 'd0;
+		o_use_carry_in_alu <= 'd0;
+		o_imm32_alu <= 'd0;
+		o_imm_shift_amount_alu <= 'd0;
+		o_shift_imm_zero_alu <= 'd0;
+		o_barrel_shift_amount_sel_alu <= 'd0;
+		o_barrel_shift_data_sel_alu <= 'd0;
+		o_barrel_shift_function_alu <= 'd0;
+		o_alu_function_alu <= 'd0;
+		o_status_bits_flags_alu <= 'd0;
+		o_rd_tag_alu <= 'd0;
 	end
 	else /*if (i_clk)*/ begin
-	    if (i_stall) begin
+	    /*if (i_stall) begin
 	       o_instr_valid_alu <= 1'b0; //TODO may need to make this combinational
 	    end
-		else if (~alu_next_dispatch_idx[4]) begin
+		else */if (~alu_next_dispatch_idx[4]) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= alu_station[alu_next_dispatch_idx].rn_valid				?	alu_station[alu_next_dispatch_idx].rn:
 						alu_rn_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -951,7 +945,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_rs_alu <= alu_station[alu_next_dispatch_idx].rs_valid				?	alu_station[alu_next_dispatch_idx].rs:
 						alu_rs_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
 						alu_rs_tag_match[alu_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
-																				i_mem_data;
+																				    i_mem_data;
 			o_rm_alu <= alu_station[alu_next_dispatch_idx].rm_valid				?	alu_station[alu_next_dispatch_idx].rm:
 						alu_rm_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
 						alu_rm_tag_match[alu_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
@@ -965,11 +959,9 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_barrel_shift_data_sel_alu <= alu_station[alu_next_dispatch_idx].barrel_shift_data_sel;
 			o_barrel_shift_function_alu <= alu_station[alu_next_dispatch_idx].barrel_shift_function;
 			o_alu_function_alu <= alu_station[alu_next_dispatch_idx].alu_function;
-			o_pc_wen_alu <= alu_station[alu_next_dispatch_idx].pc_wen;
-			o_status_bits_flags_wen_alu <= alu_station[alu_next_dispatch_idx].status_bits_flags_wen;
 			o_rd_tag_alu <= alu_station[alu_next_dispatch_idx].rd_tag;
 		end
-		else if (alu_next_dispatch_idx == 5'd16) begin
+		else if (~i_stall && alu_next_dispatch_idx == 5'd16) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= i_rn;
 			o_rs_alu <= i_rs;
@@ -983,8 +975,6 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_barrel_shift_data_sel_alu <= i_barrel_shift_data_sel;
 			o_barrel_shift_function_alu <= i_barrel_shift_function;
 			o_alu_function_alu <= i_alu_function;
-			o_pc_wen_alu <= i_pc_wen;
-			o_status_bits_flags_wen_alu <= i_status_bits_flags_wen;
 			o_rd_tag_alu <= i_tag_nxt;
 		end
 		else begin //nothing's ready; set outputs to "safe" state
@@ -998,14 +988,20 @@ end
 //Output logic for mult station
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
-		o_instr_valid_mult <= '0;
-		//don't care about other outputs since o_instr_valid is false
+		o_instr_valid_mult <= 'd0;
+		//don't care about other outputs since o_instr_valid is false, but we'll set 'em anyway to avoid 'x's
+		o_rn_mult <= 'd0;
+		o_rs_mult <= 'd0;
+		o_rm_mult <= 'd0;
+		o_multiply_function_mult <= 'd0;
+		o_use_carry_in_mult <= 'd0;
+		o_rd_tag_mult <= 'd0;
 	end
 	else /*if (i_clk)*/ begin
-        if (i_stall) begin
+        /*if (i_stall) begin
            o_instr_valid_mult <= 1'b0; //TODO may need to make this combinational
         end
-		else if (~mult_next_dispatch_idx[4]) begin
+		else */if (~mult_next_dispatch_idx[4]) begin
 			o_instr_valid_mult <= 1'b1;
 			o_rn_mult <=	mult_station[mult_next_dispatch_idx].rn_valid				?	mult_station[mult_next_dispatch_idx].rn:
 							mult_rn_tag_match[mult_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -1021,19 +1017,15 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 																							i_mem_data;
 			o_multiply_function_mult <= mult_station[mult_next_dispatch_idx].multiply_function;
 			o_use_carry_in_mult <= mult_station[mult_next_dispatch_idx].use_carry_in;
-			o_pc_wen_mult <= mult_station[mult_next_dispatch_idx].pc_wen;
-			o_status_bits_flags_wen_mult <= mult_station[mult_next_dispatch_idx].status_bits_flags_wen;
 			o_rd_tag_mult <= mult_station[mult_next_dispatch_idx].rd_tag;
 		end
-		else if (mult_next_dispatch_idx == 5'd16) begin
+		else if (~i_stall && mult_next_dispatch_idx == 5'd16) begin
 			o_instr_valid_mult <= 1'b1;
 			o_rn_mult <= i_rn;
 			o_rs_mult <= i_rs;
 			o_rm_mult <= i_rm;
 			o_multiply_function_mult <= i_multiply_function;
 			o_use_carry_in_mult <= i_use_carry_in;
-			o_pc_wen_mult <= i_pc_wen;
-			o_status_bits_flags_wen_mult <= i_status_bits_flags_wen;
 			o_rd_tag_mult <= i_tag_nxt;
 		end
 		else begin //nothing's ready; set outputs to "safe" state
@@ -1048,13 +1040,14 @@ end
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
 		o_instr_valid_mem <= '0;
-		//don't care about other outputs since o_instr_valid is false
+		//don't care about other outputs since o_instr_valid is false, but we'll set 'em anyway to avoid 'x's
+		//TODO need to revise this whole section based on the new memory interface
 	end
 	else /*if (i_clk)*/ begin
-        if (i_stall) begin
+        /*if (i_stall) begin
            o_instr_valid_mem <= 1'b0; //TODO may need to make this combinational
         end
-		else if (~mem_next_dispatch_idx[4]) begin
+		else */if (~mem_next_dispatch_idx[4]) begin
 			o_instr_valid_mem <= 1'b1;
 			o_rn_mem <= mem_station[mem_next_dispatch_idx].rn_valid				?	mem_station[mem_next_dispatch_idx].rn:
 						mem_rn_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -1069,21 +1062,17 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 						mem_rm_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
 																i_mem_data;
 			o_exclusive_mem <= mem_station[mem_next_dispatch_idx].exclusive;
-			o_pc_wen_mem <= mem_station[mem_next_dispatch_idx].pc_wen;
-			o_status_bits_flags_wen_mem <= mem_station[mem_next_dispatch_idx].status_bits_flags_wen;
 			/*o_iaddress_sel_mem <= mem_station[mem_next_dispatch_idx].iaddress_sel;
 			o_daddress_sel_mem <= mem_station[mem_next_dispatch_idx].daddress_sel;*/
 			o_byte_enable_sel_mem <= mem_station[mem_next_dispatch_idx].byte_enable_sel;
 			o_rd_tag_mem <= mem_station[mem_next_dispatch_idx].rd_tag;
 		end
-		else if (mem_next_dispatch_idx == 5'd16) begin
+		else if (~i_stall && mem_next_dispatch_idx == 5'd16) begin
 			o_instr_valid_mem <= 1'b1;
 			o_rn_mem <= i_rn;
 			o_rs_mem <= i_rs;
 			o_rm_mem <= i_rm;
 			o_exclusive_mem <= i_decode_exclusive; //TODO confirm proper operation with this as opposed to the doohicky the previous Dispatch/Execute stage had in it
-			o_pc_wen_mem <= i_pc_wen;
-			o_status_bits_flags_wen_mem <= i_status_bits_flags_wen;
 			/*o_iaddress_sel_mem <= i_iaddress_sel;
 			o_daddress_sel_mem <= i_daddress_sel;*/
 			o_byte_enable_sel_mem <= i_byte_enable_sel;

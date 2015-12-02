@@ -5,12 +5,9 @@ module b01_dispatch (
 input                       i_clk,
 input						i_rst,
 input                       i_core_stall,               // stall all stages of the Amber core at the same time
-input                       i_mem_stall,                // data memory access stalls
 output                      o_exec_stall,               // stall the core pipeline
 
-//input                       i_decode_iaccess,           // Indicates an instruction access
 input                       /*i_decode_daccess*/i_is_memop,           // Indicates a data access
-//input       [7:0]           i_decode_load_rd,           // The destination register for a load instruction
 
 output logic[31:0]          o_iaddress,
 output      [31:0]          o_iaddress_nxt,             // un-registered version of address to the
@@ -94,8 +91,6 @@ output logic [1:0] o_barrel_shift_amount_sel_alu,
 output logic [1:0] o_barrel_shift_data_sel_alu,
 output logic [1:0] o_barrel_shift_function_alu,
 output logic [8:0] o_alu_function_alu,
-output logic o_pc_wen_alu,
-output logic o_status_bits_flags_wen_alu,
 output logic [5:0] o_rd_tag_alu,
 input logic i_alu_valid,
 input logic [5:0] i_alu_tag,
@@ -111,8 +106,6 @@ output logic [31:0] o_rm_mult,
 //output logic [31:0] o_ccr_mult,
 output logic [1:0] o_multiply_function_mult,
 output logic o_use_carry_in_mult,
-output logic o_pc_wen_mult,
-output logic o_status_bits_flags_wen_mult,
 output logic [5:0] o_rd_tag_mult,
 input logic i_mult_valid,
 input logic [5:0] i_mult_tag,
@@ -126,8 +119,6 @@ output logic [31:0] o_rn_mem,
 output logic [31:0] o_rs_mem,
 output logic [31:0] o_rm_mem, //TODO: determine if this is ever actually used in memory instructions
 output logic o_exclusive_mem,
-output logic o_pc_wen_mem,
-output logic o_status_bits_flags_wen_mem,
 output logic [1:0] o_byte_enable_sel_mem,
 output logic [5:0] o_rd_tag_mem,
 input logic i_mem_valid,
@@ -142,6 +133,7 @@ input [7:0] sw
 );
 
 `include "a25_localparams.vh"
+`include "a25_functions.vh"
 
 logic [5:0] 	tag_nxt; //tied from tag store output to register file input and reservation station input
 logic [31:0]	pc_nxt;
@@ -164,7 +156,7 @@ logic			status_bits_irq_mask; //set by the decode stage
 logic			status_bits_firq_mask; //set by the decode stage
 logic [1:0] 	status_bits_mode; //set by the decode stage
 
-//todo create a place into which to save the status register on irq
+//TODO create a place into which to save the status register on irq
 //"spsr" instead of the below which is "cpsr"
 assign o_status_bits = {status_bits_flags,	   //31:28 = flags
 						status_bits_irq_mask,  //27
@@ -179,7 +171,7 @@ assign condition_stall = i_use_sr/*instr_conditional*/ & ~status_bits_flags_vali
 /*
 	set to 1 if ccr valid and flags match OR not using ccr OR ccr invalid but eu writing back flags and forwarded condition match
 */
-assign condition_execute =	i_use_sr								?	1'b1:
+assign condition_execute =	~i_use_sr								?	1'b1:
 							status_bits_flags_valid					?	conditional_execute(i_condition, status_bits_flags):
 							status_bits_flags_valid_nxt_eucompare	?	conditional_execute(i_condition, status_bits_flags_nxt):
 																		1'b0;
@@ -257,11 +249,38 @@ logic [31:0]	rm,
 				rd,
 				pc;
 
+//Interrupt vector definition
+//TODO confirm the particular addresses with team
+logic [31:0] interrupt_vector;
+assign interrupt_vector = // Reset vector
+                          (i_interrupt_vector_sel == 3'd0) ? 32'h00000000 :
+                          /*// Data abort interrupt vector
+                          (i_interrupt_vector_sel == 3'd1) ? 32'h00000010 :*/
+                          // Fast interrupt vector
+                          (i_interrupt_vector_sel == 3'd2) ? 32'h0000001c :
+                          // Regular interrupt vector
+                          (i_interrupt_vector_sel == 3'd3) ? 32'h00000018 :
+                          /* // Prefetch abort interrupt vector
+                          (i_interrupt_vector_sel == 3'd5) ? 32'h0000000c :
+                          // Undefined instruction interrupt vector
+                          (i_interrupt_vector_sel == 3'd6) ? 32'h00000004 :*/
+                          // Software (SWI) interrupt vector
+                          (i_interrupt_vector_sel == 3'd7) ? 32'h00000008 :
+                          // Default is the address exception interrupt
+                                                             32'h00000014 ;
+                                                             
+assign pc_nxt = o_exec_stall                ? pc                      :
+                (!condition_execute)        ? pc+'d1                  :
+                i_pc_sel == 3'd0            ? pc+'d1                  :
+                //i_pc_sel == 3'd1            ? alu_out                 :
+                i_pc_sel == 3'd2            ? interrupt_vector        :
+                                              pc-'d1                  ;
+
 b01_register_bank u_register_bank(
     .i_clk                   ( i_clk                     ),
 	.i_rst(i_rst),
     .i_core_stall            ( i_core_stall              ),
-    .i_mem_stall             ( i_mem_stall               ),
+    //.i_mem_stall             ( i_mem_stall               ),
     .i_mode_idec             ( i_status_bits_mode        ), //TODO is this necessary?
     .i_mode_exec             ( status_bits_mode          ),
     // use one-hot version for speed, combine with i_user_mode_regs_store
@@ -278,8 +297,8 @@ input                       i_firq_not_user_mode,*/
     .i_rm_sel                ( i_rm_sel                  ),
     .i_rs_sel                ( i_rs_sel                  ),
     .i_rn_sel                ( i_rn_sel                  ),
-    .i_pc_wen                ( i_pc_wen                    ), //TODO confirm/fix
-    .i_reg_bank_wen          ( {{15{condition_execute}} & i_reg_bank_wen}              ), //TODO confirm/fix, esp. wrt stall logic and predicated execution
+    .i_pc_wen                ( i_pc_wen & ~o_exec_stall                    ), //TODO confirm/fix
+    .i_reg_bank_wen          ( {{15{condition_execute/* & ~o_exec_stall*/}} & i_reg_bank_wen}              ), //TODO confirm/fix, esp. wrt stall logic and predicated execution
     .i_pc                    ( /*pc_nxt[25:2]*/pc[25:2]+24'd1              ), //TODO confirm/fix
 	
     .i_status_bits_flags     ( status_bits_flags         ),
@@ -328,26 +347,6 @@ input                       i_firq_not_user_mode,*/
 
 //PC and instruction address logic
 
-//Interrupt vector definition
-//TODO confirm the particular addresses with team
-logic [31:0] interrupt_vector;
-assign interrupt_vector = // Reset vector
-                          (i_interrupt_vector_sel == 3'd0) ? 32'h00000000 :
-                          /*// Data abort interrupt vector
-                          (i_interrupt_vector_sel == 3'd1) ? 32'h00000010 :*/
-                          // Fast interrupt vector
-                          (i_interrupt_vector_sel == 3'd2) ? 32'h0000001c :
-                          // Regular interrupt vector
-                          (i_interrupt_vector_sel == 3'd3) ? 32'h00000018 :
-                          /* // Prefetch abort interrupt vector
-                          (i_interrupt_vector_sel == 3'd5) ? 32'h0000000c :
-                          // Undefined instruction interrupt vector
-                          (i_interrupt_vector_sel == 3'd6) ? 32'h00000004 :*/
-                          // Software (SWI) interrupt vector
-                          (i_interrupt_vector_sel == 3'd7) ? 32'h00000008 :
-                          // Default is the address exception interrupt
-                                                             32'h00000014 ;
-
 //recall we have pc, reg_bank_pc_valid, and reg_bank_pc_tag. we also need to deal with i_core_stall.
 logic pc_stall;
 //we must stall if we're getting the PC from anything other than pc+4 or a predefined interrupt vector
@@ -357,15 +356,15 @@ assign pc_stall = (~reg_bank_pc_valid) | (i_iaddress_sel != 3'd0 && i_iaddress_s
 						(i_iaddress_sel == 4'd2)	? interrupt_vector	:
 													  pc+32'd4; //default, just in case*/
 assign o_iaddress_nxt = pc;//tmp, for stupid-testing
-assign o_iaddress_valid = 1'b1;//tmp, for stupid-testing
+assign o_iaddress_valid = /*1'b1*/~o_exec_stall;//tmp, for stupid-testing
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
 		//o_iaddress_valid <= 'd0;
 		o_iaddress <= 32'd0; //note that on reset, at the next clock edge PC will have been initialized and set by the register file
 	end
 	else if (i_clk) begin
-		if (!i_core_stall) begin
-			//o_iaddress_valid 	<= 	!pc_stall;
+		if (!i_core_stall && !o_exec_stall) begin
+			//o_iaddress_valid 	<= 	!/*pc_stall*/o_exec_stall;
 			o_iaddress			<=	o_iaddress_nxt;
 		end
 	end
@@ -455,9 +454,7 @@ b01_reservation u_reservation(
 	.i_use_carry_in(i_use_carry_in),
 	.i_write_data_wen(i_write_data_wen),
 	.i_base_address_wen(/*i_base_address_wen*/), //TODO remove!!!
-	.i_pc_wen(i_pc_wen),
 	.i_reg_bank_wen(i_reg_bank_wen),
-	.i_status_bits_flags_wen(i_status_bits_flags_wen),
 	.i_rn_valid(reg_bank_rn_valid | !i_use_rn), //"or" accounts for case where operand is unused (ditto rs, rm)
 	.i_rn_tag(reg_bank_rn_tag),
 	.i_rn(rn),
@@ -484,8 +481,6 @@ b01_reservation u_reservation(
 	.o_barrel_shift_data_sel_alu(o_barrel_shift_data_sel_alu),
 	.o_barrel_shift_function_alu(o_barrel_shift_function_alu),
 	.o_alu_function_alu(o_alu_function_alu),
-	.o_pc_wen_alu(o_pc_wen_alu),
-	.o_status_bits_flags_wen_alu(o_status_bits_flags_wen_alu),
 	.o_rd_tag_alu(o_rd_tag_alu),
 	.i_alu_valid(i_alu_valid),
 	.i_alu_tag(i_alu_tag),
@@ -497,8 +492,6 @@ b01_reservation u_reservation(
 	.o_rm_mult(o_rm_mult),
 	.o_multiply_function_mult(o_multiply_function_mult),
 	.o_use_carry_in_mult(o_use_carry_in_mult),
-	.o_pc_wen_mult(o_pc_wen_mult),
-	.o_status_bits_flags_wen_mult(o_status_bits_flags_wen_mult),
 	.o_rd_tag_mult(o_rd_tag_mult),
 	.i_mult_valid(i_mult_valid),
 	.i_mult_tag(i_mult_tag),
@@ -509,8 +502,6 @@ b01_reservation u_reservation(
 	.o_rs_mem(o_rs_mem),
 	.o_rm_mem(o_rm_mem),
 	.o_exclusive_mem(o_exclusive_mem),
-	.o_pc_wen_mem(o_pc_wen_mem),
-	.o_status_bits_flags_wen_mem(o_status_bits_flags_wen_mem),
 	.o_byte_enable_sel_mem(o_byte_enable_sel_mem),
 	.o_rd_tag_mem(o_rd_tag_mem),
 	.i_mem_valid(i_mem_valid),

@@ -123,8 +123,17 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else begin
 		if (i_stall/*_all*/) begin
-			//Make no changes to current state if we're stalled
-			alu_tag_available <= alu_tag_available;
+			//make tags available if stalled, but don't make any unavailable
+			for (int i=0; i<15; i+=1) begin
+                if (alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid)) alu_tag_available[i] <= 1'b1;
+                else alu_tag_available[i] <= alu_tag_available[i];
+                
+                if (mult_tag_available[i] || (i_mult_tag[3:0]==i && i_mult_valid)) mult_tag_available[i] <= 1'b1;
+                else mult_tag_available[i] <= mult_tag_available[i];
+                
+                if (mem_tag_available[i] || (i_mem_tag[3:0]==i && i_mem_valid)) mem_tag_available[i] <= 1'b1;
+                else mem_tag_available[i] <= mem_tag_available[i];
+            end
 		end
 		/*else if (i_stall_new) begin
 			//don't update available based on what tag we say is available this cycle, but continue retiring instructions.
@@ -132,13 +141,13 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		end*/
 		else begin
 			for (int i=0; i<15; i+=1) begin
-				if ((alu_tag_available[i] || i_alu_tag[3:0]==i) && alu_tag_nxt!=i) alu_tag_available[i] <= 1'b1;
+				if ((alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid)) && (i_instr_type != 2'b00 || alu_tag_nxt!=i)) alu_tag_available[i] <= 1'b1;
 				else alu_tag_available[i] <= 1'b0;
 				
-				if ((mult_tag_available[i] || i_mult_tag[3:0]==i) && mult_tag_nxt!=i) mult_tag_available[i] <= 1'b1;
+				if ((mult_tag_available[i] || (i_mult_tag[3:0]==i && i_mult_valid)) && (i_instr_type != 2'b01 || mult_tag_nxt!=i)) mult_tag_available[i] <= 1'b1;
 				else mult_tag_available[i] <= 1'b0;
 				
-				if ((mem_tag_available[i] || i_mem_tag[3:0]==i) && mem_tag_nxt!=i) mem_tag_available[i] <= 1'b1;
+				if ((mem_tag_available[i] || (i_mem_tag[3:0]==i && i_mem_valid)) && (i_instr_type != 2'b10 || mem_tag_nxt!=i)) mem_tag_available[i] <= 1'b1;
 				else mem_tag_available[i] <= 1'b0;
 			end
 		end
@@ -151,15 +160,15 @@ end
 always_comb begin
 	case (i_instr_type)
 		2'b00: begin //alu station
-			o_station_full	= (alu_tag_available == 16'hffff) & ~i_alu_valid;
+			o_station_full	= (alu_tag_available == 16'h0000/*ffff*/) & ~i_alu_valid;
 			o_tag			= {2'b00, alu_tag_nxt};
 		end
 		2'b01: begin //multiplier station
-			o_station_full	= (mult_tag_available == 16'hffff) & ~i_mult_valid;
+			o_station_full	= (mult_tag_available == 16'h0000/*ffff*/) & ~i_mult_valid;
 			o_tag			= {2'b01, mult_tag_nxt};
 		end
 		2'b10: begin //memory station
-			o_station_full	= (mem_tag_available == 16'hffff) & ~i_mem_valid;
+			o_station_full	= (mem_tag_available == 16'h0000/*ffff*/) & ~i_mem_valid;
 			o_tag			= {2'b10, mem_tag_nxt};
 		end
 		default: begin

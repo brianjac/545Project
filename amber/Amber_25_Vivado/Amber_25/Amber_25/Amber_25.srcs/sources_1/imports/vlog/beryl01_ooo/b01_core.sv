@@ -190,6 +190,7 @@ assign core_stall           = fetch_stall /*|| mem_stall || exec_stall*/;
 // ======================================
 a25_fetch u_fetch (
     .i_clk                              ( i_clk                             ),
+    .i_rst(i_rst),
     .i_mem_stall                        ( /*mem_stall*/1'b0                         ),
     .i_exec_stall                       ( exec_stall                        ),
     .i_conflict                         ( /*conflict*/1'b0                          ),
@@ -201,7 +202,7 @@ a25_fetch u_fetch (
     .i_iaddress_nxt                     ( execute_iaddress_nxt              ),
     .o_fetch_instruction                ( fetch_instruction                 ),
     .i_cache_enable                     ( /*cache_enable*/1'b1                      ),     
-    .i_cache_flush                      ( /*cache_flush*/'0                       ), 
+    .i_cache_flush                      ( /*cache_flush*/'d0                       ), 
     .i_cacheable_area                   ( /*cacheable_area*/32'hffff_ffff                    ),
 
     .o_wb_req                           ( icache_wb_req                     ),
@@ -214,6 +215,8 @@ a25_fetch u_fetch (
             (sw[1:0]==2'd1)?fetch_instruction[15:8]:
             (sw[1:0]==2'd2)?fetch_instruction[23:16]:
                             fetch_instruction[31:24];*/
+
+wire use_sr;
 
 // ======================================
 //  Decode Stage
@@ -293,7 +296,8 @@ b01_decode u_decode (
     //.o_conflict                         ( conflict                          ),
     .o_use_rn                      ( rn_use_read                       ),
     .o_use_rm                      ( rm_use_read                       ),
-    .o_use_rs                      ( rs_use_read                       )
+    .o_use_rs                      ( rs_use_read                       ),
+    .o_use_sr(use_sr)
     //.o_rd_use_read                      ( rd_use_read                       )
 );
 
@@ -337,18 +341,9 @@ wire [1:0] mult_flags;
 b01_dispatch u_dispatch (
     .i_clk                              ( i_clk                             ),
 	.i_rst								(i_rst),
-    .i_core_stall                       ( core_stall                        ),   
-    .i_mem_stall                        ( mem_stall                         ),   
+    .i_core_stall                       ( core_stall                        ),
     .o_exec_stall                       ( exec_stall                        ),
-      
-    //.i_wb_read_data                     ( wb_read_data                      ),      
-    //.i_wb_read_data_valid               ( wb_read_data_valid                ),
-    //.i_wb_load_rd                       ( wb_load_rd                        ),
-
-    //.i_copro_read_data                  ( copro_read_data                   ),
     
-    //.o_write_data                       ( write_data                        ),
-    //.o_copro_write_data                 ( copro_write_data                  ),
     .o_iaddress                         ( execute_iaddress                  ),
     .o_iaddress_valid                   ( execute_iaddress_valid            ),
     .o_iaddress_nxt                     ( execute_iaddress_nxt              ),
@@ -359,12 +354,10 @@ b01_dispatch u_dispatch (
     .o_write_enable                     ( write_enable                      ),
     .o_exclusive                        ( exclusive                         ),
     .o_priviledged                      (                                   ),
-    //.o_exec_load_rd                     ( exec_load_rd                      ),   
-
+    
     .o_adex                             ( adex                              ),
     .o_status_bits                      ( execute_status_bits               ),
-    //.o_multiply_done                    ( multiply_done                     ),
-
+    
     .i_status_bits_mode                 ( status_bits_mode                  ),   
     .i_status_bits_irq_mask             ( status_bits_irq_mask              ),   
     .i_status_bits_firq_mask            ( status_bits_firq_mask             ),   
@@ -391,24 +384,20 @@ b01_dispatch u_dispatch (
     .i_byte_enable_sel                  ( byte_enable_sel                   ),   
     .i_status_bits_sel                  ( status_bits_sel                   ),   
     .i_reg_write_sel                    ( reg_write_sel                     ),   
-    //.i_user_mode_regs_store_nxt         ( user_mode_regs_store_nxt          ),   
-    //.i_firq_not_user_mode               ( firq_not_user_mode                ), 
     .i_use_carry_in                     ( use_carry_in                      ),
     .i_write_data_wen                   ( write_data_wen                    ),   
-    //.i_base_address_wen                 ( base_address_wen                  ),   
     .i_pc_wen                           ( pc_wen                            ),   
     .i_reg_bank_wen                     ( reg_bank_wen                      ),   
     .i_status_bits_flags_wen            ( status_bits_flags_wen             ),   
     .i_status_bits_mode_wen             ( status_bits_mode_wen              ),   
     .i_status_bits_irq_mask_wen         ( status_bits_irq_mask_wen          ),   
     .i_status_bits_firq_mask_wen        ( status_bits_firq_mask_wen         ),   
-    //.i_copro_write_data_wen             ( copro_write_data_wen              ),
     //.i_conflict                         ( conflict                          ),
     .i_use_rn                      ( rn_use_read                       ),
     .i_use_rm                      ( rm_use_read                       ),
     .i_use_rs                      ( rs_use_read                       ),
-    //.i_rd_use_read                      ( rd_use_read                       ),
-	
+    .i_use_sr(use_sr),
+    
 	.o_instr_valid_alu(instr_valid_alu),
 	.o_rn_alu(rn_alu),
 	.o_rs_alu(rs_alu),
@@ -422,8 +411,6 @@ b01_dispatch u_dispatch (
 	.o_barrel_shift_data_sel_alu(barrel_shift_data_sel_alu),
 	.o_barrel_shift_function_alu(barrel_shift_function_alu),
 	.o_alu_function_alu(alu_function_alu),
-	.o_pc_wen_alu(pc_wen_alu),
-	.o_status_bits_flags_wen_alu(status_bits_flags_wen_alu),
 	.o_rd_tag_alu(rd_tag_alu),
 	.i_alu_valid(alu_valid),
 	.i_alu_tag(alu_tag),
@@ -437,8 +424,6 @@ b01_dispatch u_dispatch (
 	.o_rm_mult(rm_mult),//o_rm_mult),
 	.o_multiply_function_mult(multiply_function_mult),//o_multiply_function_mult),
 	.o_use_carry_in_mult(),//o_use_carry_in_mult),
-	.o_pc_wen_mult(),//o_pc_wen_mult),
-	.o_status_bits_flags_wen_mult(),//o_status_bits_flags_wen_mult),
 	.o_rd_tag_mult(rd_tag_mult),//o_rd_tag_mult),
 	.i_mult_valid(mult_valid),
 	.i_mult_tag(mult_tag),
@@ -451,8 +436,6 @@ b01_dispatch u_dispatch (
 	.o_rs_mem(),//o_rs_mem),
 	.o_rm_mem(),//o_rm_mem),
 	.o_exclusive_mem(),//o_exclusive_mem),
-	.o_pc_wen_mem(),//o_pc_wen_mem),
-	.o_status_bits_flags_wen_mem(),//o_status_bits_flags_wen_mem),
 	.o_byte_enable_sel_mem(),//o_byte_enable_sel_mem),
 	.o_rd_tag_mem(),//o_rd_tag_mem),
 	.i_mem_valid(/*i_mem_valid*/1'b0),
@@ -483,14 +466,11 @@ b01_execute_alu u_execute_alu (
 	.i_barrel_shift_data_sel(barrel_shift_data_sel_alu),
 	.i_barrel_shift_function(barrel_shift_function_alu),
 	.i_alu_function(alu_function_alu),
-	.i_pc_wen(pc_wen_alu),
-	//.i_status_bits_flags_wen(status_bits_flags_wen_alu),
 	.i_rd_tag(rd_tag_alu),
 	.o_rd_valid(alu_valid),
 	.o_rd_tag(alu_tag),
 	.o_rd_data(alu_data),
-	.o_alu_flags(alu_flags),
-	.o_pc_wen() //TODO hook up eventually
+	.o_alu_flags(alu_flags)
 );
 
 
@@ -578,7 +558,6 @@ a25_wishbone u_wishbone (
     // CPU Side
     .i_clk                              ( i_clk                             ),
     
-	//TODO edit these Port 0 connections
     // Port 0 - dcache uncached
     .i_port0_req                        ( dcache_wb_uncached_req            ),
     .o_port0_ack                        ( dcache_wb_uncached_ready          ),
@@ -588,14 +567,14 @@ a25_wishbone u_wishbone (
     .i_port0_addr                       ( dcache_wb_address                 ),
     .o_port0_rdata                      (                                   ),
 
-    /*// Port 1 - dcache cached
+    // Port 1 - dcache cached
     .i_port1_req                        ( dcache_wb_cached_req              ),
     .o_port1_ack                        ( dcache_wb_cached_ready            ),
     .i_port1_write                      ( dcache_wb_write                   ),
     .i_port1_wdata                      ( dcache_wb_write_data              ),
     .i_port1_be                         ( dcache_wb_byte_enable             ),
     .i_port1_addr                       ( dcache_wb_address                 ),
-    .o_port1_rdata                      ( dcache_wb_cached_rdata            ),*/
+    .o_port1_rdata                      ( dcache_wb_cached_rdata            ),
 
     // Port 2 - instruction cache accesses, read only
     .i_port2_req                        ( icache_wb_req                     ),

@@ -55,7 +55,6 @@ output logic				o_rd_valid, //whether or not the data on the output of this stag
 output logic [5:0]			o_rd_tag,
 output logic [31:0]			o_rd_data,
 output logic [3:0]			o_alu_flags,
-output logic				o_pc_wen,
 
 //TODO confirm the op1/rn,op2/rs,op3/rm naming scheme as per Dispatch definitions/logic and modify if needed
 //Note that we don't care about the operand tags and valid bits; we only care about the dest reg tag.
@@ -81,7 +80,6 @@ input logic [1:0] i_barrel_shift_amount_sel,
 input logic [1:0] i_barrel_shift_data_sel,
 input logic [1:0] i_barrel_shift_function,
 input logic [8:0] i_alu_function,
-input logic i_pc_wen, //will need to be passed through to the output
 //input logic [14:0] i_reg_bank_wen,
 //input logic i_status_bits_flags_wen, //shouldn't be needed in this module anymore
 /*input logic i_status_bits_mode_wen,
@@ -134,21 +132,25 @@ assign barrel_shift_in = i_barrel_shift_data_sel == 2'd0 ? i_imm32 : i_rm ;
 // ========================================================
 
 //note that predicated execution is handled in Dispatch, by simply not adding the instruction to a reservation station
-always_ff @(posedge i_rst, posedge i_clk) begin
-	if (i_rst) begin
-		o_rd_valid <= 1'b0;
-		o_rd_tag <= '0;
-		o_rd_data <= '0;
-		o_alu_flags <= 4'b1111;
-	end
-	else begin
-		o_rd_valid <= i_core_stall ? 1'b0 : i_instr_valid; //TODO ensure this is okay not being combinational in the case of a core stall
-		o_rd_tag <= i_core_stall ? o_rd_tag : i_rd_tag;
-		o_rd_data <= i_core_stall ? o_rd_data : alu_out;
-		o_alu_flags <= i_core_stall ? o_alu_flags : alu_flags;
-	end
-end
-
+//always_ff @(posedge i_rst, posedge i_clk) begin
+//	if (i_rst) begin
+//		o_rd_valid <= 1'b0;
+//		o_rd_tag <= '0;
+//		o_rd_data <= '0;
+//		o_alu_flags <= 4'b1111;
+//	end
+//	else begin
+//	   //note that i_instr_valid goes low when i_core_stall asserted, so this is redundant and even dangerous!
+//		o_rd_valid <= /*i_core_stall ? 1'b0 :*/ i_instr_valid; //TODO ensure this is okay not being combinational in the case of a core stall
+//		o_rd_tag <= /*i_core_stall ? o_rd_tag :*/ i_rd_tag;
+//		o_rd_data <= /*i_core_stall ? o_rd_data :*/ alu_out;
+//		o_alu_flags <= /*i_core_stall ? o_alu_flags :*/ alu_flags;
+//	end
+//end
+assign o_rd_valid = i_instr_valid;
+assign o_rd_tag = i_rd_tag;
+assign o_rd_data = alu_out;
+assign o_alu_flags = alu_flags;
 
 // ========================================================
 // Instantiate Barrel Shift

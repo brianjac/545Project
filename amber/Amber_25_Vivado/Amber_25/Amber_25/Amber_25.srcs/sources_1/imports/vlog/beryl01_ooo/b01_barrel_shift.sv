@@ -65,19 +65,19 @@ reg         use_quick_r      = 1'd0; //changed from initial 1'd1
 
 
 assign o_stall      = 1'b0; //(|i_shift_amount[7:2]) & use_quick_r;
-assign o_out        = /*use_quick_r ? quick_out :*/ full_out_r;
-assign o_carry_out  = /*use_quick_r ? quick_carry_out :*/ full_carry_out_r;
+assign o_out        = /*use_quick_r ? quick_out :*/ full_out/*_r*/;
+assign o_carry_out  = /*use_quick_r ? quick_carry_out :*/ full_carry_out/*_r*/;
 
 
 // Capture the result from the full barrel shifter in case the
 // quick shifter gives the wrong value
-always @(posedge i_clk)
+/*always @(posedge i_clk)
     begin
     full_out_r       <= full_out;
     full_carry_out_r <= full_carry_out;
     //use_quick_r      <= !o_stall; //remove this. screw "quick barrel shifter", we don't actually give a crap for this project's purposes.
     end
-
+*/
 
 // Full barrel shifter
 b01_shifter #( 

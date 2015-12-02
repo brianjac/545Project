@@ -876,7 +876,9 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		//Write back to registers based on tag comparison result, above.
 		//Note that this implicitly handles writebacks from memory, so we don't need read_data_wen or i_wb_read_data anymore (per se).
 		
-		if (!i_core_stall) begin
+		//If core is stalled, don't accept new instructions/invalidations, but do accept revalidations
+		
+		//if (!i_core_stall) begin
             //Valid bits
             r0.valid  <= r_valid_nxt[0 ];
             r1.valid  <= r_valid_nxt[1 ];
@@ -976,8 +978,8 @@ always_ff @(posedge i_rst, posedge i_clk) begin
             r13_firq.data	<=	r13_firq_data_nxt;
             r14_firq.data	<=	r14_firq_data_nxt;
             
-            r15.data		<= r15_data_nxt;
-        end
+            r15.data		<= pc_wen_c ? r15_data_nxt : r15.data; //TODO confirm correctness
+       // end
 	end
 	
 end
@@ -1152,7 +1154,7 @@ always_comb begin
 						tag_match_mult[1 ] ? i_mult_data :
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r1.tag;
 				o_rm_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
@@ -1161,7 +1163,7 @@ always_comb begin
 						tag_match_mult[2 ] ? i_mult_data :
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r2.tag;
 				o_rm_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
@@ -1170,7 +1172,7 @@ always_comb begin
 						tag_match_mult[3 ] ? i_mult_data :
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r3.tag;
 				o_rm_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
@@ -1179,7 +1181,7 @@ always_comb begin
 						tag_match_mult[4 ] ? i_mult_data :
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r4.tag;
 				o_rm_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
@@ -1188,7 +1190,7 @@ always_comb begin
 						tag_match_mult[5 ] ? i_mult_data :
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r5.tag;
 				o_rm_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
@@ -1197,7 +1199,7 @@ always_comb begin
 						tag_match_mult[6 ] ? i_mult_data :
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r6.tag;
 				o_rm_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
@@ -1206,7 +1208,7 @@ always_comb begin
 						tag_match_mult[7 ] ? i_mult_data :
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r7.tag;
 				o_rm_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
@@ -1215,7 +1217,7 @@ always_comb begin
 						tag_match_mult[8 ] ? i_mult_data :
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = i_mode_exec==FIRQ ? r8_firq.tag : r8.tag;
 				o_rm_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
@@ -1224,7 +1226,7 @@ always_comb begin
 						tag_match_mult[9 ] ? i_mult_data :
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = i_mode_exec==FIRQ ? r9_firq.tag : r9.tag;
 				o_rm_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
@@ -1233,7 +1235,7 @@ always_comb begin
 						tag_match_mult[10] ? i_mult_data :
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = i_mode_exec==FIRQ ? r10_firq.tag : r10.tag;
 				o_rm_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
@@ -1242,7 +1244,7 @@ always_comb begin
 						tag_match_mult[11] ? i_mult_data :
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = i_mode_exec==FIRQ ? r11_firq.tag : r11.tag;
 				o_rm_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
@@ -1251,7 +1253,7 @@ always_comb begin
 						tag_match_mult[12] ? i_mult_data :
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag = i_mode_exec==FIRQ ? r12_firq.tag : r12.tag;
 				o_rm_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
@@ -1260,7 +1262,10 @@ always_comb begin
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_out;
-				o_rm_tag = r0.tag;
+				o_rm_tag =  i_mode_exec==FIRQ ? r13_firq.tag : 
+				            i_mode_exec==IRQ  ? r13_irq.tag  :
+				            i_mode_exec==SVC  ? r13_svc.tag  :
+				                                r13.tag;
 				o_rm_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
@@ -1269,7 +1274,10 @@ always_comb begin
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_out;
-				o_rm_tag = r0.tag;
+                o_rm_tag =  i_mode_exec==FIRQ ? r14_firq.tag : 
+                            i_mode_exec==IRQ  ? r14_irq.tag  :
+                            i_mode_exec==SVC  ? r14_svc.tag  :
+                                                r14.tag;
 				o_rm_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
@@ -1278,7 +1286,7 @@ always_comb begin
 						tag_match_mult[15] ? i_mult_data :
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rm;
-				o_rm_tag = r0.tag;
+				o_rm_tag = r15.tag;
 				o_rm_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
