@@ -1,22 +1,10 @@
 //////////////////////////////////////////////////////////////////
 //                                                              //
-//  Register Bank for Amber 25 Core                             //
-//                                                              //
-//  This file is part of the Amber project                      //
-//  http://www.opencores.org/project,amber                      //
-//                                                              //
-//  Description                                                 //
-//  Contains 37 32-bit registers, 16 of which are visible       //
-//  ina any one operating mode. Registers use real flipflops,   //
-//  rather than SRAM. This makes sense for an FPGA              //
-//  implementation, where flipflops are plentiful.              //
-//                                                              //
-//  Author(s):                                                  //
-//      - Conor Santifort, csantifort.amber@gmail.com           //
+//  Register Bank for Beryl 01 Core                             //
 //                                                              //
 //////////////////////////////////////////////////////////////////
 //                                                              //
-// Copyright (C) 2011 Authors and OPENCORES.ORG                 //
+// Copyright (C) 2015 Authors and OPENCORES.ORG                 //
 //                                                              //
 // This source file may be used and distributed without         //
 // restriction provided that this copyright statement is not    //

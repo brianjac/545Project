@@ -1,22 +1,16 @@
 //////////////////////////////////////////////////////////////////
 //                                                              //
-//  Amber 25 Core top-Level module                              //
+//  Beryl 01 Core top-Level module                              //
 //                                                              //
-//  This file is part of the Amber project                      //
+//  Adapted from the Amber project                              //
 //  http://www.opencores.org/project,amber                      //
 //                                                              //
 //  Description                                                 //
-//  Instantiates the core consisting of fetch, instruction      //
-//  decode, execute, memory access and write back. The          //
-//  Wishbone interface and Co-Processor modules are also        //
-//  instantiated here.                                          //
-//                                                              //
-//  Author(s):                                                  //
-//      - Conor Santifort, csantifort.amber@gmail.com           //
+//  Instantiates the core                                       //
 //                                                              //
 //////////////////////////////////////////////////////////////////
 //                                                              //
-// Copyright (C) 2011 Authors and OPENCORES.ORG                 //
+// Copyright (C) 2015 Authors and OPENCORES.ORG                 //
 //                                                              //
 // This source file may be used and distributed without         //
 // restriction provided that this copyright statement is not    //

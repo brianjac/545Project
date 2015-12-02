@@ -60,20 +60,15 @@ input      [2:0]            i_reg_write_sel,
 input                       i_use_carry_in,         // e.g. add with carry instruction
 
 input                       i_write_data_wen,
-//input                       i_base_address_wen,     // save LDM base address register,
-                                                    // in case of data abort
 input                       i_pc_wen,
 input      [14:0]           i_reg_bank_wen,
 input                       i_status_bits_flags_wen,
 input                       i_status_bits_mode_wen,
 input                       i_status_bits_irq_mask_wen,
 input                       i_status_bits_firq_mask_wen,
-//input                       i_copro_write_data_wen,
-//input                       i_conflict,
-input                       i_use_rn/*use_read*/, //TODO note: these *should* tell us if a given reg is needed for this instruction; TODO confirm in simulation of original-Amber!!!
-input                       i_use_rm/*use_read*/,
-input                       i_use_rs/*use_read*/,
-//input                       i_use_rd/*use_read*/,
+input                       i_use_rn, //these tell us if a given reg is needed for this instruction
+input                       i_use_rm,
+input                       i_use_rs,
 input						i_use_sr,
 
 //Stuff specifically added for OOO processing
@@ -96,7 +91,7 @@ input logic i_alu_valid,
 input logic [5:0] i_alu_tag,
 input logic [31:0] i_alu_data,
 input logic [3:0] i_alu_flags,
-input logic i_alu_pc_wen,
+//input logic i_alu_pc_wen,
 
 //Mult station interface
 output logic o_instr_valid_mult,
@@ -111,22 +106,22 @@ input logic i_mult_valid,
 input logic [5:0] i_mult_tag,
 input logic [31:0] i_mult_data,
 input logic [1:0] i_mult_flags,
-input logic i_mult_pc_wen,
+//input logic i_mult_pc_wen,
 
 //Mem station interface
+input logic i_mem_ready;
 output logic o_instr_valid_mem,
-output logic [31:0] o_rn_mem,
-output logic [31:0] o_rs_mem,
-output logic [31:0] o_rm_mem, //TODO: determine if this is ever actually used in memory instructions
-output logic o_exclusive_mem,
-output logic [1:0] o_byte_enable_sel_mem,
+output logic [31:0] o_address_mem,
+output logic [31:0] o_write_data_mem,
+output logic [1:0] o_op_type_mem,
+output logic [3:0] o_byte_enable_mem, //one-hot, derived from byte_enable_sel
+//output logic [1:0] o_byte_enable_sel_mem,
 output logic [5:0] o_rd_tag_mem,
 input logic i_mem_valid,
 input logic [5:0] i_mem_tag,
 input logic [31:0] i_mem_data,
-input logic [3:0] i_mem_flags,
-input logic i_mem_pc_wen,
-//TODO add mem_write_enable signal!!!
+//input logic [3:0] i_mem_flags, //note that memory ops never set the flags, although they may be conditionally executed
+//input logic i_mem_pc_wen,
 
 output [7:0] led,
 input [7:0] sw
@@ -280,7 +275,6 @@ b01_register_bank u_register_bank(
     .i_clk                   ( i_clk                     ),
 	.i_rst(i_rst),
     .i_core_stall            ( i_core_stall              ),
-    //.i_mem_stall             ( i_mem_stall               ),
     .i_mode_idec             ( i_status_bits_mode        ), //TODO is this necessary?
     .i_mode_exec             ( status_bits_mode          ),
     // use one-hot version for speed, combine with i_user_mode_regs_store
@@ -420,7 +414,7 @@ logic tag_stall;
 assign o_exec_stall = condition_stall | tag_stall | pc_stall; //TODO confirm/edit
 									 
 //Tag store instantiation
-b01_tagstore u_tagstore(
+b01_tagstore u_tagstore( //TODO revise to generate sufficient tags simultaneously for an arbitrarily large LDM or STM (or else to say "tags are ready, here's the first one to use" or "here's a bit vector showing which tags are to be used for this instruction")
 	.i_clk(i_clk),
 	.i_rst(i_rst),
 	.i_stall(i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
@@ -436,7 +430,7 @@ b01_tagstore u_tagstore(
 );
 
 //Reservation station instantiation
-b01_reservation u_reservation(
+b01_reservation u_reservation(//TODO revise to properly accept modified memory interface data and reserving multiple instructions at once (required for all memops)
 	.i_clk(i_clk),
 	.i_rst(i_rst),
 	.i_stall(/*TODO confirm proper operation*//*o_exec_stall*/i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
@@ -497,12 +491,11 @@ b01_reservation u_reservation(
 	.i_mult_tag(i_mult_tag),
 	.i_mult_data(i_mult_data),
 	
+	.i_mem_ready(i_mem_ready),
 	.o_instr_valid_mem(o_instr_valid_mem),
-	.o_rn_mem(o_rn_mem),
-	.o_rs_mem(o_rs_mem),
-	.o_rm_mem(o_rm_mem),
-	.o_exclusive_mem(o_exclusive_mem),
-	.o_byte_enable_sel_mem(o_byte_enable_sel_mem),
+	.o_address_mem(o_address_mem),
+	.o_write_data_mem(o_write_data_mem),
+	.o_byte_enable_mem(o_byte_enable_mem),
 	.o_rd_tag_mem(o_rd_tag_mem),
 	.i_mem_valid(i_mem_valid),
 	.i_mem_tag(i_mem_tag),

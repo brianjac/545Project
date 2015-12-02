@@ -1,3 +1,9 @@
+/*
+TODO: set up i_mem_ready
+TODO: force in-order memory dispatch
+TODO: hook up memory address and write-data paths appropriately (instead of with dummy names or with the nothingness that is currently present in places)
+*/
+
 //Define reservation station information being recorded for each given instruction
 typedef struct packed {
 	//Operand 1 data
@@ -54,26 +60,18 @@ typedef struct packed {
 } mult_station_entry;
 
 typedef struct packed {
-	//2, 4, 8.1, byte_enable_sel, daddress_sel, iaddress_sel
-	//Operand 1 data
-	logic rn_valid;
-	logic [5:0] rn_tag;
-	logic [31:0] rn;
+	//Address data
+	logic address_valid;
+	logic [5:0] address_tag;
+	logic [31:0] address;
 	
-	//Operand 2 data
-	logic rs_valid;
-	logic [5:0] rs_tag;
-	logic [31:0] rs;
-	
-	//Operand 3 data (used if we write to a reg, one operand is a reg, and the other operand is a reg shifted by another reg)
-	//TODO: determine if this is ever actually used in memory instructions
-	logic rm_valid;
-	logic [5:0] rm_tag;
-	logic [31:0] rm;
+	//Writeable data
+	logic write_data;
+	logic [5:0] write_data_tag;
+	logic [31:0] write_data;
 	
 	//Control signals for the memory stage
-	logic exclusive;
-	logic [1:0] byte_enable_sel;
+	logic [3:0] byte_enable;
 	logic [5:0] rd_tag;
 } mem_station_entry;
 
@@ -148,12 +146,11 @@ module b01_reservation (
 	input logic  [31:0] i_mult_data,
 
 	//Mem station interface
+	input logic			i_mem_ready,
 	output logic 		o_instr_valid_mem,
-	output logic [31:0] o_rn_mem,
-	output logic [31:0] o_rs_mem,
-	output logic [31:0] o_rm_mem,
-	output logic 		o_exclusive_mem,
-	output logic [1:0] 	o_byte_enable_sel_mem,
+	output logic [31:0] o_address_mem,
+	output logic [31:0] o_write_data_mem,
+	output logic [3:0] 	o_byte_enable_mem,
 	output logic [5:0] 	o_rd_tag_mem,
 	input logic 		i_mem_valid,
 	input logic  [5:0] 	i_mem_tag,
@@ -202,10 +199,8 @@ logic [15:0][2:0] 	mult_rn_tag_match,
 					mult_rs_tag_match,
 					mult_rm_tag_match;
 					//mult_ccr_tag_match;
-logic [15:0][2:0]	mem_rn_tag_match,
-					mem_rs_tag_match,
-					mem_rm_tag_match;
-					//mem_ccr_tag_match;
+logic [15:0][2:0]	mem_address_tag_match,
+					mem_write_data_tag_match;
 logic [4:0]			alu_next_dispatch_idx,
 					mult_next_dispatch_idx,
 					mem_next_dispatch_idx;
@@ -314,17 +309,13 @@ always_comb begin
 	
 	//Determine if MEM reservation station tags match incoming data
 	for (int i=0; i<16; i+=1) begin
-		mem_rn_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rn_tag == i_alu_tag) & !mem_station[i].rn_valid & i_alu_valid;
-		mem_rn_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rn_tag == i_mult_tag) & !mem_station[i].rn_valid & i_mult_valid;
-		mem_rn_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rn_tag == i_mem_tag) & !mem_station[i].rn_valid & i_mem_valid;
+		mem_address_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].address_tag == i_alu_tag) & !mem_station[i].address_valid & i_alu_valid;
+		mem_address_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].address_tag == i_mult_tag) & !mem_station[i].address_valid & i_mult_valid;
+		mem_address_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].address_tag == i_mem_tag) & !mem_station[i].address_valid & i_mem_valid;
 		
-		mem_rs_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rs_tag == i_alu_tag) & !mem_station[i].rs_valid & i_alu_valid;
-		mem_rs_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rs_tag == i_mult_tag) & !mem_station[i].rs_valid & i_mult_valid;
-		mem_rs_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rs_tag == i_mem_tag) & !mem_station[i].rs_valid & i_mem_valid;
-		
-		mem_rm_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].rm_tag == i_alu_tag) & !mem_station[i].rm_valid & i_alu_valid;
-		mem_rm_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].rm_tag == i_mult_tag) & !mem_station[i].rm_valid & i_mult_valid;
-		mem_rm_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].rm_tag == i_mem_tag) & !mem_station[i].rm_valid & i_mem_valid;
+		mem_write_data_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].write_data_tag == i_alu_tag) & !mem_station[i].write_data_valid & i_alu_valid;
+		mem_write_data_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].write_data_tag == i_mult_tag) & !mem_station[i].write_data_valid & i_mult_valid;
+		mem_write_data_tag_match[i][MEM_MATCH_IDX] = (mem_station[i].write_data_tag == i_mem_tag) & !mem_station[i].write_data_valid & i_mem_valid;
 		
 		//mem_ccr_tag_match[i][ALU_MATCH_IDX] = (mem_station[i].ccr_tag == i_alu_tag) & !mem_station[i].ccr_valid;
 		//mem_ccr_tag_match[i][MULT_MATCH_IDX] = (mem_station[i].ccr_tag == i_mult_tag) & !mem_station[i].ccr_valid;
@@ -346,9 +337,9 @@ always_comb begin
 						& (mult_station[i].rm_valid | (mult_rm_tag_match[i] != 3'b000))
 						/*& (mult_station[i].ccr_valid | (mult_ccr_tag_match[i] != 3'b000))*/;
 		mem_ready[i] =  mem_occupied[i]
-		                & (mem_station[i].rn_valid | (mem_rn_tag_match[i] != 3'b000))
-						& (mem_station[i].rs_valid | (mem_rs_tag_match[i] != 3'b000))
-						& (mem_station[i].rm_valid | (mem_rm_tag_match[i] != 3'b000))
+		                & (mem_station[i].address_valid | (mem_address_tag_match[i] != 3'b000))
+						& (mem_station[i].write_data_valid | (mem_write_data_tag_match[i] != 3'b000))
+						/*& (mem_station[i].rm_valid | (mem_rm_tag_match[i] != 3'b000))*/
 						/*& (mem_station[i].ccr_valid | (mem_ccr_tag_match[i] != 3'b000))*/;
 	end
 	
@@ -489,23 +480,17 @@ always_comb begin
 		2'b10: begin
 			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
 			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
-			mem_new_entry.rn_valid = i_rn_valid;
-			mem_new_entry.rn_tag = i_rn_tag;
-			mem_new_entry.rn = i_rn;
+			mem_new_entry.address_valid = //TODO i_rn_valid;
+			mem_new_entry.address_tag = //TODO //i_rn_tag;
+			mem_new_entry.address = //TODO //i_rn;
 			
-			mem_new_entry.rs_valid = i_rs_valid;
-			mem_new_entry.rs_tag = i_rs_tag;
-			mem_new_entry.rs = i_rs;
+			mem_new_entry.write_data_valid = //TODO //i_rs_valid;
+			mem_new_entry.write_data_tag = //TODO //i_rs_tag;
+			mem_new_entry.write_data = //TODO //i_rs;
 			
-			mem_new_entry.rm_valid = i_rm_valid;
-			mem_new_entry.rm_tag = i_rm_tag;
-			mem_new_entry.rm = i_rm;
-			
-			mem_new_entry.exclusive = i_decode_exclusive; //TODO confirm proper operation with this (as opposed to the previous Dispatch stage's "exclusive" signal, or whatever it was...)
-			//mem_new_entry.iaddress_sel = i_iaddress_sel;
-			//mem_new_entry.daddress_sel = i_daddress_sel; //TODO okay to not have this?
-			mem_new_entry.byte_enable_sel = i_byte_enable_sel;
-			mem_new_entry.rd_tag = i_tag_nxt;
+			mem_new_entry.byte_enable = 4'd0;
+			mem_new_entry.byte_enable[i_byte_enable_sel] = 1'b1;
+			mem_new_entry.rd_tag = //TODO //i_tag_nxt;
 		end
 		default: begin
 			alu_new_entry = 0;
@@ -516,7 +501,7 @@ always_comb begin
 end
 
 
-/* TODO: What needs to happen from here on down:
+/* What happens from here on down:
 
 1) Set up output logic based on if the incoming stuff is ready versus something earlier being ready
 2) Update the reservation station entries based on the above as well
@@ -539,7 +524,7 @@ Update logic:
 		update this entry based on xyz_shift_into
 	- If !xyz_shift_into[this_station's_index] and some_tag_matches: update this entry's reg data and V bits
 	- If this_station's_index == next_available_station_idx and not i_stall: latch xyz_new_entry at this index
-- Next_available_station_idx logic: TODO handle update logic etc. for this with a separate state machine thingiemabobbie
+- Next_available_station_idx logic: handle update logic etc. for this with a separate state machine thingiemabobbie
 */
 
 /*xyz_occupied
@@ -816,41 +801,29 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 						
 						//Order is important here: data update based on incoming tags must be listed AFTER "mem_station[i] <= mem_station[i+1];"
 						if (mem_occupied[i+1]) begin
-							if (mem_rn_tag_match[i+1][ALU_MATCH_IDX]) begin
-								mem_station[i].rn_valid <= 1'b1;
-								mem_station[i].rn <= i_alu_data;
+							if (mem_address_tag_match[i+1][ALU_MATCH_IDX]) begin
+								mem_station[i].address_valid <= 1'b1;
+								mem_station[i].address <= i_alu_data;
 							end
-							else if (mem_rn_tag_match[i+1][MULT_MATCH_IDX]) begin
-								mem_station[i].rn_valid <= 1'b1;
-								mem_station[i].rn <= i_mult_data;
+							else if (mem_address_tag_match[i+1][MULT_MATCH_IDX]) begin
+								mem_station[i].address_valid <= 1'b1;
+								mem_station[i].address <= i_mult_data;
 							end
-							else if (mem_rn_tag_match[i+1][MEM_MATCH_IDX]) begin
-								mem_station[i].rn_valid <= 1'b1;
-								mem_station[i].rn <= i_mem_data;
+							else if (mem_address_tag_match[i+1][MEM_MATCH_IDX]) begin
+								mem_station[i].address_valid <= 1'b1;
+								mem_station[i].address <= i_mem_data;
 							end
-							else if (mem_rs_tag_match[i+1][ALU_MATCH_IDX]) begin
-								mem_station[i].rs_valid <= 1'b1;
-								mem_station[i].rs <= i_alu_data;
+							else if (mem_write_data_tag_match[i+1][ALU_MATCH_IDX]) begin
+								mem_station[i].write_data_valid <= 1'b1;
+								mem_station[i].write_data <= i_alu_data;
 							end
-							else if (mem_rs_tag_match[i+1][MULT_MATCH_IDX]) begin
-								mem_station[i].rs_valid <= 1'b1;
-								mem_station[i].rs <= i_mult_data;
+							else if (mem_write_data_tag_match[i+1][MULT_MATCH_IDX]) begin
+								mem_station[i].write_data_valid <= 1'b1;
+								mem_station[i].write_data <= i_mult_data;
 							end
-							else if (mem_rs_tag_match[i+1][MEM_MATCH_IDX]) begin
-								mem_station[i].rs_valid <= 1'b1;
-								mem_station[i].rs <= i_mem_data;
-							end
-							else if (mem_rm_tag_match[i+1][ALU_MATCH_IDX]) begin
-								mem_station[i].rm_valid <= 1'b1;
-								mem_station[i].rm <= i_alu_data;
-							end
-							else if (mem_rm_tag_match[i+1][MULT_MATCH_IDX]) begin
-								mem_station[i].rm_valid <= 1'b1;
-								mem_station[i].rm <= i_mult_data;
-							end
-							else if (mem_rm_tag_match[i+1][MEM_MATCH_IDX]) begin
-								mem_station[i].rm_valid <= 1'b1;
-								mem_station[i].rm <= i_mem_data;
+							else if (mem_write_data_tag_match[i+1][MEM_MATCH_IDX]) begin
+								mem_station[i].write_data_valid <= 1'b1;
+								mem_station[i].write_data <= i_mem_data;
 							end
 						end
 						else begin
@@ -862,41 +835,29 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 					mem_occupied[i] <= mem_occupied[i];
 					mem_station[i] <= mem_station[i];
 					
-					if (mem_rn_tag_match[i][ALU_MATCH_IDX]) begin
-						mem_station[i].rn_valid <= 1'b1;
-						mem_station[i].rn <= i_alu_data;
+					if (mem_address_tag_match[i][ALU_MATCH_IDX]) begin
+						mem_station[i].address_valid <= 1'b1;
+						mem_station[i].address <= i_alu_data;
 					end
-					else if (mem_rn_tag_match[i][MULT_MATCH_IDX]) begin
-						mem_station[i].rn_valid <= 1'b1;
-						mem_station[i].rn <= i_mult_data;
+					else if (mem_address_tag_match[i][MULT_MATCH_IDX]) begin
+						mem_station[i].address_valid <= 1'b1;
+						mem_station[i].address <= i_mult_data;
 					end
-					else if (mem_rn_tag_match[i][MEM_MATCH_IDX]) begin
-						mem_station[i].rn_valid <= 1'b1;
-						mem_station[i].rn <= i_mem_data;
+					else if (mem_address_tag_match[i][MEM_MATCH_IDX]) begin
+						mem_station[i].address_valid <= 1'b1;
+						mem_station[i].address <= i_mem_data;
 					end
-					else if (mem_rs_tag_match[i][ALU_MATCH_IDX]) begin
+					else if (mem_write_data_tag_match[i][ALU_MATCH_IDX]) begin
 						mem_station[i].rs_valid <= 1'b1;
 						mem_station[i].rs <= i_alu_data;
 					end
-					else if (mem_rs_tag_match[i][MULT_MATCH_IDX]) begin
-						mem_station[i].rs_valid <= 1'b1;
-						mem_station[i].rs <= i_mult_data;
+					else if (mem_write_data_tag_match[i][MULT_MATCH_IDX]) begin
+						mem_station[i].write_data_valid <= 1'b1;
+						mem_station[i].write_data <= i_mult_data;
 					end
-					else if (mem_rs_tag_match[i][MEM_MATCH_IDX]) begin
-						mem_station[i].rs_valid <= 1'b1;
-						mem_station[i].rs <= i_mem_data;
-					end
-					else if (mem_rm_tag_match[i][ALU_MATCH_IDX]) begin
-						mem_station[i].rm_valid <= 1'b1;
-						mem_station[i].rm <= i_alu_data;
-					end
-					else if (mem_rm_tag_match[i][MULT_MATCH_IDX]) begin
-						mem_station[i].rm_valid <= 1'b1;
-						mem_station[i].rm <= i_mult_data;
-					end
-					else if (mem_rm_tag_match[i][MEM_MATCH_IDX]) begin
-						mem_station[i].rm_valid <= 1'b1;
-						mem_station[i].rm <= i_mem_data;
+					else if (mem_write_data_tag_match[i][MEM_MATCH_IDX]) begin
+						mem_station[i].write_data_valid <= 1'b1;
+						mem_station[i].write_data <= i_mem_data;
 					end
 				end
 			end
@@ -1049,34 +1010,24 @@ always_ff @(posedge i_rst, posedge i_clk) begin
         end
 		else */if (~mem_next_dispatch_idx[4]) begin
 			o_instr_valid_mem <= 1'b1;
-			o_rn_mem <= mem_station[mem_next_dispatch_idx].rn_valid				?	mem_station[mem_next_dispatch_idx].rn:
-						mem_rn_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
-						mem_rn_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
-						/*mem_rn_tag_match[mem_next_dispatch_idx][MEM_MATCH_IDX]	?*/ 	i_mem_data; //based on the above IF statement, this will always be true if the other 3 cases are false
-			o_rs_mem <= mem_station[mem_next_dispatch_idx].rs_valid				?	mem_station[mem_next_dispatch_idx].rs:
-						mem_rs_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
-						mem_rs_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
+			o_address_mem <= mem_station[mem_next_dispatch_idx].address_valid				?	mem_station[mem_next_dispatch_idx].address:
+						mem_address_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
+						mem_address_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
+						/*mem_address_tag_match[mem_next_dispatch_idx][MEM_MATCH_IDX]	?*/ 	i_mem_data; //based on the above IF statement, this will always be true if the other 3 cases are false
+			o_write_data_mem <= mem_station[mem_next_dispatch_idx].write_data_valid				?	mem_station[mem_next_dispatch_idx].write_data:
+						mem_write_data_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
+						mem_write_data_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
 																i_mem_data;
-			o_rm_mem <= mem_station[mem_next_dispatch_idx].rm_valid				?	mem_station[mem_next_dispatch_idx].rm:
-						mem_rm_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
-						mem_rm_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
-																i_mem_data;
-			o_exclusive_mem <= mem_station[mem_next_dispatch_idx].exclusive;
-			/*o_iaddress_sel_mem <= mem_station[mem_next_dispatch_idx].iaddress_sel;
-			o_daddress_sel_mem <= mem_station[mem_next_dispatch_idx].daddress_sel;*/
-			o_byte_enable_sel_mem <= mem_station[mem_next_dispatch_idx].byte_enable_sel;
+			o_byte_enable_mem <= mem_station[mem_next_dispatch_idx].byte_enable;
 			o_rd_tag_mem <= mem_station[mem_next_dispatch_idx].rd_tag;
 		end
 		else if (~i_stall && mem_next_dispatch_idx == 5'd16) begin
 			o_instr_valid_mem <= 1'b1;
-			o_rn_mem <= i_rn;
-			o_rs_mem <= i_rs;
-			o_rm_mem <= i_rm;
-			o_exclusive_mem <= i_decode_exclusive; //TODO confirm proper operation with this as opposed to the doohicky the previous Dispatch/Execute stage had in it
-			/*o_iaddress_sel_mem <= i_iaddress_sel;
-			o_daddress_sel_mem <= i_daddress_sel;*/
-			o_byte_enable_sel_mem <= i_byte_enable_sel;
-			o_rd_tag_mem <= i_tag_nxt;
+			o_address_mem <= //TODO //i_rn;
+			o_write_data_mem <= //TODO //i_rs;
+			o_byte_enable_mem <= 4'd0;
+			o_byte_enable_mem[i_byte_enable_sel] <= 1'b1;
+			o_rd_tag_mem <= //TODO //i_tag_nxt;
 		end
 		else begin //nothing's ready; set outputs to "safe" state
 			o_instr_valid_mem <= 1'b0;

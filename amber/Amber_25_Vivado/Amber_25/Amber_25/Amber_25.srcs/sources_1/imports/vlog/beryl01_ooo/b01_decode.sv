@@ -1,3 +1,5 @@
+//comment here so gedit does proper syntax highlighting
+
 `include "global_defines.vh"
 
 module b01_decode (
