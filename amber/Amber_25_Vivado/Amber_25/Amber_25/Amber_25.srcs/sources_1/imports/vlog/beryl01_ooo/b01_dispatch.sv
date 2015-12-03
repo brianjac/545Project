@@ -130,7 +130,9 @@ input [7:0] sw
 `include "a25_localparams.vh"
 `include "a25_functions.vh"
 
-logic [5:0] 	tag_nxt; //tied from tag store output to register file input and reservation station input
+logic [5:0] 	tag_nxt_alu_mult_1,
+              tag_nxt_alu_2, //used when we have a writeback to a register after a memop
+              tag_nxt_mem; //tied from tag store output to register file input and reservation station input
 logic [31:0]	pc_nxt;
 logic condition_execute;
 
@@ -189,7 +191,7 @@ always_comb begin
 	
 	status_bits_flags_valid_nxt = 	i_status_bits_flags_wen								?	1'b0:
 																							status_bits_flags_valid_nxt_eucompare;
-	status_bits_flags_tag_nxt	=	i_status_bits_flags_wen								?	tag_nxt	:
+	status_bits_flags_tag_nxt	=	i_status_bits_flags_wen								?	tag_nxt_alu_mult_1	:
 																							status_bits_flags_tag;
 	
 	status_bits_flags_nxt 	 	=	status_bits_flags_valid								? status_bits_flags						:
@@ -271,7 +273,7 @@ assign pc_nxt = o_exec_stall                ? pc                      :
                 i_pc_sel == 3'd2            ? interrupt_vector        :
                                               pc-'d1                  ;
 
-b01_register_bank u_register_bank(
+b01_register_bank u_register_bank( //TODO revise so it works with the proposed/in-progress memory instruction handling
     .i_clk                   ( i_clk                     ),
 	.i_rst(i_rst),
     .i_core_stall            ( i_core_stall              ),
@@ -332,7 +334,7 @@ input                       i_firq_not_user_mode,*/
 	.o_rn_tag		(reg_bank_rn_tag),
 	.o_pc_tag		(reg_bank_pc_tag),
 	
-	.i_rd_tag		(tag_nxt),
+	.i_rd_tag		(tag_nxt), //TODO rename this and also link to the other two available tags
     
     .led(led),
     .sw(sw)
@@ -418,7 +420,8 @@ b01_tagstore u_tagstore( //TODO revise to generate sufficient tags simultaneousl
 	.i_clk(i_clk),
 	.i_rst(i_rst),
 	.i_stall(i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
-	.i_instr_type(/*TODO*/instr_type), //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
+	.i_instr_type(instr_type), //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
+	.i_instr_mem_with_writeback(/*TODO*/),
 	.i_alu_valid(i_alu_valid),
 	.i_alu_tag(i_alu_tag),
 	.i_mult_valid(i_mult_valid),
@@ -426,7 +429,9 @@ b01_tagstore u_tagstore( //TODO revise to generate sufficient tags simultaneousl
 	.i_mem_valid(i_mem_valid),
 	.i_mem_tag(i_mem_tag),
 	.o_station_full(tag_stall),
-	.o_tag(tag_nxt)
+	.o_tag_alu_mult_1(tag_nxt_alu_mult_1),
+	.o_tag_alu_2(tag_nxt_alu_2),
+	.o_tag_mem(tag_nxt_mem)
 );
 
 //Reservation station instantiation
@@ -434,7 +439,7 @@ b01_reservation u_reservation(//TODO revise to properly accept modified memory i
 	.i_clk(i_clk),
 	.i_rst(i_rst),
 	.i_stall(/*TODO confirm proper operation*//*o_exec_stall*/i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
-	.i_tag_nxt(tag_nxt),
+	.i_tag_nxt(tag_nxt), //TODO rename this and also link to the other two available tags
 	.i_imm32(i_imm32),
 	.i_imm_shift_amount(i_imm_shift_amount),
 	.i_shift_imm_zero(i_shift_imm_zero),

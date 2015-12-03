@@ -163,7 +163,7 @@ logic	new_instr_ready,
 		new_instr_ready_mult,
 		new_instr_ready_mem;
 assign new_instr_ready = i_rn_valid & i_rs_valid & i_rm_valid;
-assign new_instr_ready_alu = new_instr_ready && i_tag_nxt[5:4] == 2'b00;
+assign new_instr_ready_alu = new_instr_ready && i_tag_nxt[5]==i_tag_nxt[4];
 assign new_instr_ready_mult = new_instr_ready && i_tag_nxt[5:4] == 2'b01;
 assign new_instr_ready_mem = new_instr_ready && i_tag_nxt[5:4] == 2'b10;
 
@@ -184,13 +184,13 @@ mem_station_entry mem_new_entry;
 localparam ALU_MATCH_IDX = 0; //note that these aren't *really* parameters, they're more like `defines
 localparam MULT_MATCH_IDX = 1;
 localparam MEM_MATCH_IDX = 2;
-logic [15:0] 		alu_ready,
-					mult_ready,
+logic [31:0] 		alu_ready;
+logic [15:0]			mult_ready,
 					mem_ready;
-logic [15:0]		alu_shift_into, //define whether or not we need to shift up a given reservation station entry based on what we've just dispatched
-					mult_shift_into,
+logic [31:0]		alu_shift_into; //define whether or not we need to shift up a given reservation station entry based on what we've just dispatched
+logic [15:0]		mult_shift_into,
 					mem_shift_into;
-logic [15:0][2:0]	alu_rn_tag_match, //of each entry, bit 0 says it matches the incoming ALU result, bit 1=mult, bit 2=mem
+logic [31:0][2:0]	alu_rn_tag_match, //of each entry, bit 0 says it matches the incoming ALU result, bit 1=mult, bit 2=mem
 					alu_rs_tag_match,
 					alu_rm_tag_match,
 					alu_status_bits_flags_tag_match;
@@ -201,35 +201,51 @@ logic [15:0][2:0] 	mult_rn_tag_match,
 					//mult_ccr_tag_match;
 logic [15:0][2:0]	mem_address_tag_match,
 					mem_write_data_tag_match;
-logic [4:0]			alu_next_dispatch_idx,
-					mult_next_dispatch_idx,
+logic [5:0]			alu_next_dispatch_idx;
+logic [4:0]			mult_next_dispatch_idx,
 					mem_next_dispatch_idx;
 
 //1-hot (register) vector for each station to say which stations are currently occupied
 //TODO need to initialize!
-logic [15:0]		alu_occupied,
-					mult_occupied,
+logic [31:0]		alu_occupied;
+logic [15:0]		mult_occupied,
 					mem_occupied;
 //combinational index to select which station to insert into next based on which stations are unoccupied
-logic [3:0]			alu_next_insert_idx,
-					mult_next_insert_idx,
+logic [4:0]			alu_next_insert_idx;
+logic [3:0]			mult_next_insert_idx,
 					mem_next_insert_idx;
-assign alu_next_insert_idx	=	!alu_occupied[0 ]	?	4'd0	:
-								!alu_occupied[1 ]	?	4'd1	:
-								!alu_occupied[2 ]	?	4'd2	:
-								!alu_occupied[3 ]	?	4'd3	:
-								!alu_occupied[4 ]	?	4'd4	:
-								!alu_occupied[5 ]	?	4'd5	:
-								!alu_occupied[6 ]	?	4'd6	:
-								!alu_occupied[7 ]	?	4'd7	:
-								!alu_occupied[8 ]	?	4'd8	:
-								!alu_occupied[9 ]	?	4'd9	:
-								!alu_occupied[10]	?	4'd10	:
-								!alu_occupied[11]	?	4'd11	:
-								!alu_occupied[12]	?	4'd12	:
-								!alu_occupied[13]	?	4'd13	:
-								!alu_occupied[14]	?	4'd14	:
-														4'd15;
+assign alu_next_insert_idx	=	!alu_occupied[0 ]	?	5'd0	:
+								!alu_occupied[1 ]	?	5'd1	:
+								!alu_occupied[2 ]	?	5'd2	:
+								!alu_occupied[3 ]	?	5'd3	:
+								!alu_occupied[4 ]	?	5'd4	:
+								!alu_occupied[5 ]	?	5'd5	:
+								!alu_occupied[6 ]	?	5'd6	:
+								!alu_occupied[7 ]	?	5'd7	:
+								!alu_occupied[8 ]	?	5'd8	:
+								!alu_occupied[9 ]	?	5'd9	:
+								!alu_occupied[10]	?	5'd10	:
+								!alu_occupied[11]	?	5'd11	:
+								!alu_occupied[12]	?	5'd12	:
+								!alu_occupied[13]	?	5'd13	:
+								!alu_occupied[14]	?	5'd14	:
+								!alu_occupied[15]	?	5'd15	:
+								!alu_occupied[16]	?	5'd16	:
+								!alu_occupied[17]	?	5'd17	:
+								!alu_occupied[18]	?	5'd18	:
+								!alu_occupied[19]	?	5'd19	:
+								!alu_occupied[20]	?	5'd20	:
+								!alu_occupied[21]	?	5'd21	:
+								!alu_occupied[22]	?	5'd22	:
+								!alu_occupied[23]	?	5'd23	:
+								!alu_occupied[24]	?	5'd24	:
+								!alu_occupied[25]	?	5'd25	:
+								!alu_occupied[26]	?	5'd26	:
+								!alu_occupied[27]	?	5'd27	:
+								!alu_occupied[28]	?	5'd28	:
+								!alu_occupied[29]	?	5'd29	:
+								!alu_occupied[30]	?	5'd30	:
+														        5'd31;
 assign mult_next_insert_idx	=	!mult_occupied[0 ]	?	4'd0	:
 								!mult_occupied[1 ]	?	4'd1	:
 								!mult_occupied[2 ]	?	4'd2	:
@@ -267,7 +283,7 @@ assign mem_next_insert_idx	=	!mem_occupied[0 ]	?	4'd0	:
 //Combinational control signal logic
 always_comb begin
 	//Determine if ALU reservation station tags match incoming data
-	for (int i=0; i<16; i+=1) begin
+	for (int i=0; i<31; i+=1) begin
 		alu_rn_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rn_tag == i_alu_tag) & !alu_station[i].rn_valid & i_alu_valid;
 		alu_rn_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rn_tag == i_mult_tag) & !alu_station[i].rn_valid & i_mult_valid;
 		alu_rn_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rn_tag == i_mem_tag) & !alu_station[i].rn_valid & i_mem_valid;
@@ -324,13 +340,15 @@ always_comb begin
 	
 	//Determine which instructions are ready for dispatch this cycle
 	//TODO make sure when inserting the instructions each element is set to "valid" if it's unused (up in the Dispatch stage in which this unit is instantiated)
-	for (int i=0; i<16; i+=1) begin
+	for (int i=0; i<31; i+=1) begin
 		alu_ready[i] =  alu_occupied[i]
 		                & (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
 						& (alu_station[i].rs_valid | (alu_rs_tag_match[i] != 3'b000))
 						& (alu_station[i].rm_valid | (alu_rm_tag_match[i] != 3'b000))
 						& (alu_station[i].status_bits_flags_valid | (alu_status_bits_flags_tag_match[i] != 3'b000))
 						/*& (alu_station[i].ccr_valid | (alu_ccr_tag_match[i] != 3'b000))*/;
+	end
+	for (int i=0; i<16; i+=1) begin
 		mult_ready[i] = mult_occupied[i]
 		                & (mult_station[i].rn_valid | (mult_rn_tag_match[i] != 3'b000))
 						& (mult_station[i].rs_valid | (mult_rs_tag_match[i] != 3'b000))
@@ -348,26 +366,42 @@ always_comb begin
 	//17 means nothing is ready.
 	//(And also change the output logic to account for forwarding paths with incoming data from the EUs, as applicable...)********//
 	//ALU
-	if (alu_ready[0]) alu_next_dispatch_idx = 5'd0;
-	else if (alu_ready[1]) alu_next_dispatch_idx = 5'd1;
-	else if (alu_ready[2]) alu_next_dispatch_idx = 5'd2;
-	else if (alu_ready[3]) alu_next_dispatch_idx = 5'd3;
-	else if (alu_ready[4]) alu_next_dispatch_idx = 5'd4;
-	else if (alu_ready[5]) alu_next_dispatch_idx = 5'd5;
-	else if (alu_ready[6]) alu_next_dispatch_idx = 5'd6;
-	else if (alu_ready[7]) alu_next_dispatch_idx = 5'd7;
-	else if (alu_ready[8]) alu_next_dispatch_idx = 5'd8;
-	else if (alu_ready[9]) alu_next_dispatch_idx = 5'd9;
-	else if (alu_ready[10]) alu_next_dispatch_idx = 5'd10;
-	else if (alu_ready[11]) alu_next_dispatch_idx = 5'd11;
-	else if (alu_ready[12]) alu_next_dispatch_idx = 5'd12;
-	else if (alu_ready[13]) alu_next_dispatch_idx = 5'd13;
-	else if (alu_ready[14]) alu_next_dispatch_idx = 5'd14;
-	else if (alu_ready[15]) alu_next_dispatch_idx = 5'd15;
-	else if (new_instr_ready_alu) alu_next_dispatch_idx = 5'd16; //16 denotes "forward the data from the input to the EU on this cycle"
-	else alu_next_dispatch_idx = 5'd17; //17 denotes "nothing ready to dispatch"
-	for (int i=0; i<16; i+=1) begin
-		alu_shift_into[i] = (alu_next_dispatch_idx/*_minus1*/ >= i) & ~alu_next_dispatch_idx[4];
+	if (alu_ready[0]) alu_next_dispatch_idx = 6'd0;
+	else if (alu_ready[1]) alu_next_dispatch_idx = 6'd1;
+	else if (alu_ready[2]) alu_next_dispatch_idx = 6'd2;
+	else if (alu_ready[3]) alu_next_dispatch_idx = 6'd3;
+	else if (alu_ready[4]) alu_next_dispatch_idx = 6'd4;
+	else if (alu_ready[5]) alu_next_dispatch_idx = 6'd5;
+	else if (alu_ready[6]) alu_next_dispatch_idx = 6'd6;
+	else if (alu_ready[7]) alu_next_dispatch_idx = 6'd7;
+	else if (alu_ready[8]) alu_next_dispatch_idx = 6'd8;
+	else if (alu_ready[9]) alu_next_dispatch_idx = 6'd9;
+	else if (alu_ready[10]) alu_next_dispatch_idx = 6'd10;
+	else if (alu_ready[11]) alu_next_dispatch_idx = 6'd11;
+	else if (alu_ready[12]) alu_next_dispatch_idx = 6'd12;
+	else if (alu_ready[13]) alu_next_dispatch_idx = 6'd13;
+	else if (alu_ready[14]) alu_next_dispatch_idx = 6'd14;
+	else if (alu_ready[15]) alu_next_dispatch_idx = 6'd15;
+	else if (alu_ready[16]) alu_next_dispatch_idx = 6'd16;
+	else if (alu_ready[17]) alu_next_dispatch_idx = 6'd17;
+	else if (alu_ready[18]) alu_next_dispatch_idx = 6'd18;
+	else if (alu_ready[19]) alu_next_dispatch_idx = 6'd19;
+	else if (alu_ready[20]) alu_next_dispatch_idx = 6'd20;
+	else if (alu_ready[21]) alu_next_dispatch_idx = 6'd21;
+	else if (alu_ready[22]) alu_next_dispatch_idx = 6'd22;
+	else if (alu_ready[23]) alu_next_dispatch_idx = 6'd23;
+	else if (alu_ready[24]) alu_next_dispatch_idx = 6'd24;
+	else if (alu_ready[25]) alu_next_dispatch_idx = 6'd25;
+	else if (alu_ready[26]) alu_next_dispatch_idx = 6'd26;
+	else if (alu_ready[27]) alu_next_dispatch_idx = 6'd27;
+	else if (alu_ready[28]) alu_next_dispatch_idx = 6'd28;
+	else if (alu_ready[29]) alu_next_dispatch_idx = 6'd29;
+	else if (alu_ready[30]) alu_next_dispatch_idx = 6'd30;
+	else if (alu_ready[31]) alu_next_dispatch_idx = 6'd31;
+	else if (new_instr_ready_alu) alu_next_dispatch_idx = 6'd32; //32 denotes "forward the data from the input to the EU on this cycle"
+	else alu_next_dispatch_idx = 6'd33; //17 denotes "nothing ready to dispatch"
+	for (int i=0; i<31; i+=1) begin
+		alu_shift_into[i] = (alu_next_dispatch_idx/*_minus1*/ >= i) & ~alu_next_dispatch_idx[5];
 	end
 	
 	//MULT
@@ -458,6 +492,36 @@ always_comb begin
 			alu_new_entry.alu_function = i_alu_function;
 			alu_new_entry.rd_tag = i_tag_nxt;
 		end
+		2'b11: begin //another set of ALU entry tags
+			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
+			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
+			//ensure if an operand is unused for this instruction, we set "valid" to true immediately!
+			alu_new_entry.rn_valid = i_rn_valid;
+			alu_new_entry.rn_tag = i_rn_tag;
+			alu_new_entry.rn = i_rn;
+			
+			alu_new_entry.rs_valid = i_rs_valid;
+			alu_new_entry.rs_tag = i_rs_tag;
+			alu_new_entry.rs = i_rs;
+			
+			alu_new_entry.rm_valid = i_rm_valid;
+			alu_new_entry.rm_tag = i_rm_tag;
+			alu_new_entry.rm = i_rm;
+			
+			alu_new_entry.status_bits_flags_valid = i_status_bits_flags_valid;
+			alu_new_entry.status_bits_flags_tag = i_status_bits_flags_tag;
+			alu_new_entry.status_bits_flags = i_status_bits_flags;
+			
+			alu_new_entry.use_carry_in = i_use_carry_in;
+			alu_new_entry.imm32 = i_imm32;
+			alu_new_entry.imm_shift_amount = i_imm_shift_amount;
+			alu_new_entry.shift_imm_zero = i_shift_imm_zero;
+			alu_new_entry.barrel_shift_amount_sel = i_barrel_shift_amount_sel;
+			alu_new_entry.barrel_shift_data_sel = i_barrel_shift_data_sel;
+			alu_new_entry.barrel_shift_function = i_barrel_shift_function;
+			alu_new_entry.alu_function = i_alu_function;
+			alu_new_entry.rd_tag = i_tag_nxt;
+		end
 		2'b01: begin
 			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
 			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
@@ -491,11 +555,6 @@ always_comb begin
 			mem_new_entry.byte_enable = 4'd0;
 			mem_new_entry.byte_enable[i_byte_enable_sel] = 1'b1;
 			mem_new_entry.rd_tag = //TODO //i_tag_nxt;
-		end
-		default: begin
-			alu_new_entry = 0;
-			mult_new_entry = 0;
-			mem_new_entry = 0;
 		end
 	endcase
 end
@@ -533,12 +592,12 @@ xyz_next_insert_idx*/
 //ALU station
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
-		for (int i=0; i<16; i+=1) alu_station[i] <= 'd0;
+		for (int i=0; i<32; i+=1) alu_station[i] <= 'd0;
 		alu_occupied <= 'd0;
 	end
 	else /*if (i_clk)*/ begin
-		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && alu_next_insert_idx == i && i_tag_nxt[5:4]==2'b00) begin //this also implies ~xyz_occupied[i] by definition
+		for (int i=0; i<32; i+=1) begin
+			if (~i_stall && alu_next_insert_idx == i && i_tag_nxt[5]==i_tag_nxt[4]) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				alu_occupied[i] <= 1'b1;
 				alu_station[i] <= alu_new_entry;
@@ -546,10 +605,10 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			else if (alu_occupied[i]) begin
 				if (alu_shift_into[i]) begin
 					/* Special case:
-					if i==15 and the station is full this cycle, we must be stalling (due to the way tag retirement works), so all we need to do is set this entry to unoccupied and it will be latched into station 14 per the below logic.
-					we'll never get here if i==15 and the station is not full.
+					if i==31 and the station is full this cycle, we must be stalling (due to the way tag retirement works), so all we need to do is set this entry to unoccupied and it will be latched into station 14 per the below logic.
+					we'll never get here if i==31 and the station is not full.
 					*/
-					if (i==15) begin
+					if (i==31) begin
 						alu_occupied[i] <= 1'b0;
 						alu_station[i] <= alu_station[i]; //doesn't really matter, but we'll leave it in for the sake of consistency in logical flow
 					end
@@ -897,7 +956,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	    /*if (i_stall) begin
 	       o_instr_valid_alu <= 1'b0; //TODO may need to make this combinational
 	    end
-		else */if (~alu_next_dispatch_idx[4]) begin
+		else */if (~alu_next_dispatch_idx[5]) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= alu_station[alu_next_dispatch_idx].rn_valid				?	alu_station[alu_next_dispatch_idx].rn:
 						alu_rn_tag_match[alu_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
@@ -922,7 +981,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_alu_function_alu <= alu_station[alu_next_dispatch_idx].alu_function;
 			o_rd_tag_alu <= alu_station[alu_next_dispatch_idx].rd_tag;
 		end
-		else if (~i_stall && alu_next_dispatch_idx == 5'd16) begin
+		else if (~i_stall && alu_next_dispatch_idx == 6'd32) begin
 			o_instr_valid_alu <= 1'b1;
 			o_rn_alu <= i_rn;
 			o_rs_alu <= i_rs;
