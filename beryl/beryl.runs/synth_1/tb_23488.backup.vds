@@ -1,0 +1,59 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Sun Dec  6 20:43:01 2015
+# Process ID: 23205
+# Log file: /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.runs/synth_1/tb.vds
+# Journal file: /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source tb.tcl -notrace
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/data/ip'.
+Command: synth_design -top tb -part xc7vx485tffg1761-2
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7vx485t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7vx485t'
+WARNING: [Synth 8-2611] redeclaration of ansi port ps2_data is not allowed [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:112]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 1084.859 ; gain = 175.555 ; free physical = 5527 ; free virtual = 18914
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'tb' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/tb/tb.v:45]
+INFO: [Synth 8-638] synthesizing module 'system' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:69]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0_clk_wiz' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v:67]
+INFO: [Synth 8-638] synthesizing module 'IBUFDS' [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:10271]
+INFO: [Synth 8-256] done synthesizing module 'IBUFDS' (1#1) [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:10271]
+INFO: [Synth 8-638] synthesizing module 'MMCME2_ADV' [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:15999]
+INFO: [Synth 8-256] done synthesizing module 'MMCME2_ADV' (2#1) [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:15999]
+INFO: [Synth 8-638] synthesizing module 'BUFG' [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'BUFG' (3#1) [/afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/scripts/rt/data/unisim_comp.v:607]
+INFO: [Synth 8-256] done synthesizing module 'clk_wiz_0_clk_wiz' (4#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v:67]
+INFO: [Synth 8-256] done synthesizing module 'clk_wiz_0' (5#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:69]
+INFO: [Synth 8-638] synthesizing module 'b01_core' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:39]
+INFO: [Synth 8-638] synthesizing module 'a25_fetch' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_fetch.v:45]
+INFO: [Synth 8-638] synthesizing module 'a25_icache' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_icache.v:46]
+INFO: [Synth 8-638] synthesizing module 'generic_sram_line_en' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/lib/generic_sram_line_en.v:42]
+INFO: [Synth 8-256] done synthesizing module 'generic_sram_line_en' (6#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/lib/generic_sram_line_en.v:42]
+INFO: [Synth 8-638] synthesizing module 'generic_sram_byte_en' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/lib/generic_sram_byte_en.v:43]
+INFO: [Synth 8-256] done synthesizing module 'generic_sram_byte_en' (7#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/lib/generic_sram_byte_en.v:43]
+INFO: [Synth 8-155] case statement is not full and has no default [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_icache.v:250]
+INFO: [Synth 8-256] done synthesizing module 'a25_icache' (8#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_icache.v:46]
+INFO: [Synth 8-256] done synthesizing module 'a25_fetch' (9#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_fetch.v:45]
+INFO: [Synth 8-638] synthesizing module 'b01_decode' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:5]
+WARNING: [Synth 8-152] case item 12'b00xxxxxxxxxx overlaps with previous case item(s) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_functions.vh:49]
+WARNING: [Synth 8-3848] Net irq in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:141]
+WARNING: [Synth 8-3848] Net firq in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:142]
+WARNING: [Synth 8-3848] Net o_is_swap in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:22]
+WARNING: [Synth 8-3848] Net o_daddress_sel in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:39]
+WARNING: [Synth 8-3848] Net o_pc_sel in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:40]
+INFO: [Synth 8-256] done synthesizing module 'b01_decode' (10#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:5]
+INFO: [Synth 8-638] synthesizing module 'b01_dispatch' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv:3]
+INFO: [Synth 8-638] synthesizing module 'b01_register_bank' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:44]
+INFO: [Synth 8-256] done synthesizing module 'b01_register_bank' (11#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:44]
+WARNING: [Synth 8-350] instance 'u_register_bank' of module 'b01_register_bank' requires 46 connections, but only 45 given [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv:284]
+INFO: [Synth 8-638] synthesizing module 'b01_tagstore' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:16]
+INFO: [Synth 8-256] done synthesizing module 'b01_tagstore' (12#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:16]
+INFO: [Synth 8-638] synthesizing module 'b01_reservation' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_reservation.sv:80]
+INFO: [Synth 8-155] case statement is not full and has no default [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_reservation.sv:459]

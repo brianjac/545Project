@@ -1,0 +1,6 @@
+; Generated on 11/5/2015 at 20:9:24 by mem2coe.pl
+memory_initialization_radix=16;
+memory_initialization_vector=
+e0030091e3a02005e3a0100ae3a00002,
+000000000000000000000000e0050290
+;

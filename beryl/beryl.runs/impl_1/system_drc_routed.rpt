@@ -1,0 +1,75 @@
+Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2015.2 (lin64) Build 1266856 Fri Jun 26 16:35:25 MDT 2015
+| Date         : Sun Dec  6 20:58:59 2015
+| Host         : ares.andrew.local.cmu.edu running 64-bit Red Hat Enterprise Linux Server release 7.2 (Maipo)
+| Command      : report_drc
+--------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 8
+
+2. REPORT DETAILS
+-----------------
+LUTLP-1#1 Critical Warning
+Combinatorial Loop  
+3 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. To allow bitstream creation for designs with combinatorial logic loops (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks LUTLP-1]. NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. u_amber/u_dispatch/u_reservation/o_iaddress[25]_i_3, u_amber/u_dispatch/u_register_bank/r15[valid]_i_1, u_amber/u_decode/r15[valid]_i_5.
+Related violations: <none>
+
+LUTLP-1#2 Critical Warning
+Combinatorial Loop  
+4 LUT cells form a combinatorial loop. This can create a race condition. Timing analysis may not be accurate. The preferred resolution is to modify the design to remove combinatorial logic loops. To allow bitstream creation for designs with combinatorial logic loops (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks LUTLP-1]. NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run. u_amber/u_wishbone/u_a25_wishbone_buf_p0/ack_owed_r_i_3, u_amber/u_execute_mem/o_wb_we_i_3, u_amber/u_dispatch/u_reservation/op_in_progress_i_3, u_amber/u_execute_mem/wbuf_addr_r_reg_0_1_0_5_i_7.
+Related violations: <none>
+
+CFGBVS-1#1 Warning
+Missing CFGBVS and CONFIG_VOLTAGE Design Properties  
+Neither the CFGBVS nor CONFIG_VOLTAGE voltage property is set in the current_design.  Configuration bank voltage select (CFGBVS) must be set to VCCO or GND, and CONFIG_VOLTAGE must be set to the correct configuration voltage, in order to determine the I/O voltage support for the pins in bank 0.  It is suggested to specify these either using the 'Edit Device Properties' function in the GUI or directly in the XDC file using the following syntax:
+
+ set_property CFGBVS value1 [current_design]
+ #where value1 is either VCCO or GND
+
+ set_property CONFIG_VOLTAGE value2 [current_design]
+ #where value2 is the voltage provided to configuration bank 0
+
+Refer to the device configuration user guide for more information.
+Related violations: <none>
+
+DPIP-1#1 Warning
+Input pipelining  
+DSP u_amber/u_execute_multiply/multiplier/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP48[0].bppDSP48[1].use_dsp.use_dsp48e1.iDSP48E1 input C is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#2 Warning
+Input pipelining  
+DSP u_amber/u_execute_multiply/multiplier/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP48[1].bppDSP48[0].use_dsp.use_dsp48e1.iDSP48E1 input C is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIR-1#1 Warning
+Asynchronous driver check  
+DSP u_amber/u_execute_multiply/multiplier/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP48[0].bppDSP48[0].use_dsp.use_dsp48e1.iDSP48E1 input A (17 )C  is connected to asynchronous registers, if you use synchronous controls you will get better results both in area and delay (DSP48 has synchronous registers built in).
+Related violations: <none>
+
+AVAL-4#1 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+u_amber/u_execute_multiply/multiplier/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP48[0].bppDSP48[0].use_dsp.use_dsp48e1.iDSP48E1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+AVAL-4#2 Advisory
+enum_USE_DPORT_FALSE_enum_DREG_ADREG_0_connects_CED_CEAD_RSTD_GND  
+u_amber/u_execute_multiply/multiplier/U0/i_mult/gDSP.gDSP_only.iDSP/use_prim.appDSP48[0].bppDSP48[1].use_dsp.use_dsp48e1.iDSP48E1: DSP48E1 is not using the D port (USE_DPORT = FALSE). For improved power characteristics, set DREG and ADREG to '1', tie CED, CEAD, and RSTD to logic '0'.
+Related violations: <none>
+
+

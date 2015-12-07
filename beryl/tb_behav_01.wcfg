@@ -1,0 +1,887 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="\$unit_1 " />
+            <top_module name="\$unit_2 " />
+            <top_module name="\$unit_3 " />
+            <top_module name="glbl" />
+            <top_module name="tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="113" />
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/i_clk">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/i_core_stall">
+      <obj_property name="ElementShortName">i_core_stall</obj_property>
+      <obj_property name="ObjectShortName">i_core_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/idle_hit">
+      <obj_property name="ElementShortName">idle_hit</obj_property>
+      <obj_property name="ObjectShortName">idle_hit</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/wb_hit">
+      <obj_property name="ElementShortName">wb_hit</obj_property>
+      <obj_property name="ObjectShortName">wb_hit</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/read_buf_hit">
+      <obj_property name="ElementShortName">read_buf_hit</obj_property>
+      <obj_property name="ObjectShortName">read_buf_hit</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/data_hit_way">
+      <obj_property name="ElementShortName">data_hit_way[3:0]</obj_property>
+      <obj_property name="ObjectShortName">data_hit_way[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_address">
+      <obj_property name="ElementShortName">tag_address[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tag_address[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/address_c">
+      <obj_property name="ElementShortName">address_c[31:0]</obj_property>
+      <obj_property name="ObjectShortName">address_c[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/i_core_stall">
+      <obj_property name="ElementShortName">i_core_stall</obj_property>
+      <obj_property name="ObjectShortName">i_core_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/i_mem_stall">
+      <obj_property name="ElementShortName">i_mem_stall</obj_property>
+      <obj_property name="ObjectShortName">i_mem_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/i_exec_stall">
+      <obj_property name="ElementShortName">i_exec_stall</obj_property>
+      <obj_property name="ObjectShortName">i_exec_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/condition_stall">
+      <obj_property name="ElementShortName">condition_stall</obj_property>
+      <obj_property name="ObjectShortName">condition_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/reg_bank_pc_valid">
+      <obj_property name="ElementShortName">reg_bank_pc_valid</obj_property>
+      <obj_property name="ObjectShortName">reg_bank_pc_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/pc_stall">
+      <obj_property name="ElementShortName">pc_stall</obj_property>
+      <obj_property name="ObjectShortName">pc_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/tag_stall">
+      <obj_property name="ElementShortName">tag_stall</obj_property>
+      <obj_property name="ObjectShortName">tag_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/i_conflict">
+      <obj_property name="ElementShortName">i_conflict</obj_property>
+      <obj_property name="ObjectShortName">i_conflict</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/o_fetch_stall">
+      <obj_property name="ElementShortName">o_fetch_stall</obj_property>
+      <obj_property name="ObjectShortName">o_fetch_stall</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_rdata_way">
+      <obj_property name="ElementShortName">tag_rdata_way[3:0][20:0]</obj_property>
+      <obj_property name="ObjectShortName">tag_rdata_way[3:0][20:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_rdata_way[3]">
+         <obj_property name="ElementShortName">[3][20:0]</obj_property>
+         <obj_property name="ObjectShortName">tag_rdata_way[3][20:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_rdata_way[2]">
+         <obj_property name="ElementShortName">[2][20:0]</obj_property>
+         <obj_property name="ObjectShortName">tag_rdata_way[2][20:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_rdata_way[1]">
+         <obj_property name="ElementShortName">[1][20:0]</obj_property>
+         <obj_property name="ObjectShortName">tag_rdata_way[1][20:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/u_cache/tag_rdata_way[0]">
+         <obj_property name="ElementShortName">[0][20:0]</obj_property>
+         <obj_property name="ObjectShortName">tag_rdata_way[0][20:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/o_fetch_instruction">
+      <obj_property name="ElementShortName">o_fetch_instruction[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_fetch_instruction[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider3478" type="divider">
+      <obj_property name="label">Instruction addr</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/i_iaddress">
+      <obj_property name="ElementShortName">i_iaddress[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_iaddress[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/i_iaddress_sel">
+      <obj_property name="ElementShortName">i_iaddress_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">i_iaddress_sel[3:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_fetch/i_iaddress_valid">
+      <obj_property name="ElementShortName">i_iaddress_valid</obj_property>
+      <obj_property name="ObjectShortName">i_iaddress_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_fetch/i_iaddress_nxt">
+      <obj_property name="ElementShortName">i_iaddress_nxt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_iaddress_nxt[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider3132" type="divider">
+      <obj_property name="label">Status flags/predicated exec</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/condition_execute">
+      <obj_property name="ElementShortName">condition_execute</obj_property>
+      <obj_property name="ObjectShortName">condition_execute</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_valid">
+      <obj_property name="ElementShortName">status_bits_flags_valid</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_valid_nxt">
+      <obj_property name="ElementShortName">status_bits_flags_valid_nxt</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_valid_nxt</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_valid_nxt_eucompare">
+      <obj_property name="ElementShortName">status_bits_flags_valid_nxt_eucompare</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_valid_nxt_eucompare</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_tag">
+      <obj_property name="ElementShortName">status_bits_flags_tag[5:0]</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_tag[5:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_tag_nxt">
+      <obj_property name="ElementShortName">status_bits_flags_tag_nxt[5:0]</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_tag_nxt[5:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags">
+      <obj_property name="ElementShortName">status_bits_flags[3:0]</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags[3:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/status_bits_flags_nxt">
+      <obj_property name="ElementShortName">status_bits_flags_nxt[3:0]</obj_property>
+      <obj_property name="ObjectShortName">status_bits_flags_nxt[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider2328" type="divider">
+      <obj_property name="label">PC signals</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/o_iaddress">
+      <obj_property name="ElementShortName">o_iaddress[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_iaddress[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/o_iaddress_nxt">
+      <obj_property name="ElementShortName">o_iaddress_nxt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_iaddress_nxt[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/o_iaddress_valid">
+      <obj_property name="ElementShortName">o_iaddress_valid</obj_property>
+      <obj_property name="ObjectShortName">o_iaddress_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/i_iaddress_sel">
+      <obj_property name="ElementShortName">i_iaddress_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">i_iaddress_sel[3:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/i_pc_wen">
+      <obj_property name="ElementShortName">i_pc_wen</obj_property>
+      <obj_property name="ObjectShortName">i_pc_wen</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/pc">
+      <obj_property name="ElementShortName">pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/pc_nxt">
+      <obj_property name="ElementShortName">pc_nxt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc_nxt[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/o_branch_taken">
+      <obj_property name="ElementShortName">o_branch_taken</obj_property>
+      <obj_property name="ObjectShortName">o_branch_taken</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider106" type="divider">
+      <obj_property name="label">Reservation station</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/i_alu_valid">
+      <obj_property name="ElementShortName">i_alu_valid</obj_property>
+      <obj_property name="ObjectShortName">i_alu_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/i_mult_valid">
+      <obj_property name="ElementShortName">i_mult_valid</obj_property>
+      <obj_property name="ObjectShortName">i_mult_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/i_mem_valid">
+      <obj_property name="ElementShortName">i_mem_valid</obj_property>
+      <obj_property name="ObjectShortName">i_mem_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/o_instr_valid_alu">
+      <obj_property name="ElementShortName">o_instr_valid_alu</obj_property>
+      <obj_property name="ObjectShortName">o_instr_valid_alu</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/o_instr_valid_mult">
+      <obj_property name="ElementShortName">o_instr_valid_mult</obj_property>
+      <obj_property name="ObjectShortName">o_instr_valid_mult</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_ready">
+      <obj_property name="ElementShortName">mult_ready[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_ready[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_next_dispatch_idx">
+      <obj_property name="ElementShortName">mult_next_dispatch_idx[4:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_next_dispatch_idx[4:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_occupied">
+      <obj_property name="ElementShortName">mult_occupied[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_occupied[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_next_insert_idx">
+      <obj_property name="ElementShortName">mult_next_insert_idx[3:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_next_insert_idx[3:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station">
+      <obj_property name="ElementShortName">alu_station[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_station[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[31]">
+         <obj_property name="ElementShortName">[31]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[31]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[30]">
+         <obj_property name="ElementShortName">[30]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[30]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[29]">
+         <obj_property name="ElementShortName">[29]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[29]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[28]">
+         <obj_property name="ElementShortName">[28]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[28]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[27]">
+         <obj_property name="ElementShortName">[27]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[27]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[26]">
+         <obj_property name="ElementShortName">[26]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[26]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[25]">
+         <obj_property name="ElementShortName">[25]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[25]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[24]">
+         <obj_property name="ElementShortName">[24]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[24]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[23]">
+         <obj_property name="ElementShortName">[23]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[23]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[22]">
+         <obj_property name="ElementShortName">[22]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[22]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[21]">
+         <obj_property name="ElementShortName">[21]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[21]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[20]">
+         <obj_property name="ElementShortName">[20]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[20]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[19]">
+         <obj_property name="ElementShortName">[19]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[19]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[18]">
+         <obj_property name="ElementShortName">[18]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[18]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[17]">
+         <obj_property name="ElementShortName">[17]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[17]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[16]">
+         <obj_property name="ElementShortName">[16]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[16]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[15]">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[15]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[14]">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[14]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[13]">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[13]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[12]">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[12]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[11]">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[11]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[10]">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[10]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[9]">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[9]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[8]">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[8]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[7]">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[7]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[6]">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[6]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[5]">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[5]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[4]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[3]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[2]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[1]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_station[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">alu_station[0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station">
+      <obj_property name="ElementShortName">mult_station[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_station[15:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[15]">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[15]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[14]">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[14]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[13]">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[13]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[12]">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[12]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[11]">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[11]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[10]">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[10]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[9]">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[9]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[8]">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[8]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[7]">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[7]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[6]">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[6]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[5]">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[5]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[4]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[3]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[2]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[1]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rn_valid">
+            <obj_property name="ElementShortName">.rn_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rn_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rn_tag">
+            <obj_property name="ElementShortName">.rn_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rn_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rn">
+            <obj_property name="ElementShortName">.rn[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rn[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rs_valid">
+            <obj_property name="ElementShortName">.rs_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rs_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rs_tag">
+            <obj_property name="ElementShortName">.rs_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rs_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rs">
+            <obj_property name="ElementShortName">.rs[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rs[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rm_valid">
+            <obj_property name="ElementShortName">.rm_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rm_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rm_tag">
+            <obj_property name="ElementShortName">.rm_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rm_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rm">
+            <obj_property name="ElementShortName">.rm[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rm[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].multiply_function">
+            <obj_property name="ElementShortName">.multiply_function</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].multiply_function</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].use_carry_in">
+            <obj_property name="ElementShortName">.use_carry_in</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].use_carry_in</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[1].rd_tag">
+            <obj_property name="ElementShortName">.rd_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[1].rd_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">mult_station[0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rn_valid">
+            <obj_property name="ElementShortName">.rn_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rn_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rn_tag">
+            <obj_property name="ElementShortName">.rn_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rn_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rn">
+            <obj_property name="ElementShortName">.rn[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rn[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rs_valid">
+            <obj_property name="ElementShortName">.rs_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rs_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rs_tag">
+            <obj_property name="ElementShortName">.rs_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rs_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rs">
+            <obj_property name="ElementShortName">.rs[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rs[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rm_valid">
+            <obj_property name="ElementShortName">.rm_valid</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rm_valid</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rm_tag">
+            <obj_property name="ElementShortName">.rm_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rm_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rm">
+            <obj_property name="ElementShortName">.rm[31:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rm[31:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].multiply_function">
+            <obj_property name="ElementShortName">.multiply_function</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].multiply_function</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].use_carry_in">
+            <obj_property name="ElementShortName">.use_carry_in</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].use_carry_in</obj_property>
+         </wvobject>
+         <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/mult_station[0].rd_tag">
+            <obj_property name="ElementShortName">.rd_tag[5:0]</obj_property>
+            <obj_property name="ObjectShortName">mult_station[0].rd_tag[5:0]</obj_property>
+            <obj_property name="Radix">HEXRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider145" type="divider">
+      <obj_property name="label">Decode and related</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_imm32">
+      <obj_property name="ElementShortName">o_imm32[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_imm32[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_decode/o_is_memop">
+      <obj_property name="ElementShortName">o_is_memop</obj_property>
+      <obj_property name="ObjectShortName">o_is_memop</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_rm_sel">
+      <obj_property name="ElementShortName">o_rm_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rm_sel[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_rs_sel">
+      <obj_property name="ElementShortName">o_rs_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rs_sel[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_rn_sel">
+      <obj_property name="ElementShortName">o_rn_sel[3:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rn_sel[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_reg_bank_wen">
+      <obj_property name="ElementShortName">o_reg_bank_wen[14:0]</obj_property>
+      <obj_property name="ObjectShortName">o_reg_bank_wen[14:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_decode/o_alu_function">
+      <obj_property name="ElementShortName">o_alu_function[8:0]</obj_property>
+      <obj_property name="ObjectShortName">o_alu_function[8:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_decode/o_use_rn">
+      <obj_property name="ElementShortName">o_use_rn</obj_property>
+      <obj_property name="ObjectShortName">o_use_rn</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_decode/o_use_rm">
+      <obj_property name="ElementShortName">o_use_rm</obj_property>
+      <obj_property name="ObjectShortName">o_use_rm</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_decode/o_use_rs">
+      <obj_property name="ElementShortName">o_use_rs</obj_property>
+      <obj_property name="ObjectShortName">o_use_rs</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_decode/o_use_sr">
+      <obj_property name="ElementShortName">o_use_sr</obj_property>
+      <obj_property name="ObjectShortName">o_use_sr</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/alu_next_dispatch_idx">
+      <obj_property name="ElementShortName">alu_next_dispatch_idx[5:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_next_dispatch_idx[5:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_reservation/o_rd_tag_alu">
+      <obj_property name="ElementShortName">o_rd_tag_alu[5:0]</obj_property>
+      <obj_property name="ObjectShortName">o_rd_tag_alu[5:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider244" type="divider">
+      <obj_property name="label">Tag store</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/alu_tag_available">
+      <obj_property name="ElementShortName">alu_tag_available[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_tag_available[31:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/mult_tag_available">
+      <obj_property name="ElementShortName">mult_tag_available[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_tag_available[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/mem_tag_available">
+      <obj_property name="ElementShortName">mem_tag_available[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_tag_available[15:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/alu_tag_nxt_1">
+      <obj_property name="ElementShortName">alu_tag_nxt_1[6:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_tag_nxt_1[6:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/mult_tag_nxt">
+      <obj_property name="ElementShortName">mult_tag_nxt[6:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_tag_nxt[6:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/mem_tag_nxt">
+      <obj_property name="ElementShortName">mem_tag_nxt[6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_tag_nxt[6:0]</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_tagstore/i_instr_type">
+      <obj_property name="ElementShortName">i_instr_type[1:0]</obj_property>
+      <obj_property name="ObjectShortName">i_instr_type[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider263" type="divider">
+      <obj_property name="label">Register file</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r0">
+      <obj_property name="ElementShortName">r0</obj_property>
+      <obj_property name="ObjectShortName">r0</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r1">
+      <obj_property name="ElementShortName">r1</obj_property>
+      <obj_property name="ObjectShortName">r1</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r2">
+      <obj_property name="ElementShortName">r2</obj_property>
+      <obj_property name="ObjectShortName">r2</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r3">
+      <obj_property name="ElementShortName">r3</obj_property>
+      <obj_property name="ObjectShortName">r3</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r4">
+      <obj_property name="ElementShortName">r4</obj_property>
+      <obj_property name="ObjectShortName">r4</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r5">
+      <obj_property name="ElementShortName">r5</obj_property>
+      <obj_property name="ObjectShortName">r5</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r6">
+      <obj_property name="ElementShortName">r6</obj_property>
+      <obj_property name="ObjectShortName">r6</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r7">
+      <obj_property name="ElementShortName">r7</obj_property>
+      <obj_property name="ObjectShortName">r7</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r8">
+      <obj_property name="ElementShortName">r8</obj_property>
+      <obj_property name="ObjectShortName">r8</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r9">
+      <obj_property name="ElementShortName">r9</obj_property>
+      <obj_property name="ObjectShortName">r9</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r10">
+      <obj_property name="ElementShortName">r10</obj_property>
+      <obj_property name="ObjectShortName">r10</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r11">
+      <obj_property name="ElementShortName">r11</obj_property>
+      <obj_property name="ObjectShortName">r11</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r12">
+      <obj_property name="ElementShortName">r12</obj_property>
+      <obj_property name="ObjectShortName">r12</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r13">
+      <obj_property name="ElementShortName">r13</obj_property>
+      <obj_property name="ObjectShortName">r13</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r14">
+      <obj_property name="ElementShortName">r14</obj_property>
+      <obj_property name="ObjectShortName">r14</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_dispatch/u_register_bank/r15">
+      <obj_property name="ElementShortName">r15</obj_property>
+      <obj_property name="ObjectShortName">r15</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider3115" type="divider">
+      <obj_property name="label">Multiply ops</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_clk">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_rst">
+      <obj_property name="ElementShortName">i_rst</obj_property>
+      <obj_property name="ObjectShortName">i_rst</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_instr_valid">
+      <obj_property name="ElementShortName">i_instr_valid</obj_property>
+      <obj_property name="ObjectShortName">i_instr_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_rs">
+      <obj_property name="ElementShortName">i_rs[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_rs[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_rm">
+      <obj_property name="ElementShortName">i_rm[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_rm[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_rn">
+      <obj_property name="ElementShortName">i_rn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i_rn[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_function">
+      <obj_property name="ElementShortName">i_function</obj_property>
+      <obj_property name="ObjectShortName">i_function</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/i_rd_tag">
+      <obj_property name="ElementShortName">i_rd_tag[5:0]</obj_property>
+      <obj_property name="ObjectShortName">i_rd_tag[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="logic" fp_name="/tb/u_system/u_amber/u_execute_multiply/o_valid">
+      <obj_property name="ElementShortName">o_valid</obj_property>
+      <obj_property name="ObjectShortName">o_valid</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/o_tag">
+      <obj_property name="ElementShortName">o_tag[5:0]</obj_property>
+      <obj_property name="ObjectShortName">o_tag[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/o_data">
+      <obj_property name="ElementShortName">o_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/o_flags">
+      <obj_property name="ElementShortName">o_flags[1:0]</obj_property>
+      <obj_property name="ObjectShortName">o_flags[1:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/mult_result_full">
+      <obj_property name="ElementShortName">mult_result_full[63:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_result_full[63:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/mult_result">
+      <obj_property name="ElementShortName">mult_result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_result[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/data_nxt">
+      <obj_property name="ElementShortName">data_nxt[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_nxt[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/mult_pipeline_data">
+      <obj_property name="ElementShortName">mult_pipeline_data[5:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_pipeline_data[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/multiplier/A">
+      <obj_property name="ElementShortName">A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/multiplier/B">
+      <obj_property name="ElementShortName">B[31:0]</obj_property>
+      <obj_property name="ObjectShortName">B[31:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject db_ref_id="1" type="array" fp_name="/tb/u_system/u_amber/u_execute_multiply/multiplier/P">
+      <obj_property name="ElementShortName">P[63:0]</obj_property>
+      <obj_property name="ObjectShortName">P[63:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+</wave_config>
