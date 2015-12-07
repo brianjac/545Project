@@ -98,7 +98,7 @@ output logic	[1:0]       o_flags       // [1] = N, [0] = Z
 logic [63:0] mult_result_full;
 logic [31:0] mult_result;
 logic [31:0] data_nxt;
-multiply_line [4:0] mult_pipeline_data;
+multiply_line [5:0] mult_pipeline_data;
 
 mult_gen_0 multiplier(	.CLK(i_clk),
 						.A(i_rs),
@@ -119,11 +119,11 @@ always_ff @(posedge i_clk, posedge i_rst) begin
 	end
 	else begin
 		//update pipeline data
-		mult_pipeline_data[4].valid <= i_instr_valid;
-		mult_pipeline_data[4].fctn <= i_function;
-		mult_pipeline_data[4].rn <= i_rn;
-		mult_pipeline_data[4].tag <= i_rd_tag;
-		for (int i=0; i<4; i=i+1) mult_pipeline_data[i] <= mult_pipeline_data[i+1];
+		mult_pipeline_data[5].valid <= i_instr_valid;
+		mult_pipeline_data[5].fctn <= i_function;
+		mult_pipeline_data[5].rn <= i_rn;
+		mult_pipeline_data[5].tag <= i_rd_tag;
+		for (int i=0; i<5; i=i+1) mult_pipeline_data[i] <= mult_pipeline_data[i+1];
 		
 		//module output
 		o_valid <= mult_pipeline_data[0].valid;

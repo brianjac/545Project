@@ -21,7 +21,7 @@ module b01_tagstore (
 	input logic [1:0]	i_instr_type, //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
 	//we actually don't care if the instruction is being dispatched this cycle, it still needs a tag
 	//we only care what's being RETIRED this cycle to make a tag available again
-	input logic i_instr_mem_with_writeback,
+	//input logic i_instr_mem_with_writeback,
 	
 	input logic			i_alu_valid,
 	input logic [5:0]	i_alu_tag,
@@ -32,7 +32,7 @@ module b01_tagstore (
 	
 	output logic		o_station_full,
 	output logic [5:0] o_tag_alu_mult_1,
-	output logic [5:0] o_tag_alu_2,
+	//output logic [5:0] o_tag_alu_2,
 	output logic [5:0] o_tag_mem
 );
 
@@ -56,7 +56,7 @@ logic [15:0]	mult_tag_available,
 				      mem_tag_available;
 				
 logic [6:0]		alu_tag_nxt_1,
-              alu_tag_nxt_2,
+              //alu_tag_nxt_2,
 				      mult_tag_nxt,
 				      mem_tag_nxt;
 
@@ -96,7 +96,7 @@ assign alu_tag_nxt_1 	= 	alu_tag_available[0 ] ? {2'b00,4'd0}:
 						i_alu_valid			  ? i_alu_tag:
 												6'd0; //default case; if we get here we'll assert full anyway
 
-assign alu_tag_nxt_2 	= 	(alu_tag_nxt_1[4:0] != 5'd0) && alu_tag_available[0 ] ? {2'b00,4'd0}:
+/*assign alu_tag_nxt_2 	= 	(alu_tag_nxt_1[4:0] != 5'd0) && alu_tag_available[0 ] ? {2'b00,4'd0}:
 						(alu_tag_nxt_1[4:0] != 5'd1) && alu_tag_available[1 ] ? {2'b00,4'd1}:
 						(alu_tag_nxt_1[4:0] != 5'd2) && alu_tag_available[2 ] ? {2'b00,4'd2}:
 						(alu_tag_nxt_1[4:0] != 5'd3) && alu_tag_available[3 ] ? {2'b00,4'd3}:
@@ -129,7 +129,7 @@ assign alu_tag_nxt_2 	= 	(alu_tag_nxt_1[4:0] != 5'd0) && alu_tag_available[0 ] ?
 						(alu_tag_nxt_1[4:0] != 5'd30) && alu_tag_available[30] ? {2'b11,4'd14}:
 						(alu_tag_nxt_1[4:0] != 5'd31) && alu_tag_available[31] ? {2'b11,4'd15}:
 						(alu_tag_nxt_1 != i_alu_tag) && i_alu_valid			  ? i_alu_tag:
-												6'd0; //default case; if we get here we'll assert full anyway
+												6'd0; //default case; if we get here we'll assert full anyway*/
 						
 assign mult_tag_nxt = 	mult_tag_available[0 ] ? {2'b01,4'd0}:
 						mult_tag_available[1 ] ? {2'b01,4'd1}:
@@ -177,7 +177,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		mem_tag_available <= 16'hffff;
 	end
 	else begin
-		if (i_stall/*_all*/) begin
+		if (i_stall/*_all*/ || i_instr_type==2'b11) begin //if stalled or instruction is control flow
 			//make tags available if stalled, but don't make any unavailable
 			for (int i=0; i<15; i+=1) begin
           if (alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b00)) alu_tag_available[i] <= 1'b1;
@@ -198,15 +198,15 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		end*/
 		else begin
 			for (int i=0; i<15; i+=1) begin
-				if ((alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b00)) && (i_instr_type == 2'b01 || (alu_tag_nxt_1!=i && (!i_instr_mem_with_writeback || alu_tag_nxt_2!=i)))) alu_tag_available[i] <= 1'b1;
+				if ((alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b00)) && (i_instr_type == 2'b01 || (alu_tag_nxt_1[3:0]!=i/* && (!i_instr_mem_with_writeback || alu_tag_nxt_2!=i)*/))) alu_tag_available[i] <= 1'b1;
 				else alu_tag_available[i] <= 1'b0;
-        if ((alu_tag_available[i+16] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b11)) && (i_instr_type == 2'b01 || (alu_tag_nxt_1!=(i+16) && (!i_instr_mem_with_writeback || alu_tag_nxt_2!=(i+16))))) alu_tag_available[i+16] <= 1'b1;
+        if ((alu_tag_available[i+16] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b11)) && (i_instr_type == 2'b01 || (alu_tag_nxt_1[3:0]!=(i+16)/* && (!i_instr_mem_with_writeback || alu_tag_nxt_2!=(i+16))*/))) alu_tag_available[i+16] <= 1'b1;
         else alu_tag_available[i+16] <= 1'b0;
 				
-				if ((mult_tag_available[i] || (i_mult_tag[3:0]==i && i_mult_valid)) && (i_instr_type != 2'b01 || mult_tag_nxt!=i)) mult_tag_available[i] <= 1'b1;
+				if ((mult_tag_available[i] || (i_mult_tag[3:0]==i && i_mult_valid)) && (i_instr_type != 2'b01 || mult_tag_nxt[3:0]!=i)) mult_tag_available[i] <= 1'b1;
 				else mult_tag_available[i] <= 1'b0;
 				
-				if ((mem_tag_available[i] || (i_mem_tag[3:0]==i && i_mem_valid)) && (i_instr_type != 2'b10 || mem_tag_nxt!=i)) mem_tag_available[i] <= 1'b1;
+				if ((mem_tag_available[i] || (i_mem_tag[3:0]==i && i_mem_valid)) && (i_instr_type != 2'b10 || mem_tag_nxt[3:0]!=i)) mem_tag_available[i] <= 1'b1;
 				else mem_tag_available[i] <= 1'b0;
 			end
 		end
@@ -217,7 +217,7 @@ end
 
 //Output logic
 always_comb begin
-  o_tag_alu_2 = 6'b111111; //default; only relevant if we have a pre- or post-indexed writeback to a register
+  //o_tag_alu_2 = 6'b111111; //default; only relevant if we have a pre- or post-indexed writeback to a register
   o_tag_mem = 6'b111111; //default; irrelevant for *actual* memops
 	case (i_instr_type)
 		2'b00: begin //alu station
@@ -232,13 +232,13 @@ always_comb begin
 			o_station_full	= ((mem_tag_available == 16'h0000/*ffff*/) & ~i_mem_valid) & ((alu_tag_available == 32'h0000_0000) & ~i_alu_valid);
 			o_tag_mem			= mem_tag_nxt;
 			o_tag_alu_mult_1 = alu_tag_nxt_1;
-			o_tag_alu_2 = alu_tag_nxt_2;
+			//o_tag_alu_2 = alu_tag_nxt_2;
 		end
-		default: begin
-			//protocol error if not one of the above; assert o_station_full and set tag to 'b111111
-			o_station_full	= 1'b1;
+		2'b11: begin
+			//it's a "pure" control flow instruction, so we don't care about reservation station availability
+			o_station_full	= 1'b0;
 			o_tag_alu_mult_1			= 6'b111111;
-			o_tag_alu_2 = 6'b111111;
+			//o_tag_alu_2 = 6'b111111;
 			o_tag_mem = 6'b111111;
 		end
 	endcase

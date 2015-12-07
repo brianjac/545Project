@@ -66,12 +66,13 @@ typedef struct packed {
 	logic [31:0] address;
 	
 	//Writeable data
-	logic write_data;
+	logic write_data_valid;
 	logic [5:0] write_data_tag;
 	logic [31:0] write_data;
 	
 	//Control signals for the memory stage
-	logic [3:0] byte_enable;
+	logic [1:0] op_type;
+	logic [1:0] byte_enable_sel;
 	logic [5:0] rd_tag;
 } mem_station_entry;
 
@@ -81,12 +82,14 @@ module b01_reservation (
 	input logic			i_rst,
 	input logic			i_stall,
 	
-	input logic	 [5:0]	i_tag_nxt,
+	input logic  [1:0]  i_instr_type,
+	input logic	 [5:0]	i_alu_mult_tag1_nxt,
+	input logic  [5:0]  i_mem_tag_nxt,
 	
 	input logic  [31:0]	i_imm32,
 	input logic  [4:0]	i_imm_shift_amount,
 	input logic 		i_shift_imm_zero,
-	input logic			i_decode_exclusive,       // swap access //for SWP/SWPB instruction that atomically writes one reg's value into mem at a given addr and loads the value at that addr into another register. Will need to handle "specially" with some sort of state machine in the mem stage.
+	//input logic			i_decode_exclusive,       // swap access //for SWP/SWPB instruction that atomically writes one reg's value into mem at a given addr and loads the value at that addr into another register. Will need to handle "specially" with some sort of state machine in the mem stage.
 	input logic  [1:0]	i_barrel_shift_amount_sel,
 	input logic  [1:0]	i_barrel_shift_data_sel,
 	input logic  [1:0]	i_barrel_shift_function,
@@ -95,10 +98,12 @@ module b01_reservation (
 	input logic  [1:0]	i_byte_enable_sel,
 	input logic			i_use_carry_in,         // e.g. add with carry instruction
 
-	input logic			i_write_data_wen,
-	input logic			i_base_address_wen,     // save LDM base address register,
+	//input logic			i_write_data_wen,
+	input logic  [1:0]  i_op_type_mem,
+	//input logic			i_base_address_wen,     // save LDM base address register,
 												// in case of data abort
-	input logic  [14:0]	i_reg_bank_wen,
+	//input logic  [14:0]	i_reg_bank_wen,
+	input logic  [1:0]  i_address_mode, //00=offset addressing, 10=pre-indexed, 11=post-indexed
 	
 	input logic			i_rn_valid,
 	input logic  [5:0]	i_rn_tag,
@@ -109,6 +114,11 @@ module b01_reservation (
 	input logic			i_rm_valid,
 	input logic  [5:0]	i_rm_tag,
 	input logic  [31:0] i_rm,
+	//for data write only (STR op)
+	input logic     i_rd_valid,
+	input logic  [5:0]  i_rd_tag,
+	input logic  [31:0] i_rd,
+	//
 	input logic			i_status_bits_flags_valid,
 	input logic  [5:0]	i_status_bits_flags_tag,
 	input logic  [3:0]	i_status_bits_flags,
@@ -150,32 +160,33 @@ module b01_reservation (
 	output logic 		o_instr_valid_mem,
 	output logic [31:0] o_address_mem,
 	output logic [31:0] o_write_data_mem,
-	output logic [3:0] 	o_byte_enable_mem,
+	output logic [1:0]  o_op_type_mem,
+	output logic [1:0] 	o_byte_enable_sel_mem,
 	output logic [5:0] 	o_rd_tag_mem,
 	input logic 		i_mem_valid,
 	input logic  [5:0] 	i_mem_tag,
 	input logic  [31:0] i_mem_data
 );
 
-
+//TODO revise all this so it does the right thing for the ALU stage with memops
 logic	new_instr_ready,
 		new_instr_ready_alu,
 		new_instr_ready_mult,
 		new_instr_ready_mem;
 assign new_instr_ready = i_rn_valid & i_rs_valid & i_rm_valid;
-assign new_instr_ready_alu = new_instr_ready && i_tag_nxt[5]==i_tag_nxt[4];
-assign new_instr_ready_mult = new_instr_ready && i_tag_nxt[5:4] == 2'b01;
-assign new_instr_ready_mem = new_instr_ready && i_tag_nxt[5:4] == 2'b10;
+assign new_instr_ready_alu = new_instr_ready && i_instr_type==2'b00;
+assign new_instr_ready_mult = new_instr_ready && i_instr_type==2'b01;
+assign new_instr_ready_mem = new_instr_ready && i_instr_type==2'b10;
 
 
 //The reservation stations themselves
-alu_station_entry alu_station[15:0];
+alu_station_entry alu_station[31:0];
 mult_station_entry mult_station[15:0];
 mem_station_entry mem_station[15:0];
 
 
 //The pending new reservation station entries
-alu_station_entry alu_new_entry;
+alu_station_entry alu_new_entry; //used for normal alu ops and for memops' address computation
 mult_station_entry mult_new_entry;
 mem_station_entry mem_new_entry;
 
@@ -185,8 +196,8 @@ localparam ALU_MATCH_IDX = 0; //note that these aren't *really* parameters, they
 localparam MULT_MATCH_IDX = 1;
 localparam MEM_MATCH_IDX = 2;
 logic [31:0] 		alu_ready;
-logic [15:0]			mult_ready,
-					mem_ready;
+logic [15:0]			mult_ready;
+logic					mem_ready;
 logic [31:0]		alu_shift_into; //define whether or not we need to shift up a given reservation station entry based on what we've just dispatched
 logic [15:0]		mult_shift_into,
 					mem_shift_into;
@@ -203,7 +214,7 @@ logic [15:0][2:0]	mem_address_tag_match,
 					mem_write_data_tag_match;
 logic [5:0]			alu_next_dispatch_idx;
 logic [4:0]			mult_next_dispatch_idx,
-					mem_next_dispatch_idx;
+					mem_next_dispatch_idx; //TODO remove mem_next_dispatch_idx and replace just with mem_ready plus [0]!
 
 //1-hot (register) vector for each station to say which stations are currently occupied
 //TODO need to initialize!
@@ -283,7 +294,7 @@ assign mem_next_insert_idx	=	!mem_occupied[0 ]	?	4'd0	:
 //Combinational control signal logic
 always_comb begin
 	//Determine if ALU reservation station tags match incoming data
-	for (int i=0; i<31; i+=1) begin
+	for (int i=0; i<32; i+=1) begin
 		alu_rn_tag_match[i][ALU_MATCH_IDX] = (alu_station[i].rn_tag == i_alu_tag) & !alu_station[i].rn_valid & i_alu_valid;
 		alu_rn_tag_match[i][MULT_MATCH_IDX] = (alu_station[i].rn_tag == i_mult_tag) & !alu_station[i].rn_valid & i_mult_valid;
 		alu_rn_tag_match[i][MEM_MATCH_IDX] = (alu_station[i].rn_tag == i_mem_tag) & !alu_station[i].rn_valid & i_mem_valid;
@@ -340,7 +351,7 @@ always_comb begin
 	
 	//Determine which instructions are ready for dispatch this cycle
 	//TODO make sure when inserting the instructions each element is set to "valid" if it's unused (up in the Dispatch stage in which this unit is instantiated)
-	for (int i=0; i<31; i+=1) begin
+	for (int i=0; i<32; i+=1) begin
 		alu_ready[i] =  alu_occupied[i]
 		                & (alu_station[i].rn_valid | (alu_rn_tag_match[i] != 3'b000))
 						& (alu_station[i].rs_valid | (alu_rs_tag_match[i] != 3'b000))
@@ -354,11 +365,10 @@ always_comb begin
 						& (mult_station[i].rs_valid | (mult_rs_tag_match[i] != 3'b000))
 						& (mult_station[i].rm_valid | (mult_rm_tag_match[i] != 3'b000))
 						/*& (mult_station[i].ccr_valid | (mult_ccr_tag_match[i] != 3'b000))*/;
-		mem_ready[i] =  mem_occupied[i]
+		mem_ready = mem_occupied[0] & i_mem_ready & (mem_station[0].address_valid | (mem_address_tag_match[0] != 3'b000));
+		/*mem_ready[i] =  mem_occupied[i]
 		                & (mem_station[i].address_valid | (mem_address_tag_match[i] != 3'b000))
-						& (mem_station[i].write_data_valid | (mem_write_data_tag_match[i] != 3'b000))
-						/*& (mem_station[i].rm_valid | (mem_rm_tag_match[i] != 3'b000))*/
-						/*& (mem_station[i].ccr_valid | (mem_ccr_tag_match[i] != 3'b000))*/;
+						& (mem_station[i].write_data_valid | (mem_write_data_tag_match[i] != 3'b000));*/
 	end
 	
 	//Determine index of the next reservation station entry to dispatch (for each station).
@@ -400,8 +410,8 @@ always_comb begin
 	else if (alu_ready[31]) alu_next_dispatch_idx = 6'd31;
 	else if (new_instr_ready_alu) alu_next_dispatch_idx = 6'd32; //32 denotes "forward the data from the input to the EU on this cycle"
 	else alu_next_dispatch_idx = 6'd33; //17 denotes "nothing ready to dispatch"
-	for (int i=0; i<31; i+=1) begin
-		alu_shift_into[i] = (alu_next_dispatch_idx/*_minus1*/ >= i) & ~alu_next_dispatch_idx[5];
+	for (int i=0; i<32; i+=1) begin
+		alu_shift_into[i] = (alu_next_dispatch_idx/*_minus1*/ <= i) & ~alu_next_dispatch_idx[5];
 	end
 	
 	//MULT
@@ -424,44 +434,29 @@ always_comb begin
 	else if (new_instr_ready_mult) mult_next_dispatch_idx = 5'd16; //16 denotes "forward the data from the input to the EU on this cycle"
 	else mult_next_dispatch_idx = 5'd17; //17 denotes "nothing ready to dispatch"
 	for (int i=0; i<16; i+=1) begin
-		mult_shift_into[i] = (mult_next_dispatch_idx/*_minus1*/ >= i) & ~mult_next_dispatch_idx[4];
+		mult_shift_into[i] = (mult_next_dispatch_idx/*_minus1*/ <= i) & ~mult_next_dispatch_idx[4];
 	end
 	
 	//MEM
-	if (mem_ready[0]) mem_next_dispatch_idx = 5'd0;
-	else if (mem_ready[1]) mem_next_dispatch_idx = 5'd1;
-	else if (mem_ready[2]) mem_next_dispatch_idx = 5'd2;
-	else if (mem_ready[3]) mem_next_dispatch_idx = 5'd3;
-	else if (mem_ready[4]) mem_next_dispatch_idx = 5'd4;
-	else if (mem_ready[5]) mem_next_dispatch_idx = 5'd5;
-	else if (mem_ready[6]) mem_next_dispatch_idx = 5'd6;
-	else if (mem_ready[7]) mem_next_dispatch_idx = 5'd7;
-	else if (mem_ready[8]) mem_next_dispatch_idx = 5'd8;
-	else if (mem_ready[9]) mem_next_dispatch_idx = 5'd9;
-	else if (mem_ready[10]) mem_next_dispatch_idx = 5'd10;
-	else if (mem_ready[11]) mem_next_dispatch_idx = 5'd11;
-	else if (mem_ready[12]) mem_next_dispatch_idx = 5'd12;
-	else if (mem_ready[13]) mem_next_dispatch_idx = 5'd13;
-	else if (mem_ready[14]) mem_next_dispatch_idx = 5'd14;
-	else if (mem_ready[15]) mem_next_dispatch_idx = 5'd15;
-	else if (new_instr_ready_mem) mem_next_dispatch_idx = 5'd16; //16 denotes "forward the data from the input to the EU on this cycle"
+	if (mem_ready/*[0]*/) mem_next_dispatch_idx = 5'd0;
+	//else if (!mem_occupied[0] && new_instr_ready_mem) mem_next_dispatch_idx = 5'd16; //16 denotes "forward the data from the input to the EU on this cycle"
 	else mem_next_dispatch_idx = 5'd17; //17 denotes "nothing ready to dispatch"
 	for (int i=0; i<16; i+=1) begin
-		mem_shift_into[i] = (mem_next_dispatch_idx/*_minus1*/ >= i) & ~mem_next_dispatch_idx[4];
+		mem_shift_into[i] = (mem_next_dispatch_idx/*_minus1*/ <= i) & ~mem_next_dispatch_idx[4]; //should still be okay even with the other dispatch stuff removed (albeit unnecessarily complex now)
 	end
 	
 	//Determing where an incoming instruction will go is handled in the always_ff, below
 	//*** note: an incoming instruction will always go into the "back of the queue" or directly to the output.
 end
-
+//TODO TODO TODO TODO TODO here on down need to change everything depending on i_tag_nxt, and also make the appropriate changes for adding multiple ALU ops to the station simultaneously
 //set up new reservation station entries based on incoming info from Decode
 always_comb begin
 	//defaults
-	alu_new_entry = '0;
-	mult_new_entry = '0;
-	mem_new_entry = '0;
+	alu_new_entry = 'd0;
+	mult_new_entry = 'd0;
+	mem_new_entry = 'd0;
 	
-	case (i_tag_nxt[5:4])
+	case (i_instr_type)
 		2'b00: begin
 			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
 			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
@@ -490,12 +485,49 @@ always_comb begin
 			alu_new_entry.barrel_shift_data_sel = i_barrel_shift_data_sel;
 			alu_new_entry.barrel_shift_function = i_barrel_shift_function;
 			alu_new_entry.alu_function = i_alu_function;
-			alu_new_entry.rd_tag = i_tag_nxt;
+			alu_new_entry.rd_tag = i_alu_mult_tag1_nxt;
 		end
-		2'b11: begin //another set of ALU entry tags
+		2'b01: begin
 			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
 			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
-			//ensure if an operand is unused for this instruction, we set "valid" to true immediately!
+			mult_new_entry.rn_valid = i_rn_valid;
+			mult_new_entry.rn_tag = i_rn_tag;
+			mult_new_entry.rn = i_rn;
+			
+			mult_new_entry.rs_valid = i_rs_valid;
+			mult_new_entry.rs_tag = i_rs_tag;
+			mult_new_entry.rs = i_rs;
+			
+			mult_new_entry.rm_valid = i_rm_valid;
+			mult_new_entry.rm_tag = i_rm_tag;
+			mult_new_entry.rm = i_rm;
+			
+			mult_new_entry.multiply_function = i_multiply_function;
+			mult_new_entry.use_carry_in = i_use_carry_in;
+			mult_new_entry.rd_tag = i_alu_mult_tag1_nxt;
+		end
+		2'b10: begin
+			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
+			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
+			//address is ALWAYS rn
+            mem_new_entry.address_valid = i_address_mode[0] ? i_rn_valid : 1'b0; //if post-indexed, address used is simply rn. otherwise, must wait on ALU offset calculation for address.
+			mem_new_entry.address_tag = i_address_mode[0] ? i_rn_tag : i_alu_mult_tag1_nxt;
+			mem_new_entry.address = i_address_mode[0] ? i_rn : 'd0;
+			
+            //if swap, write_data is rm and destination is rd
+            //otherwise, write_data is rd
+			mem_new_entry.write_data_valid = i_op_type_mem[1] ? i_rm_valid : //swap op, we write rm data
+			                                 i_op_type_mem[0] ? i_rd_valid : //st op, we write rd data
+			                                                    1'b1; //other, we don't care
+			mem_new_entry.write_data_tag = i_op_type_mem[1] ? i_rm_tag : i_rd_tag;
+			mem_new_entry.write_data = i_op_type_mem[1] ? i_rm : i_rd;
+			
+			mem_new_entry.op_type = i_op_type_mem;
+			mem_new_entry.byte_enable_sel = i_byte_enable_sel;
+			mem_new_entry.rd_tag = i_mem_tag_nxt;
+			
+			//Set up ALU station entries, depending on whether or not we have to offset an address at the end
+			//Note that base address is always rn, but the offset-related stuff always goes through the ALU
 			alu_new_entry.rn_valid = i_rn_valid;
 			alu_new_entry.rn_tag = i_rn_tag;
 			alu_new_entry.rn = i_rn;
@@ -520,42 +552,9 @@ always_comb begin
 			alu_new_entry.barrel_shift_data_sel = i_barrel_shift_data_sel;
 			alu_new_entry.barrel_shift_function = i_barrel_shift_function;
 			alu_new_entry.alu_function = i_alu_function;
-			alu_new_entry.rd_tag = i_tag_nxt;
+			alu_new_entry.rd_tag = i_alu_mult_tag1_nxt;
 		end
-		2'b01: begin
-			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
-			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
-			mult_new_entry.rn_valid = i_rn_valid;
-			mult_new_entry.rn_tag = i_rn_tag;
-			mult_new_entry.rn = i_rn;
-			
-			mult_new_entry.rs_valid = i_rs_valid;
-			mult_new_entry.rs_tag = i_rs_tag;
-			mult_new_entry.rs = i_rs;
-			
-			mult_new_entry.rm_valid = i_rm_valid;
-			mult_new_entry.rm_tag = i_rm_tag;
-			mult_new_entry.rm = i_rm;
-			
-			mult_new_entry.multiply_function = i_multiply_function;
-			mult_new_entry.use_carry_in = i_use_carry_in;
-			mult_new_entry.rd_tag = i_tag_nxt;
-		end
-		2'b10: begin
-			//This will also check if the tag is on the tag bus THIS cycle and insert info immediately if so. Note that per the current design, all instructions will have to spend at least one cycle in the reservation station before executing; this should be fixable in the future.
-			//Grab the *actual* register file data if it's available; this will also handle the first part of ^^.
-			mem_new_entry.address_valid = //TODO i_rn_valid;
-			mem_new_entry.address_tag = //TODO //i_rn_tag;
-			mem_new_entry.address = //TODO //i_rn;
-			
-			mem_new_entry.write_data_valid = //TODO //i_rs_valid;
-			mem_new_entry.write_data_tag = //TODO //i_rs_tag;
-			mem_new_entry.write_data = //TODO //i_rs;
-			
-			mem_new_entry.byte_enable = 4'd0;
-			mem_new_entry.byte_enable[i_byte_enable_sel] = 1'b1;
-			mem_new_entry.rd_tag = //TODO //i_tag_nxt;
-		end
+		//note that defaults are outside the case statement
 	endcase
 end
 
@@ -597,7 +596,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<32; i+=1) begin
-			if (~i_stall && alu_next_insert_idx == i && i_tag_nxt[5]==i_tag_nxt[4]) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && alu_next_insert_idx == i && (i_instr_type==2'b00 || i_instr_type==2'b10) && alu_next_dispatch_idx!=6'd32) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				alu_occupied[i] <= 1'b1;
 				alu_station[i] <= alu_new_entry;
@@ -718,7 +717,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && mult_next_insert_idx == i && i_tag_nxt[5:4]==2'b01) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && mult_next_insert_idx == i && i_instr_type==2'b01 && mult_next_dispatch_idx!=5'd16) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				mult_occupied[i] <= 1'b1;
 				mult_station[i] <= mult_new_entry;
@@ -839,7 +838,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 	end
 	else /*if (i_clk)*/ begin
 		for (int i=0; i<16; i+=1) begin
-			if (~i_stall && mem_next_insert_idx == i && i_tag_nxt[5:4]==2'b10) begin //this also implies ~xyz_occupied[i] by definition
+			if (~i_stall && mem_next_insert_idx == i && i_instr_type==2'b10 && mem_next_dispatch_idx != 5'd16) begin //this also implies ~xyz_occupied[i] by definition
 				//this is the destination into which we'll latch the new entry
 				mem_occupied[i] <= 1'b1;
 				mem_station[i] <= mem_new_entry;
@@ -907,8 +906,8 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 						mem_station[i].address <= i_mem_data;
 					end
 					else if (mem_write_data_tag_match[i][ALU_MATCH_IDX]) begin
-						mem_station[i].rs_valid <= 1'b1;
-						mem_station[i].rs <= i_alu_data;
+						mem_station[i].write_data_valid <= 1'b1;
+						mem_station[i].write_data <= i_alu_data;
 					end
 					else if (mem_write_data_tag_match[i][MULT_MATCH_IDX]) begin
 						mem_station[i].write_data_valid <= 1'b1;
@@ -995,7 +994,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_barrel_shift_data_sel_alu <= i_barrel_shift_data_sel;
 			o_barrel_shift_function_alu <= i_barrel_shift_function;
 			o_alu_function_alu <= i_alu_function;
-			o_rd_tag_alu <= i_tag_nxt;
+			o_rd_tag_alu <= i_alu_mult_tag1_nxt;
 		end
 		else begin //nothing's ready; set outputs to "safe" state
 			o_instr_valid_alu <= 1'b0;
@@ -1046,7 +1045,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 			o_rm_mult <= i_rm;
 			o_multiply_function_mult <= i_multiply_function;
 			o_use_carry_in_mult <= i_use_carry_in;
-			o_rd_tag_mult <= i_tag_nxt;
+			o_rd_tag_mult <= i_alu_mult_tag1_nxt;
 		end
 		else begin //nothing's ready; set outputs to "safe" state
 			o_instr_valid_mult <= 1'b0;
@@ -1059,9 +1058,13 @@ end
 //Output logic for mem station
 always_ff @(posedge i_rst, posedge i_clk) begin
 	if (i_rst) begin
-		o_instr_valid_mem <= '0;
+		o_instr_valid_mem <= 'd0;
 		//don't care about other outputs since o_instr_valid is false, but we'll set 'em anyway to avoid 'x's
-		//TODO need to revise this whole section based on the new memory interface
+		o_address_mem <= 'd0;
+		o_write_data_mem <= 'd0;
+		o_op_type_mem <= 'd0;
+		o_byte_enable_sel_mem <= 'd0;
+		o_rd_tag_mem <= 'd0;
 	end
 	else /*if (i_clk)*/ begin
         /*if (i_stall) begin
@@ -1077,17 +1080,17 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 						mem_write_data_tag_match[mem_next_dispatch_idx][ALU_MATCH_IDX]	? 	i_alu_data:
 						mem_write_data_tag_match[mem_next_dispatch_idx][MULT_MATCH_IDX]	? 	i_mult_data:
 																i_mem_data;
-			o_byte_enable_mem <= mem_station[mem_next_dispatch_idx].byte_enable;
+			o_op_type_mem <= mem_station[mem_next_dispatch_idx].op_type;
+			o_byte_enable_sel_mem <= mem_station[mem_next_dispatch_idx].byte_enable_sel;
 			o_rd_tag_mem <= mem_station[mem_next_dispatch_idx].rd_tag;
 		end
-		else if (~i_stall && mem_next_dispatch_idx == 5'd16) begin
+		/*else if (~i_stall && mem_next_dispatch_idx == 5'd16) begin //with the revisions, this can never happen, since address computation must happen in the ALU first before a new mem instruction can be dispatched
 			o_instr_valid_mem <= 1'b1;
 			o_address_mem <= //TODO //i_rn;
 			o_write_data_mem <= //TODO //i_rs;
-			o_byte_enable_mem <= 4'd0;
-			o_byte_enable_mem[i_byte_enable_sel] <= 1'b1;
+			o_byte_enable_sel_mem <= i_byte_enable_sel;
 			o_rd_tag_mem <= //TODO //i_tag_nxt;
-		end
+		end*/
 		else begin //nothing's ready; set outputs to "safe" state
 			o_instr_valid_mem <= 1'b0;
 			//We don't care about the rest of the outputs if valid is held low

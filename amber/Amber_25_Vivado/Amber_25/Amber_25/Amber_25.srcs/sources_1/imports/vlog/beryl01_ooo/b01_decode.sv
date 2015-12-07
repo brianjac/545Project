@@ -18,9 +18,9 @@ module b01_decode (
 	output logic [31:0] o_imm32,
 	output logic [4:0] o_imm_shift_amount,
 	output logic o_shift_imm_zero,
-	output logic [3:0] o_condition, //TODO in original, this is a wire, not a reg... is it registered elsewhere?
-	output logic o_is_swap, //TODO in original, is o_decode_exclusive
-	output logic o_is_memop, //TODO in original, is o_decode_daccess
+	output logic [3:0] o_condition,
+	output logic o_is_swap,
+	output logic o_is_memop,
 	output logic [1:0] o_status_bits_mode,
 	output logic o_status_bits_irq_mask,
 	output logic o_status_bits_firq_mask,
@@ -28,7 +28,7 @@ module b01_decode (
 	output logic [3:0] o_rm_sel,
 	output logic [3:0] o_rs_sel,
 	output logic [3:0] o_rn_sel,
-	//output logic [7:0] o_load_rd, //TODO this may matter later for LDM, but we don't care for now
+	output logic [3:0] o_rd_sel,
 	output logic [1:0] o_barrel_shift_amount_sel,
 	output logic [1:0] o_barrel_shift_data_sel,
 	output logic [1:0] o_barrel_shift_function,
@@ -41,25 +41,24 @@ module b01_decode (
 	output logic [1:0] o_byte_enable_sel,
 	output logic [2:0] o_status_bits_sel, //this will tell the status register whether or not it should invalidate itself
 	//output logic [2:0] o_reg_write_sel, //note that this must be replaced with something else for if we have an interrupt and need to write to the link register
-	//output logic o_user_mode_regs_store_nxt, //only matters for old STM implementation
-	//output logic o_firq_not_user_mode, //don't care now that we've redone how the register bank checks this stuff
 	output logic o_use_carry_in, //critical for many arithmetic ops
 	
-	output logic o_write_data_wen, //define if this is a ld or st op if it's a memop
-	//output logic o_base_address_wen, //only relevant for LDM/STM (MTRANS) instructions
+	output logic [1:0] o_op_type_mem,
+	output logic [1:0] o_address_mode,
+	
+	output logic o_write_data_wen, //define if this is a ld or st op if it's a memop //TODO should be able to remove this now
 	
 	output logic o_pc_wen, //might matter in the future depending on how we implement LDM/STM, but for now we can just tie it to "1"
-	output logic [14:0] o_reg_bank_wen, //critical. duh.
-	output logic o_status_bits_flags_wen, //critical
-	output logic o_status_bits_mode_wen, //critical for interrupt handling, doesn't matter as much for now
-	output logic o_status_bits_irq_mask_wen, //ditto
-	output logic o_status_bits_firq_mask_wen, //ditto
+	output logic [14:0] o_reg_bank_wen,
+	output logic o_status_bits_flags_wen,
+	output logic o_status_bits_mode_wen,
+	output logic o_status_bits_irq_mask_wen,
+	output logic o_status_bits_firq_mask_wen,
 	
 	//Removed coprocessor interface because we don't give a crap, except for o_rn_valid (now o_use_rn) etc.
 	output logic o_use_rn,
 	output logic o_use_rm,
 	output logic o_use_rs,
-	//output logic o_use_rd, //probably not needed
 	output logic o_use_sr //whether or not this instruction must look at the status bits
 
 );
@@ -67,11 +66,8 @@ module b01_decode (
 `include "a25_localparams.vh"
 `include "a25_functions.vh"
 
-//removed localparam for the State Machine From Hell
-
 logic [31:0] instruction;
 logic [3:0] instr_type;
-//logic [1:0] instruction_sel; //don't care about this. let's lock it to 2'b00.
 logic [3:0] opcode;
 logic [7:0] imm8;
 logic [31:0] offset12;
@@ -84,42 +80,44 @@ logic store_op;
 //logic write_pc; //TODO not needed if we flush instead of stalling on a pc-writing instruction
 //logic current_write_pc; //TODO not needed if we flush instead of stalling on a pc-writing instruction
 logic load_pc_nxt; //used to define if a memop will be used to load the pc; TODO revise
-logic load_pc_r; //ditto
-logic immediate_shift_op; //critical
-logic rds_use_rs; //pretty sure this is needed, but need to think harder about exactly what it does
-logic branch; //critical
-logic mem_op_pre_indexed; //critical
-logic mem_op_post_indexed; //critical
+logic load_pc_r;
+logic immediate_shift_op;
+logic rds_use_rs;
+logic branch;
+logic mem_op_pre_indexed;
+logic mem_op_post_indexed;
 
-logic [31:0] imm32_nxt; //can probably remove and replace with latching directly to o_imm32
-logic [4:0] imm_shift_amount_nxt; //ditto
-logic shift_imm_zero_nxt; //ditto
-logic [3:0] condition_nxt; //ditto
-logic is_swap_nxt; //ditto; TODO note: changed from decode_exclusive_nxt!
-logic is_memop_nxt; //ditto; TODO in original, is decode_daccess_nxt
+logic [31:0] imm32_nxt;
+logic [4:0] imm_shift_amount_nxt;
+logic shift_imm_zero_nxt;
+logic [3:0] condition_nxt;
+logic is_swap_nxt;
+logic is_memop_nxt;
 logic shift_extend;
 
-logic [1:0] barrel_shift_function_nxt; //ditto
-logic [8:0] alu_function_nxt; //ditto
-logic [1:0] multiply_function_nxt; //ditto
-logic [1:0] status_bits_mode_nxt; //ditto
-logic status_bits_irq_mask_nxt; //ditto
-logic status_bits_firq_mask_nxt; //ditto
+logic [1:0] barrel_shift_function_nxt;
+logic [8:0] alu_function_nxt;
+logic [1:0] multiply_function_nxt;
+logic [1:0] status_bits_mode_nxt;
+logic status_bits_irq_mask_nxt;
+logic status_bits_firq_mask_nxt;
 
-logic [3:0] rm_sel_nxt; //ditto
-logic [3:0] rs_sel_nxt; //ditto
-logic [3:0] rn_sel_nxt; //ditto
+logic [3:0] rm_sel_nxt;
+logic [3:0] rs_sel_nxt;
+logic [3:0] rn_sel_nxt;
+logic [3:0] rd_sel_nxt;
 
-logic [1:0] barrel_shift_amount_sel_nxt; //ditto
-logic [1:0] barrel_shift_data_sel_nxt; //ditto
-logic [3:0] iaddress_sel_nxt; //ditto
-logic [3:0] daddress_sel_nxt; //ditto
-logic [2:0] pc_sel_nxt; //ditto
-logic [1:0] byte_enable_sel_nxt; //ditto
-logic [2:0] status_bits_sel_nxt; //ditto
-//logic [2:0] reg_write_sel_nxt; //ditto; TODO also refer to the note above about interrupts and link register things
-//logic firq_not_user_mode_nxt;
-logic use_carry_in_nxt; //ditto*/
+logic [1:0] barrel_shift_amount_sel_nxt;
+logic [1:0] barrel_shift_data_sel_nxt;
+logic [3:0] iaddress_sel_nxt;
+logic [3:0] daddress_sel_nxt;
+logic [2:0] pc_sel_nxt;
+logic [1:0] byte_enable_sel_nxt;
+logic [2:0] status_bits_sel_nxt;
+logic use_carry_in_nxt;
+
+logic [1:0] op_type_mem_nxt; //11=undefined, 10=swap, 01=write, 00=read
+logic [1:0] address_mode_nxt; //00=offset addressing, 10=pre-indexed, 11=post-indexed (01=undefined)
 
 //Internal ALU-function signals
 logic alu_swap_sel_nxt;
@@ -128,32 +126,13 @@ logic [1:0] alu_cin_sel_nxt;
 logic alu_cout_sel_nxt;
 logic [3:0] alu_out_sel_nxt;
 
-logic write_data_wen_nxt; //ditto
-//removed copro_write_data_wen_nxt
-//removed base_address_wen_nxt
-logic pc_wen_nxt; //ditto
-logic [14:0] reg_bank_wen_nxt; //ditto
-logic status_bits_flags_wen_nxt; //ditto
-logic status_bits_mode_wen_nxt; //ditto
-logic status_bits_irq_mask_wen_nxt; //ditto
-logic status_bits_firq_mask_wen_nxt; //ditto*/
-
-//removed saved_current_instruction_wen
-//removed pre_fetch_instruction_wen
-//removed control_state
-//removed control_state_nxt
-//removed dabt, iabt, pre_fetch, hold_instruction and all related
-//logic adex_reg; //might need this, but *probably* not
-//logic [31:0] fetch_address_r; //probably safe to remove
-//logic [31:0] fetch_instruction_r; //same
-//logic [3:0] fetch_instruction_type_r; //same
-
-//logic instruction_valid; //should be ok to remove; formerly for multicycle instructions/weird-state-machine stuff
-//logic instruction_execute; //same
-//logic instruction_execute_r; //same
-
-//removed mtrans_reg1, mtrans_reg2, mtrans_instruction_nxt, mtrans_reg2_mask, mtrans_base_reg_change, mtrans_num_registers, etc.. will probably need to re-add some later.
-//removed use_saved_current/hold/pre_fetch_instruction
+logic write_data_wen_nxt;
+logic pc_wen_nxt;
+logic [14:0] reg_bank_wen_nxt;
+logic status_bits_flags_wen_nxt;
+logic status_bits_mode_wen_nxt;
+logic status_bits_irq_mask_wen_nxt;
+logic status_bits_firq_mask_wen_nxt;
 
 logic interrupt;
 logic interrupt_or_conflict; //may not truly be needed, but left in for now just in case
@@ -164,33 +143,8 @@ logic firq;
 logic firq_request;
 logic irq_request;
 logic swi_request;
-//logic und_request; //undefined instruction interrupt request; formerly hooked up to the coprocessor crap
-//logic dabt_request;
-//removed copro_operation_nxt
-//removed restore_base_address and restore_base_address_nxt (formerly for MTRANS (ldm/stm) ops)
 
 logic regop_set_flags;
-
-//logic load_rd_nxt; //not needed for immediate purposes; TODO revise later MTRANS implementation
-//logic load_rd_byte; //not needed for immediate purposes; TODO revise later MTRANS and SWP implementation
-//removed ldm_user_mode, ldm_status_bits, and ldm_flags (for now, at least)
-//logic load_rd_d1_nxt; //for previous memory load implementation. no longer needed b/c of OOO stuff.
-//logic laod_rd_d1; //same
-
-//We can safely remove all register conflict detection signals now that we have *proper* OOO execution
-//This includes xx_valid, xx_conflict1, xx_conflict2, conflict1, conflict2, conflict, and <xyz>_conflict_r
-
-/*logic [3:0] condition_r; //should be ok to remove, just latch the value to o_condition instead
-//logic decode_iaccess_r; //ditto (but we also don't really care about decode_iaccess at all anymore)
-logic [1:0] status_bits_mode_r; //ditto ^^2x
-logic status_bits_irq_mask_r; //ditto
-logic status_bits_firq_mask_r; //ditto
-logic [3:0] iaddress_sel_r; //ditto
-logic [3:0] daddress_sel_r; //ditto
-logic [2:0] pc_sel_r; //ditto
-logic pc_wen_r; //ditto*/
-
-//TODO don't forget to hook up o_use_rn/rs/rm in the following logic!
 
 /*****************************************************************************/
 /* THE ACTUAL SIGNALS ********************************************************/
@@ -207,6 +161,7 @@ assign rn_sel_nxt = branch ? 4'd15 : instruction[19:16];
 assign rs_sel_nxt = branch 		? 4'd15 : 
 					rds_use_rs 	? instruction[11:8]:
 								  instruction[15:12];
+assign rd_sel_nxt = instruction[15:12];
 assign shift_extend = ~instruction[25] & ~instruction[4] & ~(|instruction[11:7]) & (instruction[6:5]==2'b11);
 assign shift_imm = instruction[11:7];
 assign offset12 = {20'h0, instruction[11:0]};
@@ -216,13 +171,20 @@ assign immediate_shift_op = instruction[25];
 assign rds_use_rs = (instr_type==REGOP && ~instruction[25] && instruction[4]) || (instr_type==MULT); //TODO confirm change will work
 assign branch = (instr_type==BRANCH);
 assign opcode_compare = (opcode==CMP || opcode==CMN || opcode==TEQ || opcode==TST);
-assign mem_op = (instr_type==TRANS);
-assign load_op = (mem_op && instruction[20]);
-assign store_op = (mem_op && instruction[20]);
+assign mem_op = (instr_type==TRANS || instr_type==SWAP);
+assign load_op = (mem_op && instruction[20] && !is_swap_nxt);
+assign store_op = (mem_op && !instruction[20] && !is_swap_nxt);
+assign op_type_mem_nxt = is_swap_nxt ? 2'b10 :
+                         store_op    ? 2'b01 :
+                         load_op     ? 2'b00 :
+                                       2'b11;
 //skipping write_pc and current_write_pc
 assign regop_set_flags = (instr_type==REGOP && instruction[20]);
 assign mem_op_pre_indexed = instruction[24] && instruction[21];
 assign mem_op_post_indexed = !instruction[24];
+assign address_mode_nxt = mem_op_post_indexed ? 2'b11 : //post-indexed; need register writeback
+                          mem_op_pre_indexed  ? 2'b10 : //pre-indexed; need register writeback
+                                                2'b00; //offset addressing; no register writeback
 assign imm32_nxt = 	instr_type==MULT		   ? 32'd0:
 					instr_type==BRANCH		   ? offset24:
 					instr_type==TRANS		   ? offset12:
@@ -252,15 +214,15 @@ assign alu_function_nxt = {	alu_swap_sel_nxt,
 							alu_out_sel_nxt	};
 
 //TODO change these to just latch the values into the outputs directly!
-assign use_rn_nxt = instr_type==REGOP ||
-					instr_type==MULT ||
+assign use_rn_nxt = (instr_type==REGOP && opcode!=MOV && opcode!=MVN) ||
+					//instr_type==MULT || //what we call "rn", in this context, is actually mult's rd. go figure. stupid ARM.
 					instr_type==SWAP ||
 					instr_type==TRANS; //TODO add back MTRANS eventually
 assign use_rm_nxt = instr_type==REGOP ||
 					instr_type==MULT ||
 					instr_type==SWAP ||
 					(instr_type==TRANS && immediate_shift_op);
-assign use_rs_nxt = rds_use_rs;
+assign use_rs_nxt = rds_use_rs && opcode!=MOV && opcode!=MVN;
 assign use_sr_nxt = (condition_nxt != AL);
 
 
@@ -318,13 +280,6 @@ always_comb
     status_bits_firq_mask_nxt       = o_status_bits_firq_mask;
     is_swap_nxt            = 1'd0;
     is_memop_nxt              = 1'd0;
-    //decode_iaccess_nxt              = 1'd1;
-    //copro_operation_nxt             = 'd0;
-
-    // Save an instruction to use later
-    /*saved_current_instruction_wen   = 1'd0;
-    pre_fetch_instruction_wen       = 1'd0;
-    restore_base_address_nxt        = restore_base_address;*/
 
     // default Mux Select values
     barrel_shift_amount_sel_nxt     = 'd0;  // don't shift the input
@@ -338,8 +293,6 @@ always_comb
     load_pc_nxt                     = 'd0;
     byte_enable_sel_nxt             = 'd0;
     status_bits_sel_nxt             = 'd0;
-    //reg_write_sel_nxt               = 'd0;
-    //o_user_mode_regs_store_nxt      = 'd0;
 
     // ALU Muxes
     alu_swap_sel_nxt                = 'd0;
@@ -350,8 +303,6 @@ always_comb
 
     // default Flop Write Enable values
     write_data_wen_nxt              = 'd0;
-    //copro_write_data_wen_nxt        = 'd0;
-    //base_address_wen_nxt            = 'd0;
     pc_wen_nxt                      = 'd1;
     reg_bank_wen_nxt                = 'd0;  // Don't select any
 
@@ -369,8 +320,8 @@ always_comb
                 // Check is the load destination is the PC
                 if (instruction[15:12]  == 4'd15)
                     begin
-                    pc_sel_nxt       = 3'd1; // alu_out
-                    iaddress_sel_nxt = 4'd1; // alu_out
+                    pc_sel_nxt       = 3'd3; // force PC to sniff tag bus for this instruction
+                    iaddress_sel_nxt = 4'd3; // force PC to sniff tag bus for this instruction
                     end
                 else
                     reg_bank_wen_nxt = decode (instruction[15:12]);
@@ -488,65 +439,78 @@ always_comb
             end
 
         // Load & Store instructions
-		//Removed for now because of crappy memory handling
-        /*if ( mem_op )
+		//TODO needs lots of restructuring, esp. wrt loading to PC and (possibly) pre/post-indexing and (definitely) LDM/STM'ing!
+        if ( mem_op )
             begin
-            if ( load_op && instruction[15:12]  == 4'd15 ) // Write to PC
-                begin
-                saved_current_instruction_wen   = 1'd1; // Save the memory access instruction to refer back to later
-                pc_wen_nxt                      = 1'd0; // hold current PC value rather than an instruction fetch
-                load_pc_nxt                     = 1'd1;
-                end
-
-            decode_daccess_nxt              = 1'd1; // indicate a valid data access
-            alu_out_sel_nxt                 = 4'd1; // Add
-
-            if ( !instruction[23] )  // U: Subtract offset
-                begin
-                alu_cin_sel_nxt  = 2'd1; // cin = 1
-                alu_not_sel_nxt  = 1'd1; // invert B
-                end
-
-            if ( store_op )
-                begin
+            
+            is_memop_nxt = 1'd1;
+            
+            if (instr_type==SWAP) begin
+                is_swap_nxt = 1'd1;
+                reg_bank_wen_nxt = decode(rd_sel_nxt); //this is safe since SWP and SWPB cannot touch r15 (the PC)
+                //note that computation is not performed on the address, it uses it straight from the register
+                if (instruction[22]) byte_enable_sel_nxt = 2'd1;
                 write_data_wen_nxt = 1'd1;
-                if ( type == TRANS && instruction[22] )
-                    byte_enable_sel_nxt = 2'd1;         // Save byte
-                end
-
-                // need to update the register holding the address ?
-                // This is Rn bits [19:16]
-            if ( mem_op_pre_indexed || mem_op_post_indexed )
-                begin
-                // Check is the load destination is the PC
-                if ( rn_sel_nxt  == 4'd15 )
-                    pc_sel_nxt = 3'd1;
+            end
+            else begin
+                
+                if (load_op) reg_bank_wen_nxt = decode(rd_sel_nxt);
+                if ( load_op && instruction[15:12]  == 4'd15 ) // Write to PC
+                    begin
+                    pc_sel_nxt       = 3'd3; // force PC to sniff tag bus for this instruction
+                    iaddress_sel_nxt = 4'd3; // force PC to sniff tag bus for this instruction
+                    end
+    
+                alu_out_sel_nxt                 = 4'd1; // Add
+    
+                if ( !instruction[23] )  // U: Subtract offset
+                    begin
+                    alu_cin_sel_nxt  = 2'd1; // cin = 1
+                    alu_not_sel_nxt  = 1'd1; // invert B
+                    end
+    
+                if ( store_op )
+                    begin
+                    write_data_wen_nxt = 1'd1;
+                    if ( instr_type == TRANS && instruction[22] )
+                        byte_enable_sel_nxt = 2'd1;         // Save byte
+                    end
+    
+                    // need to update the register holding the address ?
+                    // This is Rn bits [19:16]
+                if ( mem_op_pre_indexed || mem_op_post_indexed )
+                    begin
+                    // Check is the load destination is the PC
+                    if ( rn_sel_nxt  == 4'd15 ) begin
+                        pc_sel_nxt       = 3'd3; // force PC to sniff tag bus for this instruction
+                        iaddress_sel_nxt = 4'd3; // force PC to sniff tag bus for this instruction
+                    end
+                    else
+                        reg_bank_wen_nxt = decode ( rn_sel_nxt );
+                    end
+    
+                    // if post-indexed, then use Rn rather than ALU output, as address
+                if ( mem_op_post_indexed )
+                   daddress_sel_nxt = 4'd4; // Rn
                 else
-                    reg_bank_wen_nxt = decode ( rn_sel_nxt );
-                end
-
-                // if post-indexed, then use Rn rather than ALU output, as address
-            if ( mem_op_post_indexed )
-               daddress_sel_nxt = 4'd4; // Rn
-            else
-               daddress_sel_nxt = 4'd1; // alu out
-
-            if ( instruction[25] && type ==  TRANS )
-                barrel_shift_data_sel_nxt = 2'd2; // Shift value from Rm register
-
-            if ( type == TRANS && instruction[25] && shift_imm != 5'd0 )
-                begin
-                barrel_shift_function_nxt   = instruction[6:5];
-                barrel_shift_amount_sel_nxt = 2'd2; // imm_shift_amount
-                end
-            end*/
-
+                   daddress_sel_nxt = 4'd1; // alu out
+    
+                if ( instruction[25] && instr_type ==  TRANS )
+                    barrel_shift_data_sel_nxt = 2'd2; // Shift value from Rm register
+    
+                if ( instr_type == TRANS && instruction[25] && shift_imm != 5'd0 )
+                    begin
+                    barrel_shift_function_nxt   = instruction[6:5];
+                    barrel_shift_amount_sel_nxt = 2'd2; // imm_shift_amount
+                    end
+            end
+        end
 
         if ( instr_type == BRANCH )
             begin
             pc_sel_nxt            = 3'd1; // alu_out
             iaddress_sel_nxt      = 4'd1; // alu_out
-            alu_out_sel_nxt       = 4'd1; // Add
+            //alu_out_sel_nxt       = 4'd1; // Add
 			
 			//branch is to *
 
@@ -631,25 +595,13 @@ always_comb
             //saved_current_instruction_wen   = 1'd1; // Save the Multiply instruction to
                                                     // refer back to later
             pc_wen_nxt                      = 1'd0; // hold current PC value
+            reg_bank_wen_nxt = decode(instruction[19:16]); //select Rd from the instruction to write back the data when multiply done
 
             if ( instruction[21] )
                 multiply_function_nxt[1]    = 1'd1; // accumulate
             end
 
-
-        // swp - do read part first
-        /*if ( type == SWAP ) //TODO add back with memory
-            begin
-            saved_current_instruction_wen   = 1'd1; // Save the memory access instruction to refer back to later
-            pc_wen_nxt                      = 1'd0; // hold current PC value
-            decode_iaccess_nxt              = 1'd0; // skip the instruction fetch
-            decode_daccess_nxt              = 1'd1; // data access
-            barrel_shift_data_sel_nxt       = 2'd2; // Shift value from Rm register
-            daddress_sel_nxt                = 4'd4; // Rn
-            decode_exclusive_nxt            = 1'd1; // signal an exclusive access
-            end*/
-
-
+        //note: for 545 Beryl demo, shouldn't need to worry about SWIs. Will need to worry about *normal* interrupts, though.
         if ( instr_type == SWI /*|| und_request*/ ) //TODO rework link-register handling
             begin
             // save address of next instruction to Supervisor Mode LR
@@ -992,7 +944,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		o_use_carry_in <= '0;
 		o_multiply_function <= '0;
 		o_interrupt_vector_sel <= '0;
-		o_iaddress_sel <= 4'd2;
+		o_iaddress_sel <= 4'd0;//TODO which should this be? 0 or 2? Pretty sure it's a 0, but originally it was a 2 in a25...
 		//o_daddress_sel <= 4'd2;
 		o_byte_enable_sel <= '0;
 		o_status_bits_sel <= '0;
@@ -1023,6 +975,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 				o_rm_sel <= '0;
 				o_rs_sel <= '0;
 				o_rn_sel <= '0;
+				o_rd_sel <= '0; //used for mem writes
 				o_use_rn <= '0;
 				o_use_rs <= '0;
 				o_use_rm <= '0;
@@ -1032,9 +985,11 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 				o_barrel_shift_function <= '0;
 				o_alu_function <= '0;
 				o_use_carry_in <= '0;
+				o_op_type_mem <= '0;
+				o_address_mode <= '0;
 				o_multiply_function <= '0;
 				o_interrupt_vector_sel <= '0;
-				o_iaddress_sel <= 4'd2;
+				o_iaddress_sel <= 4'd0;
 				//o_daddress_sel <= 4'd2;
 				o_byte_enable_sel <= '0;
 				o_status_bits_sel <= '0;
@@ -1059,6 +1014,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 				o_rm_sel <= rm_sel_nxt;
 				o_rs_sel <= rs_sel_nxt;
 				o_rn_sel <= rn_sel_nxt;
+				o_rd_sel <= rd_sel_nxt; //used for mem writes
 				o_use_rm <= use_rm_nxt;
 				o_use_rs <= use_rs_nxt;
 				o_use_rn <= use_rn_nxt;
@@ -1068,6 +1024,8 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 				o_barrel_shift_function <= barrel_shift_function_nxt;
 				o_alu_function <= alu_function_nxt;
 				o_use_carry_in <= use_carry_in_nxt;
+				o_op_type_mem <= op_type_mem_nxt;
+				o_address_mode <= address_mode_nxt;
 				o_multiply_function <= multiply_function_nxt;
 				o_interrupt_vector_sel <= next_interrupt;
 				o_iaddress_sel <= iaddress_sel_nxt;

@@ -58,11 +58,13 @@ input       [1:0]           i_mode_exec,            // 1 periods delayed from i_
 input       [3:0]           i_rm_sel,
 input       [3:0]           i_rs_sel,
 input       [3:0]           i_rn_sel,
+input       [3:0]           i_rd_sel, //TODO added 12/4/2015
 
 input                       i_pc_wen,
 input       [14:0]          i_reg_bank_wen,
 
 input       [23:0]          i_pc,                   // program counter [25:2]
+input i_pc_wait_for_tag, //say whether the PC is the destination register of an instruction; this causes an invalidation and makes the PC now wait for tag-bus-sniffed data
 
 //input       [1:0]           i_wb_mode,
 
@@ -86,9 +88,6 @@ input		[5:0]			i_mem_tag,
 input		[31:0]			i_alu_data,
 input		[31:0]			i_mult_data,
 input		[31:0]			i_mem_data,
-input		[3:0]			i_alu_flags, //not currently used
-input		[1:0]			i_mult_flags, //not currently used
-input		[3:0]			i_mem_flags, //not currently used
 
 output logic				o_rm_valid,
 output logic				o_rs_valid,
@@ -102,6 +101,8 @@ output logic[5:0]			o_rn_tag,
 output logic[5:0]			o_pc_tag,
 
 input		[5:0]			i_rd_tag,
+input                       i_mem_wb, //need to invalidate a 2nd register, with a different tag, if it's a pre-/post-indexed memop
+input       [5:0]           i_mem_wb_tag,
 
 output logic [7:0] led,
 input [7:0] sw
@@ -317,6 +318,7 @@ always_comb begin
 	end
 	
 	//r15 (PC), handled the same in all modes
+	//Note that this *should* never happen, though, since mult ops aren't supposed to be able to set the PC
 	if (!r15.valid && i_mult_valid && r15.tag == i_mult_tag) tag_match_mult[15] = 1'b1;
 	
 	
@@ -383,9 +385,9 @@ always_comb begin
 	
 	//r0-r7: always
 	//r0
-	if (reg_bank_wen_c[0]) begin
+	if (reg_bank_wen_c[0] || (i_mem_wb && i_rn_sel==4'd0)) begin
 		r_valid_nxt[0] = 1'b0;
-		r_tag_nxt[0] = i_rd_tag;
+		r_tag_nxt[0] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[0] || tag_match_mult[0] || tag_match_mem[0]) begin
 		r_valid_nxt[0] = 1'b1;
@@ -397,9 +399,9 @@ always_comb begin
 	end
 	
 	//r1
-	if (reg_bank_wen_c[1]) begin
+	if (reg_bank_wen_c[1] || (i_mem_wb && i_rn_sel==4'd1)) begin
 		r_valid_nxt[1] = 1'b0;
-		r_tag_nxt[1] = i_rd_tag;
+		r_tag_nxt[1] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[1] || tag_match_mult[1] || tag_match_mem[1]) begin
 		r_valid_nxt[1] = 1'b1;
@@ -411,9 +413,9 @@ always_comb begin
 	end
 	
 	//r2
-	if (reg_bank_wen_c[2]) begin
+	if (reg_bank_wen_c[2] || (i_mem_wb && i_rn_sel==4'd2)) begin
 		r_valid_nxt[2] = 1'b0;
-		r_tag_nxt[2] = i_rd_tag;
+		r_tag_nxt[2] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[2] || tag_match_mult[2] || tag_match_mem[2]) begin
 		r_valid_nxt[2] = 1'b1;
@@ -425,9 +427,9 @@ always_comb begin
 	end
 	
 	//r3
-	if (reg_bank_wen_c[3]) begin
+	if (reg_bank_wen_c[3] || (i_mem_wb && i_rn_sel==4'd3)) begin
 		r_valid_nxt[3] = 1'b0;
-		r_tag_nxt[3] = i_rd_tag;
+		r_tag_nxt[3] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[3] || tag_match_mult[3] || tag_match_mem[3]) begin
 		r_valid_nxt[3] = 1'b1;
@@ -439,9 +441,9 @@ always_comb begin
 	end
 	
 	//r4
-	if (reg_bank_wen_c[4]) begin
+	if (reg_bank_wen_c[4] || (i_mem_wb && i_rn_sel==4'd4)) begin
 		r_valid_nxt[4] = 1'b0;
-		r_tag_nxt[4] = i_rd_tag;
+		r_tag_nxt[4] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[4] || tag_match_mult[4] || tag_match_mem[4]) begin
 		r_valid_nxt[4] = 1'b1;
@@ -453,9 +455,9 @@ always_comb begin
 	end
 	
 	//r5
-	if (reg_bank_wen_c[5]) begin
+	if (reg_bank_wen_c[5] || (i_mem_wb && i_rn_sel==4'd5)) begin
 		r_valid_nxt[5] = 1'b0;
-		r_tag_nxt[5] = i_rd_tag;
+		r_tag_nxt[5] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[5] || tag_match_mult[5] || tag_match_mem[5]) begin
 		r_valid_nxt[5] = 1'b1;
@@ -467,9 +469,9 @@ always_comb begin
 	end
 	
 	//r6
-	if (reg_bank_wen_c[6]) begin
+	if (reg_bank_wen_c[6] || (i_mem_wb && i_rn_sel==4'd6)) begin
 		r_valid_nxt[6] = 1'b0;
-		r_tag_nxt[6] = i_rd_tag;
+		r_tag_nxt[6] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[6] || tag_match_mult[6] || tag_match_mem[6]) begin
 		r_valid_nxt[6] = 1'b1;
@@ -481,9 +483,9 @@ always_comb begin
 	end
 	
 	//r7
-	if (reg_bank_wen_c[7]) begin
+	if (reg_bank_wen_c[7] || (i_mem_wb && i_rn_sel==4'd7)) begin
 		r_valid_nxt[7] = 1'b0;
-		r_tag_nxt[7] = i_rd_tag;
+		r_tag_nxt[7] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[7] || tag_match_mult[7] || tag_match_mem[7]) begin
 		r_valid_nxt[7] = 1'b1;
@@ -497,9 +499,9 @@ always_comb begin
 	
 	//r8-r12, depending on irq/firq
 	//r8
-	if (reg_bank_wen_c[8]) begin
+	if (reg_bank_wen_c[8] || (i_mem_wb && i_rn_sel==4'd8)) begin
 		r_valid_nxt[8] = 1'b0;
-		r_tag_nxt[8] = i_rd_tag;
+		r_tag_nxt[8] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[8] || tag_match_mult[8] || tag_match_mem[8]) begin
 		r_valid_nxt[8] = 1'b1;
@@ -511,9 +513,9 @@ always_comb begin
 	end
 	
 	//r9
-	if (reg_bank_wen_c[9]) begin
+	if (reg_bank_wen_c[9] || (i_mem_wb && i_rn_sel==4'd9)) begin
 		r_valid_nxt[9] = 1'b0;
-		r_tag_nxt[9] = i_rd_tag;
+		r_tag_nxt[9] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[9] || tag_match_mult[9] || tag_match_mem[9]) begin
 		r_valid_nxt[9] = 1'b1;
@@ -525,9 +527,9 @@ always_comb begin
 	end
 	
 	//r10
-	if (reg_bank_wen_c[10]) begin
+	if (reg_bank_wen_c[10] || (i_mem_wb && i_rn_sel==4'd10)) begin
 		r_valid_nxt[10] = 1'b0;
-		r_tag_nxt[10] = i_rd_tag;
+		r_tag_nxt[10] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[10] || tag_match_mult[10] || tag_match_mem[10]) begin
 		r_valid_nxt[10] = 1'b1;
@@ -539,9 +541,9 @@ always_comb begin
 	end
 	
 	//r11
-	if (reg_bank_wen_c[11]) begin
+	if (reg_bank_wen_c[11] || (i_mem_wb && i_rn_sel==4'd11)) begin
 		r_valid_nxt[11] = 1'b0;
-		r_tag_nxt[11] = i_rd_tag;
+		r_tag_nxt[11] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[11] || tag_match_mult[11] || tag_match_mem[11]) begin
 		r_valid_nxt[11] = 1'b1;
@@ -553,9 +555,9 @@ always_comb begin
 	end
 	
 	//r12
-	if (reg_bank_wen_c[12]) begin
+	if (reg_bank_wen_c[12] || (i_mem_wb && i_rn_sel==4'd12)) begin
 		r_valid_nxt[12] = 1'b0;
-		r_tag_nxt[12] = i_rd_tag;
+		r_tag_nxt[12] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[12] || tag_match_mult[12] || tag_match_mem[12]) begin
 		r_valid_nxt[12] = 1'b1;
@@ -569,9 +571,9 @@ always_comb begin
 	
 	//r13-r14, depending on usr/svc/irq/firq
 	//r13
-	if (reg_bank_wen_c[13]) begin
+	if (reg_bank_wen_c[13] || (i_mem_wb && i_rn_sel==4'd13)) begin
 		r_valid_nxt[13] = 1'b0;
-		r_tag_nxt[13] = i_rd_tag;
+		r_tag_nxt[13] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[13] || tag_match_mult[13] || tag_match_mem[13]) begin
 		r_valid_nxt[13]= 1'b1;
@@ -592,9 +594,9 @@ always_comb begin
 	end
 	
 	//r14
-	if (reg_bank_wen_c[14]) begin
+	if (reg_bank_wen_c[14] || (i_mem_wb && i_rn_sel==4'd14)) begin
 		r_valid_nxt[14] = 1'b0;
-		r_tag_nxt[14] = i_rd_tag;
+		r_tag_nxt[14] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
 	else if (tag_match_alu[14] || tag_match_mult[14] || tag_match_mem[14]) begin
 		r_valid_nxt[14]= 1'b1;
@@ -617,11 +619,11 @@ always_comb begin
 	
 	//r15 (pc), always
 	//TODO restructure so we *actually* know if PC is valid or not
-	//if (/*i_pc_wen/*reg_bank_wen_c[15]*/) begin //TODO might have *issues*; need to be careful with dispatch logic
-	//	r_valid_nxt[15] = 1'b0;
-	//	r_tag_nxt[15] = i_rd_tag;
-	//end
-	/*else*/ if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
+	if (i_pc_wen && i_pc_wait_for_tag) begin //note that if we stall because of this, i_pc_wen will become false on the next cycle, so PC will not be continuously invalidated (and thus we shouldn't deadlock) 
+		r_valid_nxt[15] = 1'b0;
+		r_tag_nxt[15] = i_rd_tag; //don't need "i_mem_wb ? i_mem_wb_tag : " since rn cannot be pc
+	end
+	else if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
 		r_valid_nxt[15] = 1'b1;
 		r_tag_nxt[15] = r15.tag;
 	end
@@ -832,6 +834,7 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		
 		//don't care about tag initialization
 		
+		//initializing all regs to 0 helps with debugging and making the programmer's job easier if they assume initialization to zero (bad on them, but hey, I'm feeling nice today so let's just tolerate it...)
 		r0.data <= 'd0;
 		r1.data <= 'd0;
 		r2.data <= 'd0;
@@ -1473,7 +1476,7 @@ end
 // Rd Selector
 // ========================================================
 always_comb begin
-	case (i_rs_sel)
+	case (i_rd_sel) //TODO possible bugbug: was originally i_rs_sel, but I'm fairly confident it needs to be a separate i_rd_sel!
 		4'd0: 	
 		begin
 				o_rd = 	tag_match_alu[0 ]  ? i_alu_data  :

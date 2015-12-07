@@ -49,8 +49,8 @@ output logic 			o_ready,            // asserted high on the cycle when data_out_
 input logic				i_instr_valid,
 input logic	 [31:0]		i_address,
 input logic	 [31:0]		i_write_data,
-input logic  [1:0]		i_op_type,
-input logic  [3:0]		i_byte_enable,
+input logic  [1:0]		i_op_type, //10=swap, 01=write, 00=read
+input logic  [1:0]		i_byte_enable_sel, //TODO revise things now so byte_enable is computed (inside this module) from i_byte_enable_sel and i_address, as per how the old a25_execute.v does it
 input logic  [5:0]		i_rd_tag,
 
 output logic			o_valid,
@@ -58,13 +58,13 @@ output logic [5:0]		o_tag,
 output logic [31:0]		o_data,
 
 // Wishbone accesses                                                         
-output                      o_wb_req,      // Unached Request
-output                      o_wb_write,             // Read=0, Write=1
-output     [15:0]           o_wb_byte_enable,       // byte eable
-output     [127:0]          o_wb_write_data,
-output     [31:0]           o_wb_address,           // wb bus                                 
-input                       i_wb_ready     // wishbone access complete and read data valid
-input      [127:0]          i_wb_rdata,    // wb bus                          
+output logic                     o_wb_req,      // Unached Request
+output logic                     o_wb_write,             // Read=0, Write=1
+output logic    [15:0]           o_wb_byte_enable,       // byte eable
+output logic    [127:0]          o_wb_write_data,
+output logic    [31:0]           o_wb_address,           // wb bus                                 
+input logic                      i_wb_ready,     // wishbone access complete and read data valid
+input logic     [127:0]          i_wb_rdata    // wb bus                          
 );
 
 `include "memory_configuration.vh"
@@ -81,6 +81,17 @@ logic [3:0] byte_enable_current;
 logic [5:0] rd_tag_current;
 logic swap_op_wstart; //high on the cycle when the write portion of a swap operation begins
 
+logic [3:0] byte_enable;
+assign byte_enable = i_byte_enable_sel == 2'd0   ? 4'b1111 :  // word write
+                     i_byte_enable_sel == 2'd2   ?            // halfword write
+                     ( i_address[1] == 1'd0 ? 4'b0011 :
+                                                   4'b1100  ) :
+
+                     i_address[1:0] == 2'd0 ? 4'b0001 :  // byte write
+                     i_address[1:0] == 2'd1 ? 4'b0010 :
+                     i_address[1:0] == 2'd2 ? 4'b0100 :
+                                                   4'b1000 ;
+
 assign swap_op_wstart = (op_type_current==2'b00 && is_swap_current && i_wb_ready);
 
 //output logic
@@ -94,10 +105,10 @@ always_comb begin
 											   i_wb_rdata[127:96] ;
 	o_wb_req = i_instr_valid || swap_op_wstart;
 	o_wb_write = (i_instr_valid && i_op_type[0]) || swap_op_wstart;
-	if (i_instr_valid)	o_wb_byte_enable = i_address[3:2] == 2'd0 ? {12'd0, i_byte_enable       } :
-										   i_address[3:2] == 2'd1 ? { 8'd0, i_byte_enable,  4'd0} :
-										   i_address[3:2] == 2'd2 ? { 4'd0, i_byte_enable,  8'd0} :
-																	{       i_byte_enable, 12'd0} ;
+	if (i_instr_valid)	o_wb_byte_enable = i_address[3:2] == 2'd0 ? {12'd0, byte_enable       } :
+										   i_address[3:2] == 2'd1 ? { 8'd0, byte_enable,  4'd0} :
+										   i_address[3:2] == 2'd2 ? { 4'd0, byte_enable,  8'd0} :
+																	{       byte_enable, 12'd0} ;
 	else	o_wb_byte_enable = 	address_current[3:2] == 2'd0 ? {12'd0, byte_enable_current       } :
 								address_current[3:2] == 2'd1 ? { 8'd0, byte_enable_current,  4'd0} :
 								address_current[3:2] == 2'd2 ? { 4'd0, byte_enable_current,  8'd0} :
@@ -141,7 +152,7 @@ always_ff @(posedge i_clk, posedge i_rst) begin
 		if (op_in_progress) begin
 			if (i_wb_ready) begin //regardless of op type, we need to wait for ack
 				//note that output logic is to be combinational based on the current state of i_wb_ready, op_type_current, and i_wb_rdata
-				if (op_type_current[1] || ~is_swap_current) begin //last part of swap, or any non-swap op
+				if (op_type_current[0] || ~is_swap_current) begin //last part of swap, or any non-swap op
 					op_type_current <= 'd0;
 					op_in_progress <= 1'b0;
 					is_swap_current <= 1'b0;
@@ -192,7 +203,7 @@ always_ff @(posedge i_clk, posedge i_rst) begin
 					is_swap_current <= i_op_type[1];
 					address_current <= i_address;
 					write_data_current <= i_write_data;
-					byte_enable_current <= i_byte_enable;
+					byte_enable_current <= byte_enable;
 					rd_tag_current <= i_rd_tag;
 				end
 			end
