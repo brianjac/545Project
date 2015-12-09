@@ -1,0 +1,40 @@
+Vivado Simulator 2015.2
+Time resolution is 1 ps
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb.u_system.u_boot_mem.inst.native_mem_mapped_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Block Memory Generator module tb.u_system.fake_ddr3.inst.native_mem_mapped_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Core amber25, log file tests.log, timeout 0, test name add 
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module tb.u_system.u_boot_mem.inst.native_mem_mapped_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Block Memory Generator module tb.u_system.fake_ddr3.inst.native_mem_mapped_module.blk_mem_gen_v8_2_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Core amber25, log file tests.log, timeout 0, test name add 
+
+----------------------------------------------------------------------------
+Amber Core
+         User         FIRQ         IRQ        > SVC
+r0       0x000000d0
+r1       0x7fffffff
+r2       0x00000001
+r3       0x80000000
+r4       0xffffffff
+r5       0xffffffff
+r6       0xfffffffe
+r7       0xffffffff
+r8       0xffffff01   0x00000000 
+r9       0xffffff00   0xffffff00 
+r10      0x00000011   0x00000011 
+r11      0xf0000000   0xf0000000 
+r12      0x00000000   0x00000000 
+r13      0x00000000   0x00000000   0xdeadbeef   0x00000000
+r14 (lr) 0x00000000   0x00000000   0x00000000   0x00000000
+r15 (pc) 0x000000d0
+
+Status Bits: N=0, Z=1, C=1, V=0, IRQ Mask 1, FIRQ Mask 1, Mode = Supervisor    
+----------------------------------------------------------------------------
+
+++++++++++++++++++++
+Passed add 101 ticks
+++++++++++++++++++++
+$finish called at time : 7127500 ps : File "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/tb/tb.v" Line 511

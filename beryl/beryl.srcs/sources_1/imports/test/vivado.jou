@@ -1,0 +1,104 @@
+#-----------------------------------------------------------
+# Vivado v2015.2 (64-bit)
+# SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
+# IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
+# Start of session at: Fri Nov  6 13:41:22 2015
+# Process ID: 25043
+# Log file: /home/drra/beryl/beryl.srcs/sources_1/imports/test/vivado.log
+# Journal file: /home/drra/beryl/beryl.srcs/sources_1/imports/test/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/drra/beryl/beryl.xpr
+open_hw
+connect_hw_server -url localhost:3121
+current_hw_target [get_hw_targets */xilinx_tcf/Digilent/210203339417A]
+set_property PARAM.FREQUENCY 15000000 [get_hw_targets */xilinx_tcf/Digilent/210203339417A]
+open_hw_target
+set_property PROGRAM.FILE {/home/drra/beryl/beryl.runs/impl_1/system.bit} [lindex [get_hw_devices] 0]
+current_hw_device [lindex [get_hw_devices] 0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices] 0]
+set_property PROBES.FILE {} [lindex [get_hw_devices] 0]
+set_property PROGRAM.FILE {/home/drra/beryl/beryl.runs/impl_1/system.bit} [lindex [get_hw_devices] 0]
+program_hw_devices [lindex [get_hw_devices] 0]
+refresh_hw_device [lindex [get_hw_devices] 0]
+update_compile_order -fileset sources_1
+launch_simulation
+source tb.tcl
+add_wave {{/tb/u_system/u_amber/u_fetch/i_iaddress}} {{/tb/u_system/u_amber/u_fetch/i_iaddress_valid}} {{/tb/u_system/u_amber/u_fetch/i_iaddress_nxt}} {{/tb/u_system/u_amber/u_fetch/o_fetch_instruction}} 
+restart
+run 10 us
+close_sim
+launch_simulation
+source tb.tcl
+restart
+run 10 us
+restart
+run 10 us
+restart
+run 10 us
+add_wave {{/tb/u_system/u_amber/u_fetch/i_wb_read_data}} {{/tb/u_system/u_amber/u_fetch/i_wb_ready}} {{/tb/u_system/u_amber/u_fetch/wb_rdata32}} 
+restart
+run 10 us
+set_property -dict [list CONFIG.Coe_File {/home/drra/beryl/beryl.srcs/sources_1/imports/test/add.coe}] [get_ips blk_mem_gen_bootrom]
+generate_target all [get_files  /home/drra/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_bootrom.xci]
+save_wave_config {/home/drra/beryl/tb_behav_01.wcfg}
+add_files -fileset sim_1 -norecurse /home/drra/beryl/tb_behav_01.wcfg
+set_property xsim.view /home/drra/beryl/tb_behav_01.wcfg [get_filesets sim_1]
+close_sim
+launch_simulation
+open_wave_config /home/drra/beryl/tb_behav_01.wcfg
+source tb.tcl
+restart
+run 10 us
+set_property -dict [list CONFIG.Coe_File {/home/drra/beryl/beryl.srcs/sources_1/imports/test/add.coe}] [get_ips blk_mem_gen_bootrom]
+generate_target all [get_files  /home/drra/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_bootrom.xci]
+save_wave_config {/home/drra/beryl/tb_behav_01.wcfg}
+close_sim
+launch_simulation
+open_wave_config /home/drra/beryl/tb_behav_01.wcfg
+source tb.tcl
+restart
+run 10 us
+run 10 us
+run 10 us
+run 10 us
+run 10 us
+restart
+run 10 us
+save_wave_config {/home/drra/beryl/tb_behav_01.wcfg}
+close_sim
+launch_simulation
+open_wave_config /home/drra/beryl/tb_behav_01.wcfg
+source tb.tcl
+restart
+run 10 us
+add_wave {{/tb/u_system/u_amber/icache_wb_address}} {{/tb/u_system/u_amber/icache_wb_req}} {{/tb/u_system/u_amber/icache_wb_read_data}} {{/tb/u_system/u_amber/icache_wb_ready}} 
+restart
+run 10 us
+add_wave {{/tb/u_system/u_wishbone_arbiter/i_m0_wb_adr}} {{/tb/u_system/u_wishbone_arbiter/i_m1_wb_adr}} {{/tb/u_system/u_wishbone_arbiter/current_master}} 
+restart
+run 10 us
+add_wave {{/tb/u_system/u_amber/u_wishbone/wbuf_valid}} {{/tb/u_system/u_amber/u_wishbone/wbuf_addr}} 
+restart
+run 10 us
+add_wave {{/tb/u_system/u_amber/u_wishbone/u_a25_wishbone_buf_p2/i_req}} {{/tb/u_system/u_amber/u_wishbone/u_a25_wishbone_buf_p2/o_valid}} {{/tb/u_system/u_amber/u_wishbone/u_a25_wishbone_buf_p2/wbuf_used_r}} {{/tb/u_system/u_amber/u_wishbone/u_a25_wishbone_buf_p2/wait_rdata_valid_r}} 
+restart
+run 10 us
+save_wave_config {/home/drra/beryl/tb_behav_01.wcfg}
+close_sim
+launch_simulation
+set_property file_type SystemVerilog [get_files  {/home/drra/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone.v /home/drra/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v}]
+launch_simulation
+launch_simulation
+open_wave_config /home/drra/beryl/tb_behav_01.wcfg
+source tb.tcl
+restart
+run 10 us
+close_sim
+launch_simulation
+open_wave_config /home/drra/beryl/tb_behav_01.wcfg
+source tb.tcl
+restart
+run 10 us
+save_wave_config {/home/drra/beryl/tb_behav_01.wcfg}
+close_sim
