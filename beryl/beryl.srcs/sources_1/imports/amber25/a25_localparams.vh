@@ -50,7 +50,9 @@ localparam [3:0]    REGOP       = 4'h0, // Data processing
                     CODTRANS    = 4'h6, // Co-processor data transfer
                     COREGOP     = 4'h7, // Co-processor data operation
                     CORTRANS    = 4'h8, // Co-processor register transfer
-                    SWI         = 4'h9; // software interrupt
+                    SWI         = 4'h9, // software interrupt
+                    MRS         = 4'ha, //move PSR contents to register
+                    MSR         = 4'hb; //move register contents to PSR
 
 
 // Opcodes

@@ -14,9 +14,8 @@ output      [31:0]          o_iaddress_nxt,             // un-registered version
                                                         // cache rams address ports
 output logic                o_iaddress_valid,     // High when instruction address is valid
 
-output logic                o_adex = 'd0,               // Address Exception
-output logic                o_priviledged = 'd0,        // Priviledged access
-output logic                o_exclusive = 'd0,          // swap access
+//output logic                o_adex = 'd0,               // Address Exception
+//output logic                o_priviledged = 'd0,        // Priviledged access
 output logic                o_write_enable = 'd0,
 output logic[3:0]           o_byte_enable = 'd0,
 
@@ -38,7 +37,6 @@ input      [31:0]           i_imm32,
 input      [4:0]            i_imm_shift_amount,
 input                       i_shift_imm_zero,
 input      [3:0]            i_condition,
-input                       i_decode_exclusive,       // swap access //for SWP/SWPB instruction that atomically writes one reg's value into mem at a given addr and loads the value at that addr into another register. Will need to handle "specially" with some sort of state machine in the mem stage.
 
 input      [3:0]            i_rm_sel,
 input      [3:0]            i_rs_sel,
@@ -51,11 +49,9 @@ input      [8:0]            i_alu_function,
 input      [1:0]            i_multiply_function,
 input      [2:0]            i_interrupt_vector_sel,
 input      [3:0]            i_iaddress_sel,
-input      [3:0]            i_daddress_sel,
-input      [2:0]            i_pc_sel,
+//input      [3:0]            i_daddress_sel,
+//input      [2:0]            i_pc_sel,
 input      [1:0]            i_byte_enable_sel,
-input      [2:0]            i_status_bits_sel,
-input      [2:0]            i_reg_write_sel,
 //input                       i_user_mode_regs_store_nxt,
 //input                       i_firq_not_user_mode,
 input                       i_use_carry_in,         // e.g. add with carry instruction
@@ -126,6 +122,11 @@ input logic [31:0] i_mem_data,
 //input logic [3:0] i_mem_flags, //note that memory ops never set the flags, although they may be conditionally executed
 //input logic i_mem_pc_wen,
 
+input logic i_is_psr,
+input logic i_mrs_msr,
+input logic i_psr_sel,
+input logic [3:0] i_psr_reg,
+
 output [7:0] led,
 input [7:0] sw
 );
@@ -155,40 +156,66 @@ logic			status_bits_irq_mask; //set by the decode stage
 logic			status_bits_firq_mask; //set by the decode stage
 logic [1:0] 	status_bits_mode; //set by the decode stage
 
-//TODO create a place into which to save the status register on irq
-//"spsr" instead of the below which is "cpsr"
-assign o_status_bits = {status_bits_flags,	   //31:28 = flags
-						status_bits_irq_mask,  //27
-						status_bits_firq_mask, //26
-						24'd0,
-						status_bits_mode}; //1:0 = mode
+logic [31:0]    cpsr; //a dummy based on status_bits_whatever
+assign cpsr = { status_bits_flags,	   //31:28 = flags
+                status_bits_irq_mask,  //27
+                status_bits_firq_mask, //26
+                24'd0,
+                status_bits_mode}; //1:0 = mode
+                
+//these actually used as registers rather than just as dummies
+logic [31:0]    spsr_usr, //all bits of all of these are used. we save flags, irq mask, firq mask, and mode all, and can restore all of them. note that the restoration supercedes any mode-setting by Decode, use with care as this could cause strange behavior if an interrupt fires on the same clock cycle as an MSR is being executed!
+                spsr_svc,
+                spsr_irq,
+                spsr_firq;
+
+logic psr_stall;
+assign psr_stall = i_is_psr && i_mrs_msr==1'b1 && !reg_bank_psr_reg_valid;
+
+//update logic for SPSRs
+always_ff @(posedge i_clk, negedge i_rst) begin
+    if (i_rst) begin
+        spsr_usr <= {4'hf, 2'b00, 24'd0, 2'd0};
+        spsr_svc <= {4'hf, 2'b00, 24'd0, 2'd1};
+        spsr_irq <= {4'hf, 2'b00, 24'd0, 2'd2};
+        spsr_firq<= {4'hf, 2'b00, 24'd0, 2'd3};
+    end
+    else begin
+        if (!(i_core_stall || condition_stall/* || pc_stall*/) && i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b1) begin //note that if this enters the stage, PC should NEVER be stalled
+            if (!psr_stall) begin
+                case (status_bits_mode)
+                    2'd0: spsr_usr <= reg_bank_psr_reg_data;
+                    2'd1: spsr_svc <= reg_bank_psr_reg_data;
+                    2'd2: spsr_irq <= reg_bank_psr_reg_data;
+                    2'd3: spsr_firq<= reg_bank_psr_reg_data;
+                endcase
+            end 
+        end
+        //else, leave as-is
+    end
+end
+
+//TODO modify with cpsr, spsr, and saved info stuff (not here, but in the always_ff below)
+assign o_status_bits = cpsr;
 						
-logic /*instr_conditional,*/ condition_stall;
-//assign instr_conditional = i_condition != AL;
-assign condition_stall = i_use_sr/*instr_conditional*/ & ~status_bits_flags_valid_nxt_eucompare; //TODO incorporate into o_exec_stall
-//condition_execute:
-/*
-	set to 1 if ccr valid and flags match OR not using ccr OR ccr invalid but eu writing back flags and forwarded condition match
-*/
+logic condition_stall;
+assign condition_stall = i_use_sr & ~status_bits_flags_valid_nxt_eucompare;
+//condition_execute: set to 1 if ccr valid and flags match OR not using ccr OR ccr invalid but eu writing back flags and forwarded condition match
 assign condition_execute =	~i_use_sr								?	1'b1:
 							status_bits_flags_valid					?	conditional_execute(i_condition, status_bits_flags):
 							status_bits_flags_valid_nxt_eucompare	?	conditional_execute(i_condition, status_bits_flags_nxt):
 																		1'b0;
 //condition_execute hooked up to the tag store and the reservation station so they know not to generate a tag/add something to the reservation station if this instruction does not conditionally execute
-//TODO confirm proper operation of ^^ inside the register file, tag store, and reservation station
-
-//Note that here we're removing reference to the coprocessor, since it doesn't *actually* exist in the design.
-//The rest of the time, i_xyz_flags will be set in the appropriate Execute substage based on the i_status_bits_sel we pass in.
-//Additional note: the ldm flag-handling might require some special logic here.
 
 //TODO: if rd is r15, i_status_bits_sel set to 3'd1 --> result of computation goes into status bits.
 //TODO: thus, if ^^, we need to stall until resolved.
 //WARNING: KNOWN ISSUE: The above is NOT implemented in the current design!
 
 always_comb begin
-	status_bits_flags_valid_nxt_eucompare = i_alu_valid && i_alu_tag == status_bits_flags_tag	?	1'b1:
+	status_bits_flags_valid_nxt_eucompare = //i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? 1'b1:
+	                                        i_alu_valid && i_alu_tag == status_bits_flags_tag	?	1'b1:
 											i_mult_valid && i_mult_tag == status_bits_flags_tag	?	1'b1:
-											//i_mem_valid && i_mem_tag == status_bits_flags_tag	?	1'b1:
+											//i_mem_valid && i_mem_tag == status_bits_flags_tag	?	1'b1: //removed since mem stage cannot set status bits
 																									status_bits_flags_valid;
 	
 	status_bits_flags_valid_nxt = 	i_status_bits_flags_wen								?	1'b0:
@@ -196,7 +223,8 @@ always_comb begin
 	status_bits_flags_tag_nxt	=	i_status_bits_flags_wen								?	tag_nxt_alu_mult_1	:
 																							status_bits_flags_tag;
 	
-	status_bits_flags_nxt 	 	=	status_bits_flags_valid								? status_bits_flags						:
+	status_bits_flags_nxt 	 	=	//i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0      ? reg_bank_psr_reg_data[31:28]          :
+	                                status_bits_flags_valid								? status_bits_flags						:
 									i_alu_valid && i_alu_tag == status_bits_flags_tag 	? i_alu_flags 							:
 									i_mult_valid && i_mult_tag == status_bits_flags_tag ? {status_bits_flags[3:2], i_mult_flags}: //since multiply only sets the N and Z bits
 									//i_mem_valid && i_mem_tag == status_bits_flags_tag 	? i_mem_flags							:
@@ -215,21 +243,30 @@ always_ff @(posedge i_rst, posedge i_clk) begin //TODO confirm reset polarity
 	end
 	else if (i_clk) begin
 		if (!i_core_stall) begin //TODO note: must be careful of logical loops that could cause this to get locked high forever
-			status_bits_flags_valid <= 	status_bits_flags_valid_nxt;
+			status_bits_flags_valid <= 	i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? 1'b1 : status_bits_flags_valid_nxt;
 			status_bits_flags_tag	<=	status_bits_flags_tag_nxt;
-			status_bits_flags 	 	<=	status_bits_flags_nxt;
-			status_bits_mode 	 	<=	i_status_bits_mode_wen		?	i_status_bits_mode		:
+			status_bits_flags 	 	<=	i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[31:28] : status_bits_flags_nxt;
+			status_bits_mode 	 	<=	 i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[3:0] :
+			                             i_status_bits_mode_wen		?	i_status_bits_mode		:
 																		status_bits_mode;
 																
-			status_bits_irq_mask 	<=	i_status_bits_irq_mask_wen	?	i_status_bits_irq_mask	:
+			status_bits_irq_mask 	<=	 i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[27]:
+			                             i_status_bits_irq_mask_wen	?	i_status_bits_irq_mask	:
 																		status_bits_irq_mask;
 			
-			status_bits_firq_mask	<=	i_status_bits_firq_mask_wen?	i_status_bits_firq_mask	:
+			status_bits_firq_mask	<=	 i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[26]:
+			                             i_status_bits_firq_mask_wen?	i_status_bits_firq_mask	:
 																		status_bits_firq_mask;
 		end
-		else begin
-            status_bits_flags_valid <= status_bits_flags_valid_nxt_eucompare;
-            status_bits_flags <= status_bits_flags_nxt;
+		else begin //note that if the instr is loading a PSR, we should still update the mode/irq/firq/flags from the loaded data even if fetch has stalled
+            status_bits_mode         <=     i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[3:0] :
+                                                                        status_bits_mode;
+            status_bits_irq_mask     <=     i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[27]:
+                                                                        status_bits_irq_mask;
+            status_bits_firq_mask    <=     i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[26]:
+                                                                        status_bits_firq_mask;
+            status_bits_flags_valid <= i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? 1'b1 : status_bits_flags_valid_nxt_eucompare;
+            status_bits_flags <= i_is_psr && i_mrs_msr==1'b1 && i_psr_sel==1'b0 && reg_bank_psr_reg_valid ? reg_bank_psr_reg_data[31:28] : status_bits_flags_nxt;
 		end
 	end
 end
@@ -240,7 +277,8 @@ logic			reg_bank_rm_valid,
 				reg_bank_rs_valid,
 				reg_bank_rn_valid,
 				reg_bank_rd_valid,
-				reg_bank_pc_valid;
+				reg_bank_pc_valid,
+                reg_bank_psr_reg_valid;
 logic [5:0]		reg_bank_rm_tag,
 				reg_bank_rs_tag,
 				reg_bank_rn_tag,
@@ -250,7 +288,14 @@ logic [31:0]	rm,
 				rs,
 				rn,
 				rd,
-				pc;
+				pc,
+				reg_bank_psr_reg_data,
+				reg_bank_psr_data_in;
+assign reg_bank_psr_data_in =   !i_psr_sel ? cpsr :
+                                status_bits_mode==2'd0 ? spsr_usr :
+                                status_bits_mode==2'd1 ? spsr_svc :
+                                status_bits_mode==2'd2 ? spsr_irq :
+                                                         spsr_firq;
 
 //Interrupt vector definition
 //TODO confirm the particular addresses with team
@@ -280,6 +325,7 @@ assign pc_nxt = o_exec_stall                ? pc                      :
                                               pc-'d4                  ;
 logic pc_wait_for_tag;
 assign pc_wait_for_tag = (i_iaddress_sel==4'd3);
+logic reg_bank_pc_valid_curr;
 
 b01_register_bank u_register_bank( //TODO revise so it works with the proposed/in-progress memory instruction handling
     .i_clk                   ( i_clk                     ),
@@ -335,6 +381,7 @@ input                       i_firq_not_user_mode,*/
 	.o_rd_valid		(reg_bank_rd_valid),
 	.o_rn_valid		(reg_bank_rn_valid),
 	.o_pc_valid		(reg_bank_pc_valid),
+	.o_pc_valid_curr (reg_bank_pc_valid_curr), //to the tag store
 	.o_rm_tag		(reg_bank_rm_tag),
 	.o_rs_tag		(reg_bank_rs_tag),
 	.o_rd_tag		(reg_bank_rd_tag),
@@ -345,6 +392,14 @@ input                       i_firq_not_user_mode,*/
 	.i_mem_wb       (i_is_memop & i_address_mode[1]), //need to invalidate a 2nd register, with a different tag, if it's a pre- or post-indexed memop
 	//note that the register we invalidate if it's a pre-/post-indexed memop is always rn
     .i_mem_wb_tag   (tag_nxt_alu_mult_1), //for pre-/post-indexed memops, this is the tag we use
+    
+    .i_is_psr(i_is_psr),
+    .i_mrs_msr(i_mrs_msr),
+    .i_psr_sel(i_psr_reg),
+    .i_psr_reg_data(reg_bank_psr_data_in), //TODO set up this signal
+    //note: stalling is irrelevant here; since we stall the whole core on psr with invalid condition, we'll just keep updating whatever this reg is with the input psr data until it becomes *actually* valid and the core unstalls
+    .o_psr_reg_valid(reg_bank_psr_reg_valid),
+    .o_psr_reg(reg_bank_psr_reg_data),
     
     .led(led),
     .sw(sw)
@@ -430,8 +485,12 @@ assign o_exec_stall = condition_stall | tag_stall | pc_stall; //TODO confirm/edi
 b01_tagstore u_tagstore( //TODO revise to generate sufficient tags simultaneously for an arbitrarily large LDM or STM (or else to say "tags are ready, here's the first one to use" or "here's a bit vector showing which tags are to be used for this instruction")
 	.i_clk(i_clk),
 	.i_rst(i_rst),
-	.i_stall(i_core_stall | ~condition_execute | pc_stall | condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
+	.i_stall(i_core_stall | ~condition_execute /**/| pc_stall /**/| condition_stall), //TODO confirm functionality wrt basis on i_core_stall/fix if needed. Also ensure this works right with predicated execution.
+	.i_pc_stall(/*pc_stall*/~reg_bank_pc_valid_curr),
+	.i_pc_stall_nxt(pc_stall),
+	.i_is_psr(i_is_psr),
 	.i_instr_type(instr_type), //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
+	.i_branch_with_link(instr_type==2'b11 && i_reg_bank_wen!='d0),
 	//.i_instr_mem_with_writeback(/*TODO*/),
 	.i_alu_valid(i_alu_valid),
 	.i_alu_tag(i_alu_tag),

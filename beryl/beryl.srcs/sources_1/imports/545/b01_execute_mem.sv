@@ -92,7 +92,12 @@ assign byte_enable = i_byte_enable_sel == 2'd0   ? 4'b1111 :  // word write
                      i_address[1:0] == 2'd2 ? 4'b0100 :
                                                    4'b1000 ;
 
-assign swap_op_wstart = (op_type_current==2'b00 && is_swap_current && i_wb_ready);
+logic swap_op_wstart_nxt;
+assign swap_op_wstart_nxt = (op_type_current==2'b00 && is_swap_current && i_wb_ready);
+always_ff @(posedge i_clk, posedge i_rst) begin //need a 1-cycle delay on swap_op_wstart to prevent a wonky combinational loop with the wishbone
+    if (i_rst) swap_op_wstart <= 1'b0;
+    else swap_op_wstart <= swap_op_wstart_nxt;
+end
 
 //output logic
 always_comb begin

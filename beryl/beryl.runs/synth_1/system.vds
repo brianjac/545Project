@@ -2,8 +2,8 @@
 # Vivado v2015.2 (64-bit)
 # SW Build 1266856 on Fri Jun 26 16:35:25 MDT 2015
 # IP Build 1264090 on Wed Jun 24 14:22:01 MDT 2015
-# Start of session at: Sun Dec  6 20:46:41 2015
-# Process ID: 23651
+# Start of session at: Wed Dec  9 02:29:52 2015
+# Process ID: 29268
 # Log file: /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.runs/synth_1/system.vds
 # Journal file: /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.runs/synth_1/vivado.jou
 #-----------------------------------------------------------
@@ -17,7 +17,7 @@ Attempting to get a license for feature 'Synthesis' and/or device 'xc7vx485t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7vx485t'
 WARNING: [Synth 8-2611] redeclaration of ansi port ps2_data is not allowed [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:112]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1084.859 ; gain = 175.555 ; free physical = 7397 ; free virtual = 20833
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1084.859 ; gain = 175.555 ; free physical = 11436 ; free virtual = 21257
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'system' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
 INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.v:69]
@@ -41,17 +41,11 @@ INFO: [Synth 8-155] case statement is not full and has no default [/afs/ece.cmu.
 INFO: [Synth 8-256] done synthesizing module 'a25_icache' (8#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_icache.v:46]
 INFO: [Synth 8-256] done synthesizing module 'a25_fetch' (9#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_fetch.v:45]
 INFO: [Synth 8-638] synthesizing module 'b01_decode' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:5]
-WARNING: [Synth 8-152] case item 12'b00xxxxxxxxxx overlaps with previous case item(s) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_functions.vh:49]
-WARNING: [Synth 8-3848] Net irq in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:141]
-WARNING: [Synth 8-3848] Net firq in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:142]
-WARNING: [Synth 8-3848] Net o_is_swap in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:22]
-WARNING: [Synth 8-3848] Net o_daddress_sel in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:39]
-WARNING: [Synth 8-3848] Net o_pc_sel in module/entity b01_decode does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:40]
+WARNING: [Synth 8-152] case item 12'b00xxxxxxxxxx overlaps with previous case item(s) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_functions.vh:52]
 INFO: [Synth 8-256] done synthesizing module 'b01_decode' (10#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:5]
 INFO: [Synth 8-638] synthesizing module 'b01_dispatch' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv:3]
 INFO: [Synth 8-638] synthesizing module 'b01_register_bank' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:44]
 INFO: [Synth 8-256] done synthesizing module 'b01_register_bank' (11#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:44]
-WARNING: [Synth 8-350] instance 'u_register_bank' of module 'b01_register_bank' requires 46 connections, but only 45 given [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv:284]
 INFO: [Synth 8-638] synthesizing module 'b01_tagstore' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:16]
 INFO: [Synth 8-256] done synthesizing module 'b01_tagstore' (12#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:16]
 INFO: [Synth 8-638] synthesizing module 'b01_reservation' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_reservation.sv:80]
@@ -201,7 +195,6 @@ INFO: [Synth 8-256] done synthesizing module 'a25_wishbone_buf__parameterized0' 
 INFO: [Synth 8-638] synthesizing module 'a25_wishbone_buf__parameterized1' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v:52]
 INFO: [Synth 8-256] done synthesizing module 'a25_wishbone_buf__parameterized1' (27#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v:52]
 INFO: [Synth 8-256] done synthesizing module 'a25_wishbone' (28#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone.v:60]
-WARNING: [Synth 8-3848] Net reg_write_sel in module/entity b01_core does not have driver. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:116]
 INFO: [Synth 8-256] done synthesizing module 'b01_core' (29#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:39]
 INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_bootrom' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/synth/blk_mem_gen_bootrom.vhd:69]
 INFO: [Synth 8-3491] module 'blk_mem_gen_v8_2' declared at '/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2.vhd:123' bound to instance 'U0' of component 'blk_mem_gen_v8_2' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/synth/blk_mem_gen_bootrom.vhd:225]
@@ -552,7 +545,7 @@ WARNING: [Synth 8-3848] Net ps2_available in module/entity system does not have 
 INFO: [Synth 8-256] done synthesizing module 'system' (48#1) [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
 WARNING: [Synth 8-3331] design system has unconnected port ps2_clk
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:01:48 ; elapsed = 00:01:52 . Memory (MB): peak = 1834.168 ; gain = 924.863 ; free physical = 6601 ; free virtual = 20066
+Finished RTL Elaboration : Time (s): cpu = 00:01:45 ; elapsed = 00:01:49 . Memory (MB): peak = 1837.168 ; gain = 927.863 ; free physical = 10658 ; free virtual = 20495
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -561,10 +554,6 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
-WARNING: [Synth 8-3295] tying undriven pin u_register_bank:i_mem_stall to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv:284]
-WARNING: [Synth 8-3295] tying undriven pin u_dispatch:i_reg_write_sel[2] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:322]
-WARNING: [Synth 8-3295] tying undriven pin u_dispatch:i_reg_write_sel[1] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:322]
-WARNING: [Synth 8-3295] tying undriven pin u_dispatch:i_reg_write_sel[0] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:322]
 INFO: [Synth 8-3295] tying undriven pin \prim_init.ram :DINA[8] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd:183623]
 INFO: [Synth 8-3295] tying undriven pin \prim_init.ram :DINA[7] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd:183623]
 INFO: [Synth 8-3295] tying undriven pin \prim_init.ram :DINB[8] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd:183623]
@@ -603,7 +592,7 @@ INFO: [Synth 8-3295] tying undriven pin \prim_noinit.ram :DINA[8] to constant 0 
 INFO: [Synth 8-3295] tying undriven pin \prim_noinit.ram :DINB[8] to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/ip/blk_mem_gen_bootrom/blk_mem_gen_v8_2/hdl/blk_mem_gen_v8_2_vhsyn_rfs.vhd:183501]
 WARNING: [Synth 8-3295] tying undriven pin u_interrupt_controller:i_ps2_available to constant 0 [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:465]
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:01:51 ; elapsed = 00:01:55 . Memory (MB): peak = 1834.168 ; gain = 924.863 ; free physical = 6616 ; free virtual = 20062
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:01:48 ; elapsed = 00:01:53 . Memory (MB): peak = 1837.168 ; gain = 927.863 ; free physical = 10659 ; free virtual = 20495
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 37 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -630,16 +619,16 @@ Completed Processing XDC Constraints
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.03 . Memory (MB): peak = 1932.191 ; gain = 0.000 ; free physical = 6393 ; free virtual = 20032
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 1937.191 ; gain = 0.000 ; free physical = 10438 ; free virtual = 20474
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:02:14 ; elapsed = 00:02:20 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 6390 ; free virtual = 20029
+Finished Constraint Validation : Time (s): cpu = 00:02:10 ; elapsed = 00:02:17 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 10433 ; free virtual = 20471
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7vx485tffg1761-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:02:14 ; elapsed = 00:02:20 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 6390 ; free virtual = 20029
+Finished Loading Part and Timing Information : Time (s): cpu = 00:02:10 ; elapsed = 00:02:17 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 10433 ; free virtual = 20471
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -650,7 +639,7 @@ Applied set_property DONT_TOUCH = true for merlin. (constraint file  auto genera
 Applied set_property DONT_TOUCH = true for u_amber/u_execute_multiply/multiplier. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for u_boot_mem. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:02:14 ; elapsed = 00:02:20 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 6390 ; free virtual = 20029
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:02:10 ; elapsed = 00:02:17 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 10433 ; free virtual = 20471
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-5546] ROM "mem_reg[0]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "mem_reg[1]" won't be mapped to RAM because it is too sparse
@@ -764,31 +753,31 @@ INFO: [Synth 8-5544] ROM "source_sel" won't be mapped to Block RAM because addre
 INFO: [Synth 8-5544] ROM "select_way" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "source_sel" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "wb_address" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
-INFO: [Synth 8-4471] merging register 'o_status_bits_irq_mask_wen_reg' into 'o_status_bits_mode_wen_reg' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:957]
+INFO: [Synth 8-4471] merging register 'o_status_bits_irq_mask_wen_reg' into 'o_status_bits_mode_wen_reg' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv:987]
 INFO: [Synth 8-5544] ROM "status_bits_firq_mask_nxt" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "alu_cin_sel_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "iaddress_sel_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "is_swap_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "pc_wen_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "status_bits_mode_wen_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "is_psr_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "status_bits_firq_mask_nxt" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "alu_cin_sel_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "iaddress_sel_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "is_swap_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "pc_wen_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "status_bits_mode_wen_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "is_psr_nxt" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "multiply_function_nxt" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "barrel_shift_data_sel_nxt" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "status_bits_sel_nxt" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "address_mode_nxt0" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "decode0" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "decode4" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
-INFO: [Synth 8-4471] merging register 'r9_firq_reg[data][31:0]' into 'r9_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:821]
-INFO: [Synth 8-4471] merging register 'r10_firq_reg[data][31:0]' into 'r10_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:822]
-INFO: [Synth 8-4471] merging register 'r11_firq_reg[data][31:0]' into 'r11_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:823]
-INFO: [Synth 8-4471] merging register 'r12_firq_reg[data][31:0]' into 'r12_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:824]
-INFO: [Synth 8-5544] ROM "p_47_in" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "p_47_in" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-4471] merging register 'r9_firq_reg[data][31:0]' into 'r9_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:893]
+INFO: [Synth 8-4471] merging register 'r10_firq_reg[data][31:0]' into 'r10_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:894]
+INFO: [Synth 8-4471] merging register 'r11_firq_reg[data][31:0]' into 'r11_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:895]
+INFO: [Synth 8-4471] merging register 'r12_firq_reg[data][31:0]' into 'r12_reg[data][31:0]' [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:896]
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "p_0_in" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "alu_next_insert_idx29" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "mult_next_insert_idx13" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "mem_next_insert_idx13" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
@@ -982,7 +971,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'rxd_state_reg' using encod
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'txd_state_reg' using encoding 'one-hot' in module 'uart'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:02:29 ; elapsed = 00:02:35 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 6387 ; free virtual = 20026
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:02:25 ; elapsed = 00:02:32 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 10436 ; free virtual = 20474
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -999,8 +988,8 @@ Report RTL Partitions:
 |8     |b01_reservation__GB3   |           1|     20814|
 |9     |b01_reservation__GB4   |           1|     19084|
 |10    |b01_reservation__GB5   |           1|     38000|
-|11    |b01_dispatch__GC0      |           1|     13592|
-|12    |b01_core__GC0          |           1|     10998|
+|11    |b01_dispatch__GC0      |           1|     15234|
+|12    |b01_core__GC0          |           1|     11513|
 |13    |system__GC0            |           1|     14128|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
@@ -1024,7 +1013,7 @@ BRAMs: 2060 (col length: RAMB18 140 RAMB36 70)
 ---------------------------------------------------------------------------------
 Finished Part Resource Summary
 ---------------------------------------------------------------------------------
-Start Parallel Synthesis Optimization  : Time (s): cpu = 00:02:31 ; elapsed = 00:02:37 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 6385 ; free virtual = 20025
+Start Parallel Synthesis Optimization  : Time (s): cpu = 00:02:27 ; elapsed = 00:02:34 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 10436 ; free virtual = 20474
 ---------------------------------------------------------------------------------
 Start Cross Boundary Optimization
 ---------------------------------------------------------------------------------
@@ -1034,9 +1023,9 @@ INFO: [Synth 8-5545] ROM "timer0_int_reg" won't be mapped to RAM because address
 INFO: [Synth 8-5545] ROM "timer1_int_reg" won't be mapped to RAM because address size (24) is larger than maximum supported(18)
 INFO: [Synth 8-5545] ROM "timer2_int_reg" won't be mapped to RAM because address size (24) is larger than maximum supported(18)
 ---------------------------------------------------------------------------------
-Finished Cross Boundary Optimization : Time (s): cpu = 00:02:33 ; elapsed = 00:03:02 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 4153 ; free virtual = 17955
+Finished Cross Boundary Optimization : Time (s): cpu = 00:02:29 ; elapsed = 00:02:56 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 8241 ; free virtual = 18442
 ---------------------------------------------------------------------------------
-Finished Parallel Reinference  : Time (s): cpu = 00:02:33 ; elapsed = 00:03:02 . Memory (MB): peak = 1932.191 ; gain = 1022.887 ; free physical = 4153 ; free virtual = 17955
+Finished Parallel Reinference  : Time (s): cpu = 00:02:29 ; elapsed = 00:02:56 . Memory (MB): peak = 1937.191 ; gain = 1027.887 ; free physical = 8241 ; free virtual = 18442
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
@@ -1052,8 +1041,8 @@ Report RTL Partitions:
 |8     |b01_reservation__GB3   |           1|     21246|
 |9     |b01_reservation__GB4   |           1|     19653|
 |10    |b01_reservation__GB5   |           1|     48669|
-|11    |b01_dispatch__GC0      |           1|     17083|
-|12    |b01_core__GC0          |           1|     12290|
+|11    |b01_dispatch__GC0      |           1|     19319|
+|12    |b01_core__GC0          |           1|     12815|
 |13    |system__GC0            |           1|     12856|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
@@ -1065,11 +1054,67 @@ INFO: [Synth 8-3333] propagating constant 1 across sequential element (\u_tagsto
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\u_tagstore/mem_tag_available_reg[15] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\u_tagstore/alu_tag_available_reg[31] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (\u_tagstore/alu_tag_available_reg[15] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_wishbone/u_a25_wishbone_buf_p1/wbuf_wp_r_reg )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_wishbone/u_a25_wishbone_buf_p1/wbuf_write_r_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_wishbone/u_a25_wishbone_buf_p1/wbuf_write_r_reg[0] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_execute_mem/op_type_current_reg[1] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\u_decode/o_barrel_shift_data_sel_reg[0] )
+WARNING: [Synth 8-3332] Sequential element (\r15_reg[valid] ) is unused and will be removed from module b01_register_bank.
+WARNING: [Synth 8-3332] Sequential element (\o_status_bits_sel_reg[2] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_status_bits_sel_reg[1] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_status_bits_sel_reg[0] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\address_current_reg[1] ) is unused and will be removed from module b01_execute_mem.
+WARNING: [Synth 8-3332] Sequential element (\address_current_reg[0] ) is unused and will be removed from module b01_execute_mem.
+WARNING: [Synth 8-3332] Sequential element (\u_a25_wishbone_buf_p1/ack_owed_r_reg ) is unused and will be removed from module a25_wishbone.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_wishbone/\u_a25_wishbone_buf_p1/wbuf_wp_r_reg )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_wishbone/\u_a25_wishbone_buf_p1/wbuf_write_r_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_wishbone/\u_a25_wishbone_buf_p1/wbuf_write_r_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_execute_mem/\op_type_current_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_decode/\o_barrel_shift_data_sel_reg[0] )
+WARNING: [Synth 8-3332] Sequential element (o_status_bits_irq_mask_reg) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_alu_function_reg[1] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_iaddress_sel_reg[2] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_byte_enable_sel_reg[1] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_iaddress_sel_reg[3] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_barrel_shift_data_sel_reg[0] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\op_type_current_reg[1] ) is unused and will be removed from module b01_execute_mem.
+WARNING: [Synth 8-3332] Sequential element (\u_a25_wishbone_buf_p1/wbuf_wp_r_reg ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\u_a25_wishbone_buf_p1/wbuf_write_r_reg[1] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\u_a25_wishbone_buf_p1/wbuf_write_r_reg[0] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\u_a25_wishbone_buf_p1/busy_reading_r_reg ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[29] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[28] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[27] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[26] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[25] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[24] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[23] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[22] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[21] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[20] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[19] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[18] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[17] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[16] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[15] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[14] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[13] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[12] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[11] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[10] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[9] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[8] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[7] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[6] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[5] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[4] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[3] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[2] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[1] ) is unused and will be removed from module a25_wishbone.
+WARNING: [Synth 8-3332] Sequential element (\o_wb_dat_reg[0] ) is unused and will be removed from module a25_wishbone.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_decode/o_is_psr_reg)
+WARNING: [Synth 8-3332] Sequential element (o_is_psr_reg) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (o_mrs_msr_reg) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (o_psr_sel_reg) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_psr_reg_reg[2] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_psr_reg_reg[1] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_psr_reg_reg[0] ) is unused and will be removed from module b01_decode.
+WARNING: [Synth 8-3332] Sequential element (\o_psr_reg_reg[3] ) is unused and will be removed from module b01_decode.
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_wp_reg[4] ) is unused and will be removed from module uart__1.
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_rp_reg[4] ) is unused and will be removed from module uart__1.
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_wp_reg[4] ) is unused and will be removed from module uart.
@@ -1115,61 +1160,6 @@ WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][5] ) is unused and w
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][4] ) is unused and will be removed from module uart.
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][3] ) is unused and will be removed from module uart.
 WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[4][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[5][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[6][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[7][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[8][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[9][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][3] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][2] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][1] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[10][0] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[11][7] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[11][6] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[11][5] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[11][4] ) is unused and will be removed from module uart.
-WARNING: [Synth 8-3332] Sequential element (\tx_fifo_reg[11][3] ) is unused and will be removed from module uart.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_uart1/\rxd_d_reg[0] )
@@ -1181,9 +1171,9 @@ INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_uart1/\
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_uart1/\rxd_d_reg[0] )
 INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_uart1/\rxd_d_reg[0] )
 ---------------------------------------------------------------------------------
-Finished Area Optimization : Time (s): cpu = 00:02:39 ; elapsed = 00:03:27 . Memory (MB): peak = 1935.832 ; gain = 1026.527 ; free physical = 2884 ; free virtual = 16819
+Finished Area Optimization : Time (s): cpu = 00:02:33 ; elapsed = 00:03:19 . Memory (MB): peak = 1940.832 ; gain = 1031.527 ; free physical = 6932 ; free virtual = 17269
 ---------------------------------------------------------------------------------
-Finished Parallel Area Optimization  : Time (s): cpu = 00:02:39 ; elapsed = 00:03:27 . Memory (MB): peak = 1935.832 ; gain = 1026.527 ; free physical = 2884 ; free virtual = 16819
+Finished Parallel Area Optimization  : Time (s): cpu = 00:02:33 ; elapsed = 00:03:19 . Memory (MB): peak = 1940.832 ; gain = 1031.527 ; free physical = 6932 ; free virtual = 17269
 
 Report RTL Partitions: 
 +------+-----------------------+------------+----------+
@@ -1199,11 +1189,11 @@ Report RTL Partitions:
 |8     |b01_reservation__GB3   |           1|     12714|
 |9     |b01_reservation__GB4   |           1|     18837|
 |10    |b01_reservation__GB5   |           1|     39783|
-|11    |b01_dispatch__GC0      |           1|     13730|
-|12    |b01_core__GC0          |           1|      4285|
+|11    |b01_dispatch__GC0      |           1|     15289|
+|12    |b01_core__GC0          |           1|      4172|
 |13    |system__GC0            |           1|      6249|
 +------+-----------------------+------------+----------+
-Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:02:39 ; elapsed = 00:03:27 . Memory (MB): peak = 1935.832 ; gain = 1026.527 ; free physical = 2884 ; free virtual = 16819
+Finished Parallel Synthesis Optimization  : Time (s): cpu = 00:02:33 ; elapsed = 00:03:19 . Memory (MB): peak = 1940.832 ; gain = 1031.527 ; free physical = 6932 ; free virtual = 17269
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
@@ -1211,47 +1201,8 @@ Start Timing Optimization
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:49 ; elapsed = 00:03:37 . Memory (MB): peak = 2083.195 ; gain = 1173.891 ; free physical = 2620 ; free virtual = 16570
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:43 ; elapsed = 00:03:29 . Memory (MB): peak = 2090.195 ; gain = 1180.891 ; free physical = 6764 ; free virtual = 17117
 ---------------------------------------------------------------------------------
-Found timing loop:
-     0: u_amberi_9/i_23/i_11/O (GATE_2_2)
-     1: u_amberi_9/i_23/i_11/I1 (GATE_2_2)
-     2: u_amberi_9/i_23/i_10/O (GATE_2_11)
-     3: u_amberi_9/i_23/i_10/I1 (GATE_2_11)
-     4: u_amberi_9/i_23/i_19/O (BUF)
-     5: u_amberi_9/i_23/i_19/I (BUF)
-     6: u_amberi_9/i_23/i_18/O (GATE_2_14_OR)
-     7: u_amberi_9/i_23/i_18/I0 (GATE_2_14_OR)
-     8: u_amberi_9/i_23/i_17/O (GATE_2_2)
-     9: u_amberi_9/i_23/i_17/I1 (GATE_2_2)
-    10: u_amberi_9/i_23/i_12/O (GATE_2_14_OR)
-    11: u_amberi_9/i_23/i_12/I0 (GATE_2_14_OR)
-    12: u_amberi_9/i_23/i_11/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v:94]
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_disable_timing u_amberi_9/i_23/i_19 -from I -to O'
-Found timing loop:
-     0: u_dispatchi_8/i_47/i_242/O (GATE_2_11)
-     1: u_dispatchi_8/i_47/i_242/I1 (GATE_2_11)
-      : u_dispatchi_8/i_47/reg_bank_pc_valid
-      : u_dispatchi_8/u_register_bank/o_pc_valid
-      : u_dispatchi_8/u_register_bank/i_2/O50
-     2: u_dispatchi_8/u_register_bank/i_2/i_1369/O (GATE_2_8_AND)
-     3: u_dispatchi_8/u_register_bank/i_2/i_1369/I0 (GATE_2_8_AND)
-     4: u_dispatchi_8/u_register_bank/i_2/i_1370/O (INV)
-     5: u_dispatchi_8/u_register_bank/i_2/i_1370/I (INV)
-     6: u_dispatchi_8/u_register_bank/i_2/i_28/O (GATE_2_8_AND)
-     7: u_dispatchi_8/u_register_bank/i_2/i_28/I0 (GATE_2_8_AND)
-      : u_dispatchi_8/u_register_bank/i_2/i_pc_wen
-      : u_dispatchi_8/u_register_bank/i_pc_wen
-      : u_dispatchi_8/i_47/i_pc_wen0
-     8: u_dispatchi_8/i_47/i_251/O (GATE_2_2)
-     9: u_dispatchi_8/i_47/i_251/I1 (GATE_2_2)
-    10: u_dispatchi_8/i_47/i_0/O (GATE_2_14_OR)
-    11: u_dispatchi_8/i_47/i_0/I0 (GATE_2_14_OR)
-    12: u_dispatchi_8/i_47/i_449/O (BUF)
-    13: u_dispatchi_8/i_47/i_449/I (BUF)
-    14: u_dispatchi_8/i_47/i_242/O (GATE_2_11)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:180]
 Found timing loop:
      0: u_fetchi_1/cache_stall (a25_fetch__GC0)
      1: u_cachei_0/tag_wdata[20] (a25_icache__GC0)
@@ -1260,6 +1211,40 @@ Found timing loop:
      4: u_fetchi_1/cache_stall (a25_fetch__GC0)
 WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
 WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through u_fetchi_1/o_wb_req'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_svc_reg[0] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_irq_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[1] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[16] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[17] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[18] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[19] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[20] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[21] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[22] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[23] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[24] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_usr_reg[25] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_svc_reg[26] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_dispatchi_8/\spsr_svc_reg[27] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_svc_reg[28] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_svc_reg[29] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_svc_reg[30] )
+INFO: [Synth 8-3333] propagating constant 1 across sequential element (u_dispatchi_8/\spsr_svc_reg[31] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_reservationi_6/\mem_station_reg[15][byte_enable_sel][1] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_reservationi_6/\alu_station_reg[31][barrel_shift_data_sel][0] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (u_cachei_0/\wb_address_reg[31] )
@@ -1306,157 +1291,367 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_s
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[217][19] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[216][19] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[215][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[214][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[213][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[212][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[211][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[210][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[209][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[208][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[199][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[198][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[197][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[196][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[195][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[194][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[193][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[192][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[207][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[206][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[205][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[204][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[203][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[202][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[201][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[200][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[191][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[190][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[189][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[188][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[187][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[186][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[185][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[184][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[183][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[182][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[181][19] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (generic_sram_line_en:/\mem_reg[180][19] )
 INFO: [Common 17-14] Message 'Synth 8-3333' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_disable_timing u_dispatchi_8/i_47/i_449 -from I -to O'
 Found timing loop:
-     0: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_1369/O (GATE_2_8_AND)
-     1: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_1369/I0 (GATE_2_8_AND)
-     2: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_1370/O (INV)
-     3: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_1370/I (INV)
-     4: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_28/O (GATE_2_8_AND)
-     5: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_28/I0 (GATE_2_8_AND)
-      : u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_pc_wen
-      : u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_pc_wen
-      : u_amberi_0/i_7/i_pc_wen0
-     6: u_amberi_0/i_7/i_251/O (GATE_2_2)
-     7: u_amberi_0/i_7/i_251/I1 (GATE_2_2)
-     8: u_amberi_0/i_7/i_0/O (GATE_2_14_OR)
-     9: u_amberi_0/i_7/i_0/I0 (GATE_2_14_OR)
-    10: u_amberi_0/i_7/i_449/O (BUF)
-    11: u_amberi_0/i_7/i_449/I (BUF)
-    12: u_amberi_0/i_7/i_242/O (GATE_2_11)
-    13: u_amberi_0/i_7/i_242/I1 (GATE_2_11)
-      : u_amberi_0/i_7/reg_bank_pc_valid
-      : u_amberi_0/\u_amber/u_dispatch/u_register_bank /o_pc_valid
-      : u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/O50
-    14: u_amberi_0/\u_amber/u_dispatch/u_register_bank /i_2/i_1369/O (GATE_2_8_AND)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv:206]
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_disable_timing u_amberi_0/i_7/i_449 -from I -to O'
-Found timing loop:
-     0: i_68/i_0/i_242/O (GATE_2_11)
-     1: i_68/i_0/i_242/I1 (GATE_2_11)
-      : i_68/i_0/reg_bank_pc_valid
-      : i_68/\u_amber/u_dispatch/u_register_bank /o_pc_valid
-      : i_68/\u_amber/u_dispatch/u_register_bank /i_2/O50
-     2: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_1369/O (GATE_2_8_AND)
-     3: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_1369/I0 (GATE_2_8_AND)
-     4: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_1370/O (INV)
-     5: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_1370/I (INV)
-     6: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_28/O (GATE_2_8_AND)
-     7: i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_28/I0 (GATE_2_8_AND)
-      : i_68/\u_amber/u_dispatch/u_register_bank /i_2/i_pc_wen
-      : i_68/\u_amber/u_dispatch/u_register_bank /i_pc_wen
-      : i_68/i_0/i_pc_wen0
-     8: i_68/i_0/i_251/O (GATE_2_2)
-     9: i_68/i_0/i_251/I1 (GATE_2_2)
-    10: i_68/i_0/i_0/O (GATE_2_14_OR)
-    11: i_68/i_0/i_0/I0 (GATE_2_14_OR)
-    12: i_68/i_0/i_449/O (BUF)
-    13: i_68/i_0/i_449/I (BUF)
-    14: i_68/i_0/i_242/O (GATE_2_11)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv:180]
-Found timing loop:
-     0: i_1/i_13/i_7/O (GATE_2_14_OR)
-     1: i_1/i_13/i_7/I1 (GATE_2_14_OR)
-     2: i_1/i_13/i_6/O (GATE_2_1_NOR)
-     3: i_1/i_13/i_6/I1 (GATE_2_1_NOR)
-     4: i_1/i_13/i_0/O (GATE_2_11)
-     5: i_1/i_13/i_0/I0 (GATE_2_11)
-      : i_1/i_13/cache_stall
-      : i_1/i_49/o_stall
-     6: i_1/i_49/i_440/O (GATE_2_11)
-     7: i_1/i_49/i_440/I1 (GATE_2_11)
-     8: i_1/i_49/i_439/O (GATE_2_7_NAND)
-     9: i_1/i_49/i_439/I1 (GATE_2_7_NAND)
-    10: i_1/i_49/i_438/O (GATE_2_7_NAND)
-    11: i_1/i_49/i_438/I1 (GATE_2_7_NAND)
-    12: i_1/i_49/i_436/O (GATE_2_11)
-    13: i_1/i_49/i_436/I0 (GATE_2_11)
-    14: i_1/i_49/i_435/O (GATE_2_2)
-    15: i_1/i_49/i_435/I0 (GATE_2_2)
-    16: i_1/i_49/i_429/O (GATE_2_2)
-    17: i_1/i_49/i_429/I0 (GATE_2_2)
-      : i_1/i_49/i_wb_ready
-      : i_1/i_0/icache_wb_ready
-    18: i_1/i_0/i_406/O (BUF)
-    19: i_1/i_0/i_406/I (BUF)
-    20: i_1/i_0/i_404/O (GATE_2_14_OR)
-    21: i_1/i_0/i_404/I1 (GATE_2_14_OR)
-    22: i_1/i_0/i_403/O (GATE_2_8_AND)
-    23: i_1/i_0/i_403/I1 (GATE_2_8_AND)
-    24: i_1/i_0/i_67/O (GATE_2_2)
-    25: i_1/i_0/i_67/I1 (GATE_2_2)
-    26: i_1/i_0/i_58/O (GATE_2_14_OR)
-    27: i_1/i_0/i_58/I1 (GATE_2_14_OR)
-    28: i_1/i_0/i_57/O (GATE_2_14_OR)
-    29: i_1/i_0/i_57/I0 (GATE_2_14_OR)
-    30: i_1/i_0/i_56/O (GATE_2_14_OR)
-    31: i_1/i_0/i_56/I1 (GATE_2_14_OR)
-    32: i_1/i_0/i_55/O (GATE_2_1_NOR)
-    33: i_1/i_0/i_55/I0 (GATE_2_1_NOR)
-      : i_1/i_0/icache_wb_req
-      : i_1/i_13/o_wb_req
-    34: i_1/i_13/i_8/I (BUF)
-    35: i_1/i_13/i_7/O (GATE_2_14_OR)
+     0: u_amberi_128/i_1/i_7/O (GATE_2_14_OR)
+     1: u_amberi_128/i_1/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_128/i_1/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_128/i_1/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_128/i_1/i_0/O (GATE_2_11)
+     5: u_amberi_128/i_1/i_0/I0 (GATE_2_11)
+      : u_amberi_128/i_1/cache_stall
+      : u_amberi_128/i_0/o_stall
+     6: u_amberi_128/i_0/i_440/O (GATE_2_11)
+     7: u_amberi_128/i_0/i_440/I1 (GATE_2_11)
+     8: u_amberi_128/i_0/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_128/i_0/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_128/i_0/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_128/i_0/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_128/i_0/i_436/O (GATE_2_11)
+    13: u_amberi_128/i_0/i_436/I0 (GATE_2_11)
+    14: u_amberi_128/i_0/i_435/O (GATE_2_2)
+    15: u_amberi_128/i_0/i_435/I0 (GATE_2_2)
+    16: u_amberi_128/i_0/i_429/O (GATE_2_2)
+    17: u_amberi_128/i_0/i_429/I0 (GATE_2_2)
+      : u_amberi_128/i_0/i_wb_ready
+      : u_amberi_128/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_128/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_128/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_128/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_128/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_128/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_128/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_128/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_128/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_128/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_128/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_128/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_128/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_128/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_128/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_128/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_128/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_128/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_128/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_128/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_128/i_1/o_wb_req
+    34: u_amberi_128/i_1/i_8/I (BUF)
+    35: u_amberi_128/i_1/i_7/O (GATE_2_14_OR)
 WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
 Found timing loop:
-     0: i_1/i_0/i_11/O (GATE_2_2)
-     1: i_1/i_0/i_11/I1 (GATE_2_2)
-     2: i_1/i_0/i_10/O (GATE_2_11)
-     3: i_1/i_0/i_10/I1 (GATE_2_11)
-     4: i_1/i_0/i_19/O (BUF)
-     5: i_1/i_0/i_19/I (BUF)
-     6: i_1/i_0/i_18/O (GATE_2_14_OR)
-     7: i_1/i_0/i_18/I0 (GATE_2_14_OR)
-     8: i_1/i_0/i_17/O (GATE_2_2)
-     9: i_1/i_0/i_17/I1 (GATE_2_2)
-    10: i_1/i_0/i_12/O (GATE_2_14_OR)
-    11: i_1/i_0/i_12/I0 (GATE_2_14_OR)
-    12: i_1/i_0/i_11/O (GATE_2_2)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v:94]
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_disable_timing i_1/i_0/i_19 -from I -to O'
+     0: u_amberi_128/\u_amber/icache_wb_ready  (system_GT127)
+     1: u_amberi_128/u_amber/u_wishbone/i_26/i_35/I0 (system_GT127)
+     2: u_amberi_128/tag_wdata[14] (system_GT127)
+     3: u_amberi_128/\u_amber/icache_wb_ready  (system_GT127)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
 Found timing loop:
-     0: i_1/tag_wdata[14] (system_GT1)
-     1: i_1/i_0/i_55/I0 (system_GT1)
-     2: i_1/tag_wdata[14] (system_GT1)
+     0: u_amberi_1/i_6/i_7/O (GATE_2_14_OR)
+     1: u_amberi_1/i_6/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_1/i_6/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_1/i_6/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_1/i_6/i_0/O (GATE_2_11)
+     5: u_amberi_1/i_6/i_0/I0 (GATE_2_11)
+      : u_amberi_1/i_6/cache_stall
+      : u_amberi_1/i_5/o_stall
+     6: u_amberi_1/i_5/i_440/O (GATE_2_11)
+     7: u_amberi_1/i_5/i_440/I1 (GATE_2_11)
+     8: u_amberi_1/i_5/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_1/i_5/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_1/i_5/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_1/i_5/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_1/i_5/i_436/O (GATE_2_11)
+    13: u_amberi_1/i_5/i_436/I0 (GATE_2_11)
+    14: u_amberi_1/i_5/i_435/O (GATE_2_2)
+    15: u_amberi_1/i_5/i_435/I0 (GATE_2_2)
+    16: u_amberi_1/i_5/i_429/O (GATE_2_2)
+    17: u_amberi_1/i_5/i_429/I0 (GATE_2_2)
+      : u_amberi_1/i_5/i_wb_ready
+      : u_amberi_1/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_1/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_1/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_1/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_1/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_1/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_1/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_1/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_1/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_1/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_1/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_1/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_1/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_1/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_1/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_1/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_1/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_1/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_1/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_1/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_1/i_6/o_wb_req
+    34: u_amberi_1/i_6/i_8/I (BUF)
+    35: u_amberi_1/i_6/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_1/u_amber/u_wishbone/i_26/i_35/I0 (system_GT0)
+     1: u_amberi_1/tag_wdata[14] (system_GT0)
+     2: u_amberi_1/u_amber/u_wishbone/i_26/i_35/I0 (system_GT0)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+Found timing loop:
+     0: u_amberi_235/i_5/i_7/O (GATE_2_14_OR)
+     1: u_amberi_235/i_5/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_235/i_5/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_235/i_5/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_235/i_5/i_0/O (GATE_2_11)
+     5: u_amberi_235/i_5/i_0/I0 (GATE_2_11)
+      : u_amberi_235/i_5/cache_stall
+      : u_amberi_235/i_4/o_stall
+     6: u_amberi_235/i_4/i_440/O (GATE_2_11)
+     7: u_amberi_235/i_4/i_440/I1 (GATE_2_11)
+     8: u_amberi_235/i_4/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_235/i_4/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_235/i_4/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_235/i_4/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_235/i_4/i_436/O (GATE_2_11)
+    13: u_amberi_235/i_4/i_436/I0 (GATE_2_11)
+    14: u_amberi_235/i_4/i_435/O (GATE_2_2)
+    15: u_amberi_235/i_4/i_435/I0 (GATE_2_2)
+    16: u_amberi_235/i_4/i_429/O (GATE_2_2)
+    17: u_amberi_235/i_4/i_429/I0 (GATE_2_2)
+      : u_amberi_235/i_4/i_wb_ready
+      : u_amberi_235/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_235/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_235/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_235/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_235/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_235/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_235/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_235/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_235/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_235/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_235/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_235/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_235/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_235/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_235/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_235/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_235/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_235/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_235/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_235/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_235/i_5/o_wb_req
+    34: u_amberi_235/i_5/i_8/I (BUF)
+    35: u_amberi_235/i_5/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_235/u_amber/u_wishbone/i_26/i_35/I0 (system_GT110__1)
+     1: u_amberi_235/tag_wdata[14] (system_GT110__1)
+     2: u_amberi_235/u_amber/u_wishbone/i_26/i_35/I0 (system_GT110__1)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+Found timing loop:
+     0: u_amberi_234/i_6/i_7/O (GATE_2_14_OR)
+     1: u_amberi_234/i_6/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_234/i_6/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_234/i_6/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_234/i_6/i_0/O (GATE_2_11)
+     5: u_amberi_234/i_6/i_0/I0 (GATE_2_11)
+      : u_amberi_234/i_6/cache_stall
+      : u_amberi_234/i_5/o_stall
+     6: u_amberi_234/i_5/i_440/O (GATE_2_11)
+     7: u_amberi_234/i_5/i_440/I1 (GATE_2_11)
+     8: u_amberi_234/i_5/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_234/i_5/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_234/i_5/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_234/i_5/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_234/i_5/i_436/O (GATE_2_11)
+    13: u_amberi_234/i_5/i_436/I0 (GATE_2_11)
+    14: u_amberi_234/i_5/i_435/O (GATE_2_2)
+    15: u_amberi_234/i_5/i_435/I0 (GATE_2_2)
+    16: u_amberi_234/i_5/i_429/O (GATE_2_2)
+    17: u_amberi_234/i_5/i_429/I0 (GATE_2_2)
+      : u_amberi_234/i_5/i_wb_ready
+      : u_amberi_234/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_234/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_234/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_234/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_234/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_234/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_234/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_234/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_234/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_234/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_234/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_234/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_234/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_234/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_234/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_234/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_234/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_234/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_234/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_234/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_234/i_6/o_wb_req
+    34: u_amberi_234/i_6/i_8/I (BUF)
+    35: u_amberi_234/i_6/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_234/tag_wdata[14] (system_GT1)
+     1: u_amberi_234/u_amber/u_wishbone/i_26/i_35/I0 (system_GT1)
+     2: u_amberi_234/tag_wdata[14] (system_GT1)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+Found timing loop:
+     0: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+     1: u_amberi_2/i_7/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_2/i_7/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_2/i_7/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_2/i_7/i_0/O (GATE_2_11)
+     5: u_amberi_2/i_7/i_0/I0 (GATE_2_11)
+      : u_amberi_2/i_7/cache_stall
+      : u_amberi_2/i_6/o_stall
+     6: u_amberi_2/i_6/i_440/O (GATE_2_11)
+     7: u_amberi_2/i_6/i_440/I1 (GATE_2_11)
+     8: u_amberi_2/i_6/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_2/i_6/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_2/i_6/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_2/i_6/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_2/i_6/i_436/O (GATE_2_11)
+    13: u_amberi_2/i_6/i_436/I0 (GATE_2_11)
+    14: u_amberi_2/i_6/i_435/O (GATE_2_2)
+    15: u_amberi_2/i_6/i_435/I0 (GATE_2_2)
+    16: u_amberi_2/i_6/i_429/O (GATE_2_2)
+    17: u_amberi_2/i_6/i_429/I0 (GATE_2_2)
+      : u_amberi_2/i_6/i_wb_ready
+      : u_amberi_2/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_2/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_2/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_2/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_2/i_7/o_wb_req
+    34: u_amberi_2/i_7/i_8/I (BUF)
+    35: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_2/tag_wdata[14] (system_GT0__2)
+     1: u_amberi_2/u_amber/u_wishbone/i_26/i_35/I0 (system_GT0__2)
+     2: u_amberi_2/tag_wdata[14] (system_GT0__2)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+Found timing loop:
+     0: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+     1: u_amberi_2/i_7/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_2/i_7/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_2/i_7/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_2/i_7/i_0/O (GATE_2_11)
+     5: u_amberi_2/i_7/i_0/I0 (GATE_2_11)
+      : u_amberi_2/i_7/cache_stall
+      : u_amberi_2/i_6/o_stall
+     6: u_amberi_2/i_6/i_440/O (GATE_2_11)
+     7: u_amberi_2/i_6/i_440/I1 (GATE_2_11)
+     8: u_amberi_2/i_6/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_2/i_6/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_2/i_6/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_2/i_6/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_2/i_6/i_436/O (GATE_2_11)
+    13: u_amberi_2/i_6/i_436/I0 (GATE_2_11)
+    14: u_amberi_2/i_6/i_435/O (GATE_2_2)
+    15: u_amberi_2/i_6/i_435/I0 (GATE_2_2)
+    16: u_amberi_2/i_6/i_429/O (GATE_2_2)
+    17: u_amberi_2/i_6/i_429/I0 (GATE_2_2)
+      : u_amberi_2/i_6/i_wb_ready
+      : u_amberi_2/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_2/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_2/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_2/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_2/i_7/o_wb_req
+    34: u_amberi_2/i_7/i_8/I (BUF)
+    35: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_2/tag_wdata[14] (system_GT0__3)
+     1: u_amberi_2/u_amber/u_wishbone/i_26/i_35/I0 (system_GT0__3)
+     2: u_amberi_2/tag_wdata[14] (system_GT0__3)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
+Found timing loop:
+     0: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+     1: u_amberi_2/i_7/i_7/I1 (GATE_2_14_OR)
+     2: u_amberi_2/i_7/i_6/O (GATE_2_1_NOR)
+     3: u_amberi_2/i_7/i_6/I1 (GATE_2_1_NOR)
+     4: u_amberi_2/i_7/i_0/O (GATE_2_11)
+     5: u_amberi_2/i_7/i_0/I0 (GATE_2_11)
+      : u_amberi_2/i_7/cache_stall
+      : u_amberi_2/i_6/o_stall
+     6: u_amberi_2/i_6/i_440/O (GATE_2_11)
+     7: u_amberi_2/i_6/i_440/I1 (GATE_2_11)
+     8: u_amberi_2/i_6/i_439/O (GATE_2_7_NAND)
+     9: u_amberi_2/i_6/i_439/I1 (GATE_2_7_NAND)
+    10: u_amberi_2/i_6/i_438/O (GATE_2_7_NAND)
+    11: u_amberi_2/i_6/i_438/I1 (GATE_2_7_NAND)
+    12: u_amberi_2/i_6/i_436/O (GATE_2_11)
+    13: u_amberi_2/i_6/i_436/I0 (GATE_2_11)
+    14: u_amberi_2/i_6/i_435/O (GATE_2_2)
+    15: u_amberi_2/i_6/i_435/I0 (GATE_2_2)
+    16: u_amberi_2/i_6/i_429/O (GATE_2_2)
+    17: u_amberi_2/i_6/i_429/I0 (GATE_2_2)
+      : u_amberi_2/i_6/i_wb_ready
+      : u_amberi_2/\u_amber/u_wishbone /o_port2_ack
+      : u_amberi_2/\u_amber/u_wishbone /i_26/o_port2_ack
+    18: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/O (BUF)
+    19: u_amberi_2/\u_amber/u_wishbone /i_26/i_75/I (BUF)
+    20: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/O (GATE_2_14_OR)
+    21: u_amberi_2/\u_amber/u_wishbone /i_26/i_73/I1 (GATE_2_14_OR)
+    22: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/O (GATE_2_8_AND)
+    23: u_amberi_2/\u_amber/u_wishbone /i_26/i_72/I1 (GATE_2_8_AND)
+    24: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/O (GATE_2_2)
+    25: u_amberi_2/\u_amber/u_wishbone /i_26/i_47/I1 (GATE_2_2)
+    26: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/O (GATE_2_14_OR)
+    27: u_amberi_2/\u_amber/u_wishbone /i_26/i_38/I1 (GATE_2_14_OR)
+    28: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/O (GATE_2_14_OR)
+    29: u_amberi_2/\u_amber/u_wishbone /i_26/i_37/I0 (GATE_2_14_OR)
+    30: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/O (GATE_2_14_OR)
+    31: u_amberi_2/\u_amber/u_wishbone /i_26/i_36/I1 (GATE_2_14_OR)
+    32: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/O (GATE_2_1_NOR)
+    33: u_amberi_2/\u_amber/u_wishbone /i_26/i_35/I0 (GATE_2_1_NOR)
+      : u_amberi_2/\u_amber/u_wishbone /i_26/i_port2_req
+      : u_amberi_2/\u_amber/u_wishbone /i_port2_req
+      : u_amberi_2/i_7/o_wb_req
+    34: u_amberi_2/i_7/i_8/I (BUF)
+    35: u_amberi_2/i_7/i_7/O (GATE_2_14_OR)
+WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/memory_configuration.vh:64]
+Found timing loop:
+     0: u_amberi_2/tag_wdata[14] (system_GT0__4)
+     1: u_amberi_2/u_amber/u_wishbone/i_26/i_35/I0 (system_GT0__4)
+     2: u_amberi_2/tag_wdata[14] (system_GT0__4)
 WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:04:41 ; elapsed = 00:05:31 . Memory (MB): peak = 2157.246 ; gain = 1247.941 ; free physical = 2680 ; free virtual = 16643
+Finished Timing Optimization : Time (s): cpu = 00:12:28 ; elapsed = 00:14:13 . Memory (MB): peak = 3669.199 ; gain = 2759.895 ; free physical = 4227 ; free virtual = 15570
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1466,137 +1661,270 @@ Report RTL Partitions:
 |1     |clk_wiz_0_clk_wiz__GC0 |           1|         3|
 |2     |generic_sram_line_en   |           4|      8175|
 |3     |b01_reservation__GB1   |           1|      8908|
-|4     |system_GT0             |           1|        32|
-|5     |system_GT1             |           1|     37952|
-|6     |system_GT2             |           1|        56|
-|7     |system_GT3             |           1|        15|
-|8     |system_GT4             |           1|        50|
-|9     |system_GT5             |           1|        71|
-|10    |system_GT6             |           1|        49|
-|11    |system_GT7             |           1|        18|
-|12    |system_GT8             |           1|        54|
-|13    |system_GT9             |           1|        50|
-|14    |system_GT10            |           1|        29|
-|15    |system_GT11            |           1|        27|
-|16    |system_GT12            |           1|        30|
-|17    |system_GT13            |           1|        28|
-|18    |system_GT14            |           1|        31|
-|19    |system_GT15            |           1|        38|
-|20    |system_GT16            |           1|        50|
-|21    |system_GT17            |           1|        31|
-|22    |system_GT18            |           1|         2|
-|23    |system_GT19            |           1|        12|
-|24    |system_GT20            |           1|        12|
-|25    |system_GT21            |           1|        14|
-|26    |system_GT22            |           1|        14|
-|27    |system_GT23            |           1|        12|
-|28    |system_GT24            |           1|        20|
-|29    |system_GT25            |           1|        12|
-|30    |system_GT26            |           1|        14|
-|31    |system_GT27            |           1|        20|
-|32    |system_GT28            |           1|        24|
-|33    |system_GT29            |           1|        19|
-|34    |system_GT30            |           1|        18|
-|35    |system_GT31            |           1|        24|
-|36    |system_GT32            |           1|        24|
-|37    |system_GT33            |           1|        24|
-|38    |system_GT34            |           1|        19|
-|39    |system_GT35            |           1|        19|
-|40    |system_GT36            |           1|        24|
-|41    |system_GT37            |           1|         2|
-|42    |system_GT38            |           1|        12|
-|43    |system_GT39            |           1|         2|
-|44    |system_GT40            |           1|         2|
-|45    |system_GT41            |           1|         7|
-|46    |system_GT42            |           1|        19|
-|47    |system_GT43            |           1|        45|
-|48    |system_GT44            |           1|        20|
-|49    |system_GT45            |           1|        31|
-|50    |system_GT46            |           1|        16|
-|51    |system_GT47            |           1|        36|
-|52    |system_GT48            |           1|        36|
-|53    |system_GT49            |           1|        35|
-|54    |system_GT50            |           1|        34|
-|55    |system_GT51            |           1|        48|
-|56    |system_GT52            |           1|        14|
-|57    |system_GT53            |           1|         2|
-|58    |system_GT54            |           1|         2|
-|59    |system_GT55            |           1|         2|
-|60    |system_GT56            |           1|         2|
-|61    |system_GT57            |           1|        32|
-|62    |system_GT58            |           1|        32|
-|63    |system_GT59            |           1|        32|
-|64    |system_GT60            |           1|        32|
-|65    |system_GT61            |           1|        32|
-|66    |system_GT62            |           1|        64|
-|67    |system_GT63            |           1|        64|
-|68    |system_GT64            |           1|        64|
-|69    |system_GT65            |           1|        32|
-|70    |system_GT66            |           1|        32|
-|71    |system_GT67            |           1|     16803|
-|72    |system_GT68            |           1|        53|
-|73    |system_GT69            |           1|        48|
-|74    |system_GT70            |           1|        71|
-|75    |system_GT71            |           1|        50|
-|76    |system_GT72            |           1|        52|
-|77    |system_GT73            |           1|        36|
-|78    |system_GT74            |           1|        74|
-|79    |system_GT75            |           1|        33|
-|80    |system_GT76            |           1|        21|
-|81    |system_GT77            |           1|        21|
-|82    |system_GT78            |           1|        21|
-|83    |system_GT79            |           1|         7|
-|84    |system_GT80            |           1|         7|
-|85    |system_GT81            |           1|        25|
-|86    |system_GT82            |           1|        25|
-|87    |system_GT83            |           1|        25|
-|88    |system_GT84            |           1|        25|
-|89    |system_GT85            |           1|        25|
-|90    |system_GT86            |           1|        12|
-|91    |system_GT87            |           1|        32|
-|92    |system_GT88            |           1|        64|
-|93    |system_GT89            |           1|        64|
-|94    |system_GT90            |           1|        32|
-|95    |system_GT91            |           1|        32|
-|96    |system_GT92            |           1|        32|
-|97    |system_GT93            |           1|        32|
-|98    |system_GT94            |           1|     41995|
-|99    |system_GT95            |           1|     38325|
-|100   |case__1921__GD         |           1|         3|
+|4     |system__GC0            |           1|      6249|
+|5     |system_GT2             |           1|      1408|
+|6     |system_GT3             |           1|        24|
+|7     |system_GT5             |           1|        35|
+|8     |system_GT6             |           1|        32|
+|9     |system_GT7             |           1|        32|
+|10    |system_GT8             |           1|        32|
+|11    |system_GT9             |           1|        32|
+|12    |system_GT10            |           1|        32|
+|13    |system_GT11            |           1|        32|
+|14    |system_GT12            |           1|        32|
+|15    |system_GT13            |           1|        32|
+|16    |system_GT14            |           1|        32|
+|17    |system_GT15            |           1|        32|
+|18    |system_GT16            |           1|        32|
+|19    |system_GT17            |           1|        32|
+|20    |system_GT18            |           1|        32|
+|21    |system_GT19            |           1|        32|
+|22    |system_GT21            |           1|        53|
+|23    |system_GT22            |           1|       432|
+|24    |system_GT23            |           1|        48|
+|25    |system_GT24            |           1|        48|
+|26    |system_GT25            |           1|        48|
+|27    |system_GT26            |           1|        48|
+|28    |system_GT27            |           1|        48|
+|29    |system_GT28            |           1|        48|
+|30    |system_GT29            |           1|        34|
+|31    |system_GT30            |           1|        21|
+|32    |system_GT31            |           1|         2|
+|33    |system_GT32            |           1|         2|
+|34    |system_GT33            |           1|        21|
+|35    |system_GT34            |           1|         2|
+|36    |system_GT35            |           1|        21|
+|37    |system_GT36            |           1|         2|
+|38    |system_GT37            |           1|        21|
+|39    |system_GT38            |           1|         2|
+|40    |system_GT39            |           1|        21|
+|41    |system_GT40            |           1|         2|
+|42    |system_GT41            |           1|        21|
+|43    |system_GT42            |           1|         2|
+|44    |system_GT43            |           1|        21|
+|45    |system_GT44            |           1|         2|
+|46    |system_GT45            |           1|        21|
+|47    |system_GT46            |           1|         2|
+|48    |system_GT47            |           1|        21|
+|49    |system_GT48            |           1|         2|
+|50    |system_GT49            |           1|        21|
+|51    |system_GT50            |           1|         2|
+|52    |system_GT51            |           1|        21|
+|53    |system_GT52            |           1|         2|
+|54    |system_GT53            |           1|        21|
+|55    |system_GT54            |           1|         2|
+|56    |system_GT55            |           1|        21|
+|57    |system_GT56            |           1|         2|
+|58    |system_GT57            |           1|        21|
+|59    |system_GT58            |           1|         2|
+|60    |system_GT59            |           1|        21|
+|61    |system_GT60            |           1|         2|
+|62    |system_GT61            |           1|         3|
+|63    |system_GT62            |           1|         3|
+|64    |system_GT63            |           1|         3|
+|65    |system_GT64            |           1|         3|
+|66    |system_GT65            |           1|         3|
+|67    |system_GT66            |           1|         3|
+|68    |system_GT67            |           1|         3|
+|69    |system_GT68            |           1|         3|
+|70    |system_GT69            |           1|         3|
+|71    |system_GT70            |           1|         3|
+|72    |system_GT71            |           1|         3|
+|73    |system_GT72            |           1|         3|
+|74    |system_GT73            |           1|         3|
+|75    |system_GT74            |           1|         3|
+|76    |system_GT75            |           1|         2|
+|77    |system_GT76            |           1|         2|
+|78    |system_GT77            |           1|         2|
+|79    |system_GT78            |           1|         3|
+|80    |system_GT79            |           1|         2|
+|81    |system_GT80            |           1|         3|
+|82    |system_GT81            |           1|         3|
+|83    |system_GT82            |           1|         3|
+|84    |system_GT83            |           1|         3|
+|85    |system_GT84            |           1|         3|
+|86    |system_GT85            |           1|         3|
+|87    |system_GT86            |           1|         3|
+|88    |system_GT87            |           1|         3|
+|89    |system_GT88            |           1|         3|
+|90    |system_GT89            |           1|         3|
+|91    |system_GT90            |           1|         3|
+|92    |system_GT91            |           1|         3|
+|93    |system_GT92            |           1|         3|
+|94    |system_GT93            |           1|         3|
+|95    |system_GT94            |           1|         3|
+|96    |system_GT95            |           1|         3|
+|97    |system_GT96            |           1|         3|
+|98    |system_GT97            |           1|         3|
+|99    |system_GT98            |           1|         3|
+|100   |system_GT99            |           1|         3|
+|101   |system_GT100           |           1|         3|
+|102   |system_GT101           |           1|         3|
+|103   |system_GT102           |           1|         3|
+|104   |system_GT103           |           1|         3|
+|105   |system_GT104           |           1|         3|
+|106   |system_GT105           |           1|         3|
+|107   |system_GT106           |           1|         3|
+|108   |system_GT107           |           1|         3|
+|109   |system_GT108           |           1|         3|
+|110   |system_GT109           |           1|         3|
+|111   |system_GT110           |           1|         2|
+|112   |system_GT111           |           1|         2|
+|113   |system_GT112           |           1|        32|
+|114   |system_GT113           |           1|        32|
+|115   |system_GT114           |           1|        32|
+|116   |system_GT115           |           1|        32|
+|117   |system_GT116           |           1|        32|
+|118   |system_GT117           |           1|        32|
+|119   |system_GT118           |           1|        32|
+|120   |system_GT119           |           1|        32|
+|121   |system_GT120           |           1|        32|
+|122   |system_GT121           |           1|        32|
+|123   |system_GT122           |           1|        32|
+|124   |system_GT123           |           1|        32|
+|125   |system_GT124           |           1|        32|
+|126   |system_GT125           |           1|        32|
+|127   |system_GT126           |           1|        32|
+|128   |system_GT0             |           1|       593|
+|129   |system_GT2__2          |           1|        32|
+|130   |system_GT3__1          |           1|        32|
+|131   |system_GT4             |           1|        32|
+|132   |system_GT5__1          |           1|        32|
+|133   |system_GT6__1          |           1|        32|
+|134   |system_GT7__1          |           1|        32|
+|135   |system_GT8__1          |           1|        32|
+|136   |system_GT9__1          |           1|        32|
+|137   |system_GT10__1         |           1|        32|
+|138   |system_GT11__1         |           1|        32|
+|139   |system_GT12__1         |           1|        32|
+|140   |system_GT13__1         |           1|        32|
+|141   |system_GT14__1         |           1|        32|
+|142   |system_GT15__1         |           1|        32|
+|143   |system_GT16__1         |           1|        32|
+|144   |system_GT17__1         |           1|        32|
+|145   |system_GT18__1         |           1|        32|
+|146   |system_GT19__1         |           1|        32|
+|147   |system_GT20__1         |           1|        32|
+|148   |system_GT21__1         |           1|        32|
+|149   |system_GT22__1         |           1|        32|
+|150   |system_GT23__1         |           1|        32|
+|151   |system_GT24__1         |           1|        32|
+|152   |system_GT25__1         |           1|        32|
+|153   |system_GT26__1         |           1|        32|
+|154   |system_GT27__1         |           1|        32|
+|155   |system_GT28__1         |           1|        32|
+|156   |system_GT29__1         |           1|        32|
+|157   |system_GT30__1         |           1|        32|
+|158   |system_GT31__1         |           1|        32|
+|159   |system_GT32__1         |           1|        32|
+|160   |system_GT33__1         |           1|        32|
+|161   |system_GT34__1         |           1|        32|
+|162   |system_GT35__1         |           1|        32|
+|163   |system_GT36__1         |           1|        32|
+|164   |system_GT37__1         |           1|        32|
+|165   |system_GT38__1         |           1|        32|
+|166   |system_GT39__1         |           1|        32|
+|167   |system_GT40__1         |           1|        32|
+|168   |system_GT41__1         |           1|        32|
+|169   |system_GT42__1         |           1|        32|
+|170   |system_GT43__1         |           1|        32|
+|171   |system_GT44__1         |           1|        32|
+|172   |system_GT45__1         |           1|        32|
+|173   |system_GT46__1         |           1|        32|
+|174   |system_GT47__1         |           1|        32|
+|175   |system_GT48__1         |           1|        32|
+|176   |system_GT49__1         |           1|        32|
+|177   |system_GT50__1         |           1|        32|
+|178   |system_GT51__1         |           1|        32|
+|179   |system_GT52__1         |           1|        32|
+|180   |system_GT53__1         |           1|        32|
+|181   |system_GT54__1         |           1|        32|
+|182   |system_GT55__1         |           1|        32|
+|183   |system_GT56__1         |           1|        32|
+|184   |system_GT57__1         |           1|        32|
+|185   |system_GT58__1         |           1|        32|
+|186   |system_GT59__1         |           1|        32|
+|187   |system_GT60__1         |           1|        32|
+|188   |system_GT61__1         |           1|        32|
+|189   |system_GT62__1         |           1|        32|
+|190   |system_GT63__1         |           1|        32|
+|191   |system_GT64__1         |           1|        32|
+|192   |system_GT65__1         |           1|        32|
+|193   |system_GT66__1         |           1|        32|
+|194   |system_GT67__1         |           1|        64|
+|195   |system_GT68__1         |           1|        64|
+|196   |system_GT69__1         |           1|        64|
+|197   |system_GT70__1         |           1|        64|
+|198   |system_GT71__1         |           1|        64|
+|199   |system_GT72__1         |           1|        64|
+|200   |system_GT73__1         |           1|        64|
+|201   |system_GT74__1         |           1|        64|
+|202   |system_GT75__1         |           1|        64|
+|203   |system_GT76__1         |           1|        64|
+|204   |system_GT77__1         |           1|        64|
+|205   |system_GT78__1         |           1|        64|
+|206   |system_GT79__1         |           1|        64|
+|207   |system_GT80__1         |           1|        64|
+|208   |system_GT81__1         |           1|        64|
+|209   |system_GT82__1         |           1|        32|
+|210   |system_GT83__1         |           1|        32|
+|211   |system_GT84__1         |           1|        32|
+|212   |system_GT85__1         |           1|        32|
+|213   |system_GT86__1         |           1|        32|
+|214   |system_GT87__1         |           1|        32|
+|215   |system_GT88__1         |           1|        32|
+|216   |system_GT89__1         |           1|        32|
+|217   |system_GT90__1         |           1|        32|
+|218   |system_GT91__1         |           1|        32|
+|219   |system_GT92__1         |           1|        32|
+|220   |system_GT93__1         |           1|        32|
+|221   |system_GT94__1         |           1|        32|
+|222   |system_GT95__1         |           1|        32|
+|223   |system_GT96__1         |           1|        32|
+|224   |system_GT97__1         |           1|        32|
+|225   |system_GT98__1         |           1|        32|
+|226   |system_GT101__1        |           1|        30|
+|227   |system_GT102__1        |           1|        30|
+|228   |system_GT103__1        |           1|        30|
+|229   |system_GT104__1        |           1|         4|
+|230   |system_GT105__1        |           1|         4|
+|231   |system_GT106__1        |           1|         2|
+|232   |system_GT108__1        |           1|         6|
+|233   |system_GT2__3          |           1|        32|
+|234   |system_GT3__2          |           1|        32|
+|235   |system_GT4__1          |           1|        32|
+|236   |system_GT5__2          |           1|        32|
+|237   |system_GT6__2          |           1|        32|
+|238   |system_GT7__2          |           1|        32|
+|239   |system_GT8__2          |           1|        32|
+|240   |system_GT9__2          |           1|        32|
+|241   |system_GT10__2         |           1|        32|
+|242   |system_GT11__2         |           1|        32|
+|243   |system_GT12__2         |           1|        32|
+|244   |system_GT13__2         |           1|        40|
+|245   |system_GT14__2         |           1|        40|
+|246   |system_GT15__2         |           1|        40|
+|247   |system_GT16__2         |           1|        40|
+|248   |system_GT17__2         |           1|        40|
+|249   |system_GT18__2         |           1|        40|
+|250   |system_GT19__2         |           1|        40|
+|251   |system_GT20__2         |           1|        40|
+|252   |system_GT21__2         |           1|        40|
+|253   |system_GT22__2         |           1|        40|
+|254   |system_GT23__2         |           1|        40|
+|255   |system_GT24__2         |           1|        40|
+|256   |system_GT25__2         |           1|        40|
+|257   |system_GT26__2         |           1|        40|
+|258   |system_GT27__2         |           1|        40|
+|259   |system_GT28__2         |           1|        40|
+|260   |system_GT29__2         |           1|        40|
+|261   |system_GT30__2         |           1|        40|
+|262   |system_GT31__2         |           1|        32|
+|263   |system_GT0__4          |           1|    121596|
 +------+-----------------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_disable_timing i_1/i_9 -from I1 -to O'
-Found timing loop:
-     0: i_11225/O (LUT2)
-     1: i_11225/I1 (LUT2)
-     2: i_11057/O (LUT6)
-     3: i_11057/I5 (LUT6)
-     4: i_11058/O (LUT6)
-     5: i_11058/I0 (LUT6)
-     6: i_11092/O (LUT4)
-     7: i_11092/I0 (LUT4)
-     8: i_11225/O (LUT2)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
-Found timing loop:
-     0: i_11225/O (LUT2)
-     1: i_11225/I1 (LUT2)
-     2: i_11057/O (LUT6)
-     3: i_11057/I0 (LUT6)
-     4: i_11225/O (LUT2)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
-Found timing loop:
-     0: i_22645/O (LUT3)
-     1: i_22645/I2 (LUT3)
-     2: i_23680/O (LUT5)
-     3: i_23680/I4 (LUT5)
-     4: i_23677/O (LUT4)
-     5: i_23677/I0 (LUT4)
-     6: i_22645/O (LUT3)
-WARNING: [Synth 8-295] found timing loop. [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v:44]
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_11225/O'
-WARNING: [Synth 8-326] inferred exception to break timing loop: 'set_false_path -through i_23680/O'
 INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[2].u_data/mem_reg_0  (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[2].u_data/mem_reg_0  (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[2].u_data/mem_reg_1  (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
@@ -1630,7 +1958,7 @@ INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[3
 INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[3].u_data/mem_reg_3  (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 INFO: [Synth 8-4480] The timing for the instance \u_amber/u_fetch/u_cache/rams[3].u_data/mem_reg_3  (implemented as a block RAM) might be sub-optimal as no optional output register could be merged into the block ram. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:05:34 ; elapsed = 00:06:26 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2517 ; free virtual = 16471
+Finished Technology Mapping : Time (s): cpu = 00:14:31 ; elapsed = 00:16:40 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5018 ; free virtual = 15446
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1648,7 +1976,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:05:40 ; elapsed = 00:06:32 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2516 ; free virtual = 16470
+Finished IO Insertion : Time (s): cpu = 00:14:36 ; elapsed = 00:16:45 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5016 ; free virtual = 15444
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1661,7 +1989,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:05:40 ; elapsed = 00:06:32 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2517 ; free virtual = 16471
+Finished Renaming Generated Instances : Time (s): cpu = 00:14:36 ; elapsed = 00:16:45 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5016 ; free virtual = 15444
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1673,13 +2001,13 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:47 ; elapsed = 00:06:39 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2512 ; free virtual = 16467
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:14:42 ; elapsed = 00:16:51 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5016 ; free virtual = 15444
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Start Renaming Generated Ports : Time (s): cpu = 00:05:47 ; elapsed = 00:06:39 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2512 ; free virtual = 16467
+Start Renaming Generated Ports : Time (s): cpu = 00:14:42 ; elapsed = 00:16:51 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5016 ; free virtual = 15444
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:05:48 ; elapsed = 00:06:40 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2512 ; free virtual = 16467
+Finished Renaming Generated Ports : Time (s): cpu = 00:14:43 ; elapsed = 00:16:52 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5016 ; free virtual = 15444
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1702,15 +2030,15 @@ Report Cell Usage:
 |5     |DSP48E1_2   |     1|
 |6     |DSP48E1_3   |     1|
 |7     |LUT1        |   254|
-|8     |LUT2        |   972|
-|9     |LUT3        |  4263|
-|10    |LUT4        |  5668|
-|11    |LUT5        |  6278|
-|12    |LUT6        | 25135|
+|8     |LUT2        |  1039|
+|9     |LUT3        |  3649|
+|10    |LUT4        |  9604|
+|11    |LUT5        | 11974|
+|12    |LUT6        | 15371|
 |13    |MMCME2_ADV  |     1|
 |14    |MUXCY_L     |    77|
-|15    |MUXF7       |  2880|
-|16    |MUXF8       |  1273|
+|15    |MUXF7       |  3153|
+|16    |MUXF8       |  1227|
 |17    |RAM32M      |    30|
 |18    |RAMB18E1    |    16|
 |19    |RAMB18E1_1  |     1|
@@ -1731,20 +2059,20 @@ Report Cell Usage:
 |34    |RAMB36E1_9  |     1|
 |35    |SRL16E      |    73|
 |36    |XORCY       |    80|
-|37    |FDCE        | 25152|
-|38    |FDPE        |    72|
-|39    |FDRE        |  1576|
+|37    |FDCE        | 25330|
+|38    |FDPE        |    88|
+|39    |FDRE        |  1671|
 |40    |FDSE        |    22|
 |41    |IBUF        |    12|
 |42    |IBUFDS      |     1|
 |43    |OBUF        |    10|
 +------+------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:05:57 ; elapsed = 00:06:49 . Memory (MB): peak = 2401.383 ; gain = 1492.078 ; free physical = 2509 ; free virtual = 16468
+Finished Writing Synthesis Report : Time (s): cpu = 00:14:49 ; elapsed = 00:16:58 . Memory (MB): peak = 3777.121 ; gain = 2867.816 ; free physical = 5014 ; free virtual = 15442
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 2012 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:07:53 ; elapsed = 00:06:22 . Memory (MB): peak = 2405.297 ; gain = 1281.445 ; free physical = 5653 ; free virtual = 19611
-Synthesis Optimization Complete : Time (s): cpu = 00:08:20 ; elapsed = 00:06:49 . Memory (MB): peak = 2405.297 ; gain = 1495.992 ; free physical = 5948 ; free virtual = 19614
+Synthesis finished with 0 errors, 0 critical warnings and 2061 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:16:37 ; elapsed = 00:16:33 . Memory (MB): peak = 3781.031 ; gain = 2655.180 ; free physical = 8189 ; free virtual = 18617
+Synthesis Optimization Complete : Time (s): cpu = 00:17:03 ; elapsed = 00:16:59 . Memory (MB): peak = 3781.031 ; gain = 2871.727 ; free physical = 8488 ; free virtual = 18621
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 357 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1756,9 +2084,9 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 30 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-901 Infos, 237 Warnings, 0 Critical Warnings and 0 Errors encountered.
+901 Infos, 223 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:08:28 ; elapsed = 00:06:56 . Memory (MB): peak = 2449.406 ; gain = 1431.582 ; free physical = 5920 ; free virtual = 19591
-write_checkpoint: Time (s): cpu = 00:00:09 ; elapsed = 00:00:07 . Memory (MB): peak = 2481.426 ; gain = 32.020 ; free physical = 5910 ; free virtual = 19595
-report_utilization: Time (s): cpu = 00:00:00.60 ; elapsed = 00:00:00.67 . Memory (MB): peak = 2481.426 ; gain = 0.000 ; free physical = 5905 ; free virtual = 19590
-INFO: [Common 17-206] Exiting Vivado at Sun Dec  6 20:53:52 2015...
+synth_design: Time (s): cpu = 00:17:10 ; elapsed = 00:17:05 . Memory (MB): peak = 3825.141 ; gain = 2807.316 ; free physical = 8489 ; free virtual = 18625
+write_checkpoint: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 3857.160 ; gain = 32.020 ; free physical = 8478 ; free virtual = 18626
+report_utilization: Time (s): cpu = 00:00:00.56 ; elapsed = 00:00:00.65 . Memory (MB): peak = 3857.160 ; gain = 0.000 ; free physical = 8477 ; free virtual = 18626
+INFO: [Common 17-206] Exiting Vivado at Wed Dec  9 02:47:10 2015...

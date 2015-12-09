@@ -17,8 +17,12 @@ module b01_tagstore (
 	input logic			i_clk,
 	input logic			i_rst,
 	input logic			i_stall,
+	input logic         i_pc_stall, //used to break a timing loop problem
+	input logic        i_pc_stall_nxt,
+	input logic        i_is_psr,
 	
 	input logic [1:0]	i_instr_type, //00=alu, 01=mult, 10=mem. TODO: `define these in a header file
+	input logic         i_branch_with_link,
 	//we actually don't care if the instruction is being dispatched this cycle, it still needs a tag
 	//we only care what's being RETIRED this cycle to make a tag available again
 	//input logic i_instr_mem_with_writeback,
@@ -55,7 +59,7 @@ logic [31:0] 	alu_tag_available;
 logic [15:0]	mult_tag_available,
 				      mem_tag_available;
 				
-logic [6:0]		alu_tag_nxt_1,
+logic [5:0]		alu_tag_nxt_1,
               //alu_tag_nxt_2,
 				      mult_tag_nxt,
 				      mem_tag_nxt;
@@ -177,8 +181,10 @@ always_ff @(posedge i_rst, posedge i_clk) begin
 		mem_tag_available <= 16'hffff;
 	end
 	else begin
-		if (i_stall/*_all*/ || i_instr_type==2'b11) begin //if stalled or instruction is control flow
-			//make tags available if stalled, but don't make any unavailable
+		if (i_stall /*|| !(!i_pc_stall && i_pc_stall_nxt)*/ || (i_instr_type==2'b11 && !i_branch_with_link) || i_is_psr) begin //if stalled or instruction is control flow without link
+		//TODO fix this to (1) break timing loop, and (2) ensure tag still invalidated on an xyz-and-link instruction
+			//make tags available if stalled, but don't make any unavailable unless it's the first cycle on which we invalidate the PC and need to dispatch an instruction.
+			//in that case, we'll not make more tags unavailable while we're stalled but we will do so on the 1st cycle. 
 			for (int i=0; i<15; i+=1) begin
           if (alu_tag_available[i] || (i_alu_tag[3:0]==i && i_alu_valid && i_alu_tag[5:4]==2'b00)) alu_tag_available[i] <= 1'b1;
           else alu_tag_available[i] <= alu_tag_available[i];

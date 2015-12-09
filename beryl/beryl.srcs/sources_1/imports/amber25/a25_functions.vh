@@ -45,19 +45,23 @@
 function [3:0] instruction_type;
 input [31:0] instruction;
     begin
-    // Instruction Decode - Order is important!
-    casez ({instruction[27:20], instruction[7:4]})
-        12'b00010?001001 : instruction_type = SWAP;
-        12'b000000??1001 : instruction_type = MULT;
-        12'b00?????????? : instruction_type = REGOP;
-        12'b01?????????? : instruction_type = TRANS;   
-        12'b100????????? : instruction_type = MTRANS;  
-        12'b101????????? : instruction_type = BRANCH; 
-        12'b110????????? : instruction_type = CODTRANS;
-        12'b1110???????0 : instruction_type = COREGOP;         
-        12'b1110???????1 : instruction_type = CORTRANS;       
-        default:           instruction_type = SWI;
-    endcase
+        // Instruction Decode - Order is important!
+        if (instruction==32'b????00010?001111????000000000000) instruction_type = MRS;
+        else if (instruction==32'b????00010?101001111100000000????) instruction_type = MSR;
+        else begin
+            casez ({instruction[27:20], instruction[7:4]})
+                12'b00010?001001 : instruction_type = SWAP;
+                12'b000000??1001 : instruction_type = MULT;
+                12'b00?????????? : instruction_type = REGOP;
+                12'b01?????????? : instruction_type = TRANS;   
+                12'b100????????? : instruction_type = MTRANS;  
+                12'b101????????? : instruction_type = BRANCH; 
+                12'b110????????? : instruction_type = CODTRANS;
+                12'b1110???????0 : instruction_type = COREGOP;         
+                12'b1110???????1 : instruction_type = CORTRANS;    
+                default:           instruction_type = SWI;
+            endcase
+        end
     end
 endfunction    
 

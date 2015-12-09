@@ -46,7 +46,7 @@ module b01_register_bank (
 input                       i_clk,
 input						i_rst,
 input                       i_core_stall,
-input                       i_mem_stall,
+//input                       i_mem_stall,
 
 input       [1:0]           i_mode_idec,            // user, supervisor, irq_idec, firq_idec etc.
                                                     // Used for register writes
@@ -94,6 +94,7 @@ output logic				o_rs_valid,
 output logic				o_rd_valid,
 output logic				o_rn_valid,
 output logic				o_pc_valid,
+output logic o_pc_valid_curr,
 output logic[5:0]			o_rm_tag,
 output logic[5:0]			o_rs_tag,
 output logic[5:0]			o_rd_tag,
@@ -103,6 +104,13 @@ output logic[5:0]			o_pc_tag,
 input		[5:0]			i_rd_tag,
 input                       i_mem_wb, //need to invalidate a 2nd register, with a different tag, if it's a pre-/post-indexed memop
 input       [5:0]           i_mem_wb_tag,
+
+input logic i_is_psr,
+input logic i_mrs_msr,
+input logic [3:0] i_psr_sel,
+input logic [31:0] i_psr_reg_data,
+output logic o_psr_reg_valid,
+output logic [31:0] o_psr_reg,
 
 output logic [7:0] led,
 input [7:0] sw
@@ -383,9 +391,33 @@ always_comb begin
 	//3) it's being written back this cycle, so we update the stored data and set the reg to valid, or
 	//4) both 2 and 3, so we update the stored data, leave it invalid, and update the tag
 	
+	//defaults, if we have a psr instr
+	r_tag_nxt[0] = r0.tag;
+    r_tag_nxt[1] = r1.tag;
+    r_tag_nxt[2] = r2.tag;
+    r_tag_nxt[3] = r3.tag;
+    r_tag_nxt[4] = r4.tag;
+    r_tag_nxt[5] = r5.tag;
+    r_tag_nxt[6] = r6.tag;
+    r_tag_nxt[7] = r7.tag;
+    r_tag_nxt[8] = (i_mode_exec == FIRQ) ? r8_firq.tag : r8.tag;
+    r_tag_nxt[9] = (i_mode_exec == FIRQ) ? r9_firq.tag : r9.tag;
+    r_tag_nxt[10] = (i_mode_exec == FIRQ) ? r10_firq.tag : r10.tag;
+    r_tag_nxt[11] = (i_mode_exec == FIRQ) ? r11_firq.tag : r11.tag;
+    r_tag_nxt[12] = (i_mode_exec == FIRQ) ? r12_firq.tag : r12.tag;
+    r_tag_nxt[13] = (i_mode_exec == USR)     ? r13.tag :
+                    (i_mode_exec == SVC)     ? r13_svc.tag :
+                    (i_mode_exec == IRQ)     ? r13_irq.tag :
+                    /*(i_mode_exec == FIRQ) ?*/ r13_firq.tag;
+    r_tag_nxt[14] = (i_mode_exec == USR)     ? r14.tag :
+                    (i_mode_exec == SVC)     ? r14_svc.tag :
+                    (i_mode_exec == IRQ)     ? r14_irq.tag :
+                    /*(i_mode_exec == FIRQ) ?*/ r14_firq.tag;
+	
 	//r0-r7: always
 	//r0
-	if (reg_bank_wen_c[0] || (i_mem_wb && i_rn_sel==4'd0)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd0 ) r_valid_nxt[0 ] = 1'b1;
+	else if (reg_bank_wen_c[0] || (i_mem_wb && i_rn_sel==4'd0)) begin
 		r_valid_nxt[0] = 1'b0;
 		r_tag_nxt[0] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -399,7 +431,8 @@ always_comb begin
 	end
 	
 	//r1
-	if (reg_bank_wen_c[1] || (i_mem_wb && i_rn_sel==4'd1)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd1 ) r_valid_nxt[1 ] = 1'b1;
+    else if (reg_bank_wen_c[1] || (i_mem_wb && i_rn_sel==4'd1)) begin
 		r_valid_nxt[1] = 1'b0;
 		r_tag_nxt[1] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -413,7 +446,8 @@ always_comb begin
 	end
 	
 	//r2
-	if (reg_bank_wen_c[2] || (i_mem_wb && i_rn_sel==4'd2)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd2 ) r_valid_nxt[2 ] = 1'b1;
+    else if (reg_bank_wen_c[2] || (i_mem_wb && i_rn_sel==4'd2)) begin
 		r_valid_nxt[2] = 1'b0;
 		r_tag_nxt[2] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -427,7 +461,8 @@ always_comb begin
 	end
 	
 	//r3
-	if (reg_bank_wen_c[3] || (i_mem_wb && i_rn_sel==4'd3)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd3 ) r_valid_nxt[3 ] = 1'b1;
+    else if (reg_bank_wen_c[3] || (i_mem_wb && i_rn_sel==4'd3)) begin
 		r_valid_nxt[3] = 1'b0;
 		r_tag_nxt[3] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -441,7 +476,8 @@ always_comb begin
 	end
 	
 	//r4
-	if (reg_bank_wen_c[4] || (i_mem_wb && i_rn_sel==4'd4)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd4 ) r_valid_nxt[4 ] = 1'b1;
+    else if (reg_bank_wen_c[4] || (i_mem_wb && i_rn_sel==4'd4)) begin
 		r_valid_nxt[4] = 1'b0;
 		r_tag_nxt[4] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -455,7 +491,8 @@ always_comb begin
 	end
 	
 	//r5
-	if (reg_bank_wen_c[5] || (i_mem_wb && i_rn_sel==4'd5)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd5 ) r_valid_nxt[5 ] = 1'b1;
+    else if (reg_bank_wen_c[5] || (i_mem_wb && i_rn_sel==4'd5)) begin
 		r_valid_nxt[5] = 1'b0;
 		r_tag_nxt[5] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -469,7 +506,8 @@ always_comb begin
 	end
 	
 	//r6
-	if (reg_bank_wen_c[6] || (i_mem_wb && i_rn_sel==4'd6)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd6 ) r_valid_nxt[6 ] = 1'b1;
+    else if (reg_bank_wen_c[6] || (i_mem_wb && i_rn_sel==4'd6)) begin
 		r_valid_nxt[6] = 1'b0;
 		r_tag_nxt[6] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -483,7 +521,8 @@ always_comb begin
 	end
 	
 	//r7
-	if (reg_bank_wen_c[7] || (i_mem_wb && i_rn_sel==4'd7)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd7 ) r_valid_nxt[7 ] = 1'b1;
+    else if (reg_bank_wen_c[7] || (i_mem_wb && i_rn_sel==4'd7)) begin
 		r_valid_nxt[7] = 1'b0;
 		r_tag_nxt[7] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -499,7 +538,8 @@ always_comb begin
 	
 	//r8-r12, depending on irq/firq
 	//r8
-	if (reg_bank_wen_c[8] || (i_mem_wb && i_rn_sel==4'd8)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd8 ) r_valid_nxt[8 ] = 1'b1;
+    else if (reg_bank_wen_c[8] || (i_mem_wb && i_rn_sel==4'd8)) begin
 		r_valid_nxt[8] = 1'b0;
 		r_tag_nxt[8] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -513,7 +553,8 @@ always_comb begin
 	end
 	
 	//r9
-	if (reg_bank_wen_c[9] || (i_mem_wb && i_rn_sel==4'd9)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd9 ) r_valid_nxt[9 ] = 1'b1;
+    else if (reg_bank_wen_c[9] || (i_mem_wb && i_rn_sel==4'd9)) begin
 		r_valid_nxt[9] = 1'b0;
 		r_tag_nxt[9] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -527,7 +568,8 @@ always_comb begin
 	end
 	
 	//r10
-	if (reg_bank_wen_c[10] || (i_mem_wb && i_rn_sel==4'd10)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd10) r_valid_nxt[10] = 1'b1;
+    else if (reg_bank_wen_c[10] || (i_mem_wb && i_rn_sel==4'd10)) begin
 		r_valid_nxt[10] = 1'b0;
 		r_tag_nxt[10] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -541,7 +583,8 @@ always_comb begin
 	end
 	
 	//r11
-	if (reg_bank_wen_c[11] || (i_mem_wb && i_rn_sel==4'd11)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd11) r_valid_nxt[11] = 1'b1;
+    else if (reg_bank_wen_c[11] || (i_mem_wb && i_rn_sel==4'd11)) begin
 		r_valid_nxt[11] = 1'b0;
 		r_tag_nxt[11] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -555,7 +598,8 @@ always_comb begin
 	end
 	
 	//r12
-	if (reg_bank_wen_c[12] || (i_mem_wb && i_rn_sel==4'd12)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd12) r_valid_nxt[12] = 1'b1;
+    else if (reg_bank_wen_c[12] || (i_mem_wb && i_rn_sel==4'd12)) begin
 		r_valid_nxt[12] = 1'b0;
 		r_tag_nxt[12] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -571,7 +615,8 @@ always_comb begin
 	
 	//r13-r14, depending on usr/svc/irq/firq
 	//r13
-	if (reg_bank_wen_c[13] || (i_mem_wb && i_rn_sel==4'd13)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd13) r_valid_nxt[13] = 1'b1;
+    else if (reg_bank_wen_c[13] || (i_mem_wb && i_rn_sel==4'd13)) begin
 		r_valid_nxt[13] = 1'b0;
 		r_tag_nxt[13] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -594,7 +639,8 @@ always_comb begin
 	end
 	
 	//r14
-	if (reg_bank_wen_c[14] || (i_mem_wb && i_rn_sel==4'd14)) begin
+	if (i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd14) r_valid_nxt[14] = 1'b1;
+    else if (reg_bank_wen_c[14] || (i_mem_wb && i_rn_sel==4'd14)) begin
 		r_valid_nxt[14] = 1'b0;
 		r_tag_nxt[14] = i_mem_wb ? i_mem_wb_tag : i_rd_tag;
 	end
@@ -619,11 +665,11 @@ always_comb begin
 	
 	//r15 (pc), always
 	//TODO restructure so we *actually* know if PC is valid or not
-	if (i_pc_wen && i_pc_wait_for_tag) begin //note that if we stall because of this, i_pc_wen will become false on the next cycle, so PC will not be continuously invalidated (and thus we shouldn't deadlock) 
+	/*if (i_pc_wen && i_pc_wait_for_tag) begin //note that if we stall because of this, i_pc_wen will become false on the next cycle, so PC will not be continuously invalidated (and thus we shouldn't deadlock) 
 		r_valid_nxt[15] = 1'b0;
 		r_tag_nxt[15] = i_rd_tag; //don't need "i_mem_wb ? i_mem_wb_tag : " since rn cannot be pc
 	end
-	else if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
+	else*/ if (tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15]) begin
 		r_valid_nxt[15] = 1'b1;
 		r_tag_nxt[15] = r15.tag;
 	end
@@ -665,131 +711,157 @@ logic [31:0]	r0_data_nxt,
 logic [23:0]	r15_data_nxt;
 				
 always_comb begin
-	r0_data_nxt =  	tag_match_alu[0 ]  ? i_alu_data  :
+	r0_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd0  ? i_psr_reg_data :
+                    tag_match_alu[0 ]  ? i_alu_data  :
 					tag_match_mult[0 ] ? i_mult_data :
 					tag_match_mem[0]   ? i_mem_data  :
 										 r0.data;
-	r1_data_nxt =  	tag_match_alu[1 ]  ? i_alu_data  :
+	r1_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd1  ? i_psr_reg_data :
+                                                             tag_match_alu[1 ]  ? i_alu_data  :
 					tag_match_mult[1 ] ? i_mult_data :
 					tag_match_mem[1 ]  ? i_mem_data  :
 										 r1.data;
-	r2_data_nxt =  	tag_match_alu[2 ]  ? i_alu_data  :
+	r2_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd2  ? i_psr_reg_data :
+                                                             tag_match_alu[2 ]  ? i_alu_data  :
 					tag_match_mult[2 ] ? i_mult_data :
 					tag_match_mem[2 ]  ? i_mem_data  :
 										 r2.data;
-	r3_data_nxt =  	tag_match_alu[3 ]  ? i_alu_data  :
+	r3_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd3  ? i_psr_reg_data :
+                                                             tag_match_alu[3 ]  ? i_alu_data  :
 					tag_match_mult[3 ] ? i_mult_data :
 					tag_match_mem[3 ]  ? i_mem_data  :
 										 r3.data;
-	r4_data_nxt =  	tag_match_alu[4 ]  ? i_alu_data  :
+	r4_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd4  ? i_psr_reg_data :
+                                                             tag_match_alu[4 ]  ? i_alu_data  :
 					tag_match_mult[4 ] ? i_mult_data :
 					tag_match_mem[4 ]  ? i_mem_data  :
 										 r4.data;
-	r5_data_nxt =  	tag_match_alu[5 ]  ? i_alu_data  :
+	r5_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd5  ? i_psr_reg_data :
+                                                             tag_match_alu[5 ]  ? i_alu_data  :
 					tag_match_mult[5 ] ? i_mult_data :
 					tag_match_mem[5 ]  ? i_mem_data  :
 										 r5.data;
-	r6_data_nxt =  	tag_match_alu[6 ]  ? i_alu_data  :
+	r6_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd6  ? i_psr_reg_data :
+                                                             tag_match_alu[6 ]  ? i_alu_data  :
 					tag_match_mult[6 ] ? i_mult_data :
 					tag_match_mem[6 ]  ? i_mem_data  :
 										 r6.data;
-	r7_data_nxt =  	tag_match_alu[7 ]  ? i_alu_data  :
+	r7_data_nxt =  	i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd7  ? i_psr_reg_data :
+                                                             tag_match_alu[7 ]  ? i_alu_data  :
 					tag_match_mult[7 ] ? i_mult_data :
 					tag_match_mem[7 ]  ? i_mem_data  :
 										 r7.data;
 								 
 	r8_data_nxt  =  i_mode_exec == FIRQ  ? r8.data	 :
-					tag_match_alu[8 ]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd8  ? i_psr_reg_data :
+                        tag_match_alu[8 ]  ? i_alu_data  :
 					tag_match_mult[8 ] ? i_mult_data :
 					tag_match_mem[8 ]  ? i_mem_data  :
 										 r8.data;
 	r9_data_nxt  =  i_mode_exec == FIRQ  ? r9.data	 :
-					tag_match_alu[9 ]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd9  ? i_psr_reg_data :
+                        tag_match_alu[9 ]  ? i_alu_data  :
 					tag_match_mult[9 ] ? i_mult_data :
 					tag_match_mem[9 ]  ? i_mem_data  :
 										 r9.data;
 	r10_data_nxt =  i_mode_exec == FIRQ  ? r10.data :
-					tag_match_alu[10]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd10 ? i_psr_reg_data :
+                        tag_match_alu[10]  ? i_alu_data  :
 					tag_match_mult[10] ? i_mult_data :
 					tag_match_mem[10]  ? i_mem_data  :
 										 r10.data;
 	r11_data_nxt =  i_mode_exec == FIRQ  ? r11.data :
-					tag_match_alu[11]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd11 ? i_psr_reg_data :
+                        tag_match_alu[11]  ? i_alu_data  :
 					tag_match_mult[11] ? i_mult_data :
 					tag_match_mem[11]  ? i_mem_data  :
 										 r11.data;
 	r12_data_nxt =  i_mode_exec == FIRQ  ? r12.data :
-					tag_match_alu[12]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd12 ? i_psr_reg_data :
+                        tag_match_alu[12]  ? i_alu_data  :
 					tag_match_mult[12] ? i_mult_data :
 					tag_match_mem[12]  ? i_mem_data  :
 										 r12.data;
 								 
 	r8_firq_data_nxt  =  	i_mode_exec != FIRQ  ? r8_firq.data:
-							tag_match_alu[8 ]  ? i_alu_data  :
+							i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd8  ? i_psr_reg_data :
+                        tag_match_alu[8 ]  ? i_alu_data  :
 							tag_match_mult[8 ] ? i_mult_data :
 							tag_match_mem[8 ]  ? i_mem_data  :
 												 r8_firq.data;
 	r9_firq_data_nxt  =  	i_mode_exec == FIRQ  ? r9_firq.data:
-							tag_match_alu[9 ]  ? i_alu_data  :
+							i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd9  ? i_psr_reg_data :
+                        tag_match_alu[9 ]  ? i_alu_data  :
 							tag_match_mult[9 ] ? i_mult_data :
 							tag_match_mem[9 ]  ? i_mem_data  :
 												 r9_firq.data;
 	r10_firq_data_nxt =  	i_mode_exec == FIRQ  ? r10_firq.data:
-							tag_match_alu[10]  ? i_alu_data  :
+							i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd10 ? i_psr_reg_data :
+                        tag_match_alu[10]  ? i_alu_data  :
 							tag_match_mult[10] ? i_mult_data :
 							tag_match_mem[10]  ? i_mem_data  :
 												 r10_firq.data;
 	r11_firq_data_nxt =  	i_mode_exec == FIRQ  ? r11_firq.data:
-							tag_match_alu[11]  ? i_alu_data  :
+							i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd11 ? i_psr_reg_data :
+                        tag_match_alu[11]  ? i_alu_data  :
 							tag_match_mult[11] ? i_mult_data :
 							tag_match_mem[11]  ? i_mem_data  :
 												 r11_firq.data;
 	r12_firq_data_nxt =  	i_mode_exec == FIRQ  ? r12_firq.data:
-							tag_match_alu[12]  ? i_alu_data  :
+							i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd12 ? i_psr_reg_data :
+                        tag_match_alu[12]  ? i_alu_data  :
 							tag_match_mult[12] ? i_mult_data :
 							tag_match_mem[12]  ? i_mem_data  :
 												 r12_firq.data;
 											 
 	r13_data_nxt =  i_mode_exec != USR   ? r13.data	 :
-					tag_match_alu[13]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd13 ? i_psr_reg_data :
+                        tag_match_alu[13]  ? i_alu_data  :
 					tag_match_mult[13] ? i_mult_data :
 					tag_match_mem[13]  ? i_mem_data  :
 										 r13.data;
 	r14_data_nxt =  i_mode_exec != USR   ? r14.data	 :
-					tag_match_alu[14]  ? i_alu_data  :
+					i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd14 ? i_psr_reg_data :
+                        tag_match_alu[14]  ? i_alu_data  :
 					tag_match_mult[14] ? i_mult_data :
 					tag_match_mem[14]  ? i_mem_data  :
 										 r14.data;
 											 
 	r13_svc_data_nxt  = i_mode_exec != SVC   ? r13_svc.data:
-						tag_match_alu[13]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd13 ? i_psr_reg_data :
+                        tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_svc.data;
 	r14_svc_data_nxt  = i_mode_exec != SVC   ? r14_svc.data:
-						tag_match_alu[14]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd14 ? i_psr_reg_data :
+                        tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_svc.data;
 											 
 	r13_irq_data_nxt  = i_mode_exec != IRQ   ? r13_irq.data:
-						tag_match_alu[13]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd13 ? i_psr_reg_data :
+                        tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_irq.data;
 	r14_irq_data_nxt  = i_mode_exec != IRQ   ? r14_irq.data:
-						tag_match_alu[14]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd14 ? i_psr_reg_data :
+                        tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_irq.data;
 											 
 	r13_firq_data_nxt = i_mode_exec != FIRQ  ? r13_firq.data:
-						tag_match_alu[13]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd13 ? i_psr_reg_data :
+                        tag_match_alu[13]  ? i_alu_data  :
 						tag_match_mult[13] ? i_mult_data :
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_firq.data;
 	r14_firq_data_nxt = i_mode_exec != FIRQ  ? r14_firq.data:
-						tag_match_alu[14]  ? i_alu_data  :
+						i_is_psr && i_mrs_msr==1'b0 && i_psr_sel==4'd14 ? i_psr_reg_data :
+                        tag_match_alu[14]  ? i_alu_data  :
 						tag_match_mult[14] ? i_mult_data :
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_firq.data;
@@ -1122,6 +1194,7 @@ assign r14_rds = i_mode_exec==USR  ? r14.data      :
 // Program Counter out
 // ========================================================
 assign o_pc_valid = r_valid_nxt[15];
+assign o_pc_valid_curr = r15.valid; //TODO confirm whether this should be r15.valid or (r15.valid || tag_match_alu[15] || tag_match_mult[15] || tag_match_mem[15])
 assign o_pc_tag = r15.tag;
 assign o_pc = r15_out_rn; //TODO modify as per the below with update-PC data from the tag/update buses
 
@@ -1137,7 +1210,7 @@ always_comb begin
 						tag_match_mem[0 ]  ? i_mem_data  :
 											 r0_out;
 				o_rm_tag = r0.tag;
-				o_rm_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[0] | tag_match_mult[0] | tag_match_mem[0] ? 1'b1 : r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding. also catch edge case where we're retiring an op to this reg on this cycle and then we have an instr that both reads from and invalidates this reg on the same cycle.
 		end
 		4'd1: 	
 		begin
@@ -1146,7 +1219,7 @@ always_comb begin
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
 				o_rm_tag = r1.tag;
-				o_rm_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[1] | tag_match_mult[1] | tag_match_mem[1] ? 1'b1 : r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
 		begin
@@ -1155,7 +1228,7 @@ always_comb begin
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
 				o_rm_tag = r2.tag;
-				o_rm_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[2] | tag_match_mult[2] | tag_match_mem[2] ? 1'b1 : r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
 		begin
@@ -1164,7 +1237,7 @@ always_comb begin
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
 				o_rm_tag = r3.tag;
-				o_rm_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[3] | tag_match_mult[3] | tag_match_mem[3] ? 1'b1 : r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
 		begin
@@ -1173,7 +1246,7 @@ always_comb begin
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
 				o_rm_tag = r4.tag;
-				o_rm_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[4] | tag_match_mult[4] | tag_match_mem[4] ? 1'b1 : r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
 		begin
@@ -1182,7 +1255,7 @@ always_comb begin
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
 				o_rm_tag = r5.tag;
-				o_rm_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[5] | tag_match_mult[5] | tag_match_mem[5] ? 1'b1 : r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
 		begin
@@ -1191,7 +1264,7 @@ always_comb begin
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
 				o_rm_tag = r6.tag;
-				o_rm_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[6] | tag_match_mult[6] | tag_match_mem[6] ? 1'b1 : r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
 		begin
@@ -1200,7 +1273,7 @@ always_comb begin
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
 				o_rm_tag = r7.tag;
-				o_rm_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[7] | tag_match_mult[7] | tag_match_mem[7] ? 1'b1 : r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
 		begin
@@ -1209,7 +1282,7 @@ always_comb begin
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_out;
 				o_rm_tag = i_mode_exec==FIRQ ? r8_firq.tag : r8.tag;
-				o_rm_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[8] | tag_match_mult[8] | tag_match_mem[8] ? 1'b1 : r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
 		begin
@@ -1218,7 +1291,7 @@ always_comb begin
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_out;
 				o_rm_tag = i_mode_exec==FIRQ ? r9_firq.tag : r9.tag;
-				o_rm_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[9] | tag_match_mult[9] | tag_match_mem[9] ? 1'b1 : r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
 		begin
@@ -1227,7 +1300,7 @@ always_comb begin
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_out;
 				o_rm_tag = i_mode_exec==FIRQ ? r10_firq.tag : r10.tag;
-				o_rm_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[10] | tag_match_mult[10] | tag_match_mem[10] ? 1'b1 : r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
 		begin
@@ -1236,7 +1309,7 @@ always_comb begin
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_out;
 				o_rm_tag = i_mode_exec==FIRQ ? r11_firq.tag : r11.tag;
-				o_rm_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[11] | tag_match_mult[11] | tag_match_mem[11] ? 1'b1 : r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
 		begin
@@ -1245,7 +1318,7 @@ always_comb begin
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_out;
 				o_rm_tag = i_mode_exec==FIRQ ? r12_firq.tag : r12.tag;
-				o_rm_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[12] | tag_match_mult[12] | tag_match_mem[12] ? 1'b1 : r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
 		begin
@@ -1257,7 +1330,7 @@ always_comb begin
 				            i_mode_exec==IRQ  ? r13_irq.tag  :
 				            i_mode_exec==SVC  ? r13_svc.tag  :
 				                                r13.tag;
-				o_rm_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[13] | tag_match_mult[13] | tag_match_mem[13] ? 1'b1 : r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
 		begin
@@ -1269,7 +1342,7 @@ always_comb begin
                             i_mode_exec==IRQ  ? r14_irq.tag  :
                             i_mode_exec==SVC  ? r14_svc.tag  :
                                                 r14.tag;
-				o_rm_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[14] | tag_match_mult[14] | tag_match_mem[14] ? 1'b1 : r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
 		begin
@@ -1278,7 +1351,7 @@ always_comb begin
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rm;
 				o_rm_tag = r15.tag;
-				o_rm_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
+				o_rm_valid = tag_match_alu[15] | tag_match_mult[15] | tag_match_mem[15] ? 1'b1 : r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
 end
@@ -1312,7 +1385,7 @@ always_comb begin
 						tag_match_mem[0 ]  ? i_mem_data  :
 											 r0_out;
 				o_rs_tag = r0.tag;
-				o_rs_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[0] | tag_match_mult[0] | tag_match_mem[0] ? 1'b1 : r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd1: 	
 		begin
@@ -1321,7 +1394,7 @@ always_comb begin
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
 				o_rs_tag = r1.tag;
-				o_rs_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[1] | tag_match_mult[1] | tag_match_mem[1] ? 1'b1 : r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
 		begin
@@ -1330,7 +1403,7 @@ always_comb begin
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
 				o_rs_tag = r2.tag;
-				o_rs_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[2] | tag_match_mult[2] | tag_match_mem[2] ? 1'b1 : r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
 		begin
@@ -1339,7 +1412,7 @@ always_comb begin
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
 				o_rs_tag = r3.tag;
-				o_rs_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[3] | tag_match_mult[3] | tag_match_mem[3] ? 1'b1 : r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
 		begin
@@ -1348,7 +1421,7 @@ always_comb begin
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
 				o_rs_tag = r4.tag;
-				o_rs_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[4] | tag_match_mult[4] | tag_match_mem[4] ? 1'b1 : r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
 		begin
@@ -1357,7 +1430,7 @@ always_comb begin
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
 				o_rs_tag = r5.tag;
-				o_rs_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[5] | tag_match_mult[5] | tag_match_mem[5] ? 1'b1 : r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
 		begin
@@ -1366,7 +1439,7 @@ always_comb begin
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
 				o_rs_tag = r6.tag;
-				o_rs_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[6] | tag_match_mult[6] | tag_match_mem[6] ? 1'b1 : r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
 		begin
@@ -1375,7 +1448,7 @@ always_comb begin
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
 				o_rs_tag = r7.tag;
-				o_rs_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[7] | tag_match_mult[7] | tag_match_mem[7] ? 1'b1 : r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
 		begin
@@ -1384,7 +1457,7 @@ always_comb begin
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_rds;
 				o_rs_tag = r8.tag;
-				o_rs_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[8] | tag_match_mult[8] | tag_match_mem[8] ? 1'b1 : r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
 		begin
@@ -1393,7 +1466,7 @@ always_comb begin
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_rds;
 				o_rs_tag = r9.tag;
-				o_rs_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[9] | tag_match_mult[9] | tag_match_mem[9] ? 1'b1 : r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
 		begin
@@ -1402,7 +1475,7 @@ always_comb begin
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_rds;
 				o_rs_tag = r10.tag;
-				o_rs_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[10] | tag_match_mult[10] | tag_match_mem[10] ? 1'b1 : r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
 		begin
@@ -1411,7 +1484,7 @@ always_comb begin
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_rds;
 				o_rs_tag = r11.tag;
-				o_rs_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[11] | tag_match_mult[11] | tag_match_mem[11] ? 1'b1 : r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
 		begin
@@ -1420,7 +1493,7 @@ always_comb begin
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_rds;
 				o_rs_tag = r12.tag;
-				o_rs_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[12] | tag_match_mult[12] | tag_match_mem[12] ? 1'b1 : r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
 		begin
@@ -1429,7 +1502,7 @@ always_comb begin
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_rds;
 				o_rs_tag = r13.tag;
-				o_rs_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[13] | tag_match_mult[13] | tag_match_mem[13] ? 1'b1 : r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
 		begin
@@ -1438,7 +1511,7 @@ always_comb begin
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_rds;
 				o_rs_tag = r14.tag;
-				o_rs_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[14] | tag_match_mult[14] | tag_match_mem[14] ? 1'b1 : r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
 		begin
@@ -1447,7 +1520,7 @@ always_comb begin
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rn;
 				o_rs_tag = r15.tag;
-				o_rs_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
+				o_rs_valid = tag_match_alu[15] | tag_match_mult[15] | tag_match_mem[15] ? 1'b1 : r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
 end
@@ -1484,7 +1557,7 @@ always_comb begin
 						tag_match_mem[0 ]  ? i_mem_data  :
 											 r0_out;
 				o_rd_tag = r0.tag;
-				o_rd_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[0] | tag_match_mult[0] | tag_match_mem[0] ? 1'b1 : r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd1: 	
 		begin
@@ -1493,7 +1566,7 @@ always_comb begin
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
 				o_rd_tag = r1.tag;
-				o_rd_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[1] | tag_match_mult[1] | tag_match_mem[1] ? 1'b1 : r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
 		begin
@@ -1502,7 +1575,7 @@ always_comb begin
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
 				o_rd_tag = r2.tag;
-				o_rd_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[2] | tag_match_mult[2] | tag_match_mem[2] ? 1'b1 : r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
 		begin
@@ -1511,7 +1584,7 @@ always_comb begin
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
 				o_rd_tag = r3.tag;
-				o_rd_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[3] | tag_match_mult[3] | tag_match_mem[3] ? 1'b1 : r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
 		begin
@@ -1520,7 +1593,7 @@ always_comb begin
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
 				o_rd_tag = r4.tag;
-				o_rd_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[4] | tag_match_mult[4] | tag_match_mem[4] ? 1'b1 : r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
 		begin
@@ -1529,7 +1602,7 @@ always_comb begin
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
 				o_rd_tag = r5.tag;
-				o_rd_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[5] | tag_match_mult[5] | tag_match_mem[5] ? 1'b1 : r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
 		begin
@@ -1538,7 +1611,7 @@ always_comb begin
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
 				o_rd_tag = r6.tag;
-				o_rd_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[6] | tag_match_mult[6] | tag_match_mem[6] ? 1'b1 : r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
 		begin
@@ -1547,7 +1620,7 @@ always_comb begin
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
 				o_rd_tag = r7.tag;
-				o_rd_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[7] | tag_match_mult[7] | tag_match_mem[7] ? 1'b1 : r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
 		begin
@@ -1556,7 +1629,7 @@ always_comb begin
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_rds;
 				o_rd_tag = r8.tag;
-				o_rd_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[8] | tag_match_mult[8] | tag_match_mem[8] ? 1'b1 : r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
 		begin
@@ -1565,7 +1638,7 @@ always_comb begin
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_rds;
 				o_rd_tag = r9.tag;
-				o_rd_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[9] | tag_match_mult[9] | tag_match_mem[9] ? 1'b1 : r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
 		begin
@@ -1574,7 +1647,7 @@ always_comb begin
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_rds;
 				o_rd_tag = r10.tag;
-				o_rd_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[10] | tag_match_mult[10] | tag_match_mem[10] ? 1'b1 : r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
 		begin
@@ -1583,7 +1656,7 @@ always_comb begin
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_rds;
 				o_rd_tag = r11.tag;
-				o_rd_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[11] | tag_match_mult[11] | tag_match_mem[11] ? 1'b1 : r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
 		begin
@@ -1592,7 +1665,7 @@ always_comb begin
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_rds;
 				o_rd_tag = r12.tag;
-				o_rd_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[12] | tag_match_mult[12] | tag_match_mem[12] ? 1'b1 : r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
 		begin
@@ -1601,7 +1674,7 @@ always_comb begin
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_rds;
 				o_rd_tag = r13.tag;
-				o_rd_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[13] | tag_match_mult[13] | tag_match_mem[13] ? 1'b1 : r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
 		begin
@@ -1610,7 +1683,7 @@ always_comb begin
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_rds;
 				o_rd_tag = r14.tag;
-				o_rd_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[14] | tag_match_mult[14] | tag_match_mem[14] ? 1'b1 : r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
 		begin
@@ -1619,7 +1692,7 @@ always_comb begin
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rm_nxt;
 				o_rd_tag = r15.tag;
-				o_rd_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
+				o_rd_valid = tag_match_alu[15] | tag_match_mult[15] | tag_match_mem[15] ? 1'b1 : r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
 end
@@ -1656,7 +1729,7 @@ always_comb begin
 						tag_match_mem[0 ]  ? i_mem_data  :
 											 r0_out;
 				o_rn_tag = r0.tag;
-				o_rn_valid = r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[0] | tag_match_mult[0] | tag_match_mem[0] ? 1'b1 : r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd1: 	
 		begin
@@ -1665,7 +1738,7 @@ always_comb begin
 						tag_match_mem[1 ]  ? i_mem_data  :
 											 r1_out;
 				o_rn_tag = r1.tag;
-				o_rn_valid = r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[1] | tag_match_mult[1] | tag_match_mem[1] ? 1'b1 : r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd2: 	
 		begin
@@ -1674,7 +1747,7 @@ always_comb begin
 						tag_match_mem[2 ]  ? i_mem_data  :
 											 r2_out;
 				o_rn_tag = r2.tag;
-				o_rn_valid = r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[2] | tag_match_mult[2] | tag_match_mem[2] ? 1'b1 : r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd3: 	
 		begin
@@ -1683,7 +1756,7 @@ always_comb begin
 						tag_match_mem[3 ]  ? i_mem_data  :
 											 r3_out;
 				o_rn_tag = r3.tag;
-				o_rn_valid = r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[3] | tag_match_mult[3] | tag_match_mem[3] ? 1'b1 : r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd4: 	
 		begin
@@ -1692,7 +1765,7 @@ always_comb begin
 						tag_match_mem[4 ]  ? i_mem_data  :
 											 r4_out;
 				o_rn_tag = r4.tag;
-				o_rn_valid = r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[4] | tag_match_mult[4] | tag_match_mem[4] ? 1'b1 : r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd5: 	
 		begin
@@ -1701,7 +1774,7 @@ always_comb begin
 						tag_match_mem[5 ]  ? i_mem_data  :
 											 r5_out;
 				o_rn_tag = r5.tag;
-				o_rn_valid = r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[5] | tag_match_mult[5] | tag_match_mem[5] ? 1'b1 : r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd6: 	
 		begin
@@ -1710,7 +1783,7 @@ always_comb begin
 						tag_match_mem[6 ]  ? i_mem_data  :
 											 r6_out;
 				o_rn_tag = r6.tag;
-				o_rn_valid = r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[6] | tag_match_mult[6] | tag_match_mem[6] ? 1'b1 : r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd7: 	
 		begin
@@ -1719,7 +1792,7 @@ always_comb begin
 						tag_match_mem[7 ]  ? i_mem_data  :
 											 r7_out;
 				o_rn_tag = r7.tag;
-				o_rn_valid = r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[7] | tag_match_mult[7] | tag_match_mem[7] ? 1'b1 : r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd8: 	
 		begin
@@ -1728,7 +1801,7 @@ always_comb begin
 						tag_match_mem[8 ]  ? i_mem_data  :
 											 r8_out;
 				o_rn_tag = r8.tag;
-				o_rn_valid = r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[8] | tag_match_mult[8] | tag_match_mem[8] ? 1'b1 : r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd9: 	
 		begin
@@ -1737,7 +1810,7 @@ always_comb begin
 						tag_match_mem[9 ]  ? i_mem_data  :
 											 r9_out;
 				o_rn_tag = r9.tag;
-				o_rn_valid = r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[9] | tag_match_mult[9] | tag_match_mem[9] ? 1'b1 : r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd10: 	
 		begin
@@ -1746,7 +1819,7 @@ always_comb begin
 						tag_match_mem[10]  ? i_mem_data  :
 											 r10_out;
 				o_rn_tag = r10.tag;
-				o_rn_valid = r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[10] | tag_match_mult[10] | tag_match_mem[10] ? 1'b1 : r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd11: 	
 		begin
@@ -1755,7 +1828,7 @@ always_comb begin
 						tag_match_mem[11]  ? i_mem_data  :
 											 r11_out;
 				o_rn_tag = r11.tag;
-				o_rn_valid = r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[11] | tag_match_mult[11] | tag_match_mem[11] ? 1'b1 : r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd12: 	
 		begin
@@ -1764,7 +1837,7 @@ always_comb begin
 						tag_match_mem[12]  ? i_mem_data  :
 											 r12_out;
 				o_rn_tag = r12.tag;
-				o_rn_valid = r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[12] | tag_match_mult[12] | tag_match_mem[12] ? 1'b1 : r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd13: 	
 		begin
@@ -1773,7 +1846,7 @@ always_comb begin
 						tag_match_mem[13]  ? i_mem_data  :
 											 r13_out;
 				o_rn_tag = r13.tag;
-				o_rn_valid = r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[13] | tag_match_mult[13] | tag_match_mem[13] ? 1'b1 : r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd14: 	
 		begin
@@ -1782,7 +1855,7 @@ always_comb begin
 						tag_match_mem[14]  ? i_mem_data  :
 											 r14_out;
 				o_rn_tag = r14.tag;
-				o_rn_valid = r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[14] | tag_match_mult[14] | tag_match_mem[14] ? 1'b1 : r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
 		end
 		4'd15: 	
 		begin
@@ -1791,7 +1864,7 @@ always_comb begin
 						tag_match_mem[15]  ? i_mem_data  :
 											 r15_out_rn;
 				o_rn_tag = r15.tag;
-				o_rn_valid = r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
+				o_rn_valid = tag_match_alu[15] | tag_match_mult[15] | tag_match_mem[15] ? 1'b1 : r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
 		end
 	endcase
 end
@@ -1811,6 +1884,140 @@ end
               i_rn_sel == 4'd13 ? r13_out : 
               i_rn_sel == 4'd14 ? r14_out : 
                                   r15_out_rn ; */
+
+//PSR reg stuff
+always_comb begin
+	case (i_psr_sel)
+		4'd0: 	
+		begin
+				o_psr_reg = 	tag_match_alu[0 ]  ? i_alu_data  :
+						tag_match_mult[0 ] ? i_mult_data :
+						tag_match_mem[0 ]  ? i_mem_data  :
+											 r0_out;
+				o_psr_reg_valid = tag_match_alu[0] | tag_match_mult[0] | tag_match_mem[0] ? 1'b1 : r_valid_nxt[0]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd1: 	
+		begin
+				o_psr_reg = 	tag_match_alu[1 ]  ? i_alu_data  :
+						tag_match_mult[1 ] ? i_mult_data :
+						tag_match_mem[1 ]  ? i_mem_data  :
+											 r1_out;
+				o_psr_reg_valid = tag_match_alu[1] | tag_match_mult[1] | tag_match_mem[1] ? 1'b1 : r_valid_nxt[1]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd2: 	
+		begin
+				o_psr_reg = 	tag_match_alu[2 ]  ? i_alu_data  :
+						tag_match_mult[2 ] ? i_mult_data :
+						tag_match_mem[2 ]  ? i_mem_data  :
+											 r2_out;
+				o_psr_reg_valid = tag_match_alu[2] | tag_match_mult[2] | tag_match_mem[2] ? 1'b1 : r_valid_nxt[2]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd3: 	
+		begin
+				o_psr_reg = 	tag_match_alu[3 ]  ? i_alu_data  :
+						tag_match_mult[3 ] ? i_mult_data :
+						tag_match_mem[3 ]  ? i_mem_data  :
+											 r3_out;
+				o_psr_reg_valid = tag_match_alu[3] | tag_match_mult[3] | tag_match_mem[3] ? 1'b1 : r_valid_nxt[3]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd4: 	
+		begin
+				o_psr_reg = 	tag_match_alu[4 ]  ? i_alu_data  :
+						tag_match_mult[4 ] ? i_mult_data :
+						tag_match_mem[4 ]  ? i_mem_data  :
+											 r4_out;
+				o_psr_reg_valid = tag_match_alu[4] | tag_match_mult[4] | tag_match_mem[4] ? 1'b1 : r_valid_nxt[4]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd5: 	
+		begin
+				o_psr_reg = 	tag_match_alu[5 ]  ? i_alu_data  :
+						tag_match_mult[5 ] ? i_mult_data :
+						tag_match_mem[5 ]  ? i_mem_data  :
+											 r5_out;
+				o_psr_reg_valid = tag_match_alu[5] | tag_match_mult[5] | tag_match_mem[5] ? 1'b1 : r_valid_nxt[5]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd6: 	
+		begin
+				o_psr_reg = 	tag_match_alu[6 ]  ? i_alu_data  :
+						tag_match_mult[6 ] ? i_mult_data :
+						tag_match_mem[6 ]  ? i_mem_data  :
+											 r6_out;
+				o_psr_reg_valid = tag_match_alu[6] | tag_match_mult[6] | tag_match_mem[6] ? 1'b1 : r_valid_nxt[6]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd7: 	
+		begin
+				o_psr_reg = 	tag_match_alu[7 ]  ? i_alu_data  :
+						tag_match_mult[7 ] ? i_mult_data :
+						tag_match_mem[7 ]  ? i_mem_data  :
+											 r7_out;
+				o_psr_reg_valid = tag_match_alu[7] | tag_match_mult[7] | tag_match_mem[7] ? 1'b1 : r_valid_nxt[7]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd8: 	
+		begin
+				o_psr_reg = 	tag_match_alu[8 ]  ? i_alu_data  :
+						tag_match_mult[8 ] ? i_mult_data :
+						tag_match_mem[8 ]  ? i_mem_data  :
+											 r8_out;
+				o_psr_reg_valid = tag_match_alu[8] | tag_match_mult[8] | tag_match_mem[8] ? 1'b1 : r_valid_nxt[8]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd9: 	
+		begin
+				o_psr_reg = 	tag_match_alu[9 ]  ? i_alu_data  :
+						tag_match_mult[9 ] ? i_mult_data :
+						tag_match_mem[9 ]  ? i_mem_data  :
+											 r9_out;
+				o_psr_reg_valid = tag_match_alu[9] | tag_match_mult[9] | tag_match_mem[9] ? 1'b1 : r_valid_nxt[9]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd10: 	
+		begin
+				o_psr_reg = 	tag_match_alu[10]  ? i_alu_data  :
+						tag_match_mult[10] ? i_mult_data :
+						tag_match_mem[10]  ? i_mem_data  :
+											 r10_out;
+				o_psr_reg_valid = tag_match_alu[10] | tag_match_mult[10] | tag_match_mem[10] ? 1'b1 : r_valid_nxt[10]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd11: 	
+		begin
+				o_psr_reg = 	tag_match_alu[11]  ? i_alu_data  :
+						tag_match_mult[11] ? i_mult_data :
+						tag_match_mem[11]  ? i_mem_data  :
+											 r11_out;
+				o_psr_reg_valid = tag_match_alu[11] | tag_match_mult[11] | tag_match_mem[11] ? 1'b1 : r_valid_nxt[11]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd12: 	
+		begin
+				o_psr_reg = 	tag_match_alu[12]  ? i_alu_data  :
+						tag_match_mult[12] ? i_mult_data :
+						tag_match_mem[12]  ? i_mem_data  :
+											 r12_out;
+				o_psr_reg_valid = tag_match_alu[12] | tag_match_mult[12] | tag_match_mem[12] ? 1'b1 : r_valid_nxt[12]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd13: 	
+		begin
+				o_psr_reg = 	tag_match_alu[13]  ? i_alu_data  :
+						tag_match_mult[13] ? i_mult_data :
+						tag_match_mem[13]  ? i_mem_data  :
+											 r13_out;
+				o_psr_reg_valid = tag_match_alu[13] | tag_match_mult[13] | tag_match_mem[13] ? 1'b1 : r_valid_nxt[13]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd14: 	
+		begin
+				o_psr_reg = 	tag_match_alu[14]  ? i_alu_data  :
+						tag_match_mult[14] ? i_mult_data :
+						tag_match_mem[14]  ? i_mem_data  :
+											 r14_out;
+				o_psr_reg_valid = tag_match_alu[14] | tag_match_mult[14] | tag_match_mem[14] ? 1'b1 : r_valid_nxt[14]; //we don't care about the current valid bit b/c forwarding
+		end
+		4'd15: 	
+		begin
+				o_psr_reg = 	tag_match_alu[15]  ? i_alu_data  :
+						tag_match_mult[15] ? i_mult_data :
+						tag_match_mem[15]  ? i_mem_data  :
+											 r15_out_rn;
+				o_psr_reg_valid = tag_match_alu[15] | tag_match_mult[15] | tag_match_mem[15] ? 1'b1 : r_valid_nxt[15]; //we don't care about the current valid bit b/c forwarding
+		end
+	endcase
+end
 
 //logic [7:0] led_reg;
 //assign led = led_reg;

@@ -54,17 +54,17 @@ read_verilog -library xil_defaultlib -sv {
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_alu.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone_buf.v
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_icache.v
+  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_execute_mem.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_execute_multiply.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_execute_alu.sv
-  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_wishbone.v
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/amber25/a25_fetch.v
-  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv
+  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/wishbone_arbiter.v
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/uart.v
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/interrupt_controller.v
-  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/wishbone_arbiter.v
+  /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv
   /afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v
 }
 read_verilog -library xil_defaultlib {

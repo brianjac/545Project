@@ -3,11 +3,6 @@ Copyright 1986-1999, 2001-2015 Xilinx, Inc. All Rights Reserved.
 Running: /afs/ece.cmu.edu/support/xilinx/xilinx.release/Vivado-2015.2/Vivado/2015.2/bin/unwrapped/lnx64.o/xelab -wto a06fa145c4ed449baa8a1e7c8a5f8e99 --debug typical --relax --mt 8 --include ../../../beryl.srcs/sources_1/imports/amber25 --include ../../../beryl.srcs/sources_1/imports/system --include ../../../beryl.srcs/sources_1/imports/tb -L xil_defaultlib -L xbip_utils_v3_0 -L xbip_pipe_v3_0 -L xbip_bram18k_v3_0 -L mult_gen_v12_0 -L blk_mem_gen_v8_2 -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_behav xil_defaultlib.tb xil_defaultlib.glbl -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
-WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 1 for port i_cache_flush [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:194]
-WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 1 for port i_port1_req [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:515]
-WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 1 for port i_port1_write [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:517]
-WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 128 for port i_port1_wdata [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:518]
-WARNING: [VRFC 10-278] actual bit length 32 differs from formal bit length 16 for port i_port1_be [/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_core.sv:519]
 Completed static elaboration
 Starting simulation data flow analysis
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/system/system.v" Line 44. Module system doesn't have a timescale but at least one module in design has a timescale.
@@ -60,7 +55,7 @@ WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/s
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/lib/generic_sram_byte_en.v" Line 43. Module generic_sram_byte_en(DATA_WIDTH=128,ADDRESS_WIDTH=32'b01000) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_decode.sv" Line 5. Module b01_decode doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv" Line 3. Module b01_dispatch doesn't have a timescale but at least one module in design has a timescale.
-INFO: [XSIM 43-4009] "status_bits_flags_valid_nxt_eucompare", written at line 189 in file "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv", has also been read in this always_comb/always_latch block and is not added to the sensitivity list.
+INFO: [XSIM 43-4009] "status_bits_flags_valid_nxt_eucompare", written at line 215 in file "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_dispatch.sv", has also been read in this always_comb/always_latch block and is not added to the sensitivity list.
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_register_bank.sv" Line 44. Module b01_register_bank doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_tagstore.sv" Line 16. Module b01_tagstore doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "/afs/ece.cmu.edu/usr/wpe/Private/545/beryl/beryl.srcs/sources_1/imports/545/b01_reservation.sv" Line 80. Module b01_reservation doesn't have a timescale but at least one module in design has a timescale.
@@ -169,5 +164,5 @@ Compiling module xil_defaultlib.tb
 Compiling package xil_defaultlib.$unit_2
 Compiling package xil_defaultlib.$unit_1
 Compiling package xil_defaultlib.$unit_3
-Waiting for 2 sub-compilation(s) to finish...
+Waiting for 4 sub-compilation(s) to finish...
 Built simulation snapshot tb_behav
